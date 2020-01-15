@@ -2,7 +2,8 @@
 //  Data+QuickStart.swift
 //  QuickStart
 //
-//  Copyright © 2020 SendBird, Inc. All rights reserved.//
+//  Copyright © 2020 SendBird, Inc. All rights reserved.
+//
 
 import Foundation
 

@@ -53,7 +53,7 @@ class CallingViewController: UIViewController {
         self.updateRemoteAudio(isOn: self.call.isRemoteAudioEnabled)
         
         // Local Info
-        let audioButtonImage = call.isLocalAudioEnabled ? UIImage.unmute() : UIImage.mute()
+        let audioButtonImage: UIImage? = call.isLocalAudioEnabled ? UIImage.unmutedAudioImage : UIImage.mutedAudioImage
         self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
         self.muteAudioButton.setImage(audioButtonImage, for: .normal)
         self.muteAudioButton.rounding()
@@ -104,10 +104,10 @@ class CallingViewController: UIViewController {
 extension CallingViewController {
     func updateLocalAudio(enabled: Bool) {
         if enabled {
-            self.muteAudioButton.setImage(UIImage.mute(), for: .normal)
+            self.muteAudioButton.setImage(UIImage.mutedAudioImage, for: .normal)
             call?.muteMicrophone()
         } else {
-            self.muteAudioButton.setImage(UIImage.unmute(), for: .normal)
+            self.muteAudioButton.setImage(UIImage.unmutedAudioImage, for: .normal)
             call?.unmuteMicrophone()
         }
     }

@@ -36,11 +36,13 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     
     func setupUI() {
         self.calleeIdTextField.placeholder = "Enter User ID You Want to Call"
-        self.dialButton.smoothAndWider(title: "Call")
+        
+        self.dialButton.smoothAndWider()
+        self.dialButton.setTitle("Call")
         self.dialButton.isEnabled = false
         self.muteAudioButton.setupAudioOption(isOn: isMyAudioEnabled)
         self.audioMutedView.alpha = 0.0
-        self.textFieldBottomConstraint.setup(value: 16)
+        self.textFieldBottomConstraint.constant = 16
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

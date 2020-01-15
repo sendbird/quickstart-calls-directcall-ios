@@ -11,7 +11,7 @@
 		8A5932EA8E7F784FC9593796 /* Pods_QuickStart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9DDAC64E8A0C1F265438FF3 /* Pods_QuickStart.framework */; };
 		A9409C462390FA8100410458 /* UserDefaults+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */; };
 		A9409C482390FA8E00410458 /* NotificationCenter+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */; };
-		A943CAF323C5AAB8009F6E49 /* String+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF223C5AAB8009F6E49 /* String+QuickStart.swift */; };
+		A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */; };
 		A943CAF523C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF423C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift */; };
 		A943CAF723C5AD06009F6E49 /* AppDelegate+CXProviderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF623C5AD06009F6E49 /* AppDelegate+CXProviderDelegate.swift */; };
 		A951A7A7238CC4DF00410E40 /* DialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A951A7A6238CC4DF00410E40 /* DialViewController.swift */; };
@@ -19,7 +19,6 @@
 		A99449592387E92400A4FFBB /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99449582387E92400A4FFBB /* AccountTableViewController.swift */; };
 		A994495D2387F22F00A4FFBB /* UIViewController+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A994495C2387F22F00A4FFBB /* UIViewController+QuickStart.swift */; };
 		A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC94923BA142F00F9116A /* UIImageView+QuickStart.swift */; };
-		A99CC94C23BA144000F9116A /* UILabel+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC94B23BA144000F9116A /* UILabel+QuickStart.swift */; };
 		A99CC94E23BA145F00F9116A /* UIButton+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC94D23BA145F00F9116A /* UIButton+QuickStart.swift */; };
 		A99CC95023BA14A100F9116A /* UIColor+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC94F23BA14A100F9116A /* UIColor+QuickStart.swift */; };
 		A99CC95223BA14BC00F9116A /* UITextField+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC95123BA14BC00F9116A /* UITextField+QuickStart.swift */; };
@@ -44,7 +43,7 @@
 		70DECEBFA6F9F41B919BF0A7 /* Pods_QuickStart_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickStart_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+QuickStart.swift"; sourceTree = "<group>"; };
 		A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+QuickStart.swift"; sourceTree = "<group>"; };
-		A943CAF223C5AAB8009F6E49 /* String+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+QuickStart.swift"; sourceTree = "<group>"; };
+		A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+QuickStart.swift"; sourceTree = "<group>"; };
 		A943CAF423C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+SendBirdCallsDelegates.swift"; sourceTree = "<group>"; };
 		A943CAF623C5AD06009F6E49 /* AppDelegate+CXProviderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+CXProviderDelegate.swift"; sourceTree = "<group>"; };
 		A951A7A6238CC4DF00410E40 /* DialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +52,6 @@
 		A99449582387E92400A4FFBB /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		A994495C2387F22F00A4FFBB /* UIViewController+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC94923BA142F00F9116A /* UIImageView+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+QuickStart.swift"; sourceTree = "<group>"; };
-		A99CC94B23BA144000F9116A /* UILabel+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC94D23BA145F00F9116A /* UIButton+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC94F23BA14A100F9116A /* UIColor+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC95123BA14BC00F9116A /* UITextField+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+QuickStart.swift"; sourceTree = "<group>"; };
@@ -117,7 +115,7 @@
 				A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */,
 				A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */,
 				A99CC95923BA155700F9116A /* UIKit */,
-				A943CAF223C5AAB8009F6E49 /* String+QuickStart.swift */,
+				A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -144,7 +142,6 @@
 				A994495C2387F22F00A4FFBB /* UIViewController+QuickStart.swift */,
 				A99CC94F23BA14A100F9116A /* UIColor+QuickStart.swift */,
 				A99CC94923BA142F00F9116A /* UIImageView+QuickStart.swift */,
-				A99CC94B23BA144000F9116A /* UILabel+QuickStart.swift */,
 				A99CC94D23BA145F00F9116A /* UIButton+QuickStart.swift */,
 			);
 			path = UIKit;
@@ -354,11 +351,10 @@
 				A951A7A7238CC4DF00410E40 /* DialViewController.swift in Sources */,
 				A9A72CA72387B448007C0878 /* SceneDelegate.swift in Sources */,
 				A943CAF723C5AD06009F6E49 /* AppDelegate+CXProviderDelegate.swift in Sources */,
-				A943CAF323C5AAB8009F6E49 /* String+QuickStart.swift in Sources */,
+				A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */,
 				A99CC95823BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift in Sources */,
 				A943CAF523C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift in Sources */,
 				C1F69B1123C5A54F00C66F00 /* AVAudioSession+QuickStart.swift in Sources */,
-				A99CC94C23BA144000F9116A /* UILabel+QuickStart.swift in Sources */,
 				A994495D2387F22F00A4FFBB /* UIViewController+QuickStart.swift in Sources */,
 				A99CC95423BA14CA00F9116A /* UITextView+QuickStart.swift in Sources */,
 				A99CC94E23BA145F00F9116A /* UIButton+QuickStart.swift in Sources */,

@@ -103,8 +103,14 @@ extension SignInViewController {
         self.userIdTextField.placeholder = "Enter your ID"
         self.userIdTextField.textAlignment = .left
         
-        self.signInButton.smoothAndWider(title: "Sign In")
-        self.versionLabel.text = "QuickStart v\(String.version ?? SendBirdCall.sdkVersion) SendBirdCalls v\(SendBirdCall.sdkVersion)"
+        self.signInButton.smoothAndWider()
+        self.signInButton.setTitle("Sign In")
+        
+        var sampleVersion = ""
+        if let quickstartVersion = Bundle.main.version {
+            sampleVersion = "QuickStart v\(quickstartVersion) "
+        }
+        self.versionLabel.text = sampleVersion + "SendBirdCalls v\(SendBirdCall.sdkVersion)"
         self.copyrightLabel.text = "© 2019 - 2020 SendBird"
     }
     
