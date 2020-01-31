@@ -38,8 +38,17 @@ class AccountTableViewController: UITableViewController {
             self.usernameLabel.text = ""
         }
         
-        if let profileURL = UserDefaults.standard.user.profile {
-            self.userProfileImageView.load(url: URL(fileURLWithPath: profileURL))
+        let defaultImage = "https://static.sendbird.com/sample/profiles/profile_09_512px.png"
+        let profile: String = UserDefaults.standard.user.profile ?? defaultImage
+        
+        if let profileURL = URL(string: profile) {
+            do {
+                let data = try Data(contentsOf: profileURL)
+                self.userProfileImageView.image = UIImage(data: data)
+                self.userProfileImageView.rounding()
+            } catch {
+                print("[QuickStart] Failed to decode image")
+            }
         }
         
         userIdLabel.textColor = .lightPurple
