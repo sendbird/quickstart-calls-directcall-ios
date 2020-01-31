@@ -253,11 +253,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBm-GP-Ubc">
-                                <rect key="frame" x="175" y="708" width="64" height="64"/>
+                                <rect key="frame" x="177" y="712" width="60" height="60"/>
                                 <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="LdM-Vo-85y"/>
-                                    <constraint firstAttribute="width" constant="64" id="heB-Cu-R7c"/>
+                                    <constraint firstAttribute="height" constant="60" id="LdM-Vo-85y"/>
+                                    <constraint firstAttribute="width" constant="60" id="heB-Cu-R7c"/>
                                 </constraints>
                                 <state key="normal" image="icon_end_call">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -267,11 +267,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yed-ha-XKA">
-                                <rect key="frame" x="263" y="715" width="50" height="50"/>
+                                <rect key="frame" x="269" y="712" width="60" height="60"/>
                                 <color key="backgroundColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="yed-ha-XKA" secondAttribute="height" multiplier="1:1" id="CZX-B2-hzd"/>
-                                    <constraint firstAttribute="width" constant="50" id="xPH-Be-SHW"/>
+                                    <constraint firstAttribute="height" constant="60" id="9jc-cY-QF3"/>
+                                    <constraint firstAttribute="width" constant="60" id="xPH-Be-SHW"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="icon_audio_unmute"/>
@@ -284,6 +284,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1b-0Y-eRW">
+                                <rect key="frame" x="85" y="712" width="60" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.50980392159999999" green="0.36862745099999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" image="headphones" catalog="system">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapSpeakerButton" destination="7ra-kc-2Kq" eventType="touchUpInside" id="hUc-LE-yzK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -291,14 +302,18 @@
                             <constraint firstItem="7CM-Ub-aCb" firstAttribute="top" secondItem="fBW-rp-CDp" secondAttribute="bottom" constant="60" id="BcD-2b-NGZ"/>
                             <constraint firstItem="fBW-rp-CDp" firstAttribute="top" secondItem="wks-Dh-Pes" secondAttribute="bottom" constant="16" id="CXI-uU-Vn8"/>
                             <constraint firstItem="8JT-d3-eu4" firstAttribute="trailing" secondItem="7CM-Ub-aCb" secondAttribute="trailing" constant="40" id="EnV-eE-AVx"/>
+                            <constraint firstItem="KBm-GP-Ubc" firstAttribute="leading" secondItem="k1b-0Y-eRW" secondAttribute="trailing" constant="32" id="IUb-ac-CLy"/>
+                            <constraint firstItem="k1b-0Y-eRW" firstAttribute="centerY" secondItem="KBm-GP-Ubc" secondAttribute="centerY" id="NbQ-us-Xlc"/>
                             <constraint firstItem="KBm-GP-Ubc" firstAttribute="centerX" secondItem="8JT-d3-eu4" secondAttribute="centerX" id="O21-cc-ys0"/>
+                            <constraint firstItem="k1b-0Y-eRW" firstAttribute="width" secondItem="KBm-GP-Ubc" secondAttribute="width" id="Pas-Xj-2Yh"/>
                             <constraint firstItem="7CM-Ub-aCb" firstAttribute="leading" secondItem="8JT-d3-eu4" secondAttribute="leading" constant="40" id="T03-LF-FWu"/>
                             <constraint firstItem="wks-Dh-Pes" firstAttribute="top" secondItem="8JT-d3-eu4" secondAttribute="top" constant="132" id="VzL-BN-bz8"/>
                             <constraint firstItem="yed-ha-XKA" firstAttribute="centerY" secondItem="KBm-GP-Ubc" secondAttribute="centerY" id="XUT-kd-MBb"/>
                             <constraint firstItem="fBW-rp-CDp" firstAttribute="leading" secondItem="8JT-d3-eu4" secondAttribute="leading" constant="40" id="aLI-4O-M4K"/>
                             <constraint firstItem="8JT-d3-eu4" firstAttribute="bottom" secondItem="KBm-GP-Ubc" secondAttribute="bottom" constant="90" id="dvn-6D-cUn"/>
                             <constraint firstItem="wks-Dh-Pes" firstAttribute="centerX" secondItem="8JT-d3-eu4" secondAttribute="centerX" id="lXI-2l-dzy"/>
-                            <constraint firstItem="yed-ha-XKA" firstAttribute="leading" secondItem="KBm-GP-Ubc" secondAttribute="trailing" constant="24" id="pft-6Z-RI6"/>
+                            <constraint firstItem="yed-ha-XKA" firstAttribute="leading" secondItem="KBm-GP-Ubc" secondAttribute="trailing" constant="32" id="pft-6Z-RI6"/>
+                            <constraint firstItem="k1b-0Y-eRW" firstAttribute="height" secondItem="KBm-GP-Ubc" secondAttribute="height" id="uXu-q2-hy6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8JT-d3-eu4"/>
                     </view>
@@ -308,6 +323,7 @@
                         <outlet property="muteAudioButton" destination="yed-ha-XKA" id="G7A-qJ-qIB"/>
                         <outlet property="nameLabel" destination="fBW-rp-CDp" id="SAK-Ky-Geg"/>
                         <outlet property="profileImageView" destination="wks-Dh-Pes" id="zoU-9L-b82"/>
+                        <outlet property="speakerButton" destination="k1b-0Y-eRW" id="c9a-dA-jj9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bjF-WA-1Q9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -456,6 +472,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="headphones" catalog="system" width="64" height="52"/>
         <image name="icAudioLarge" width="25" height="25"/>
         <image name="icon_audio_unmute" width="40" height="40"/>
         <image name="icon_end_call" width="40" height="40"/>
