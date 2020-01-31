@@ -30,7 +30,7 @@ extension AppDelegate: CXProviderDelegate {
         }
         
         // MARK: SendBirdCalls - DirectCall.accept()
-        call.accept(callOptions: CallOptions(isVideoCall: false, isAudioEnabled: true))
+        call.accept(callOptions: CallOptions(isAudioEnabled: true))
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "CallingViewController")

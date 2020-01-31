@@ -68,9 +68,9 @@ extension DialViewController {
         self.dialButton.isEnabled = false
         
         // MARK: SendBirdCall.dial()
-        let callOptions = CallOptions(isVideoCall: false, isAudioEnabled: self.isMyAudioEnabled)
+        let callOptions = CallOptions(isAudioEnabled: self.isMyAudioEnabled)
 
-        SendBirdCall.dial(to: calleeId, callOptions: callOptions) { call, error in
+        SendBirdCall.dial(to: calleeId, isVideoCall: false, callOptions: callOptions) { call, error in
             DispatchQueue.main.async {
                 self.dialButton.isEnabled = true
             }
