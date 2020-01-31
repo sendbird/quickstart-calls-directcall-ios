@@ -7,6 +7,7 @@
 
 import UIKit
 import CallKit
+import AVFoundation
 import SendBirdCalls
 
 class CallingViewController: UIViewController {
@@ -14,6 +15,7 @@ class CallingViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var speakerButton: UIButton!
     @IBOutlet weak var muteAudioButton: UIButton!
     @IBOutlet weak var endButton: UIButton!
     @IBOutlet weak var callTimerLabel: UILabel!
@@ -59,9 +61,14 @@ class CallingViewController: UIViewController {
         self.muteAudioButton.rounding()
         
         self.endButton.rounding()
+        
+        // AudioOutputs
+        self.setAudioOutputsView()
+        self.setupNotifications()
     }
     
     // MARK: - IBActions
+    
     
     @IBAction func didTapAudioOption(_ sender: UIButton?) {
         guard let sender = sender else { return }
@@ -97,6 +104,68 @@ class CallingViewController: UIViewController {
         let transaction = CXTransaction(action: endCallAction)
         
         CXCallControllerManager.requestTransaction(transaction, action: "SendBird - End Call")
+    }
+}
+
+// MARK: - AudioOutputs
+extension CallingViewController {
+    
+    func setupNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(self.handleRouteChange(notification:)), name: AVAudioSession.routeChangeNotification, object: nil)
+    }
+    
+    @objc
+    func handleRouteChange(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt else { return }
+        guard let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else { return }
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        
+        guard let outputType = audioSession.currentRoute.outputs.first?.portType else { return }
+        guard let outputName = audioSession.currentRoute.outputs.first?.portName else { return }
+        
+        DispatchQueue.main.async {
+            var imageURL = "mic"
+            switch outputType {
+            case .airPlay: imageURL = "airplayvideo"
+            case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageURL = "headphones"
+            case .builtInReceiver: imageURL = "phone.fill"
+            case .builtInSpeaker: imageURL = "mic"
+            case .headphones: imageURL = "headphones"
+            case .headsetMic: imageURL = "headphones"
+            default: imageURL = "mic"
+            }
+            
+            if #available(iOS 13.0, *) {
+                self.speakerButton.setImage(UIImage(systemName: imageURL), for: .normal)
+            }
+            
+            let alert = UIAlertController(title: nil, message: "Changed to \(outputName)", preferredStyle: .actionSheet)
+            self.present(alert, animated: true, completion: nil)
+            Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
+                alert.dismiss(animated: true, completion: nil)
+                timer.invalidate()
+            }
+        }
+        
+        print("\(reason)")
+        print("\(audioSession.currentRoute.outputs)")
+        print(audioSession.outputDataSource ?? "none")
+    }
+    
+    func setAudioOutputsView() {
+        self.speakerButton.rounding()
+        self.speakerButton.layer.borderColor = UIColor.purple.cgColor
+        self.speakerButton.layer.borderWidth = 2.0
+        
+        let audioOutputsView = AudioOutputsView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        
+        audioOutputsView.showsVolumeSlider = false
+        audioOutputsView.setRouteButtonImage(nil, for: .normal)
+        
+        self.speakerButton.addSubview(audioOutputsView)
     }
 }
 

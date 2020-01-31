@@ -10,7 +10,7 @@ extension AVAudioSession {
     static var `default`: AVAudioSession {
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(.playAndRecord)
+            try audioSession.setCategory(.playAndRecord, options: .allowBluetooth)
         } catch {}
         return audioSession
     }
