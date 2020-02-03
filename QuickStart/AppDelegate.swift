@@ -114,6 +114,9 @@ extension AppDelegate: PKPushRegistryDelegate {
     }
 }
 
+
+
+
 extension AppDelegate {
     func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in

@@ -8,6 +8,35 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Code Scan View Controller-->
+        <scene sceneID="IBG-kx-LHl">
+            <objects>
+                <viewController id="JSd-DE-2cV" customClass="QRCodeScanViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1pZ-tp-0OU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IXD-Pb-75B">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Scan QR Code" id="HRv-yS-0nE"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="IXD-Pb-75B" firstAttribute="trailing" secondItem="t5d-GF-v9S" secondAttribute="trailing" id="3he-gA-JoE"/>
+                            <constraint firstItem="IXD-Pb-75B" firstAttribute="leading" secondItem="t5d-GF-v9S" secondAttribute="leading" id="7Pg-Pk-euM"/>
+                            <constraint firstItem="IXD-Pb-75B" firstAttribute="top" secondItem="t5d-GF-v9S" secondAttribute="top" id="DkR-NM-Gl7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="t5d-GF-v9S"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yta-5g-6RL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bD5-SR-zzq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-752" y="923"/>
+        </scene>
         <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -72,10 +101,32 @@
                                 <color key="textColor" red="0.50980392156862742" green="0.36862745098039218" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ild-59-57o">
+                                <rect key="frame" x="140.5" y="433" width="133" height="40"/>
+                                <color key="backgroundColor" red="0.50980392159999999" green="0.36862745099999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Jhr-ek-1mD"/>
+                                    <constraint firstAttribute="width" secondItem="ild-59-57o" secondAttribute="height" multiplier="10:3" id="PHK-T2-iHx"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" title="Scan App ID">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="JSd-DE-2cV" kind="show" id="NVO-fZ-Rj9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DU1-wj-DAx" secondAttribute="trailing" constant="40" id="0Vg-Ze-Knu"/>
+                            <constraint firstItem="ild-59-57o" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0ul-bp-8Fi"/>
+                            <constraint firstItem="ild-59-57o" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="0y3-wk-ppo"/>
                             <constraint firstItem="7Rv-ay-4Ry" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="1wu-g6-pGb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iqd-lf-yEk" secondAttribute="trailing" constant="40" id="4ss-fF-cJM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Oeu-7j-03H" secondAttribute="trailing" constant="40" id="5Qt-Zs-M2S"/>
@@ -106,6 +157,7 @@
                         <outlet property="copyrightLabel" destination="Oeu-7j-03H" id="03M-oc-2Fo"/>
                         <outlet property="logoImageView" destination="ptd-nL-C2T" id="FUA-Z9-Yh1"/>
                         <outlet property="mainLabel" destination="jXe-dD-UH7" id="o2M-Ei-Beq"/>
+                        <outlet property="scanQRCodeButton" destination="ild-59-57o" id="nKL-C3-DLC"/>
                         <outlet property="signInButton" destination="iqd-lf-yEk" id="dGe-QF-Sqf"/>
                         <outlet property="userIdLabel" destination="MwT-ls-ZDX" id="FUI-XA-PKC"/>
                         <outlet property="userIdTextField" destination="DU1-wj-DAx" id="Hmh-gq-KJu"/>
@@ -115,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-542" y="779"/>
+            <point key="canvasLocation" x="-751" y="191"/>
         </scene>
         <!--Account-->
         <scene sceneID="Uur-SI-aCY">

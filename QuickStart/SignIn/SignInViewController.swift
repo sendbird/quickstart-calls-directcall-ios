@@ -27,6 +27,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     // Layout constraints
     @IBOutlet weak var constraintFromKeyboard: NSLayoutConstraint!
     
+    @IBOutlet weak var scanQRCodeButton: UIButton!
+    
     var userId: String?
     var deviceToken: Data?
     
@@ -122,6 +124,7 @@ extension SignInViewController {
                 self.constraintFromKeyboard.constant = self.constraintFromKeyboard.constant + gap
                 self.logoImageView.alpha = 0.3
                 self.mainLabel.alpha = 0.0
+                self.scanQRCodeButton.alpha = 0.0
             }
             self.view.layoutIfNeeded()
         }
@@ -137,6 +140,7 @@ extension SignInViewController {
             self.constraintFromKeyboard.constant = value
             self.logoImageView.alpha = 1.0
             self.mainLabel.alpha = 1.0
+            self.scanQRCodeButton.alpha = 1.0
             self.view.layoutIfNeeded()
         }
         animator.startAnimation()
