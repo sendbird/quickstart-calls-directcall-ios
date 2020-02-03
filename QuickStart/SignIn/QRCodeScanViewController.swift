@@ -20,21 +20,15 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         
         let captureSession = AVCaptureSession()
         
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video), let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else {
-            failed()
-            return
-        }
-        
-        if (captureSession.canAddInput(videoInput)) {
-            captureSession.addInput(videoInput)
-        } else {
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video),
+            let videoInput = try? AVCaptureDeviceInput(device: videoCaptureDevice) else {
             failed()
             return
         }
         
         let metadataOutput = AVCaptureMetadataOutput()
-        
-        if (captureSession.canAddOutput(metadataOutput)) {
+        if (captureSession.canAddInput(videoInput) && captureSession.canAddOutput(metadataOutput)) {
+            captureSession.addInput(videoInput)
             captureSession.addOutput(metadataOutput)
             
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
@@ -48,6 +42,7 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
         self.view.layer.insertSublayer(previewLayer, below: view.layer.sublayers?.first)
+        
         captureSession.startRunning()
         
         self.captureSession = captureSession
@@ -80,30 +75,34 @@ class QRCodeScanViewController: UIViewController, AVCaptureMetadataOutputObjects
         self.captureSession?.stopRunning()
         
         if let metadataObject = metadataObjects.first {
-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject, let appId = readableObject.stringValue else { return }
+            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
+                let appId = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             
-            let ac = UIAlertController(title: "Code Found", message: "You have successfully scanned a new App ID.\nPlease confirm App ID: \(appId)", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { _ in
+            let alert = UIAlertController(title: "Code Found", message: "App ID: \(appId)", preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { _ in
                 SendBirdCall.configure(appId: appId)
                 
                 self.dismiss(animated: true)
-            }))
-            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-                self.captureSession?.startRunning()
-            }))
+            })
+            alert.addAction(confirmAction)
             
-            present(ac, animated: true)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                self.captureSession?.startRunning()
+            })
+            alert.addAction(cancelAction)
+            
+            present(alert, animated: true)
         }
     }
     
     func failed() {
         self.captureSession = nil
         
-        let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+        let alert = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
-        present(ac, animated: true)
+        present(alert, animated: true)
     }
 }
