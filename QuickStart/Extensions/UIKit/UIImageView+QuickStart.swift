@@ -18,15 +18,13 @@ extension UIImageView {
         self.layer.borderColor = UIColor.lightPurple.cgColor
     }
     
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
+    func setImage(urlString: String) {
+        guard let profileURL = URL(string: urlString) else { return }
+        guard let data = try? Data(contentsOf: profileURL) else { return }
+        guard let image = UIImage(data: data) else { return }
+        DispatchQueue.main.async {
+            self.image = image
+            self.rounding()
         }
     }
 }
