@@ -110,50 +110,6 @@ class CallingViewController: UIViewController {
 // MARK: - AudioOutputs
 extension CallingViewController {
     
-    func setupNotifications() {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(self.handleRouteChange(notification:)), name: AVAudioSession.routeChangeNotification, object: nil)
-    }
-    
-    @objc
-    func handleRouteChange(notification: Notification) {
-        guard let userInfo = notification.userInfo else { return }
-        guard let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt else { return }
-        guard let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else { return }
-        
-        let audioSession = AVAudioSession.sharedInstance()
-        
-        guard let outputType = audioSession.currentRoute.outputs.first?.portType else { return }
-        guard let outputName = audioSession.currentRoute.outputs.first?.portName else { return }
-        
-        DispatchQueue.main.async {
-            var imageURL = "mic"
-            switch outputType {
-            case .airPlay: imageURL = "airplayvideo"
-            case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageURL = "headphones"
-            case .builtInReceiver: imageURL = "phone.fill"
-            case .builtInSpeaker: imageURL = "mic"
-            case .headphones: imageURL = "headphones"
-            case .headsetMic: imageURL = "headphones"
-            default: imageURL = "mic"
-            }
-            
-            if #available(iOS 13.0, *) {
-                self.speakerButton.setImage(UIImage(systemName: imageURL), for: .normal)
-            }
-            
-            let alert = UIAlertController(title: nil, message: "Changed to \(outputName)", preferredStyle: .actionSheet)
-            self.present(alert, animated: true, completion: nil)
-            Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
-                alert.dismiss(animated: true, completion: nil)
-                timer.invalidate()
-            }
-        }
-        
-        print("\(reason)")
-        print("\(audioSession.currentRoute.outputs)")
-        print(audioSession.outputDataSource ?? "none")
-    }
     
     func setAudioOutputsView() {
         self.speakerButton.rounding()
@@ -246,6 +202,40 @@ extension CallingViewController: DirectCallDelegate {
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         self.requestEndTransaction(of: call)
         
+    }
+    
+    func didChangeAudioOutputRoute(_ call: DirectCall, portDescription: AVAudioSessionPortDescription?) {
+        guard let output = portDescription else { return }
+        
+        let outputType = output.portType
+        let outputName = output.portName 
+        
+        DispatchQueue.main.async {
+            var imageURL = "mic"
+            switch outputType {
+            case .airPlay: imageURL = "airplayvideo"
+            case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageURL = "headphones"
+            case .builtInReceiver: imageURL = "phone.fill"
+            case .builtInSpeaker: imageURL = "mic"
+            case .headphones: imageURL = "headphones"
+            case .headsetMic: imageURL = "headphones"
+            default: imageURL = "mic"
+            }
+            
+            if #available(iOS 13.0, *) {
+                self.speakerButton.setImage(UIImage(systemName: imageURL), for: .normal)
+            }
+            
+            let alert = UIAlertController(title: nil, message: "Changed to \(outputName)", preferredStyle: .actionSheet)
+            self.present(alert, animated: true, completion: nil)
+            Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
+                alert.dismiss(animated: true, completion: nil)
+                timer.invalidate()
+            }
+        }
+        print("[Audio] \(outputType)")
+        print("[Audio] \(outputName)")
+        print(output.portName)
     }
 }
 
