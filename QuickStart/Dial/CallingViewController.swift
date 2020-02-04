@@ -66,7 +66,6 @@ class CallingViewController: UIViewController {
         
         // AudioOutputs
         self.setAudioOutputsView()
-        self.setupNotifications()
     }
     
     // MARK: - IBActions
@@ -210,7 +209,7 @@ extension CallingViewController: DirectCallDelegate {
         guard let output = portDescription else { return }
         
         let outputType = output.portType
-        let outputName = output.portName 
+        let outputName = output.portName
         
         DispatchQueue.main.async {
             var imageURL = "mic"
