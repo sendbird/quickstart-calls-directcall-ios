@@ -115,12 +115,7 @@ extension CallingViewController {
         self.speakerButton.layer.borderColor = UIColor.purple.cgColor
         self.speakerButton.layer.borderWidth = 2.0
         
-        let audioOutputsView = AudioOutputsView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
-        
-        audioOutputsView.showsVolumeSlider = false
-        audioOutputsView.setRouteButtonImage(nil, for: .normal)
-        
-        self.speakerButton.addSubview(audioOutputsView)
+        self.addAudioRouteButton(to: self.speakerButton)
     }
 }
 
