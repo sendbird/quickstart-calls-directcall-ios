@@ -21,7 +21,7 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var audioMutedSwitch: UISwitch!
     
     var isMyAudioEnabled: Bool {
-        return !audioMutedSwitch.isOn
+        return audioMutedSwitch.isOn
     }
     
     // MARK: Override Methods
@@ -39,6 +39,7 @@ class DialViewController: UIViewController, UITextFieldDelegate {
         self.dialButton.smoothAndWider(title: "Call")
         self.dialButton.isEnabled = false
         self.muteAudioButton.setupAudioOption(isOn: isMyAudioEnabled)
+        
         self.audioMutedView.alpha = 0.0
         self.textFieldBottomConstraint.setup(value: 16)
     }
