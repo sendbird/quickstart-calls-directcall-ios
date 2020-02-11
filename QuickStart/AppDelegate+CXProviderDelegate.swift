@@ -17,13 +17,12 @@ extension AppDelegate: CXProviderDelegate {
     
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
         // MARK: SendBirdCalls - SendBirdCall.getCall()
+        AVAudioSession.default.update()
         guard SendBirdCall.getCall(forUUID: action.callUUID) != nil else { return }
         action.fulfill()
     }
     
     func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-        AVAudioSession.default.update()
-        
         guard let call = SendBirdCall.getCall(forUUID: action.callUUID) else {
             action.fail()
             return
@@ -52,6 +51,7 @@ extension AppDelegate: CXProviderDelegate {
     
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         // Retrieve the SpeakerboxCall instance corresponding to the action's call UUID
+        try? AVAudioSession.default.setActive(false)
         
         guard let call = SendBirdCall.getCall(forUUID: action.callUUID) else {
             action.fail()
@@ -59,7 +59,7 @@ extension AppDelegate: CXProviderDelegate {
         }
         
         // For decline
-        if call.endResult == .unknown {
+        if call.endResult == .unknown || call.endResult == .declined {
             call.end()
         }
         

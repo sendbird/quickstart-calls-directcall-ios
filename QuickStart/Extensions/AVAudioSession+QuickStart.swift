@@ -12,13 +12,16 @@ extension AVAudioSession {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(.playAndRecord, options: .allowBluetooth)
+            try audioSession.setMode(.voiceChat)
         } catch {}
         return audioSession
     }
     
     func update() {
         do {
-            try self.setMode(.voiceChat)
-        } catch {}
+            try self.setActive(true)
+        } catch {
+            
+        }
     }
 }
