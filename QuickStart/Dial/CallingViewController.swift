@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AVKit
+import MediaPlayer
 import CallKit
 import AVFoundation
 import SendBirdCalls
@@ -24,7 +26,6 @@ class CallingViewController: UIViewController {
     var isDialing: Bool?
     
     let callController = CXCallController()
-    
     // MARK: - SendBirdCall - DirectCallDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,7 +116,25 @@ extension CallingViewController {
         self.speakerButton.layer.borderColor = UIColor.purple.cgColor
         self.speakerButton.layer.borderWidth = 2.0
         
-        self.addAudioRouteButton(to: self.speakerButton)
+        let width = self.speakerButton.frame.width
+        let height = self.speakerButton.frame.height
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+
+        if #available(iOS 11.0, *) {
+            let outputView = AVRoutePickerView(frame: frame) // button
+            outputView.activeTintColor = .clear
+            outputView.tintColor = .clear
+            
+            self.speakerButton.addSubview(outputView)
+        } else {
+            let outputView = MPVolumeView(frame: frame) // button
+            
+            outputView.showsVolumeSlider = false
+            outputView.setRouteButtonImage(nil, for: .normal)
+            outputView.routeButtonRect(forBounds: frame)
+            
+            self.speakerButton.addSubview(outputView)
+        }
     }
 }
 
@@ -198,8 +217,8 @@ extension CallingViewController: DirectCallDelegate {
         
     }
     
-    func didChangeAudioOutputRoute(_ call: DirectCall, portDescription: AVAudioSessionPortDescription?) {
-        guard let output = portDescription else { return }
+    func didChangeAudioRoute(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
+        guard let output = session.currentRoute.outputs.first else { return }
         
         let outputType = output.portType
         let outputName = output.portName
