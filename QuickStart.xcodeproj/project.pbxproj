@@ -14,7 +14,6 @@
 		A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */; };
 		A943CAF523C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF423C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift */; };
 		A943CAF723C5AD06009F6E49 /* AppDelegate+CXProviderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF623C5AD06009F6E49 /* AppDelegate+CXProviderDelegate.swift */; };
-		A949B94C23E3F56B00391A88 /* AudioOutputsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A949B94B23E3F56B00391A88 /* AudioOutputsView.swift */; };
 		A951A7A7238CC4DF00410E40 /* DialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A951A7A6238CC4DF00410E40 /* DialViewController.swift */; };
 		A951A7AF238D154700410E40 /* CallingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A951A7AE238D154700410E40 /* CallingViewController.swift */; };
 		A99449592387E92400A4FFBB /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99449582387E92400A4FFBB /* AccountTableViewController.swift */; };
@@ -47,7 +46,6 @@
 		A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+QuickStart.swift"; sourceTree = "<group>"; };
 		A943CAF423C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+SendBirdCallsDelegates.swift"; sourceTree = "<group>"; };
 		A943CAF623C5AD06009F6E49 /* AppDelegate+CXProviderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+CXProviderDelegate.swift"; sourceTree = "<group>"; };
-		A949B94B23E3F56B00391A88 /* AudioOutputsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioOutputsView.swift; sourceTree = "<group>"; };
 		A951A7A6238CC4DF00410E40 /* DialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialViewController.swift; sourceTree = "<group>"; };
 		A951A7AE238D154700410E40 /* CallingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingViewController.swift; sourceTree = "<group>"; };
 		A951A7B7238D23C000410E40 /* QuickStart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickStart.entitlements; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 			children = (
 				A9A72CAA2387B449007C0878 /* Main.storyboard */,
 				A9A72CAF2387B44C007C0878 /* LaunchScreen.storyboard */,
-				A949B94B23E3F56B00391A88 /* AudioOutputsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -342,7 +339,6 @@
 			files = (
 				A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */,
 				A9A72CB92387BAE6007C0878 /* SignInViewController.swift in Sources */,
-				A949B94C23E3F56B00391A88 /* AudioOutputsView.swift in Sources */,
 				A9409C462390FA8100410458 /* UserDefaults+QuickStart.swift in Sources */,
 				A951A7AF238D154700410E40 /* CallingViewController.swift in Sources */,
 				A99CC95223BA14BC00F9116A /* UITextField+QuickStart.swift in Sources */,
