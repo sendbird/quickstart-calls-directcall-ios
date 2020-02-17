@@ -49,7 +49,7 @@ class CallingViewController: UIViewController {
     
     func setupUI() {
         // Remote Info
-        self.callTimerLabel.text = "Waiting for connection ..."
+        self.callTimerLabel.text = "Waiting for connection..."
         
         let profileURL = self.call.remoteUser?.profileURL
         self.profileImageView.setImage(urlString: profileURL)
@@ -192,6 +192,12 @@ extension CallingViewController {
 
 // MARK: - SendBirdCall - DirectCallDelegate
 extension CallingViewController: DirectCallDelegate {
+    func didEstablish(_ call: DirectCall) {
+        DispatchQueue.main.async {
+            self.callTimerLabel.text = "Connecting..."
+        }
+    }
+    
     // This method is required
     func didConnect(_ call: DirectCall) {
         DispatchQueue.main.async {
