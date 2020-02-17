@@ -109,10 +109,8 @@ class CallingViewController: UIViewController {
     }
 }
 
-// MARK: - AudioOutputs
+// MARK: - Audio I/O
 extension CallingViewController {
-    
-    
     func setAudioOutputsView() {
         self.speakerButton.rounding()
         self.speakerButton.layer.borderColor = UIColor.purple.cgColor
@@ -122,20 +120,23 @@ extension CallingViewController {
         let height = self.speakerButton.frame.height
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
 
+    
+        let routePickerView = SendBirdCall.routePickerView(frame: frame)
+        self.customize(routePickerView)
+        self.speakerButton.addSubview(routePickerView)
+    }
+    
+    func customize(_ routePickerView: UIView) {
         if #available(iOS 11.0, *) {
-            let outputView = AVRoutePickerView(frame: frame) // button
-            outputView.activeTintColor = .clear
-            outputView.tintColor = .clear
-            
-            self.speakerButton.addSubview(outputView)
+            guard let routePickerView = routePickerView as? AVRoutePickerView else { return }
+            routePickerView.activeTintColor = .clear
+            routePickerView.tintColor = .clear
         } else {
-            let outputView = MPVolumeView(frame: frame) // button
+            guard let volumeView = routePickerView as? MPVolumeView else { return }
             
-            outputView.showsVolumeSlider = false
-            outputView.setRouteButtonImage(nil, for: .normal)
-            outputView.routeButtonRect(forBounds: frame)
-            
-            self.speakerButton.addSubview(outputView)
+            volumeView.showsVolumeSlider = false
+            volumeView.setRouteButtonImage(nil, for: .normal)
+            volumeView.routeButtonRect(forBounds: volumeView.frame)
         }
     }
 }
@@ -219,26 +220,29 @@ extension CallingViewController: DirectCallDelegate {
         
     }
     
-    func didChangeAudioRoute(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
+    func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
         guard let output = session.currentRoute.outputs.first else { return }
         
         let outputType = output.portType
         let outputName = output.portName
         
+        // Customize images
+        var imageURL = "mic"
+        switch outputType {
+        case .airPlay: imageURL = "airplayvideo"
+        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageURL = "headphones"
+        case .builtInReceiver: imageURL = "phone.fill"
+        case .builtInSpeaker: imageURL = "mic"
+        case .headphones: imageURL = "headphones"
+        case .headsetMic: imageURL = "headphones"
+        default: imageURL = "mic"
+        }
+        
         DispatchQueue.main.async {
-            var imageURL = "mic"
-            switch outputType {
-            case .airPlay: imageURL = "airplayvideo"
-            case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageURL = "headphones"
-            case .builtInReceiver: imageURL = "phone.fill"
-            case .builtInSpeaker: imageURL = "mic"
-            case .headphones: imageURL = "headphones"
-            case .headsetMic: imageURL = "headphones"
-            default: imageURL = "mic"
-            }
-            
             if #available(iOS 13.0, *) {
                 self.speakerButton.setImage(UIImage(systemName: imageURL), for: .normal)
+            } else {
+                self.speakerButton.setImage(UIImage(named: "icChatAudioPurple"), for: .normal)
             }
             
             let alert = UIAlertController(title: nil, message: "Changed to \(outputName)", preferredStyle: .actionSheet)
@@ -248,9 +252,6 @@ extension CallingViewController: DirectCallDelegate {
                 timer.invalidate()
             }
         }
-        print("[Audio] \(outputType)")
-        print("[Audio] \(outputName)")
-        print(output.portName)
     }
 }
 
