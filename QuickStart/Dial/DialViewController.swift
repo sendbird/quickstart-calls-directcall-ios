@@ -12,7 +12,6 @@ import SendBirdCalls
 class DialViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var calleeIdTextField: UITextField!
     @IBOutlet weak var dialButton: UIButton!
-    @IBOutlet weak var muteAudioButton: UIButton!
 
     @IBOutlet weak var textFieldBottomConstraint: NSLayoutConstraint!   // For interaction with audio setting switch
     @IBOutlet weak var dialButtonCenterConstraint: NSLayoutConstraint!  // For interaction with keyboard
@@ -40,7 +39,6 @@ class DialViewController: UIViewController, UITextFieldDelegate {
         self.dialButton.smoothAndWider()
         self.dialButton.setTitle("Call")
         self.dialButton.isEnabled = false
-        self.muteAudioButton.setupAudioOption(isOn: isMyAudioEnabled)
         
         self.audioMutedView.alpha = 0.0
         self.textFieldBottomConstraint.constant = 16

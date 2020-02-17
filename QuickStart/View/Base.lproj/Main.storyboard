@@ -338,12 +338,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Av-AC-b8n">
-                                <rect key="frame" x="154" y="694" width="106" height="30"/>
-                                <state key="normal" title="isAudidEnabled">
-                                    <color key="titleColor" red="0.50980392159999999" green="0.36862745099999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFJ-HJ-03Y">
                                 <rect key="frame" x="40" y="462" width="334" height="60"/>
                                 <color key="backgroundColor" red="0.50980392159999999" green="0.36862745099999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -393,10 +387,8 @@
                             <constraint firstItem="cKU-lP-9iL" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="30" id="Dgq-Rj-H78"/>
                             <constraint firstItem="cFJ-HJ-03Y" firstAttribute="centerY" secondItem="Jpp-zS-JFC" secondAttribute="centerY" constant="40" id="Djd-4x-kKd"/>
                             <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="eTD-yy-lbQ" secondAttribute="trailing" constant="40" id="F6v-lG-uwN"/>
-                            <constraint firstItem="Jpp-zS-JFC" firstAttribute="bottom" secondItem="1Av-AC-b8n" secondAttribute="bottom" constant="40" id="Sb4-oy-RW3"/>
                             <constraint firstItem="cKU-lP-9iL" firstAttribute="top" secondItem="eTD-yy-lbQ" secondAttribute="bottom" constant="30" id="jYq-1u-mfS"/>
                             <constraint firstItem="cFJ-HJ-03Y" firstAttribute="top" secondItem="cKU-lP-9iL" secondAttribute="bottom" constant="30" id="kBE-MO-Qta"/>
-                            <constraint firstItem="1Av-AC-b8n" firstAttribute="centerX" secondItem="Jpp-zS-JFC" secondAttribute="centerX" id="l7g-4Y-nSy"/>
                             <constraint firstItem="cFJ-HJ-03Y" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="40" id="uP3-6p-cAG"/>
                             <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="cFJ-HJ-03Y" secondAttribute="trailing" constant="40" id="y2W-u8-2CP"/>
                         </constraints>
@@ -420,7 +412,6 @@
                         <outlet property="calleeIdTextField" destination="eTD-yy-lbQ" id="ERA-CJ-joL"/>
                         <outlet property="dialButton" destination="cFJ-HJ-03Y" id="MWE-TE-ma7"/>
                         <outlet property="dialButtonCenterConstraint" destination="Djd-4x-kKd" id="dbd-Dx-l2v"/>
-                        <outlet property="muteAudioButton" destination="1Av-AC-b8n" id="DBH-WX-Puk"/>
                         <outlet property="textFieldBottomConstraint" destination="CJI-V6-9Fl" id="isC-FN-aLb"/>
                         <segue destination="7ra-kc-2Kq" kind="presentation" identifier="Calling" modalPresentationStyle="fullScreen" id="26j-eW-3We"/>
                         <segue destination="CaH-J7-yId" kind="show" identifier="Account" id="gH9-nf-y2Q"/>
