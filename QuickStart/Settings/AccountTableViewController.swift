@@ -31,19 +31,12 @@ class AccountTableViewController: UITableViewController {
     
     func setupUserInfo() {
         self.userIdLabel.text = "User Id: \(UserDefaults.standard.user.id)"
+        self.userIdLabel.textColor = .lightPurple
+        self.usernameLabel.text = UserDefaults.standard.user.name
+        self.usernameLabel.textColor = .purple
         
-        if let nickname = UserDefaults.standard.user.name {
-            self.usernameLabel.text = "\(nickname)"
-        } else {
-            self.usernameLabel.text = ""
-        }
-        
-        if let profileURL = UserDefaults.standard.user.profile {
-            self.userProfileImageView.load(url: URL(fileURLWithPath: profileURL))
-        }
-        
-        userIdLabel.textColor = .lightPurple
-        usernameLabel.textColor = .purple
+        let profile = UserDefaults.standard.user.profile
+        self.userProfileImageView.setImage(urlString: profile)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -56,12 +49,13 @@ class AccountTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        switch indexPath.section {        
-        // Sign Out
-        case 1:
+        switch indexPath.section {
+        case 1: // Sign Out
             self.signOutView.alpha = 0.3
             
-            let alert = UIAlertController(title: "Do you want to sign out?", message: "If you sign out, you cannot receive any calls.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Do you want to sign out?",
+                                          message: "If you sign out, you cannot receive any calls.",
+                                          preferredStyle: .alert)
             
             let actionSignOut = UIAlertAction(title: "Sign Out", style: .default) { _ in
                 // MARK: Sign Out

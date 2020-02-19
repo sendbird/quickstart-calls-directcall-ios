@@ -18,45 +18,33 @@ extension UIImageView {
         self.layer.borderColor = UIColor.lightPurple.cgColor
     }
     
-    func updateProfileImage(_ imageURL: String) {
-        self.image = UIImage(named: imageURL)
-        self.rounding()
-        self.border()
-        
-        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
-            self.alpha = 1.0
-        }
-        
-        animator.startAnimation()
-    }
-    
-    func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
-        }
+    func setImage(urlString: String?) {
+        guard let urlString = urlString,
+            let profileURL = URL(string: urlString) else { return }
+        guard let data = try? Data(contentsOf: profileURL) else { return }
+        guard let image = UIImage(data: data) else { return }
+        self.image = image
     }
 }
 
 extension UIImage {
-    static func mute() -> UIImage? {
-        if #available(iOS 13.0, *) {
-            return UIImage(systemName: "mic.slash.fill")
-        } else {
-            return UIImage(named: "icon_audio_mute")
+    static var mutedAudioImage: UIImage? {
+        get {
+            if #available(iOS 13.0, *) {
+                return UIImage(systemName: "mic.slash.fill")
+            } else {
+                return UIImage(named: "icon_audio_mute")
+            }
         }
     }
     
-    static func unmute() -> UIImage? {
-        if #available(iOS 13.0, *) {
-            return UIImage(systemName: "mic.fill")
-        } else {
-            return UIImage(named: "icon_audio_unmute")
+    static var unmutedAudioImage: UIImage? {
+        get {
+            if #available(iOS 13.0, *) {
+                return UIImage(systemName: "mic.fill")
+            } else {
+                return UIImage(named: "icon_audio_unmute")
+            }
         }
     }
 }

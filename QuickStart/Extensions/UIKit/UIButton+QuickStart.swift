@@ -19,14 +19,16 @@ extension UIButton {
         self.setTitle(title, for: .normal)
     }
     
-    func smoothAndWider(title: String) {
+    func smoothAndWider() {
         self.layer.cornerRadius = self.frame.height / 4
         self.layer.masksToBounds = true
 
         self.backgroundColor = .purple
-
-        self.titleLabel?.text = title
-        self.titleLabel?.textColor = .white
+    }
+    
+    func setTitle(_ title: String) {
+        self.setTitle(title, for: .normal)
+        self.setTitleColor(.white, for: .normal)
         self.titleLabel?.textAlignment = .center
     }
 }
