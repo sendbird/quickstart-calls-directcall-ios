@@ -28,7 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
-        SendBirdCall.configure(appId: "75B38A93-7010-4D02-ADFF-B286099466A7")
+        // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
+        SendBirdCall.configure(appId: YOUR_APP_ID)
+        
         SendBirdCall.addDelegate(self, identifier: "DelegateIdentification")
         
         // Set up notification
