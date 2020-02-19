@@ -8,14 +8,14 @@
 import Foundation
 
 extension Bundle {
-    var version: String? {
+    var version: String {
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist"){
             if let infoDict = NSDictionary.init(contentsOfFile: path), let sampleUIVersion = infoDict["CFBundleShortVersionString"] as? String {
                 let version = sampleUIVersion
                 return version
             }
-            return nil
+            return ""
         }
-        return nil
+        return ""
     }
 }

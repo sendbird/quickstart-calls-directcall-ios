@@ -77,6 +77,7 @@ extension SignInViewController {
                 }
                 return
             }
+            print("[ProfileURL] \(user.profileURL)")
             UserDefaults.standard.autoLogin = true
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
@@ -106,12 +107,12 @@ extension SignInViewController {
         self.signInButton.smoothAndWider()
         self.signInButton.setTitle("Sign In")
         
-        var sampleVersion = ""
-        if let quickstartVersion = Bundle.main.version {
-            sampleVersion = "QuickStart v\(quickstartVersion) "
-        }
+        let sampleVersion = Bundle.main.version
         self.versionLabel.text = sampleVersion + "SendBirdCalls v\(SendBirdCall.sdkVersion)"
-        self.copyrightLabel.text = "© 2019 - 2020 SendBird"
+        
+        let current = Calendar.current
+        let year = current.component(.year, from: Date())
+        self.copyrightLabel.text = "© \(year) SendBird"
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {

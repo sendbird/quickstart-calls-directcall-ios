@@ -32,11 +32,10 @@ class AccountTableViewController: UITableViewController {
     func setupUserInfo() {
         self.userIdLabel.text = "User Id: \(UserDefaults.standard.user.id)"
         self.userIdLabel.textColor = .lightPurple
-        self.usernameLabel.text = "\(UserDefaults.standard.user.name ?? "")"
+        self.usernameLabel.text = UserDefaults.standard.user.name
         self.usernameLabel.textColor = .purple
         
-        let defaultImage = "https://static.sendbird.com/sample/profiles/profile_09_512px.png"
-        let profile = UserDefaults.standard.user.profile ?? defaultImage
+        let profile = UserDefaults.standard.user.profile
         self.userProfileImageView.setImage(urlString: profile)
     }
     
@@ -50,9 +49,8 @@ class AccountTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        switch indexPath.section {        
-        // Sign Out
-        case 1:
+        switch indexPath.section {
+        case 1: // Sign Out
             self.signOutView.alpha = 0.3
             
             let alert = UIAlertController(title: "Do you want to sign out?",

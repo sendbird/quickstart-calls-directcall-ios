@@ -48,15 +48,14 @@ class CallingViewController: UIViewController {
         // Remote Info
         self.callTimerLabel.text = "Waiting for connection ..."
         
-        let defaultImage = "https://static.sendbird.com/sample/profiles/profile_09_512px.png"
-        let profileURL = self.call.remoteUser?.profileURL ?? defaultImage
+        let profileURL = self.call.remoteUser?.profileURL
         self.profileImageView.setImage(urlString: profileURL)
         
         self.nameLabel.text = self.call.remoteUser?.userId
         self.updateRemoteAudio(isOn: self.call.isRemoteAudioEnabled)
         
         // Local Info
-        let audioButtonImage: UIImage? = call.isLocalAudioEnabled ? UIImage.unmutedAudioImage : UIImage.mutedAudioImage
+        let audioButtonImage: UIImage? = call.isLocalAudioEnabled ? .unmutedAudioImage : .mutedAudioImage
         self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
         self.muteAudioButton.setImage(audioButtonImage, for: .normal)
         self.muteAudioButton.rounding()

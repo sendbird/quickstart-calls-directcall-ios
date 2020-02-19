@@ -18,12 +18,12 @@ extension UIImageView {
         self.layer.borderColor = UIColor.lightPurple.cgColor
     }
     
-    func setImage(urlString: String) {
-        guard let profileURL = URL(string: urlString) else { return }
+    func setImage(urlString: String?) {
+        guard let urlString = urlString,
+            let profileURL = URL(string: urlString) else { return }
         guard let data = try? Data(contentsOf: profileURL) else { return }
         guard let image = UIImage(data: data) else { return }
         self.image = image
-        self.rounding()
     }
 }
 
