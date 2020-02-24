@@ -70,7 +70,7 @@ extension SignInViewController {
         // MARK: SendBirdCall.authenticate()
         let params = AuthenticateParams(userId: userId, accessToken: nil)
         
-        SendBirdCall.authenticate(params: params) { user, error in
+        SendBirdCall.authenticate(with: params) { user, error in
             guard let user = user, error == nil else {
                 DispatchQueue.main.async {
                     self.alertError(message: "💣 \(String(describing: error))")

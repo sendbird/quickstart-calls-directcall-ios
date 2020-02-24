@@ -288,7 +288,7 @@
                                 <rect key="frame" x="85" y="712" width="60" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.50980392159999999" green="0.36862745099999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" image="headphones" catalog="system">
+                                <state key="normal" backgroundImage="icChatAudioPurple">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -464,8 +464,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="headphones" catalog="system" width="64" height="52"/>
         <image name="icAudioLarge" width="25" height="25"/>
+        <image name="icChatAudioPurple" width="42" height="42"/>
         <image name="icon_audio_unmute" width="40" height="40"/>
         <image name="icon_end_call" width="40" height="40"/>
         <image name="img_user_profile_default" width="100" height="100"/>

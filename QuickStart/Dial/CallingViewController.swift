@@ -246,9 +246,10 @@ extension CallingViewController: DirectCallDelegate {
         
         DispatchQueue.main.async {
             if #available(iOS 13.0, *) {
+                self.speakerButton.setBackgroundImage(nil, for: .normal)
                 self.speakerButton.setImage(UIImage(systemName: imageURL), for: .normal)
             } else {
-                self.speakerButton.setImage(UIImage(named: "icChatAudioPurple"), for: .normal)
+                self.speakerButton.setBackgroundImage(UIImage(named: "icChatAudioPurple"), for: .normal)
             }
             
             let alert = UIAlertController(title: nil, message: "Changed to \(outputName)", preferredStyle: .actionSheet)
