@@ -107,7 +107,7 @@ extension SignInViewController {
         self.signInButton.setTitle("Sign In")
         
         let sampleVersion = Bundle.main.version
-        self.versionLabel.text = sampleVersion + "SendBirdCalls v\(SendBirdCall.sdkVersion)"
+        self.versionLabel.text = "QuickStart \(sampleVersion)" + " SendBirdCalls \(SendBirdCall.sdkVersion)"
         
         let current = Calendar.current
         let year = current.component(.year, from: Date())
