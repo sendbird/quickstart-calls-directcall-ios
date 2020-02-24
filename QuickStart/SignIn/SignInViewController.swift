@@ -77,7 +77,6 @@ extension SignInViewController {
                 }
                 return
             }
-            print("[ProfileURL] \(user.profileURL)")
             UserDefaults.standard.autoLogin = true
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
