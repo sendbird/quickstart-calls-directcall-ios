@@ -18,7 +18,12 @@ extension AppDelegate: CXProviderDelegate {
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
         // MARK: SendBirdCalls - SendBirdCall.getCall()
         AVAudioSession.default.update()
-        guard SendBirdCall.getCall(forUUID: action.callUUID) != nil else { return }
+
+        guard SendBirdCall.getCall(forUUID: action.callUUID) != nil else {
+            action.fail()
+            return
+        }
+        
         action.fulfill()
     }
     
@@ -33,6 +38,7 @@ extension AppDelegate: CXProviderDelegate {
         let acceptParams = AcceptParams(callOptions: callOptions)
         call.accept(with: acceptParams)
         
+        AVAudioSession.default.update()
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "CallingViewController")
         guard let callingVC = viewController as? CallingViewController else { return } // If there is termination: Failed to load CallingViewController from Main.storyboard. Please check its storyboard ID")
@@ -53,7 +59,7 @@ extension AppDelegate: CXProviderDelegate {
     
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         // Retrieve the SpeakerboxCall instance corresponding to the action's call UUID
-        try? AVAudioSession.default.setActive(false)
+        try? AVAudioSession.sharedInstance().setActive(false)
         
         guard let call = SendBirdCall.getCall(forUUID: action.callUUID) else {
             action.fail()
@@ -61,7 +67,7 @@ extension AppDelegate: CXProviderDelegate {
         }
         
         // For decline
-        if call.endResult == .unknown || call.endResult == .declined {
+        if call.endResult == .declined {
             call.end()
         }
         
