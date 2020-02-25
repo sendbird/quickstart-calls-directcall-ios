@@ -67,7 +67,7 @@ extension AppDelegate: CXProviderDelegate {
         }
         
         // For decline
-        if call.endResult == .declined {
+        if call.endResult == .unknown {
             call.end()
         }
         
