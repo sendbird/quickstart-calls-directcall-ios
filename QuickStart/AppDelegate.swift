@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
-        SendBirdCall.configure(appId: YOUR_APP_ID)
+        SendBirdCall.configure(appId: "7768FD30-5639-48BC-8B25-F5211F3DFEBB")
         
         SendBirdCall.addDelegate(self, identifier: "DelegateIdentification")
         
@@ -90,27 +90,7 @@ extension AppDelegate: PKPushRegistryDelegate {
         
         // MARK: Handling incoming call
         SendBirdCall.pushRegistry(registry, didReceiveIncomingPushWith: payload, for: type) { uuid in
-            guard let uuid = uuid else { return }
-            
-            if CXCallControllerManager.sharedController.callObserver.calls.isEmpty { // Should be cross-checked with state to prevent weird event processings
-                
-                // Use CXProvider to report the incoming call to the system
-                // Construct a CXCallUpdate describing the incoming call, including the caller.
-                let name = ""
-                let update = CXCallUpdate()
-                update.remoteHandle = CXHandle(type: .generic, value: name)
-                update.hasVideo = false
-                
-                // Report the incoming call to the system
-                self.provider.reportNewIncomingCall(with: uuid, update: update) { error in
-                    if error == nil {
-                        // success
-                    }
-                    
-//                    self.provider.reportCall(with: uuid, updated: update)
-                    completion()
-                }
-            }
+            completion()
         }
     }
 }
