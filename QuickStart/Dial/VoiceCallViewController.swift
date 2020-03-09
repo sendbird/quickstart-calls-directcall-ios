@@ -1,5 +1,5 @@
 //
-//  CallingViewController.swift
+//  VoiceCallViewController.swift
 //  QuickStart
 //
 //  Copyright © 2020 SendBird, Inc. All rights reserved.
@@ -11,7 +11,7 @@ import CallKit
 import MediaPlayer
 import SendBirdCalls
 
-class CallingViewController: UIViewController {
+class VoiceCallViewController: UIViewController {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -109,7 +109,7 @@ class CallingViewController: UIViewController {
 }
 
 // MARK: - Audio I/O
-extension CallingViewController {
+extension VoiceCallViewController {
     func setupAudioOutputButton() {
         self.speakerButton.rounding()
         self.speakerButton.layer.borderColor = UIColor.purple.cgColor
@@ -141,7 +141,7 @@ extension CallingViewController {
 }
 
 // MARK: - SendBirdCall - DirectCall duration & mute / unmute
-extension CallingViewController {
+extension VoiceCallViewController {
     func updateLocalAudio(enabled: Bool) {
         if enabled {
             self.muteAudioButton.setImage(UIImage.mutedAudioImage, for: .normal)
@@ -190,7 +190,7 @@ extension CallingViewController {
 
 
 // MARK: - SendBirdCall - DirectCallDelegate
-extension CallingViewController: DirectCallDelegate {
+extension VoiceCallViewController: DirectCallDelegate {
     func didEstablish(_ call: DirectCall) {
         DispatchQueue.main.async { [weak self] in
             self?.callTimerLabel.text = "Connecting..."

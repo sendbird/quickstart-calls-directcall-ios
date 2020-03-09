@@ -37,8 +37,8 @@ extension AppDelegate: CXProviderDelegate {
         call.accept(with: acceptParams)
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "CallingViewController")
-        guard let callingVC = viewController as? CallingViewController else { return } // If there is termination: Failed to load CallingViewController from Main.storyboard. Please check its storyboard ID")
+        let viewController = storyboard.instantiateViewController(withIdentifier: "VoiceCallViewController")
+        guard let callingVC = viewController as? VoiceCallViewController else { return } // If there is termination: Failed to load VoiceCallViewController from Main.storyboard. Please check its storyboard ID")
                                         
         callingVC.call = call
         callingVC.isDialing = false

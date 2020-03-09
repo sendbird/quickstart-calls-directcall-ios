@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "icLogoHorizontalPurple300.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "scale" : "2x",
+      "filename" : "icLogoHorizontalPurple300@2x.png",
+      "idiom" : "universal"
+    },
+    {
+      "scale" : "3x",
+      "idiom" : "universal",
+      "filename" : "icLogoHorizontalPurple300@3x.png"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

@@ -14,7 +14,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mainLabel: UILabel!
     
     // ID
-    @IBOutlet weak var userIdLabel: UILabel!
     @IBOutlet weak var userIdTextField: UITextField!
     
     // SignIn
@@ -23,9 +22,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     // Footnote
     @IBOutlet weak var versionLabel: UILabel!
     @IBOutlet weak var copyrightLabel: UILabel!
-    
-    // Layout constraints
-    @IBOutlet weak var constraintFromKeyboard: NSLayoutConstraint!
     
     var userId: String?
     var deviceToken: Data?
@@ -96,18 +92,12 @@ extension SignInViewController {
     }
     
     func setupUI() {
-        self.logoImageView.image = UIImage(named: "logo_sendbird")
-        self.mainLabel.text = "SendBirdCalls"
-        
-        self.userIdLabel.text = "ID"
-        self.userIdTextField.placeholder = "Enter your ID"
-        self.userIdTextField.textAlignment = .left
-        
-        self.signInButton.smoothAndWider()
-        self.signInButton.setTitle("Sign In")
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.userIdTextField.frame.height))
+        self.userIdTextField.leftView = paddingView
+        self.userIdTextField.leftViewMode = UITextField.ViewMode.always
         
         let sampleVersion = Bundle.main.version
-        self.versionLabel.text = "QuickStart \(sampleVersion)" + " SendBirdCalls \(SendBirdCall.sdkVersion)"
+        self.versionLabel.text = "QuickStart \(sampleVersion)" + "   Calls SDK \(SendBirdCall.sdkVersion)"
         
         let current = Calendar.current
         let year = current.component(.year, from: Date())
@@ -125,7 +115,6 @@ extension SignInViewController {
             
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
             if gap > 0 {
-                self.constraintFromKeyboard.constant = self.constraintFromKeyboard.constant + gap
                 self.logoImageView.alpha = 0.3
                 self.mainLabel.alpha = 0.0
             }
@@ -137,10 +126,7 @@ extension SignInViewController {
     
     // MARK: When Keyboard Hide
     @objc func keyboardWillHide(_ notification: Notification) {
-        let value: CGFloat = 56.0
-        
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
-            self.constraintFromKeyboard.constant = value
             self.logoImageView.alpha = 1.0
             self.mainLabel.alpha = 1.0
             self.view.layoutIfNeeded()
