@@ -7,7 +7,27 @@
 //
 
 import UIKit
+import SendBirdCalls
 
+// MARK: For Video View
+extension UIView {
+    func embed(_ videoView: SendBirdVideoView) {
+        self.addSubview(videoView)
+        videoView.translatesAutoresizingMaskIntoConstraints = false
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|",
+                                                                    options: [],
+                                                                    metrics: nil,
+                                                                    views: ["view": videoView]))
+        
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|",
+                                                                    options: [],
+                                                                    metrics: nil,
+                                                                    views: ["view": videoView]))
+        self.layoutIfNeeded()
+    }
+}
+
+// MARK: For Storyboard
 extension UIView {
     @IBInspectable
     var cornerRadius: CGFloat {
