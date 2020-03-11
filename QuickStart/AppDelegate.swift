@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var provider: CXProvider = {
         let provider = CXProvider.default
         provider.setDelegate(self, queue: .main)
-        _ = AVAudioSession.default
         return provider
     }()
     
