@@ -7,9 +7,8 @@
 
 import UIKit
 import AVKit
-import MediaPlayer
 import CallKit
-import AVFoundation
+import MediaPlayer
 import SendBirdCalls
 
 class CallingViewController: UIViewController {
@@ -66,7 +65,7 @@ class CallingViewController: UIViewController {
         self.endButton.rounding()
         
         // AudioOutputs
-        self.setAudioOutputsView()
+        self.setupAudioOutputButton()
     }
     
     // MARK: - IBActions
@@ -111,7 +110,7 @@ class CallingViewController: UIViewController {
 
 // MARK: - Audio I/O
 extension CallingViewController {
-    func setAudioOutputsView() {
+    func setupAudioOutputButton() {
         self.speakerButton.rounding()
         self.speakerButton.layer.borderColor = UIColor.purple.cgColor
         self.speakerButton.layer.borderWidth = 2.0
@@ -233,21 +232,21 @@ extension CallingViewController: DirectCallDelegate {
         let outputName = output.portName
         
         // Customize images
-        var imageURL = "mic"
+        var imageName = "mic"
         switch outputType {
-        case .airPlay: imageURL = "airplayvideo"
-        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageURL = "headphones"
-        case .builtInReceiver: imageURL = "phone.fill"
-        case .builtInSpeaker: imageURL = "mic"
-        case .headphones: imageURL = "headphones"
-        case .headsetMic: imageURL = "headphones"
-        default: imageURL = "mic"
+        case .airPlay: imageName = "airplayvideo"
+        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "headphones"
+        case .builtInReceiver: imageName = "phone.fill"
+        case .builtInSpeaker: imageName = "mic"
+        case .headphones: imageName = "headphones"
+        case .headsetMic: imageName = "headphones"
+        default: imageName = "mic"
         }
         
         DispatchQueue.main.async {
             if #available(iOS 13.0, *) {
                 self.speakerButton.setBackgroundImage(nil, for: .normal)
-                self.speakerButton.setImage(UIImage(systemName: imageURL), for: .normal)
+                self.speakerButton.setImage(UIImage(systemName: imageName), for: .normal)
             } else {
                 self.speakerButton.setBackgroundImage(UIImage(named: "icChatAudioPurple"), for: .normal)
             }
@@ -256,7 +255,6 @@ extension CallingViewController: DirectCallDelegate {
             self.present(alert, animated: true, completion: nil)
             Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
                 alert.dismiss(animated: true, completion: nil)
-                timer.invalidate()
             }
         }
     }
