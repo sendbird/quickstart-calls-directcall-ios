@@ -244,7 +244,7 @@
                         <outlet property="userIdLabel" destination="o3g-kY-c9q" id="6hs-ik-6xN"/>
                         <outlet property="userProfileImageView" destination="APk-lX-5qt" id="5hq-py-S62"/>
                         <outlet property="usernameLabel" destination="Gdn-I1-Ekm" id="p1T-KM-p9B"/>
-                        <segue destination="pMP-aS-NoE" kind="show" id="hbY-ly-HcS"/>
+                        <segue destination="pMP-aS-NoE" kind="show" identifier="appInfo" id="hbY-ly-HcS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kx4-F6-0VM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -554,7 +554,9 @@
                     <connections>
                         <outlet property="calleeIdTextField" destination="eTD-yy-lbQ" id="ERA-CJ-joL"/>
                         <outlet property="videoCallButton" destination="twf-Fk-qMH" id="t0k-VM-TQM"/>
+                        <outlet property="videoCallImageView" destination="vS8-uf-ajC" id="jwc-8G-3W2"/>
                         <outlet property="voiceCallButton" destination="cFJ-HJ-03Y" id="MWE-TE-ma7"/>
+                        <outlet property="voiceCallImageView" destination="9iu-R1-ere" id="yQh-Ky-Rxx"/>
                         <segue destination="7ra-kc-2Kq" kind="presentation" identifier="voiceCall" modalPresentationStyle="fullScreen" id="26j-eW-3We"/>
                     </connections>
                 </viewController>

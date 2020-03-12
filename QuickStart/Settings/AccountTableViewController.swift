@@ -15,6 +15,11 @@ class AccountTableViewController: UITableViewController {
     @IBOutlet weak var userIdLabel: UILabel!
     @IBOutlet weak var signOutView: UIView!
     
+    enum CellRow: Int {
+        case applnfo = 1
+        case signOut = 2
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,17 +45,19 @@ class AccountTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        switch indexPath.section {
-        case 1: // Sign Out
+        switch CellRow(rawValue: indexPath.section) {
+        case .applnfo:
+            self.performSegue(withIdentifier: "appInfo", sender: nil)
+        case .signOut:
             self.signOutView.alpha = 0.3
             
             let alert = UIAlertController(title: "Do you want to sign out?",
@@ -75,7 +82,6 @@ class AccountTableViewController: UITableViewController {
             alert.addAction(actionCancel)
             
             self.present(alert, animated: true, completion: nil)
-            
         default: return
         }
     }
