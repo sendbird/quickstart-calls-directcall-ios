@@ -72,16 +72,16 @@ extension SignInViewController {
         
         SendBirdCall.authenticate(with: params) { user, error in
             guard let user = user, error == nil else {
-                DispatchQueue.main.async {
-                    self.alertError(message: "💣 \(String(describing: error))")
+                DispatchQueue.main.async { [weak self] in
+                    self?.alertError(message: "💣 \(String(describing: error))")
                 }
                 return
             }
             UserDefaults.standard.autoLogin = true
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "signIn", sender: nil)
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "signIn", sender: nil)
             }
         }
     }

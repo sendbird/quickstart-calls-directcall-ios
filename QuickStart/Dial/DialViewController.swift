@@ -73,19 +73,19 @@ extension DialViewController {
         let dialParams = DialParams(calleeId: calleeId, isVideoCall: false, callOptions: callOptions, customItems: [:])
 
         SendBirdCall.dial(with: dialParams) { call, error in
-            DispatchQueue.main.async {
-                self.dialButton.isEnabled = true
+            DispatchQueue.main.async { [weak self] in
+                self?.dialButton.isEnabled = true
             }
             
             guard error == nil, let call = call else {
-                DispatchQueue.main.async {
-                    self.alertError(message: "Failed to call\nError: \(String(describing: error?.localizedDescription))")
+                DispatchQueue.main.async { [weak self] in
+                    self?.alertError(message: "Failed to call\nError: \(String(describing: error?.localizedDescription))")
                 }
                 return
             }
             
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "Calling", sender: call)
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "Calling", sender: call)
             }
         }
     }

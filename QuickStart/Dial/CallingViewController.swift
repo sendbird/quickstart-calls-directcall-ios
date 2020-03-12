@@ -153,11 +153,11 @@ extension CallingViewController {
     }
     
     func updateRemoteAudio(isOn: Bool) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             if isOn {
-                self.profileImageView.alpha = 1.0
+                self?.profileImageView.alpha = 1.0
             } else {
-                self.profileImageView.alpha = 0.3
+                self?.profileImageView.alpha = 0.3
             }
         }
     }
@@ -192,8 +192,8 @@ extension CallingViewController {
 // MARK: - SendBirdCall - DirectCallDelegate
 extension CallingViewController: DirectCallDelegate {
     func didEstablish(_ call: DirectCall) {
-        DispatchQueue.main.async {
-            self.callTimerLabel.text = "Connecting..."
+        DispatchQueue.main.async { [weak self] in
+            self?.callTimerLabel.text = "Connecting..."
         }
     }
     
@@ -201,7 +201,7 @@ extension CallingViewController: DirectCallDelegate {
     func didConnect(_ call: DirectCall) {
         DispatchQueue.main.async {
             self.activeTimer()      // call.duration
-            self.updateRemoteAudio(isOn: self.call.isRemoteAudioEnabled)
+            self.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
         }
     }
     
@@ -214,9 +214,9 @@ extension CallingViewController: DirectCallDelegate {
     
     // This method is required
     func didEnd(_ call: DirectCall) {
-        DispatchQueue.main.async {
-            self.endButton.isEnabled = true
-            self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.endButton.isEnabled = true
+            self?.dismiss(animated: true, completion: nil)
         }
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
@@ -243,16 +243,16 @@ extension CallingViewController: DirectCallDelegate {
         default: imageName = "mic"
         }
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             if #available(iOS 13.0, *) {
-                self.speakerButton.setBackgroundImage(nil, for: .normal)
-                self.speakerButton.setImage(UIImage(systemName: imageName), for: .normal)
+                self?.speakerButton.setBackgroundImage(nil, for: .normal)
+                self?.speakerButton.setImage(UIImage(systemName: imageName), for: .normal)
             } else {
-                self.speakerButton.setBackgroundImage(UIImage(named: "icChatAudioPurple"), for: .normal)
+                self?.speakerButton.setBackgroundImage(UIImage(named: "icChatAudioPurple"), for: .normal)
             }
             
             let alert = UIAlertController(title: nil, message: "Changed to \(outputName)", preferredStyle: .actionSheet)
-            self.present(alert, animated: true, completion: nil)
+            self?.present(alert, animated: true, completion: nil)
             Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
                 alert.dismiss(animated: true, completion: nil)
             }
