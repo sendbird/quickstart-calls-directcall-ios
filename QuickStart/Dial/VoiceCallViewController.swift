@@ -62,8 +62,6 @@ class VoiceCallViewController: UIViewController {
         self.muteAudioButton.setImage(audioButtonImage, for: .normal)
         self.muteAudioButton.rounding()
         
-        self.endButton.rounding()
-        
         // AudioOutputs
         self.setupAudioOutputButton()
     }
@@ -111,10 +109,6 @@ class VoiceCallViewController: UIViewController {
 // MARK: - Audio I/O
 extension VoiceCallViewController {
     func setupAudioOutputButton() {
-        self.speakerButton.rounding()
-        self.speakerButton.layer.borderColor = UIColor.purple.cgColor
-        self.speakerButton.layer.borderWidth = 2.0
-        
         let width = self.speakerButton.frame.width
         let height = self.speakerButton.frame.height
         let frame = CGRect(x: 0, y: 0, width: width, height: height)

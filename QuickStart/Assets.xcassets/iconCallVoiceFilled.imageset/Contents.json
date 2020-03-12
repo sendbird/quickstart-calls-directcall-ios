@@ -1,18 +1,18 @@
 {
   "images" : [
     {
+      "idiom" : "universal",
       "filename" : "iconCallVoiceFilled.png",
-      "scale" : "1x",
-      "idiom" : "universal"
+      "scale" : "1x"
     },
     {
       "scale" : "2x",
-      "filename" : "iconCallVoiceFilled@2x.png",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "iconCallVoiceFilled@2x.png"
     },
     {
-      "scale" : "3x",
       "filename" : "iconCallVoiceFilled@3x.png",
+      "scale" : "3x",
       "idiom" : "universal"
     }
   ],

@@ -18,9 +18,6 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     // Button Image
     @IBOutlet weak var voiceCallImageView: UIImageView!
     @IBOutlet weak var videoCallImageView: UIImageView!
-
-    // Constraints for Keyboard
-    @IBOutlet weak var textFieldBottomConstraint: NSLayoutConstraint!   // For interaction with audio setting switch
     
     // MARK: Override Methods
     override func viewDidLoad() {
@@ -39,8 +36,6 @@ class DialViewController: UIViewController, UITextFieldDelegate {
         
         self.voiceCallButton.isEnabled = false
         self.videoCallButton.isEnabled = false
-        
-        self.textFieldBottomConstraint.constant = 16
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -125,19 +120,7 @@ extension DialViewController {
     
     // MARK: When Keyboard Show
     @objc func keyboardWillShow(_ notification: Notification) {
-        guard let keyboardFrameBegin = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else  { return }
-        let keyboardFrameBeginRect = keyboardFrameBegin.cgRectValue
-        let keyboardHeight = keyboardFrameBeginRect.size.height
-        
-        let bottomOfTextField = view.frame.maxY - calleeIdTextField.frame.maxY
-        let safeArea = keyboardHeight + 8.0
-        let gap = bottomOfTextField - safeArea
-            
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-            if bottomOfTextField < safeArea {
-                
-                self.textFieldBottomConstraint.constant = self.textFieldBottomConstraint.constant + gap
-            }
             self.voiceCallImageView.alpha = 0.0
             self.voiceCallButton.alpha = 0.0
             
@@ -152,10 +135,6 @@ extension DialViewController {
     
     // MARK: When Keyboard Hide
     @objc func keyboardWillHide(_ notification: Notification) {
-        var value: CGFloat = 40.0
-        if let text = self.calleeIdTextField.text, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-//            value = 200
-        }
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
             self.voiceCallImageView.alpha = 1.0
             self.voiceCallButton.alpha = 1.0
@@ -165,7 +144,6 @@ extension DialViewController {
             self.videoCallButton.alpha = 1.0
             self.videoCallButton.isEnabled = true
             
-            self.textFieldBottomConstraint.constant = value
             self.view.layoutIfNeeded()
         })
     }
