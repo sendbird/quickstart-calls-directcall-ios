@@ -11,7 +11,7 @@ import SendBirdCalls
 // MARK: - SendBirdCalls Delegates
 extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
     // MARK: SendBirdCallDelegate
-    func didEnterRinging(_ call: DirectCall) {
+    func didStartRinging(_ call: DirectCall) {
         let update = CXCallUpdate()
         
         if let userId = call.caller?.userId {

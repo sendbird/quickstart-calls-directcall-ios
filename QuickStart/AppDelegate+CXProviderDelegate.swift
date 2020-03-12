@@ -17,20 +17,24 @@ extension AppDelegate: CXProviderDelegate {
     
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
         // MARK: SendBirdCalls - SendBirdCall.getCall()
-        guard SendBirdCall.getCall(forUUID: action.callUUID) != nil else { return }
+        guard SendBirdCall.getCall(forUUID: action.callUUID) != nil else {
+            action.fail()
+            return
+        }
+        
         action.fulfill()
     }
     
     func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-        AVAudioSession.default.update()
-        
         guard let call = SendBirdCall.getCall(forUUID: action.callUUID) else {
             action.fail()
             return
         }
         
         // MARK: SendBirdCalls - DirectCall.accept()
-        call.accept(callOptions: CallOptions(isAudioEnabled: true))
+        let callOptions = CallOptions(isAudioEnabled: true)
+        let acceptParams = AcceptParams(callOptions: callOptions)
+        call.accept(with: acceptParams)
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: "CallingViewController")
@@ -52,7 +56,6 @@ extension AppDelegate: CXProviderDelegate {
     
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         // Retrieve the SpeakerboxCall instance corresponding to the action's call UUID
-        
         guard let call = SendBirdCall.getCall(forUUID: action.callUUID) else {
             action.fail()
             return

@@ -6,7 +6,9 @@
 //
 
 import UIKit
+import AVKit
 import CallKit
+import MediaPlayer
 import SendBirdCalls
 
 class CallingViewController: UIViewController {
@@ -14,6 +16,7 @@ class CallingViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var speakerButton: UIButton!
     @IBOutlet weak var muteAudioButton: UIButton!
     @IBOutlet weak var endButton: UIButton!
     @IBOutlet weak var callTimerLabel: UILabel!
@@ -22,7 +25,6 @@ class CallingViewController: UIViewController {
     var isDialing: Bool?
     
     let callController = CXCallController()
-    
     // MARK: - SendBirdCall - DirectCallDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +48,7 @@ class CallingViewController: UIViewController {
     
     func setupUI() {
         // Remote Info
-        self.callTimerLabel.text = "Waiting for connection ..."
+        self.callTimerLabel.text = "Waiting for connection..."
         
         let profileURL = self.call.remoteUser?.profileURL
         self.profileImageView.setImage(urlString: profileURL)
@@ -61,9 +63,13 @@ class CallingViewController: UIViewController {
         self.muteAudioButton.rounding()
         
         self.endButton.rounding()
+        
+        // AudioOutputs
+        self.setupAudioOutputButton()
     }
     
     // MARK: - IBActions
+    
     
     @IBAction func didTapAudioOption(_ sender: UIButton?) {
         guard let sender = sender else { return }
@@ -102,6 +108,38 @@ class CallingViewController: UIViewController {
     }
 }
 
+// MARK: - Audio I/O
+extension CallingViewController {
+    func setupAudioOutputButton() {
+        self.speakerButton.rounding()
+        self.speakerButton.layer.borderColor = UIColor.purple.cgColor
+        self.speakerButton.layer.borderWidth = 2.0
+        
+        let width = self.speakerButton.frame.width
+        let height = self.speakerButton.frame.height
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+
+    
+        let routePickerView = SendBirdCall.routePickerView(frame: frame)
+        self.customize(routePickerView)
+        self.speakerButton.addSubview(routePickerView)
+    }
+    
+    func customize(_ routePickerView: UIView) {
+        if #available(iOS 11.0, *) {
+            guard let routePickerView = routePickerView as? AVRoutePickerView else { return }
+            routePickerView.activeTintColor = .clear
+            routePickerView.tintColor = .clear
+        } else {
+            guard let volumeView = routePickerView as? MPVolumeView else { return }
+            
+            volumeView.showsVolumeSlider = false
+            volumeView.setRouteButtonImage(nil, for: .normal)
+            volumeView.routeButtonRect(forBounds: volumeView.frame)
+        }
+    }
+}
+
 // MARK: - SendBirdCall - DirectCall duration & mute / unmute
 extension CallingViewController {
     func updateLocalAudio(enabled: Bool) {
@@ -115,11 +153,11 @@ extension CallingViewController {
     }
     
     func updateRemoteAudio(isOn: Bool) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             if isOn {
-                self.profileImageView.alpha = 1.0
+                self?.profileImageView.alpha = 1.0
             } else {
-                self.profileImageView.alpha = 0.3
+                self?.profileImageView.alpha = 0.3
             }
         }
     }
@@ -153,11 +191,17 @@ extension CallingViewController {
 
 // MARK: - SendBirdCall - DirectCallDelegate
 extension CallingViewController: DirectCallDelegate {
+    func didEstablish(_ call: DirectCall) {
+        DispatchQueue.main.async { [weak self] in
+            self?.callTimerLabel.text = "Connecting..."
+        }
+    }
+    
     // This method is required
     func didConnect(_ call: DirectCall) {
         DispatchQueue.main.async {
             self.activeTimer()      // call.duration
-            self.updateRemoteAudio(isOn: self.call.isRemoteAudioEnabled)
+            self.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
         }
     }
     
@@ -170,15 +214,49 @@ extension CallingViewController: DirectCallDelegate {
     
     // This method is required
     func didEnd(_ call: DirectCall) {
-        DispatchQueue.main.async {
-            self.endButton.isEnabled = true
-            self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.endButton.isEnabled = true
+            self?.dismiss(animated: true, completion: nil)
         }
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         self.requestEndTransaction(of: call)
         
+    }
+    
+    func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
+        guard let output = session.currentRoute.outputs.first else { return }
+        
+        let outputType = output.portType
+        let outputName = output.portName
+        
+        // Customize images
+        var imageName = "mic"
+        switch outputType {
+        case .airPlay: imageName = "airplayvideo"
+        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "headphones"
+        case .builtInReceiver: imageName = "phone.fill"
+        case .builtInSpeaker: imageName = "mic"
+        case .headphones: imageName = "headphones"
+        case .headsetMic: imageName = "headphones"
+        default: imageName = "mic"
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            if #available(iOS 13.0, *) {
+                self?.speakerButton.setBackgroundImage(nil, for: .normal)
+                self?.speakerButton.setImage(UIImage(systemName: imageName), for: .normal)
+            } else {
+                self?.speakerButton.setBackgroundImage(UIImage(named: "icChatAudioPurple"), for: .normal)
+            }
+            
+            let alert = UIAlertController(title: nil, message: "Changed to \(outputName)", preferredStyle: .actionSheet)
+            self?.present(alert, animated: true, completion: nil)
+            Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
     }
 }
 

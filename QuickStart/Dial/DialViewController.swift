@@ -12,16 +12,15 @@ import SendBirdCalls
 class DialViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var calleeIdTextField: UITextField!
     @IBOutlet weak var dialButton: UIButton!
-    @IBOutlet weak var muteAudioButton: UIButton!
 
     @IBOutlet weak var textFieldBottomConstraint: NSLayoutConstraint!   // For interaction with audio setting switch
     @IBOutlet weak var dialButtonCenterConstraint: NSLayoutConstraint!  // For interaction with keyboard
     
-    @IBOutlet weak var audioMutedView: UIView!
-    @IBOutlet weak var audioMutedSwitch: UISwitch!
+    @IBOutlet weak var switchView: UIView!
+    @IBOutlet weak var audioSwitch: UISwitch!
     
     var isMyAudioEnabled: Bool {
-        return !audioMutedSwitch.isOn
+        return audioSwitch.isOn
     }
     
     // MARK: Override Methods
@@ -40,8 +39,8 @@ class DialViewController: UIViewController, UITextFieldDelegate {
         self.dialButton.smoothAndWider()
         self.dialButton.setTitle("Call")
         self.dialButton.isEnabled = false
-        self.muteAudioButton.setupAudioOption(isOn: isMyAudioEnabled)
-        self.audioMutedView.alpha = 0.0
+        
+        self.switchView.alpha = 0.0
         self.textFieldBottomConstraint.constant = 16
     }
     
@@ -71,21 +70,22 @@ extension DialViewController {
         
         // MARK: SendBirdCall.dial()
         let callOptions = CallOptions(isAudioEnabled: self.isMyAudioEnabled)
+        let dialParams = DialParams(calleeId: calleeId, isVideoCall: false, callOptions: callOptions, customItems: [:])
 
-        SendBirdCall.dial(to: calleeId, isVideoCall: false, callOptions: callOptions) { call, error in
-            DispatchQueue.main.async {
-                self.dialButton.isEnabled = true
+        SendBirdCall.dial(with: dialParams) { call, error in
+            DispatchQueue.main.async { [weak self] in
+                self?.dialButton.isEnabled = true
             }
             
             guard error == nil, let call = call else {
-                DispatchQueue.main.async {
-                    self.alertError(message: "Failed to call\nError: \(String(describing: error?.localizedDescription))")
+                DispatchQueue.main.async { [weak self] in
+                    self?.alertError(message: "Failed to call\nError: \(String(describing: error?.localizedDescription))")
                 }
                 return
             }
             
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "Calling", sender: call)
+            DispatchQueue.main.async { [weak self] in
+                self?.performSegue(withIdentifier: "Calling", sender: call)
             }
         }
     }
@@ -98,7 +98,7 @@ extension DialViewController {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        audioMutedView.alpha = 0.0
+        switchView.alpha = 0.0
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -140,7 +140,7 @@ extension DialViewController {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
             self.dialButton.alpha = 1.0
             self.dialButton.isEnabled = true
-            self.audioMutedView.alpha = hideMuteOptionView ? 0.0 : 1.0
+            self.switchView.alpha = hideMuteOptionView ? 0.0 : 1.0
             self.textFieldBottomConstraint.constant = value
             self.view.layoutIfNeeded()
         })
