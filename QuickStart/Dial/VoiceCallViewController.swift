@@ -60,7 +60,6 @@ class VoiceCallViewController: UIViewController {
         let audioButtonImage: UIImage? = call.isLocalAudioEnabled ? .unmutedAudioImage : .mutedAudioImage
         self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
         self.muteAudioButton.setImage(audioButtonImage, for: .normal)
-        self.muteAudioButton.rounding()
         
         // AudioOutputs
         self.setupAudioOutputButton()
