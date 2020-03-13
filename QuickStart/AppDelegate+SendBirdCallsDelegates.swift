@@ -17,10 +17,10 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
             
             // Use CXProvider to report the incoming call to the system
             // Construct a CXCallUpdate describing the incoming call, including the caller.
-            let name = call.caller?.userId ?? ""
+            let name = call.caller?.userId ?? "Unknown"
             let update = CXCallUpdate()
             update.remoteHandle = CXHandle(type: .generic, value: name)
-            update.hasVideo = false
+            update.hasVideo = call.isVideoCall
             
             // Report the incoming call to the system
             self.provider.reportNewIncomingCall(with: uuid, update: update) { error in
