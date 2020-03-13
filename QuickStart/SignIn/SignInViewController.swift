@@ -118,6 +118,7 @@ extension SignInViewController {
                 self.logoImageView.alpha = 0.3
                 self.mainLabel.alpha = 0.0
             }
+            self.userIdTextField.layer.borderWidth = 1.0
             self.view.layoutIfNeeded()
         }
         animator.startAnimation()
@@ -127,6 +128,7 @@ extension SignInViewController {
     // MARK: When Keyboard Hide
     @objc func keyboardWillHide(_ notification: Notification) {
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
+            self.userIdTextField.layer.borderWidth = 0.0
             self.logoImageView.alpha = 1.0
             self.mainLabel.alpha = 1.0
             self.view.layoutIfNeeded()

@@ -21,10 +21,6 @@ class VoiceCallViewController: UIViewController {
     @IBOutlet weak var endButton: UIButton!
     @IBOutlet weak var callTimerLabel: UILabel!
     
-    // Notify muted state
-    @IBOutlet weak var mutedStateImageView: UIImageView!
-    @IBOutlet weak var mutedStateLabel: UILabel!
-    
     var call: DirectCall!
     var isDialing: Bool?
     
@@ -52,7 +48,7 @@ class VoiceCallViewController: UIViewController {
     
     func setupUI() {
         // Remote Info
-        self.callTimerLabel.text = "Calling..."
+        self.callTimerLabel.text = "Waiting for connection..."
         
         let profileURL = self.call.remoteUser?.profileURL
         self.profileImageView.setImage(urlString: profileURL)
@@ -141,8 +137,10 @@ extension VoiceCallViewController {
 extension VoiceCallViewController {
     func updateLocalAudio(enabled: Bool) {
         if enabled {
+            self.muteAudioButton.setImage(UIImage.mutedAudioImage, for: .normal)
             call?.muteMicrophone()
         } else {
+            self.muteAudioButton.setImage(UIImage.unmutedAudioImage, for: .normal)
             call?.unmuteMicrophone()
         }
     }
@@ -150,15 +148,9 @@ extension VoiceCallViewController {
     func updateRemoteAudio(isOn: Bool) {
         DispatchQueue.main.async { [weak self] in
             if isOn {
-                self?.mutedStateImageView.isHidden = true
-                self?.mutedStateLabel.isHidden = true
+                self?.profileImageView.alpha = 1.0
             } else {
-                self?.mutedStateImageView.isHidden = false
-                if let calleeId = self?.call.callee?.userId {
-                    self?.mutedStateLabel.text = "\(calleeId) muted this call"
-                    self?.mutedStateLabel.isHidden = false
-                }
-                
+                self?.profileImageView.alpha = 0.3
             }
         }
     }
@@ -182,7 +174,7 @@ extension VoiceCallViewController {
             self.callTimerLabel.text = "\(hourText)\(minuteText):\(secondText)"
             
             // Timer Invalidate
-            if self.call.endedAt != 0 || self.call.isEnded {
+            if self.call.endedAt != 0 {
                 timer.invalidate()
             }
         }
@@ -192,7 +184,12 @@ extension VoiceCallViewController {
 
 // MARK: - SendBirdCall - DirectCallDelegate
 extension VoiceCallViewController: DirectCallDelegate {
-    // MARK: Required Methods
+    func didEstablish(_ call: DirectCall) {
+        DispatchQueue.main.async { [weak self] in
+            self?.callTimerLabel.text = "Connecting..."
+        }
+    }
+    
     // This method is required
     func didConnect(_ call: DirectCall) {
         DispatchQueue.main.async {
@@ -201,37 +198,24 @@ extension VoiceCallViewController: DirectCallDelegate {
         }
     }
     
+    // This method is optional
+    func didRemoteAudioSettingsChange(_ call: DirectCall) {
+        DispatchQueue.main.async {
+            self.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
+        }
+    }
+    
+    // This method is required
     func didEnd(_ call: DirectCall) {
         DispatchQueue.main.async { [weak self] in
-            // Tell user that the call has been ended.
-            self?.callTimerLabel.text = "Ended"
             self?.endButton.isEnabled = true
-            self?.mutedStateImageView.isHidden = true
-            self?.mutedStateLabel.isHidden = true
-            
-            // Go back to `Dial` view
-            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-                self?.dismiss(animated: true, completion: nil)
-            }
+            self?.dismiss(animated: true, completion: nil)
         }
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         self.requestEndTransaction(of: call)
         
-    }
-    
-    // MARK: Optional Methods
-    func didEstablish(_ call: DirectCall) {
-        DispatchQueue.main.async { [weak self] in
-            self?.callTimerLabel.text = "Connecting..."
-        }
-    }
-    
-    func didRemoteAudioSettingsChange(_ call: DirectCall) {
-        DispatchQueue.main.async {
-            self.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
-        }
     }
     
     func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {

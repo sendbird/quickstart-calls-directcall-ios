@@ -1,5 +1,5 @@
 //
-//  AccountTableViewController.swift
+//  SettingsTableViewController.swift
 //  QuickStart
 //
 //  Copyright © 2020 SendBird, Inc. All rights reserved.
@@ -9,11 +9,10 @@ import UIKit
 import SendBirdCalls
 
 
-class AccountTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var userIdLabel: UILabel!
-    @IBOutlet weak var signOutView: UIView!
     
     enum CellRow: Int {
         case applnfo = 1
@@ -23,15 +22,7 @@ class AccountTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupSignOutButton()
         self.setupUserInfo()
-    }
-    
-    func setupSignOutButton() {
-        self.signOutView.layer.cornerRadius = self.signOutView.frame.height / 4
-        self.signOutView.layer.masksToBounds = true
-        self.signOutView.backgroundColor = .systemPink
-        self.signOutView.alpha = 0.7
     }
     
     func setupUserInfo() {
@@ -54,12 +45,10 @@ class AccountTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        switch CellRow(rawValue: indexPath.section) {
+        switch CellRow(rawValue: indexPath.row) {
         case .applnfo:
             self.performSegue(withIdentifier: "appInfo", sender: nil)
         case .signOut:
-            self.signOutView.alpha = 0.3
-            
             let alert = UIAlertController(title: "Do you want to sign out?",
                                           message: "If you sign out, you cannot receive any calls.",
                                           preferredStyle: .alert)
@@ -72,12 +61,7 @@ class AccountTableViewController: UITableViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
             }
-            let actionCancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
-                let animator = UIViewPropertyAnimator(duration: 0.1, curve: .easeIn) {
-                    self.signOutView.alpha = 0.7
-                }
-                animator.startAnimation()
-            }
+            let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
             alert.addAction(actionSignOut)
             alert.addAction(actionCancel)
             
@@ -88,12 +72,12 @@ class AccountTableViewController: UITableViewController {
 }
 
 // MARK: - SendBirdCall Interaction
-extension AccountTableViewController {
+extension SettingsTableViewController {
     func signOut() {
         guard let token = UserDefaults.standard.pushToken else { return }
         
         // MARK: SendBirdCall Deauthenticate
-        SendBirdCall.deauthenticate(pushToken: token) { error in
+        SendBirdCall.deauthenticate(voipPushToken: token) { error in
             guard error == nil else { return }
             // Removed pushToken successfully
             UserDefaults.standard.pushToken = nil

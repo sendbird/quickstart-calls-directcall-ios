@@ -15,10 +15,6 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var voiceCallButton: UIButton!
     @IBOutlet weak var videoCallButton: UIButton!
     
-    // Button Image
-    @IBOutlet weak var voiceCallImageView: UIImageView!
-    @IBOutlet weak var videoCallImageView: UIImageView!
-    
     // MARK: Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +29,6 @@ class DialViewController: UIViewController, UITextFieldDelegate {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.calleeIdTextField.frame.height))
         self.calleeIdTextField.leftView = paddingView
         self.calleeIdTextField.leftViewMode = UITextField.ViewMode.always
-        
-        self.voiceCallButton.isEnabled = false
-        self.videoCallButton.isEnabled = false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,6 +39,9 @@ class DialViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "voiceCall", let voiceCallVC = segue.destination as? VoiceCallViewController, let call = sender as? DirectCall {
             voiceCallVC.isDialing = true
             voiceCallVC.call = call
+        } else if segue.identifier == "videoCall", let videoCallVC = segue.destination as? VideoCallViewController, let call = sender as? DirectCall {
+            videoCallVC.isDialing = true
+            videoCallVC.call = call
         }
     }
 }
@@ -54,7 +50,12 @@ class DialViewController: UIViewController, UITextFieldDelegate {
 extension DialViewController {
     
     @IBAction func didTapVoiceCall() {
-        guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else { return }
+        guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else {
+            DispatchQueue.main.async { [weak self] in
+                self?.alertError(message: "Please enter user ID")
+            }
+            return
+        }
         self.voiceCallButton.isEnabled = false
         
         // MARK: SendBirdCall.dial()
@@ -80,11 +81,16 @@ extension DialViewController {
     }
     
     @IBAction func didTapVideoCall() {
-        guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else { return }
+        guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else {
+            DispatchQueue.main.async { [weak self] in
+                self?.alertError(message: "Please enter user ID")
+            }
+            return
+        }
         self.videoCallButton.isEnabled = false
         
         // MARK: SendBirdCall.dial()
-        let callOptions = CallOptions(isAudioEnabled: true)
+        let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: true)
         let dialParams = DialParams(calleeId: calleeId, isVideoCall: true, callOptions: callOptions, customItems: [:])
 
         SendBirdCall.dial(with: dialParams) { call, error in
@@ -121,10 +127,8 @@ extension DialViewController {
     // MARK: When Keyboard Show
     @objc func keyboardWillShow(_ notification: Notification) {
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-            self.voiceCallImageView.alpha = 0.0
+            self.calleeIdTextField.layer.borderWidth = 1.0
             self.voiceCallButton.alpha = 0.0
-            
-            self.videoCallImageView.alpha = 0.0
             self.videoCallButton.alpha = 0.0
             
             self.view.layoutIfNeeded()
@@ -136,11 +140,10 @@ extension DialViewController {
     // MARK: When Keyboard Hide
     @objc func keyboardWillHide(_ notification: Notification) {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-            self.voiceCallImageView.alpha = 1.0
+            self.calleeIdTextField.layer.borderWidth = 0.0
             self.voiceCallButton.alpha = 1.0
             self.voiceCallButton.isEnabled = true
-            
-            self.videoCallImageView.alpha = 1.0
+        
             self.videoCallButton.alpha = 1.0
             self.videoCallButton.isEnabled = true
             
