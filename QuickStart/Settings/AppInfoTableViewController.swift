@@ -10,8 +10,8 @@ import UIKit
 import SendBirdCalls
 
 class AppInfoTableViewController: UITableViewController {
-    @IBOutlet weak var appName: UILabel!
-    @IBOutlet weak var appId: UILabel!
+    @IBOutlet weak var appNameLabel: UILabel!
+    @IBOutlet weak var appIdLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class AppInfoTableViewController: UITableViewController {
     }
     
     func setupUI() {
-        self.appName.text = Bundle.main.appName ?? "No app name"
-        self.appId.text = SendBirdCall.appId ?? "No configured app ID"
+        self.appNameLabel.text = Bundle.main.appName ?? "No app name"
+        self.appIdLabel.text = SendBirdCall.appId ?? "No configured app ID"
     }
 }

@@ -258,7 +258,7 @@
         <scene sceneID="YJH-YU-ZAA">
             <objects>
                 <tableViewController id="pMP-aS-NoE" customClass="AppInfoTableViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ezj-DC-fEp">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ezj-DC-fEp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -286,14 +286,14 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Application ID" id="Izd-ja-jkA">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="gV9-W7-6Yg" style="IBUITableViewCellStyleDefault" id="UaY-Jz-5Lu">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Xe9-cB-163" style="IBUITableViewCellStyleDefault" id="UaY-Jz-5Lu">
                                         <rect key="frame" x="0.0" y="155" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UaY-Jz-5Lu" id="7nn-p4-K2O">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="FA74F9B2-8CC9-49AF-AD02-A9AC0659484D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gV9-W7-6Yg">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="FA74F9B2-8CC9-49AF-AD02-A9AC0659484D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="Xe9-cB-163">
                                                     <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -313,13 +313,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Application Information" id="bEs-cc-vvK"/>
                     <connections>
-                        <outlet property="appId" destination="gV9-W7-6Yg" id="mnh-DF-GWE"/>
-                        <outlet property="appName" destination="Ami-vA-eWp" id="PJq-t5-4Nd"/>
+                        <outlet property="appIdLabel" destination="Xe9-cB-163" id="zor-HM-gbL"/>
+                        <outlet property="appNameLabel" destination="Ami-vA-eWp" id="PJq-t5-4Nd"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S1X-9P-b3b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2583" y="1519"/>
+            <point key="canvasLocation" x="2581.875" y="1517.9577464788733"/>
         </scene>
         <!--Voice Call View Controller-->
         <scene sceneID="xQ3-Jv-7ju">
