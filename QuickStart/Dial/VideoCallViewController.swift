@@ -245,59 +245,51 @@ extension VideoCallViewController {
 extension VideoCallViewController: DirectCallDelegate {
     // MARK: Required Methods
     func didConnect(_ call: DirectCall) {
-        DispatchQueue.main.async { [weak self] in
-            self?.remoteUserIdLabel.isHidden = true
-            self?.callStatusLabel.isHidden = true
-            self?.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
-        }
+        self.remoteUserIdLabel.isHidden = true
+        self.callStatusLabel.isHidden = true
+        self.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
     }
     
-    func didEnd(_ call: DirectCall) {
-        DispatchQueue.main.async { [weak self] in
-            // Tell user that the call has been ended.
-            self?.callStatusLabel.text = "Ended"
-            self?.callStatusLabel.isHidden = false
-            self?.remoteUserIdLabel.isHidden = false
-            self?.endButton.isEnabled = true
-            
-            // Release resource
-            self?.view.subviews[0].removeFromSuperview()
-            self?.localVideoView?.isHidden = true
-            self?.remoteProfileImageView.isHidden = false
-            self?.mutedStateImageView.isHidden = true
-            self?.mutedStateLabel.isHidden = true
-            
-            // Go back to `Dial` view
-            Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-                self?.dismiss(animated: true, completion: nil)
-            }
+    func didEnd(_ call: DirectCall) {// Tell user that the call has been ended.
+        self.callStatusLabel.text = "Ended"
+        self.callStatusLabel.isHidden = false
+        self.remoteUserIdLabel.isHidden = false
+        
+        // Release resource
+        self.view.subviews[0].removeFromSuperview()
+        self.localVideoView?.isHidden = true
+        self.remoteProfileImageView.isHidden = false
+        self.mutedStateImageView.isHidden = true
+        self.mutedStateLabel.isHidden = true
+        
+        self.endButton.isHidden = true
+        self.audioOffButton.isHidden = true
+        self.videoOffButton.isHidden = true
+        self.audioRouteButton.isHidden = true
+        
+        // Go back to `Dial` view
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+            self.dismiss(animated: true, completion: nil)
         }
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         self.requestEndTransaction(of: call)
-        
     }
     
     // MARK: Optional Methods
     func didEstablish(_ call: DirectCall) {
-        DispatchQueue.main.async { [weak self] in
-            self?.callStatusLabel.text = "Connecting..."
-            self?.remoteProfileImageView.isHidden = true
-            self?.resizeLocalView()
-        }
+        self.callStatusLabel.text = "Connecting..."
+        self.remoteProfileImageView.isHidden = true
+        self.resizeLocalView()
     }
     
     func didRemoteAudioSettingsChange(_ call: DirectCall) {
-        DispatchQueue.main.async { [weak self] in
-            self?.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
-        }
+        self.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
     }
     
     func didRemoteVideoSettingsChange(_ call: DirectCall) {
-        DispatchQueue.main.async { [weak self] in
-            self?.remoteProfileImageView.isHidden = call.isRemoteVideoEnabled
-        }
+        self.remoteProfileImageView.isHidden = call.isRemoteVideoEnabled
     }
     
     func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
@@ -315,9 +307,7 @@ extension VideoCallViewController: DirectCallDelegate {
         default: imageName = "btnSpeaker"
         }
         
-        DispatchQueue.main.async { [weak self] in
-            self?.audioRouteButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
-            print("[QuickStart] Audio Route has been changed to \(outputName)")
-        }
+        self.audioRouteButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
+        print("[QuickStart] Audio Route has been changed to \(outputName)")
     }
 }
