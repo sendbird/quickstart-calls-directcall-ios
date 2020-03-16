@@ -12,7 +12,7 @@ import SendBirdCalls
 // MARK: For Video View
 extension UIView {
     func embed(_ videoView: SendBirdVideoView) {
-        self.addSubview(videoView)
+        self.insertSubview(videoView, at: 0)
         videoView.translatesAutoresizingMaskIntoConstraints = false
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|",
                                                                     options: [],

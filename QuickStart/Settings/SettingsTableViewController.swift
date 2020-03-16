@@ -8,7 +8,6 @@
 import UIKit
 import SendBirdCalls
 
-
 class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!

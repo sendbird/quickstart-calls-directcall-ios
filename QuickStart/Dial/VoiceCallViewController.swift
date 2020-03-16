@@ -27,6 +27,7 @@ class VoiceCallViewController: UIViewController {
     
     var call: DirectCall!
     var isDialing: Bool?
+    var callTimer: Timer?
     
     let callController = CXCallController()
     // MARK: - SendBirdCall - DirectCallDelegate
@@ -58,24 +59,24 @@ class VoiceCallViewController: UIViewController {
         self.profileImageView.setImage(urlString: profileURL)
         
         self.nameLabel.text = self.call.remoteUser?.userId
-        self.updateRemoteAudio(isOn: self.call.isRemoteAudioEnabled)
+        self.updateRemoteAudio(isOn: true)
         
         // Local Info
-        let audioButtonImage: UIImage? = call.isLocalAudioEnabled ? .unmutedAudioImage : .mutedAudioImage
         self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
-        self.muteAudioButton.setImage(audioButtonImage, for: .normal)
         
         // AudioOutputs
         self.setupAudioOutputButton()
     }
     
     // MARK: - IBActions
-    
-    
     @IBAction func didTapAudioOption(_ sender: UIButton?) {
         guard let sender = sender else { return }
         sender.isSelected.toggle()
         self.updateLocalAudio(enabled: sender.isSelected)
+    }
+    
+    @IBAction func didTapVideoCall() {
+        self.alertError(message: "It doesn't support to transfer from voice call to video call in Calls \(SendBirdCall.sdkVersion)")
     }
     
     @IBAction func didTapEnd() {
@@ -166,7 +167,7 @@ extension VoiceCallViewController {
     func activeTimer() {
         self.callTimerLabel.text = "00:00"
         
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        self.callTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             let duration = Double(self.call.duration)
             
             let convertedTime = Int(duration / 1000)
@@ -182,7 +183,7 @@ extension VoiceCallViewController {
             self.callTimerLabel.text = "\(hourText)\(minuteText):\(secondText)"
             
             // Timer Invalidate
-            if self.call.endedAt != 0 || self.call.isEnded {
+            if self.call.endedAt != 0, timer.isValid {
                 timer.invalidate()
             }
         }
@@ -204,6 +205,7 @@ extension VoiceCallViewController: DirectCallDelegate {
     func didEnd(_ call: DirectCall) {
         DispatchQueue.main.async { [weak self] in
             // Tell user that the call has been ended.
+            self?.callTimer?.invalidate()
             self?.callTimerLabel.text = "Ended"
             self?.endButton.isEnabled = true
             self?.mutedStateImageView.isHidden = true
@@ -235,36 +237,23 @@ extension VoiceCallViewController: DirectCallDelegate {
     }
     
     func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
+        guard !call.isEnded else { return }
         guard let output = session.currentRoute.outputs.first else { return }
         
         let outputType = output.portType
         let outputName = output.portName
         
         // Customize images
-        var imageName = "mic"
+        var imageName = "btnSpeaker"
         switch outputType {
-        case .airPlay: imageName = "airplayvideo"
-        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "headphones"
-        case .builtInReceiver: imageName = "phone.fill"
-        case .builtInSpeaker: imageName = "mic"
-        case .headphones: imageName = "headphones"
-        case .headsetMic: imageName = "headphones"
-        default: imageName = "mic"
+        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "btnBluetoothSelected"
+        case .builtInSpeaker: imageName = "btnSpeakerSelected"
+        default: imageName = "btnSpeaker"
         }
         
         DispatchQueue.main.async { [weak self] in
-            if #available(iOS 13.0, *) {
-                self?.speakerButton.setBackgroundImage(nil, for: .normal)
-                self?.speakerButton.setImage(UIImage(systemName: imageName), for: .normal)
-            } else {
-                self?.speakerButton.setBackgroundImage(UIImage(named: "icChatAudioPurple"), for: .normal)
-            }
-            
-            let alert = UIAlertController(title: nil, message: "Changed to \(outputName)", preferredStyle: .actionSheet)
-            self?.present(alert, animated: true, completion: nil)
-            Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
-                alert.dismiss(animated: true, completion: nil)
-            }
+            self?.speakerButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
+            print("[QuickStart] Audio Route has been changed to \(outputName)")
         }
     }
 }

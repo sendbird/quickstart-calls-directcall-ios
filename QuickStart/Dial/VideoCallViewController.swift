@@ -27,15 +27,16 @@ class VideoCallViewController: UIViewController {
     @IBOutlet weak var remoteProfileImageView: UIImageView!
     
     // Buttons
-    @IBOutlet weak var speakerButton: UIButton!
-    @IBOutlet weak var muteAudioButton: UIButton!
+    @IBOutlet weak var audioRouteButton: UIButton!
+    @IBOutlet weak var audioOffButton: UIButton!
+    @IBOutlet weak var videoOffButton: UIButton!
     @IBOutlet weak var endButton: UIButton!
     
     var call: DirectCall!
     var isDialing: Bool?
     
     let callController = CXCallController()
-    // MARK: - SendBirdCall - DirectCallDelegate
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,33 +64,35 @@ class VideoCallViewController: UIViewController {
         // Remote Info
         let profileURL = self.call.remoteUser?.profileURL
         self.remoteProfileImageView.setImage(urlString: profileURL)
+        self.remoteProfileImageView.alpha = 0.7
+        
         self.remoteUserIdLabel.text = self.call.remoteUser?.userId
-        self.updateRemoteAudio(isOn: self.call.isRemoteAudioEnabled)
+        self.updateRemoteAudio(isOn: true)
         
         // Local Info
-        self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
+        self.audioOffButton.isSelected = !self.call.isLocalAudioEnabled
         
         // AudioOutputs
         self.setupAudioOutputButton()
     }
     
-    // MARK: Video
+    // MARK: - Video
     func setupVideoView() {
         
         let localSBVideoView = SendBirdVideoView(frame: localVideoView?.frame ?? CGRect.zero)
-//        let remoteSBVideoView = SendBirdVideoView(frame: view?.frame ?? CGRect.zero)
+        let remoteSBVideoView = SendBirdVideoView(frame: view?.frame ?? CGRect.zero)
         
         self.call.updateLocalVideoView(localSBVideoView)
-//        self.call.updateRemoteVideoView(remoteSBVideoView)
+        self.call.updateRemoteVideoView(remoteSBVideoView)
         
         self.localVideoView?.embed(localSBVideoView)
-//        self.view?.embed(remoteSBVideoView)
+        self.view?.embed(remoteSBVideoView)
         
     }
     
     // MARK: - IBActions
     @IBAction func didTapFilpCamera() {
-        self.alertError(message: "Camera selection is not supported in 0.8.0")
+        self.alertError(message: "Camera selection is not supported in Calls \(SendBirdCall.sdkVersion)")
     }
     
     @IBAction func didTapAudioOnOff(_ sender: UIButton?) {
@@ -138,18 +141,14 @@ class VideoCallViewController: UIViewController {
 // MARK: - Audio I/O
 extension VideoCallViewController {
     func setupAudioOutputButton() {
-        self.speakerButton.rounding()
-        self.speakerButton.layer.borderColor = UIColor.purple.cgColor
-        self.speakerButton.layer.borderWidth = 2.0
-        
-        let width = self.speakerButton.frame.width
-        let height = self.speakerButton.frame.height
+        let width = self.audioRouteButton.frame.width
+        let height = self.audioRouteButton.frame.height
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         
         let routePickerView = SendBirdCall.routePickerView(frame: frame)
         self.customize(routePickerView)
-        self.speakerButton.addSubview(routePickerView)
+        self.audioRouteButton.addSubview(routePickerView)
     }
     
     func customize(_ routePickerView: UIView) {
@@ -172,8 +171,10 @@ extension VideoCallViewController {
     func updateLocalAudio(isEnabled: Bool) {
         if isEnabled {
             call?.muteMicrophone()
+            self.audioOffButton.setBackgroundImage(UIImage(named: "btnAudioOff"), for: .normal)
         } else {
             call?.unmuteMicrophone()
+            self.audioOffButton.setBackgroundImage(UIImage(named: "btnAudioOffSelected"), for: .normal)
         }
     }
     
@@ -199,8 +200,11 @@ extension VideoCallViewController {
     func updateLocalVideo(isEnabled: Bool) {
         if isEnabled {
             call.stopVideo()
+            self.videoOffButton.setBackgroundImage(UIImage(named: "btnVideoOffSelected"), for: .normal)
+            
         } else {
             call.startVideo()
+            self.videoOffButton.setBackgroundImage(UIImage(named: "btnVideoOff"), for: .normal)
         }
     }
 }
@@ -220,9 +224,15 @@ extension VideoCallViewController: DirectCallDelegate {
     func didEnd(_ call: DirectCall) {
         DispatchQueue.main.async { [weak self] in
             // Tell user that the call has been ended.
-            self?.remoteProfileImageView.isHidden = false
             self?.callStatusLabel.text = "Ended"
+            self?.callStatusLabel.isHidden = false
+            self?.remoteUserIdLabel.isHidden = false
             self?.endButton.isEnabled = true
+            
+            // Release resource
+            self?.view.subviews[0].removeFromSuperview()
+            self?.localVideoView?.isHidden = true
+            self?.remoteProfileImageView.isHidden = false
             self?.mutedStateImageView.isHidden = true
             self?.mutedStateLabel.isHidden = true
             
@@ -242,6 +252,7 @@ extension VideoCallViewController: DirectCallDelegate {
     func didEstablish(_ call: DirectCall) {
         DispatchQueue.main.async { [weak self] in
             self?.callStatusLabel.text = "Connecting..."
+            self?.remoteProfileImageView.isHidden = true
         }
     }
     
@@ -258,37 +269,23 @@ extension VideoCallViewController: DirectCallDelegate {
     }
     
     func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
+        guard !call.isEnded else { return }
         guard let output = session.currentRoute.outputs.first else { return }
         
         let outputType = output.portType
         let outputName = output.portName
         
         // Customize images
-        var imageURL = "mic"
+        var imageName = "btnSpeaker"
         switch outputType {
-        case .airPlay: imageURL = "airplayvideo"
-        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageURL = "headphones"
-        case .builtInReceiver: imageURL = "phone.fill"
-        case .builtInSpeaker: imageURL = "mic"
-        case .headphones: imageURL = "headphones"
-        case .headsetMic: imageURL = "headphones"
-        default: imageURL = "mic"
+        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "btnBluetoothSelected"
+        case .builtInSpeaker: imageName = "btnSpeakerSelected"
+        default: imageName = "btnSpeaker"
         }
         
-        DispatchQueue.main.async {
-            if #available(iOS 13.0, *) {
-                self.speakerButton.setBackgroundImage(nil, for: .normal)
-                self.speakerButton.setImage(UIImage(systemName: imageURL), for: .normal)
-            } else {
-                self.speakerButton.setBackgroundImage(UIImage(named: "icChatAudioPurple"), for: .normal)
-            }
-            
-            let alert = UIAlertController(title: nil, message: "Changed to \(outputName)", preferredStyle: .actionSheet)
-            self.present(alert, animated: true, completion: nil)
-            Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
-                alert.dismiss(animated: true, completion: nil)
-                timer.invalidate()
-            }
+        DispatchQueue.main.async { [weak self] in
+            self?.audioRouteButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
+            print("[QuickStart] Audio Route has been changed to \(outputName)")
         }
     }
 }

@@ -357,11 +357,6 @@
                                 <state key="normal" backgroundImage="btnCallEnd">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="32"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="didTapEnd" destination="7ra-kc-2Kq" eventType="touchUpInside" id="dLg-zp-y93"/>
                                 </connections>
@@ -374,58 +369,40 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1b-0Y-eRW">
                                 <rect key="frame" x="263" y="612" width="64" height="64"/>
-                                <color key="backgroundColor" red="0.6588235294117647" green="0.6588235294117647" blue="0.6588235294117647" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="1Xz-na-m7G"/>
                                     <constraint firstAttribute="width" constant="64" id="MP0-gM-CPQ"/>
                                 </constraints>
                                 <color key="tintColor" red="0.50980392159999999" green="0.36862745099999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" image="icBluetooth">
+                                <state key="normal" backgroundImage="btnSpeaker">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="32"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="didTapSpeakerButton" destination="7ra-kc-2Kq" eventType="touchUpInside" id="hUc-LE-yzK"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZt-rY-YFA">
                                 <rect key="frame" x="175" y="612" width="64" height="64"/>
-                                <color key="backgroundColor" red="0.6588235294" green="0.6588235294" blue="0.6588235294" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="0g2-6g-n6H"/>
                                     <constraint firstAttribute="width" constant="64" id="bK5-5q-GMT"/>
                                 </constraints>
                                 <color key="tintColor" red="0.50980392159999999" green="0.36862745099999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" image="iconSpeaker">
+                                <state key="normal" backgroundImage="btnCallChange">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="32"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="didTapSpeakerButton" destination="7ra-kc-2Kq" eventType="touchUpInside" id="Xct-cV-nQw"/>
+                                    <action selector="didTapVideoCall" destination="7ra-kc-2Kq" eventType="touchUpInside" id="jMr-GB-uKY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yed-ha-XKA">
                                 <rect key="frame" x="87" y="612" width="64" height="64"/>
-                                <color key="backgroundColor" red="0.6588235294117647" green="0.6588235294117647" blue="0.6588235294117647" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="Dle-xM-997"/>
                                     <constraint firstAttribute="height" constant="64" id="VHf-AS-EOl"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="iconAudioOff"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="32"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
+                                <state key="normal" backgroundImage="btnAudioOff"/>
                                 <connections>
                                     <action selector="didTapAudioOption:" destination="7ra-kc-2Kq" eventType="touchUpInside" id="Oe7-ju-0lB"/>
                                 </connections>
@@ -654,7 +631,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ju7-Dw-VFh">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ju7-Dw-VFh">
                                 <rect key="frame" x="-1" y="0.0" width="415" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="402226" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCX-ZN-pc3">
@@ -673,11 +650,6 @@
                                 <state key="normal" backgroundImage="btnCallEnd">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="32"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="didTapEnd" destination="Suw-Gg-jyg" eventType="touchUpInside" id="zIJ-LD-9y0"/>
                                 </connections>
@@ -690,55 +662,39 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80W-6M-guk">
                                 <rect key="frame" x="263" y="612" width="64" height="64"/>
-                                <color key="backgroundColor" red="0.6588235294" green="0.6588235294" blue="0.6588235294" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="0Se-U6-a8g"/>
                                     <constraint firstAttribute="height" constant="64" id="zhc-lN-eS2"/>
                                 </constraints>
                                 <color key="tintColor" red="0.50980392159999999" green="0.36862745099999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" image="icBluetooth">
+                                <state key="normal" backgroundImage="btnSpeaker">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="32"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rze-eW-ca8">
                                 <rect key="frame" x="175" y="612" width="64" height="64"/>
-                                <color key="backgroundColor" red="0.6588235294" green="0.6588235294" blue="0.6588235294" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="UEb-Sw-Fgf"/>
                                     <constraint firstAttribute="height" constant="64" id="vnY-ES-CyG"/>
                                 </constraints>
                                 <color key="tintColor" red="0.50980392159999999" green="0.36862745099999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" image="iconCameraOff">
+                                <state key="normal" backgroundImage="btnVideoOff">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="32"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="didTapVideoOnOff:" destination="Suw-Gg-jyg" eventType="touchUpInside" id="KwC-qo-Inp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Zs-yD-GbR">
                                 <rect key="frame" x="87" y="612" width="64" height="64"/>
-                                <color key="backgroundColor" red="0.6588235294" green="0.6588235294" blue="0.6588235294" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="MPd-Z6-IS2"/>
                                     <constraint firstAttribute="width" constant="64" id="WCo-dX-ccx"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="iconAudioOff"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="32"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
+                                <state key="normal" backgroundImage="btnAudioOff"/>
                                 <connections>
                                     <action selector="didTapAudioOnOff:" destination="Suw-Gg-jyg" eventType="touchUpInside" id="DF3-f1-O8Y"/>
                                 </connections>
@@ -821,15 +777,16 @@
                         <viewLayoutGuide key="safeArea" id="qwO-0a-u35"/>
                     </view>
                     <connections>
+                        <outlet property="audioOffButton" destination="1Zs-yD-GbR" id="KqV-IK-ZGD"/>
+                        <outlet property="audioRouteButton" destination="80W-6M-guk" id="4eH-vN-D8f"/>
                         <outlet property="callStatusLabel" destination="HSX-7e-fOy" id="R4z-t2-XMZ"/>
                         <outlet property="endButton" destination="BW6-Al-tVv" id="XRH-VG-LnR"/>
                         <outlet property="localVideoView" destination="7qS-YE-bhu" id="cJw-oG-57c"/>
-                        <outlet property="muteAudioButton" destination="1Zs-yD-GbR" id="KqV-IK-ZGD"/>
                         <outlet property="mutedStateImageView" destination="Zlx-JV-OdF" id="tdZ-Na-4Hy"/>
                         <outlet property="mutedStateLabel" destination="vgx-ao-2Sm" id="NlO-pr-0a4"/>
                         <outlet property="remoteProfileImageView" destination="Ju7-Dw-VFh" id="V9L-2Y-1rq"/>
                         <outlet property="remoteUserIdLabel" destination="FCX-ZN-pc3" id="76q-t7-SIL"/>
-                        <outlet property="speakerButton" destination="80W-6M-guk" id="4eH-vN-D8f"/>
+                        <outlet property="videoOffButton" destination="Rze-eW-ca8" id="IPT-2c-WwP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tes-oc-mzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -838,20 +795,21 @@
         </scene>
     </scenes>
     <resources>
+        <image name="btnAudioOff" width="64" height="64"/>
+        <image name="btnCallChange" width="64" height="64"/>
         <image name="btnCallEnd" width="64" height="64"/>
         <image name="btnCallVideo" width="64" height="64"/>
         <image name="btnCallVoice" width="64" height="64"/>
         <image name="btnCameraFlipIos" width="48" height="48"/>
-        <image name="icBluetooth" width="32" height="32"/>
+        <image name="btnSpeaker" width="64" height="64"/>
+        <image name="btnVideoOff" width="64" height="64"/>
         <image name="icCallFilled" width="24" height="24"/>
         <image name="icLogoHorizontalPurple300" width="180" height="40"/>
         <image name="icLogoInverse01" width="48" height="48"/>
         <image name="icSettings" width="24" height="24"/>
         <image name="iconAudioOff" width="32" height="32"/>
-        <image name="iconCameraOff" width="32" height="32"/>
         <image name="iconInfo" width="24" height="24"/>
         <image name="iconLeave" width="24" height="24"/>
-        <image name="iconSpeaker" width="32" height="32"/>
         <image name="img_user_profile_default" width="100" height="100"/>
     </resources>
 </document>
