@@ -733,10 +733,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qS-YE-bhu">
                                 <rect key="frame" x="16" y="60" width="96" height="160"/>
                                 <color key="backgroundColor" red="0.6588235294117647" green="0.6588235294117647" blue="0.6588235294117647" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="96" id="hLJ-rC-MsV"/>
-                                    <constraint firstAttribute="height" constant="160" id="qAf-qr-vgB"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="8"/>
@@ -747,10 +743,12 @@
                         <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="HSX-7e-fOy" firstAttribute="top" secondItem="FCX-ZN-pc3" secondAttribute="bottom" constant="8" id="0F7-YD-jmp"/>
+                            <constraint firstItem="qwO-0a-u35" firstAttribute="bottom" secondItem="7qS-YE-bhu" secondAttribute="bottom" constant="642" id="0PQ-sE-hQi"/>
                             <constraint firstItem="qwO-0a-u35" firstAttribute="trailing" secondItem="vgx-ao-2Sm" secondAttribute="trailing" constant="24" id="0jo-Qi-oHB"/>
                             <constraint firstItem="BW6-Al-tVv" firstAttribute="top" secondItem="Rze-eW-ca8" secondAttribute="bottom" constant="24" id="1k6-wn-XQw"/>
                             <constraint firstItem="HSX-7e-fOy" firstAttribute="leading" secondItem="qwO-0a-u35" secondAttribute="leading" constant="24" id="26i-LR-Dxf"/>
                             <constraint firstItem="qwO-0a-u35" firstAttribute="trailing" secondItem="Ju7-Dw-VFh" secondAttribute="trailing" id="5Fe-r9-tEy"/>
+                            <constraint firstItem="qwO-0a-u35" firstAttribute="trailing" secondItem="7qS-YE-bhu" secondAttribute="trailing" constant="302" id="5j5-nn-xFV"/>
                             <constraint firstItem="Zlx-JV-OdF" firstAttribute="top" secondItem="HSX-7e-fOy" secondAttribute="bottom" constant="32" id="An6-8I-aQE"/>
                             <constraint firstItem="Ju7-Dw-VFh" firstAttribute="bottom" secondItem="qwO-0a-u35" secondAttribute="bottom" constant="34" id="B8G-gd-vzA"/>
                             <constraint firstItem="FCX-ZN-pc3" firstAttribute="leading" secondItem="qwO-0a-u35" secondAttribute="leading" constant="24" id="DFL-sQ-VMn"/>
@@ -779,13 +777,17 @@
                     <connections>
                         <outlet property="audioOffButton" destination="1Zs-yD-GbR" id="KqV-IK-ZGD"/>
                         <outlet property="audioRouteButton" destination="80W-6M-guk" id="4eH-vN-D8f"/>
+                        <outlet property="bottomConstraint" destination="0PQ-sE-hQi" id="6Rz-9W-scW"/>
                         <outlet property="callStatusLabel" destination="HSX-7e-fOy" id="R4z-t2-XMZ"/>
                         <outlet property="endButton" destination="BW6-Al-tVv" id="XRH-VG-LnR"/>
+                        <outlet property="leadingConstraint" destination="vgP-a7-iyv" id="kYd-mA-PEu"/>
                         <outlet property="localVideoView" destination="7qS-YE-bhu" id="cJw-oG-57c"/>
                         <outlet property="mutedStateImageView" destination="Zlx-JV-OdF" id="tdZ-Na-4Hy"/>
                         <outlet property="mutedStateLabel" destination="vgx-ao-2Sm" id="NlO-pr-0a4"/>
                         <outlet property="remoteProfileImageView" destination="Ju7-Dw-VFh" id="V9L-2Y-1rq"/>
                         <outlet property="remoteUserIdLabel" destination="FCX-ZN-pc3" id="76q-t7-SIL"/>
+                        <outlet property="topConstratin" destination="Elr-DT-cpV" id="Cao-9G-iEC"/>
+                        <outlet property="trailingConstraint" destination="5j5-nn-xFV" id="VQ7-Jd-Efj"/>
                         <outlet property="videoOffButton" destination="Rze-eW-ca8" id="IPT-2c-WwP"/>
                     </connections>
                 </viewController>

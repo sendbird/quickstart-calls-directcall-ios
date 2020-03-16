@@ -36,7 +36,7 @@ class VoiceCallViewController: UIViewController {
         
         self.call.delegate = self
         
-        self.modalPresentationStyle = .formSheet
+        self.modalPresentationStyle = .fullScreen
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
         }
@@ -51,7 +51,7 @@ class VoiceCallViewController: UIViewController {
         self.setupUI()
     }
     
-    func setupUI() {
+    func setupUI() {        
         // Remote Info
         self.callTimerLabel.text = "Calling..."
         

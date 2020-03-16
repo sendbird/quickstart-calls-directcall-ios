@@ -32,6 +32,12 @@ class VideoCallViewController: UIViewController {
     @IBOutlet weak var videoOffButton: UIButton!
     @IBOutlet weak var endButton: UIButton!
     
+    // Contstraints of local video view
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topConstratin: NSLayoutConstraint!
+    @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    
     var call: DirectCall!
     var isDialing: Bool?
     
@@ -42,7 +48,7 @@ class VideoCallViewController: UIViewController {
         
         self.call.delegate = self
         
-        self.modalPresentationStyle = .formSheet
+        self.modalPresentationStyle = .fullScreen
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
         }
@@ -60,6 +66,12 @@ class VideoCallViewController: UIViewController {
     
     func setupUI() {
         self.callStatusLabel.text = "Calling..."
+        
+        // Local video view full screen
+        self.leadingConstraint.constant = 0
+        self.trailingConstraint.constant = 0
+        self.topConstratin.constant = -44
+        self.bottomConstraint.constant = -44
         
         // Remote Info
         let profileURL = self.call.remoteUser?.profileURL
@@ -88,6 +100,25 @@ class VideoCallViewController: UIViewController {
         self.localVideoView?.embed(localSBVideoView)
         self.view?.embed(remoteSBVideoView)
         
+    }
+    
+    func resizeLocalView() {
+        // Local video view: full screen -> left upper corner small screen
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+            var topSafeMargin: CGFloat = 0
+            var bottomSafeMarging: CGFloat = 0
+            if #available(iOS 11.0, *) {
+                topSafeMargin = self.view.safeAreaInsets.top
+                bottomSafeMarging = self.view.safeAreaInsets.bottom
+            }
+            
+            // Resize as width: 96, height: 160
+            self.leadingConstraint.constant = 16
+            self.trailingConstraint.constant = self.view.frame.width - 112 // (leadingConstraint + local video view width)
+            self.topConstratin.constant = 16
+            self.bottomConstraint.constant = self.view.frame.height - (topSafeMargin + bottomSafeMarging) - 176 // (topConstraint + video view height)
+            self.view.layoutIfNeeded()
+        })
     }
     
     // MARK: - IBActions
@@ -253,6 +284,7 @@ extension VideoCallViewController: DirectCallDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.callStatusLabel.text = "Connecting..."
             self?.remoteProfileImageView.isHidden = true
+            self?.resizeLocalView()
         }
     }
     
