@@ -9,7 +9,6 @@ import UIKit
 import CallKit
 import PushKit
 import SendBirdCalls
-import UserNotifications
 import AVFoundation
 
 @UIApplicationMain
@@ -29,14 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MARK: SendBirdCall.configure(appId:)
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
         SendBirdCall.configure(appId: YOUR_APP_ID)
-        
         SendBirdCall.addDelegate(self, identifier: "DelegateIdentification")
         
-        // Set up notification
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            guard granted else { return }
-            self.getNotificationSettings()
-        }
+        self.voipRegistration()
         
         return true
     }
@@ -49,14 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: PKPushRegistryDelegate {
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        self.voipRegistration()
-    }
-    
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        
-    }
-    
     func voipRegistration() {
         self.voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
         self.voipRegistry?.delegate = self
@@ -64,20 +50,19 @@ extension AppDelegate: PKPushRegistryDelegate {
     }
     
     func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
-
+        //
     }
     
     // MARK: SendBirdCalls - Registering push token.
     func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
-        SendBirdCall.register(pushToken: pushCredentials.token, unique: true) { error in
+        SendBirdCall.registerVoIPPush(token: pushCredentials.token, unique: true) { error in
             guard error == nil else { return }
-            // Even error is ocurred, SendBirdCalls will have pushToken value. This method will be invoked again while authenticating.
+            // Even if an error occurs, SendBirdCalls will save the pushToken value and reinvoke this method internally while authenticating.
         }
         UserDefaults.standard.pushToken = pushCredentials.token
         
         print("Push token is \(pushCredentials.token.toHexString())")
     }
-    
     
     // MARK: SendBirdCalls - Receive incoming push event
     func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
@@ -86,27 +71,9 @@ extension AppDelegate: PKPushRegistryDelegate {
     
     // Handle Incoming pushes
     func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
-        SendBirdCall.addDelegate(self, identifier: "DelegateIdentification")
-        
         // MARK: Handling incoming call
         SendBirdCall.pushRegistry(registry, didReceiveIncomingPushWith: payload, for: type) { uuid in
             completion()
         }
     }
 }
-
-extension AppDelegate {
-    func getNotificationSettings() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            guard settings.authorizationStatus == .authorized else { return }
-            DispatchQueue.main.async {
-                UIApplication.shared.registerForRemoteNotifications()
-            }
-        }
-    }
-}
-
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) { }
-}
-
