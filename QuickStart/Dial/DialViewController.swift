@@ -95,7 +95,7 @@ extension DialViewController {
 
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self] in
-                self?.voiceCallButton.isEnabled = true
+                self?.videoCallButton.isEnabled = true
             }
             
             guard error == nil, let call = call else {
