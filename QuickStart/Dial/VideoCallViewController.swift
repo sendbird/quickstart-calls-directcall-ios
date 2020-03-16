@@ -126,14 +126,12 @@ class VideoCallViewController: UIViewController {
         self.alertError(message: "Camera selection is not supported in Calls \(SendBirdCall.sdkVersion)")
     }
     
-    @IBAction func didTapAudioOnOff(_ sender: UIButton?) {
-        guard let sender = sender else { return }
+    @IBAction func didTapAudioOnOff(_ sender: UIButton) {
         sender.isSelected.toggle()
         self.updateLocalAudio(isEnabled: sender.isSelected)
     }
     
-    @IBAction func didTapVideoOnOff(_ sender: UIButton?) {
-        guard let sender = sender else { return }
+    @IBAction func didTapVideoOnOff(_ sender: UIButton) {
         sender.isSelected.toggle()
         self.updateLocalVideo(isEnabled: sender.isSelected)
     }

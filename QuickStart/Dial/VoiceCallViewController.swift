@@ -70,8 +70,7 @@ class VoiceCallViewController: UIViewController {
     }
     
     // MARK: - IBActions
-    @IBAction func didTapAudioOption(_ sender: UIButton?) {
-        guard let sender = sender else { return }
+    @IBAction func didTapAudioOption(_ sender: UIButton) {
         sender.isSelected.toggle()
         self.updateLocalAudio(enabled: sender.isSelected)
     }

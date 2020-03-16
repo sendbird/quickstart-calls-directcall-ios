@@ -97,7 +97,7 @@ extension SignInViewController {
         self.userIdTextField.leftViewMode = UITextField.ViewMode.always
         
         let sampleVersion = Bundle.main.version
-        self.versionLabel.text = "QuickStart \(sampleVersion)" + "   Calls SDK \(SendBirdCall.sdkVersion)"
+        self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
         
         let current = Calendar.current
         let year = current.component(.year, from: Date())
