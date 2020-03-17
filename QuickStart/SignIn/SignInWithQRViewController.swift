@@ -60,6 +60,7 @@ extension SignInWithQRViewController: QRCodeScanDelegate {
         SendBirdCall.configure(appId: appId)
         UserDefaults.standard.user.id = userId
         UserDefaults.standard.accessToken = accessToken
+        self.updateButtonUI()
         self.signIn()
     }
 }
