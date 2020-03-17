@@ -208,18 +208,14 @@ extension VideoCallViewController {
     }
     
     func updateRemoteAudio(isOn: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            if isOn {
-                self?.mutedStateImageView.isHidden = true
-                self?.mutedStateLabel.isHidden = true
-            } else {
-                self?.mutedStateImageView.isHidden = false
-                if let calleeId = self?.call.callee?.userId {
-                    self?.mutedStateLabel.text = "\(calleeId) muted this call"
-                    self?.mutedStateLabel.isHidden = false
-                }
-                
-            }
+        if isOn {
+            self.mutedStateImageView.isHidden = true
+            self.mutedStateLabel.isHidden = true
+        } else {
+            self.mutedStateImageView.isHidden = false
+            guard let calleeId = self.call.callee?.userId else { return }
+            self.mutedStateLabel.text = "\(calleeId) muted this call"
+            self.mutedStateLabel.isHidden = false
         }
     }
 }
@@ -230,7 +226,6 @@ extension VideoCallViewController {
         if isEnabled {
             call.stopVideo()
             self.videoOffButton.setBackgroundImage(UIImage(named: "btnVideoOffSelected"), for: .normal)
-            
         } else {
             call.startVideo()
             self.videoOffButton.setBackgroundImage(UIImage(named: "btnVideoOff"), for: .normal)

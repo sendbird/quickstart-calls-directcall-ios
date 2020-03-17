@@ -83,9 +83,7 @@ class VoiceCallViewController: UIViewController {
         self.endButton.isEnabled = false
         
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        
         call.end()
-        
         self.requestEndTransaction(of: call)
     }
     
@@ -149,18 +147,14 @@ extension VoiceCallViewController {
     }
     
     func updateRemoteAudio(isOn: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            if isOn {
-                self?.mutedStateImageView.isHidden = true
-                self?.mutedStateLabel.isHidden = true
-            } else {
-                self?.mutedStateImageView.isHidden = false
-                if let calleeId = self?.call.callee?.userId {
-                    self?.mutedStateLabel.text = "\(calleeId) muted this call"
-                    self?.mutedStateLabel.isHidden = false
-                }
-                
-            }
+        if isOn {
+            self.mutedStateImageView.isHidden = true
+            self.mutedStateLabel.isHidden = true
+        } else {
+            self.mutedStateImageView.isHidden = false
+            guard let calleeId = self.call.callee?.userId else { return }
+            self.mutedStateLabel.text = "\(calleeId) muted this call"
+            self.mutedStateLabel.isHidden = false
         }
     }
     
@@ -247,10 +241,8 @@ extension VoiceCallViewController: DirectCallDelegate {
         default: imageName = "btnSpeaker"
         }
         
-        DispatchQueue.main.async { [weak self] in
-            self?.speakerButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
-            print("[QuickStart] Audio Route has been changed to \(outputName)")
-        }
+        self.speakerButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
+        print("[QuickStart] Audio Route has been changed to \(outputName)")
     }
 }
 

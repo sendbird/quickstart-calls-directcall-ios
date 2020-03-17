@@ -51,9 +51,7 @@ extension DialViewController {
     
     @IBAction func didTapVoiceCall() {
         guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else {
-            DispatchQueue.main.async { [weak self] in
-                self?.alertError(message: "Please enter user ID")
-            }
+            self.alertError(message: "Please enter user ID")
             return
         }
         self.voiceCallButton.isEnabled = false
@@ -82,9 +80,7 @@ extension DialViewController {
     
     @IBAction func didTapVideoCall() {
         guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else {
-            DispatchQueue.main.async { [weak self] in
-                self?.alertError(message: "Please enter user ID")
-            }
+            self.alertError(message: "Please enter user ID")
             return
         }
         self.videoCallButton.isEnabled = false
