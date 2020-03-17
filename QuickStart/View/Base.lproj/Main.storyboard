@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Z2-qt-Ig2">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -8,6 +8,129 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Sign In WithQR View Controller-->
+        <scene sceneID="ccI-Pd-Ywy">
+            <objects>
+                <viewController id="8Z2-qt-Ig2" customClass="SignInWithQRViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tm1-8i-vLk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icLogoInverse01" translatesAutoresizingMaskIntoConstraints="NO" id="CUS-lC-bjB">
+                                <rect key="frame" x="183" y="140" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="501-bR-VK6"/>
+                                    <constraint firstAttribute="width" constant="48" id="jcl-Vo-SQo"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBird Calls Sample" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5x-iw-uZH">
+                                <rect key="frame" x="16" y="212" width="382" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="KA3-uE-zWS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0034509803919999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YZR-b6-jmu">
+                                <rect key="frame" x="24" y="353" width="366" height="60"/>
+                                <color key="backgroundColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Wda-xj-ofb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <state key="normal" title="Scan QR Code">
+                                    <color key="titleColor" red="0.96470588239999999" green="0.97254901959999995" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapScanQRCode" destination="8Z2-qt-Ig2" eventType="touchUpInside" id="Wdm-5I-NAP"/>
+                                    <action selector="didTapSignIn" destination="BYZ-38-t0r" eventType="touchUpInside" id="0VC-9k-I1l"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can sign in by scanning the QR code from the Studio on the SendBird Dashboard" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sNs-xL-ZFe">
+                                <rect key="frame" x="24" y="265" width="366" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="tvC-G3-ISZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBirdCall iOS ver0.0.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="njB-YT-BFm">
+                                <rect key="frame" x="40" y="814" width="334" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="© 2019 SendBird" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGf-dO-LVe">
+                                <rect key="frame" x="40" y="838" width="334" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vhI-5x-sCY" firstAttribute="trailing" secondItem="njB-YT-BFm" secondAttribute="trailing" constant="40" id="0g9-Sb-NRR"/>
+                            <constraint firstItem="vhI-5x-sCY" firstAttribute="trailing" secondItem="EGf-dO-LVe" secondAttribute="trailing" constant="40" id="44b-tU-7F7"/>
+                            <constraint firstItem="sNs-xL-ZFe" firstAttribute="top" secondItem="c5x-iw-uZH" secondAttribute="bottom" constant="24" id="4zm-4n-ryz"/>
+                            <constraint firstItem="c5x-iw-uZH" firstAttribute="leading" secondItem="vhI-5x-sCY" secondAttribute="leading" constant="16" id="ABp-p9-Sb5"/>
+                            <constraint firstItem="sNs-xL-ZFe" firstAttribute="leading" secondItem="vhI-5x-sCY" secondAttribute="leading" constant="24" id="Boy-ci-NLu"/>
+                            <constraint firstItem="vhI-5x-sCY" firstAttribute="bottom" secondItem="EGf-dO-LVe" secondAttribute="bottom" constant="8" id="Cdf-Gx-c0U"/>
+                            <constraint firstItem="EGf-dO-LVe" firstAttribute="leading" secondItem="vhI-5x-sCY" secondAttribute="leading" constant="40" id="DjP-AA-Hgc"/>
+                            <constraint firstItem="CUS-lC-bjB" firstAttribute="top" secondItem="vhI-5x-sCY" secondAttribute="top" constant="96" id="HnQ-gS-ebf"/>
+                            <constraint firstItem="njB-YT-BFm" firstAttribute="leading" secondItem="vhI-5x-sCY" secondAttribute="leading" constant="40" id="IiX-IK-vk2"/>
+                            <constraint firstItem="vhI-5x-sCY" firstAttribute="trailing" secondItem="c5x-iw-uZH" secondAttribute="trailing" constant="16" id="JUW-kL-dPA"/>
+                            <constraint firstItem="YZR-b6-jmu" firstAttribute="leading" secondItem="vhI-5x-sCY" secondAttribute="leading" constant="24" id="TvV-td-Li8"/>
+                            <constraint firstItem="CUS-lC-bjB" firstAttribute="centerX" secondItem="vhI-5x-sCY" secondAttribute="centerX" id="WjC-lQ-R2H"/>
+                            <constraint firstItem="c5x-iw-uZH" firstAttribute="top" secondItem="CUS-lC-bjB" secondAttribute="bottom" constant="24" id="bux-5s-Edw"/>
+                            <constraint firstItem="YZR-b6-jmu" firstAttribute="top" secondItem="sNs-xL-ZFe" secondAttribute="bottom" constant="48" id="chv-Z4-xch"/>
+                            <constraint firstItem="vhI-5x-sCY" firstAttribute="trailing" secondItem="YZR-b6-jmu" secondAttribute="trailing" constant="24" id="gG1-a2-S4M"/>
+                            <constraint firstItem="vhI-5x-sCY" firstAttribute="trailing" secondItem="sNs-xL-ZFe" secondAttribute="trailing" constant="24" id="gWt-eD-Yxk"/>
+                            <constraint firstItem="EGf-dO-LVe" firstAttribute="top" secondItem="njB-YT-BFm" secondAttribute="bottom" constant="8" id="hMm-HT-1Xm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vhI-5x-sCY"/>
+                    </view>
+                    <connections>
+                        <outlet property="copyrightLabel" destination="EGf-dO-LVe" id="ldJ-lb-wQd"/>
+                        <outlet property="scanButton" destination="YZR-b6-jmu" id="p5I-6e-eW0"/>
+                        <outlet property="versionLabel" destination="njB-YT-BFm" id="SSx-tv-57D"/>
+                        <segue destination="HZU-fS-yDQ" kind="presentation" identifier="scanQR" id="y0G-Qq-jzO"/>
+                        <segue destination="vv4-4l-vzD" kind="presentation" identifier="signInWithQRCode" modalPresentationStyle="fullScreen" id="z0d-vE-FZS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZrS-E7-0Vh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1307" y="427"/>
+        </scene>
+        <!--Scan QR Code-->
+        <scene sceneID="h2T-4W-pqG">
+            <objects>
+                <viewController id="ZQr-Ed-b7c" customClass="QRCodeViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PGz-xV-q5e">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Uz5-PR-CCk"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Scan QR Code" id="UeW-zv-zcX">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="kf0-OR-x4h">
+                            <color key="tintColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="didTapCancel" destination="ZQr-Ed-b7c" id="170-VK-vkj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ros-ta-8Xs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="194" y="425"/>
+        </scene>
         <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -461,7 +584,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bjF-WA-1Q9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2583" y="779"/>
+            <point key="canvasLocation" x="2581" y="781"/>
         </scene>
         <!--Dial-->
         <scene sceneID="eda-BC-zTo">
@@ -561,7 +684,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3Z-6X-Og9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1806" y="425"/>
+            <point key="canvasLocation" x="1803" y="427"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="7VQ-Kb-uEx">
@@ -601,7 +724,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hRi-wq-4gj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1022" y="425"/>
+            <point key="canvasLocation" x="1019" y="427"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m5a-WD-cYh">
@@ -794,7 +917,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tes-oc-mzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2582.608695652174" y="66.964285714285708"/>
+            <point key="canvasLocation" x="2581" y="69"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="360-so-8ei">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HZU-fS-yDQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cNy-Uv-1qW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZQr-Ed-b7c" kind="relationship" relationship="rootViewController" id="cpd-5K-fSJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QA0-Zf-8WT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-555" y="425"/>
         </scene>
     </scenes>
     <resources>
@@ -815,4 +956,7 @@
         <image name="iconLeave" width="24" height="24"/>
         <image name="img_user_profile_default" width="100" height="100"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="z0d-vE-FZS"/>
+    </inferredMetricsTieBreakers>
 </document>
