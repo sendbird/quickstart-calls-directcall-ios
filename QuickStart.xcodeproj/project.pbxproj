@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5281EB6E23A8602300EDA984 /* CXCallController+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281EB6D23A8602300EDA984 /* CXCallController+QuickStart.swift */; };
 		8A5932EA8E7F784FC9593796 /* Pods_QuickStart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9DDAC64E8A0C1F265438FF3 /* Pods_QuickStart.framework */; };
+		A91199BC2421257300208E21 /* CallViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91199BB2421257300208E21 /* CallViewable.swift */; };
 		A9409C462390FA8100410458 /* UserDefaults+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */; };
 		A9409C482390FA8E00410458 /* NotificationCenter+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */; };
 		A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */; };
@@ -45,6 +46,7 @@
 		4C5CCED4A278506FC384ADA6 /* Pods-QuickStart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickStart.debug.xcconfig"; path = "Target Support Files/Pods-QuickStart/Pods-QuickStart.debug.xcconfig"; sourceTree = "<group>"; };
 		5281EB6D23A8602300EDA984 /* CXCallController+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CXCallController+QuickStart.swift"; sourceTree = "<group>"; };
 		70DECEBFA6F9F41B919BF0A7 /* Pods_QuickStart_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickStart_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A91199BB2421257300208E21 /* CallViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewable.swift; sourceTree = "<group>"; };
 		A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+QuickStart.swift"; sourceTree = "<group>"; };
 		A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+QuickStart.swift"; sourceTree = "<group>"; };
 		A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+QuickStart.swift"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				A951A7A6238CC4DF00410E40 /* DialViewController.swift */,
 				A951A7AE238D154700410E40 /* VoiceCallViewController.swift */,
 				A96839EF2418ED0100317004 /* VideoCallViewController.swift */,
+				A91199BB2421257300208E21 /* CallViewable.swift */,
 			);
 			path = Dial;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				A9AC8755241A202C004AB93B /* AppInfoTableViewController.swift in Sources */,
 				A9A72CA72387B448007C0878 /* SceneDelegate.swift in Sources */,
 				A943CAF723C5AD06009F6E49 /* AppDelegate+CXProviderDelegate.swift in Sources */,
+				A91199BC2421257300208E21 /* CallViewable.swift in Sources */,
 				A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */,
 				A99CC95823BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift in Sources */,
 				A943CAF523C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift in Sources */,

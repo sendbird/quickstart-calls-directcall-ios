@@ -48,11 +48,6 @@ class VideoCallViewController: UIViewController {
         
         self.call.delegate = self
         
-        self.modalPresentationStyle = .fullScreen
-        if #available(iOS 13.0, *) {
-            self.isModalInPresentation = true
-        }
-        
         if isDialing ?? false {
             guard let calleeId = self.call.remoteUser?.userId else {
                 self.navigationController?.popViewController(animated: true)
@@ -60,37 +55,14 @@ class VideoCallViewController: UIViewController {
             }
             self.dialed(to: calleeId)
         }
-        self.setupUI()
         self.setupVideoView()
-    }
-    
-    func setupUI() {
-        self.callStatusLabel.text = "Calling..."
-        
-        // Local video view full screen
-        self.leadingConstraint.constant = 0
-        self.trailingConstraint.constant = 0
-        self.topConstratin.constant = -44
-        self.bottomConstraint.constant = -44
-        
-        // Remote Info
-        let profileURL = self.call.remoteUser?.profileURL
-        self.remoteProfileImageView.setImage(urlString: profileURL)
-        self.remoteProfileImageView.alpha = 0.7
-        
-        self.remoteUserIdLabel.text = self.call.remoteUser?.userId
-        self.updateRemoteAudio(isOn: true)
-        
-        // Local Info
-        self.audioOffButton.isSelected = !self.call.isLocalAudioEnabled
-        
-        // AudioOutputs
+        self.setupUI(in: self)
+        self.updateRemoteAudio(isEnabled: true, call: self.call, in: self)
         self.setupAudioOutputButton()
     }
     
     // MARK: - Video
     func setupVideoView() {
-        
         let localSBVideoView = SendBirdVideoView(frame: localVideoView?.frame ?? CGRect.zero)
         let remoteSBVideoView = SendBirdVideoView(frame: view?.frame ?? CGRect.zero)
         
@@ -99,26 +71,6 @@ class VideoCallViewController: UIViewController {
         
         self.localVideoView?.embed(localSBVideoView)
         self.view?.embed(remoteSBVideoView)
-        
-    }
-    
-    func resizeLocalView() {
-        // Local video view: full screen -> left upper corner small screen
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
-            var topSafeMargin: CGFloat = 0
-            var bottomSafeMarging: CGFloat = 0
-            if #available(iOS 11.0, *) {
-                topSafeMargin = self.view.safeAreaInsets.top
-                bottomSafeMarging = self.view.safeAreaInsets.bottom
-            }
-            
-            // Resize as width: 96, height: 160
-            self.leadingConstraint.constant = 16
-            self.trailingConstraint.constant = self.view.frame.width - 112 // (leadingConstraint + local video view width)
-            self.topConstratin.constant = 16
-            self.bottomConstraint.constant = self.view.frame.height - (topSafeMargin + bottomSafeMarging) - 176 // (topConstraint + video view height)
-            self.view.layoutIfNeeded()
-        })
     }
     
     // MARK: - IBActions
@@ -195,75 +147,17 @@ extension VideoCallViewController {
     }
 }
 
-// MARK: - SendBirdCall - DirectCall audio mute / unmute
-extension VideoCallViewController {
-    func updateLocalAudio(isEnabled: Bool) {
-        if isEnabled {
-            call?.muteMicrophone()
-            self.audioOffButton.setBackgroundImage(UIImage(named: "btnAudioOff"), for: .normal)
-        } else {
-            call?.unmuteMicrophone()
-            self.audioOffButton.setBackgroundImage(UIImage(named: "btnAudioOffSelected"), for: .normal)
-        }
-    }
-    
-    func updateRemoteAudio(isOn: Bool) {
-        if isOn {
-            self.mutedStateImageView.isHidden = true
-            self.mutedStateLabel.isHidden = true
-        } else {
-            self.mutedStateImageView.isHidden = false
-            guard let calleeId = self.call.callee?.userId else { return }
-            self.mutedStateLabel.text = "\(calleeId) muted this call"
-            self.mutedStateLabel.isHidden = false
-        }
-    }
-}
-
-// MARK: - SendBirdCall - DirectCall video start / stop
-extension VideoCallViewController {
-    func updateLocalVideo(isEnabled: Bool) {
-        if isEnabled {
-            call.stopVideo()
-            self.videoOffButton.setBackgroundImage(UIImage(named: "btnVideoOffSelected"), for: .normal)
-        } else {
-            call.startVideo()
-            self.videoOffButton.setBackgroundImage(UIImage(named: "btnVideoOff"), for: .normal)
-        }
-    }
-}
-
-
 // MARK: - SendBirdCall - DirectCallDelegate
 extension VideoCallViewController: DirectCallDelegate {
     // MARK: Required Methods
     func didConnect(_ call: DirectCall) {
         self.remoteUserIdLabel.isHidden = true
         self.callStatusLabel.isHidden = true
-        self.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
+        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled, call: call, in: self)
     }
     
-    func didEnd(_ call: DirectCall) {// Tell user that the call has been ended.
-        self.callStatusLabel.text = "Ended"
-        self.callStatusLabel.isHidden = false
-        self.remoteUserIdLabel.isHidden = false
-        
-        // Release resource
-        self.view.subviews[0].removeFromSuperview()
-        self.localVideoView?.isHidden = true
-        self.remoteProfileImageView.isHidden = false
-        self.mutedStateImageView.isHidden = true
-        self.mutedStateLabel.isHidden = true
-        
-        self.endButton.isHidden = true
-        self.audioOffButton.isHidden = true
-        self.videoOffButton.isHidden = true
-        self.audioRouteButton.isHidden = true
-        
-        // Go back to `Dial` view
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-            self.dismiss(animated: true, completion: nil)
-        }
+    func didEnd(_ call: DirectCall) {
+        self.setupEndedCallUI(in: self)
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
@@ -272,17 +166,16 @@ extension VideoCallViewController: DirectCallDelegate {
     
     // MARK: Optional Methods
     func didEstablish(_ call: DirectCall) {
-        self.callStatusLabel.text = "Connecting..."
-        self.remoteProfileImageView.isHidden = true
-        self.resizeLocalView()
+        self.setupEstabilshedCallUI(in: self)
+        self.resizeLocalVideoView(in: self)
     }
     
     func didRemoteAudioSettingsChange(_ call: DirectCall) {
-        self.updateRemoteAudio(isOn: call.isRemoteAudioEnabled)
+        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled, call: call, in: self)
     }
     
     func didRemoteVideoSettingsChange(_ call: DirectCall) {
-        self.remoteProfileImageView.isHidden = call.isRemoteVideoEnabled
+        self.updateRemoteVideo(isEnabled: call.isRemoteVideoEnabled, in: self)
     }
     
     func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
@@ -302,5 +195,27 @@ extension VideoCallViewController: DirectCallDelegate {
         
         self.audioRouteButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
         print("[QuickStart] Audio Route has been changed to \(outputName)")
+    }
+}
+
+extension VideoCallViewController: CallViewable {
+    // MARK: Audio
+    func updateLocalAudio(isEnabled: Bool) {
+        self.audioOffButton.setBackgroundImage(UIImage(named: isEnabled ? "btnAudioOffSelected" : "btnAudioOff"), for: .normal)
+        if isEnabled {
+            call?.muteMicrophone()
+        } else {
+            call?.unmuteMicrophone()
+        }
+    }
+    
+    // MARK: Video
+    func updateLocalVideo(isEnabled: Bool) {
+        self.videoOffButton.setBackgroundImage(UIImage(named: isEnabled ? "btnVideoOffSelected" : "btnVideoOff"), for: .normal)
+        if isEnabled {
+            call.stopVideo()
+        } else {
+            call.startVideo()
+        }
     }
 }
