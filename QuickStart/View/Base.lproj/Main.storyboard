@@ -11,7 +11,7 @@
         <!--Sign In WithQR View Controller-->
         <scene sceneID="ccI-Pd-Ywy">
             <objects>
-                <viewController id="8Z2-qt-Ig2" customClass="SignInWithQRViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInWithQRViewController" id="8Z2-qt-Ig2" customClass="SignInWithQRViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tm1-8i-vLk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
