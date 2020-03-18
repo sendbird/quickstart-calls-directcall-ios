@@ -11,7 +11,7 @@ import CallKit
 import MediaPlayer
 import SendBirdCalls
 
-class VoiceCallViewController: UIViewController {
+class VoiceCallViewController: UIViewController, DirectCallDataSource {
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -28,11 +28,11 @@ class VoiceCallViewController: UIViewController {
     
     var call: DirectCall!
     var isDialing: Bool?
+    
     var callTimer: Timer?
     
     let callController = CXCallController()
     
-    // MARK: - SendBirdCall - DirectCallDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,9 +45,9 @@ class VoiceCallViewController: UIViewController {
             }
             self.dialed(to: calleeId)
         }
-        self.setupUI(in: self)
+        self.setupUI()
         self.setupAudioOutputButton()
-        self.updateRemoteAudio(isEnabled: true, call: self.call, in: self)
+        self.updateRemoteAudio(isEnabled: true)
     }
     
     // MARK: - IBActions
@@ -68,7 +68,38 @@ class VoiceCallViewController: UIViewController {
         self.requestEndTransaction(of: call)
     }
     
-    // MARK: - Call Methods
+    // MARK: - Basic UI
+    func setupUI() {
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
+
+        self.callTimerLabel.text = "Calling..."
+        let profileURL = self.call.remoteUser?.profileURL
+        self.profileImageView.setImage(urlString: profileURL)
+        self.nameLabel.text = self.call.remoteUser?.userId
+        if let calleeId = self.call.callee?.userId {
+            self.mutedStateLabel.text = "\(calleeId) muted this call"
+        }
+
+        // Local Info
+        self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
+    }
+    
+    func setupEndedCallUI() {
+        self.callTimer?.invalidate()
+        self.callTimerLabel.text = "Ended"
+        
+        self.endButton.isHidden = true
+        self.speakerButton.isHidden = true
+        self.muteAudioButton.isHidden = true
+        self.videoCallButton.isHidden = true
+        
+        self.mutedStateImageView.isHidden = true
+        self.mutedStateLabel.isHidden = true
+    }
+    
+    // MARK: - CallKit Methods
     func dialed(to calleeId: String) {
         
         let handle = CXHandle(type: .generic, value: calleeId)
@@ -89,7 +120,24 @@ class VoiceCallViewController: UIViewController {
     }
 }
 
-// MARK: - Audio I/O
+// MARK: - SendBirdCalls: Audio Features
+extension VoiceCallViewController {
+    func updateLocalAudio(isEnabled: Bool) {
+        self.muteAudioButton.setBackgroundImage(UIImage(named: isEnabled ? "btnAudioOffSelected" : "btnAudioOff"), for: .normal)
+        if isEnabled {
+            call?.muteMicrophone()
+        } else {
+            call?.unmuteMicrophone()
+        }
+    }
+    
+    func updateRemoteAudio(isEnabled: Bool) {
+        self.mutedStateImageView.isHidden = isEnabled
+        self.mutedStateLabel.isHidden = isEnabled
+    }
+}
+
+// MARK: - SendBirdCalls: Audio Output
 extension VoiceCallViewController {
     func setupAudioOutputButton() {
         let width = self.speakerButton.frame.width
@@ -117,7 +165,7 @@ extension VoiceCallViewController {
     }
 }
 
-// MARK: - SendBirdCall - DirectCall duration
+// MARK: - SendBirdCalls: DirectCall duration
 extension VoiceCallViewController {
     func activeTimer() {
         self.callTimerLabel.text = "00:00"
@@ -145,18 +193,21 @@ extension VoiceCallViewController {
     }
 }
 
-
-// MARK: - SendBirdCall - DirectCallDelegate
+// MARK: - SendBirdCalls: DirectCallDelegate
 extension VoiceCallViewController: DirectCallDelegate {
     // MARK: Required Methods
     // This method is required
     func didConnect(_ call: DirectCall) {
         self.activeTimer()      // call.duration
-        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled, call: call, in: self)
+        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
     }
     
     func didEnd(_ call: DirectCall) {
-        self.setupEndedCallUI(in: self)
+        self.setupEndedCallUI()
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
@@ -166,11 +217,11 @@ extension VoiceCallViewController: DirectCallDelegate {
     
     // MARK: Optional Methods
     func didEstablish(_ call: DirectCall) {
-        self.setupEstabilshedCallUI(in: self)
+        self.callTimerLabel.text = "Connecting..."
     }
     
     func didRemoteAudioSettingsChange(_ call: DirectCall) {
-        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled, call: call, in: self)
+        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
     }
     
     func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
@@ -190,17 +241,5 @@ extension VoiceCallViewController: DirectCallDelegate {
         
         self.speakerButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
         print("[QuickStart] Audio Route has been changed to \(outputName)")
-    }
-}
-
-extension VoiceCallViewController: CallViewable {
-    // MARK: Audio
-    func updateLocalAudio(isEnabled: Bool) {
-        self.muteAudioButton.setBackgroundImage(UIImage(named: isEnabled ? "btnAudioOffSelected" : "btnAudioOff"), for: .normal)
-        if isEnabled {
-            call?.muteMicrophone()
-        } else {
-            call?.unmuteMicrophone()
-        }
     }
 }
