@@ -30,8 +30,10 @@ class SettingsTableViewController: UITableViewController {
         self.usernameLabel.text = UserDefaults.standard.user.name
         self.usernameLabel.textColor = .purple
         
-        let profile = UserDefaults.standard.user.profile
-        self.userProfileImageView.setImage(urlString: profile)
+        DispatchQueue.main.async { [weak self] in
+            let profile = UserDefaults.standard.user.profile
+            self?.userProfileImageView.setImage(urlString: profile)
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

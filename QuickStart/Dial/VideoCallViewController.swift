@@ -79,9 +79,11 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         self.bottomConstraint.constant = -44
         
         // Remote Info
-        let profileURL = self.call.remoteUser?.profileURL
-        self.remoteProfileImageView.setImage(urlString: profileURL)
-        self.remoteProfileImageView.alpha = 0.7
+        DispatchQueue.main.async { [weak self] in
+            let profileURL = self?.call.remoteUser?.profileURL
+            self?.remoteProfileImageView.setImage(urlString: profileURL)
+        }
+        self.remoteProfileImageView.isHidden = true
         
         self.remoteUserIdLabel.text = self.call.remoteUser?.userId
         

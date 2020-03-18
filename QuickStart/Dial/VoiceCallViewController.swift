@@ -68,10 +68,12 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
         }
-
+        
+        DispatchQueue.main.async { [weak self] in
+            let profileURL = self?.call.remoteUser?.profileURL
+            self?.profileImageView.setImage(urlString: profileURL)
+        }
         self.callTimerLabel.text = "Calling..."
-        let profileURL = self.call.remoteUser?.profileURL
-        self.profileImageView.setImage(urlString: profileURL)
         self.nameLabel.text = self.call.remoteUser?.userId
         if let calleeId = self.call.callee?.userId {
             self.mutedStateLabel.text = "\(calleeId) muted this call"
