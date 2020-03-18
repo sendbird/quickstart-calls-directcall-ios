@@ -18,7 +18,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     
     @IBOutlet weak var speakerButton: UIButton!
     @IBOutlet weak var muteAudioButton: UIButton!
-    @IBOutlet weak var videoCallButton: UIButton!
     @IBOutlet weak var endButton: UIButton!
     @IBOutlet weak var callTimerLabel: UILabel!
     
@@ -56,10 +55,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         self.updateLocalAudio(isEnabled: sender.isSelected)
     }
     
-    @IBAction func didTapVideoCall() {
-        self.alertError(message: "It doesn't support to transfer from voice call to video call in Calls \(SendBirdCall.sdkVersion)")
-    }
-    
     @IBAction func didTapEnd() {
         self.endButton.isEnabled = false
         
@@ -93,7 +88,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         self.endButton.isHidden = true
         self.speakerButton.isHidden = true
         self.muteAudioButton.isHidden = true
-        self.videoCallButton.isHidden = true
         
         self.mutedStateImageView.isHidden = true
         self.mutedStateLabel.isHidden = true

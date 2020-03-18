@@ -34,9 +34,12 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     
     // Contstraints of local video view
     @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var topConstratin: NSLayoutConstraint!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    
+    // Constraints of remote user ID
+    @IBOutlet weak var topSpaceRemoteUserId: NSLayoutConstraint!
     
     var call: DirectCall!
     var isDialing: Bool?
@@ -72,7 +75,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         // Local video view full screen
         self.leadingConstraint.constant = 0
         self.trailingConstraint.constant = 0
-        self.topConstratin.constant = -44
+        self.topConstraint.constant = -44
         self.bottomConstraint.constant = -44
         
         // Remote Info
@@ -89,13 +92,14 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     func setupEndedCallUI() {
         // Tell user that the call has been ended.
         self.callStatusLabel.text = "Ended"
+        self.topSpaceRemoteUserId.constant = 244
         self.callStatusLabel.isHidden = false
         self.remoteUserIdLabel.isHidden = false
+        self.remoteProfileImageView.isHidden = false
         
         // Release resource
         self.view.subviews[0].removeFromSuperview()
         self.localVideoView?.isHidden = true
-        self.remoteProfileImageView.isHidden = false
         self.mutedStateImageView.isHidden = true
         self.mutedStateLabel.isHidden = true
         
@@ -181,7 +185,7 @@ extension VideoCallViewController {
             // Resize as width: 96, height: 160
             self.leadingConstraint.constant = 16
             self.trailingConstraint.constant = self.view.frame.width - 112 // (leadingConstraint + local video view width)
-            self.topConstratin.constant = 16
+            self.topConstraint.constant = 16
             self.bottomConstraint.constant = self.view.frame.maxY - (topSafeMargin + bottomSafeMarging) - 176 // (topConstraint + video view height)
             self.view.layoutIfNeeded()
         })
@@ -192,13 +196,11 @@ extension VideoCallViewController {
         self.videoOffButton.setBackgroundImage(UIImage(named: isEnabled ? "btnVideoOffSelected" : "btnVideoOff"), for: .normal)
         if isEnabled {
             call.stopVideo()
+            self.localVideoView?.subviews[0].isHidden = true
         } else {
             call.startVideo()
+            self.localVideoView?.subviews[0].isHidden = false
         }
-    }
-    
-    func updateRemoteVideo(isEnabled: Bool) {
-        self.remoteProfileImageView.isHidden = isEnabled
     }
 }
 
@@ -269,7 +271,6 @@ extension VideoCallViewController: DirectCallDelegate {
         self.resizeLocalVideoView()
         
         self.callStatusLabel.text = "Connecting..."
-        self.remoteProfileImageView.isHidden = true
     }
     
     func didRemoteAudioSettingsChange(_ call: DirectCall) {
@@ -277,7 +278,7 @@ extension VideoCallViewController: DirectCallDelegate {
     }
     
     func didRemoteVideoSettingsChange(_ call: DirectCall) {
-        self.updateRemoteVideo(isEnabled: call.isRemoteVideoEnabled)
+        // ...
     }
     
     func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
