@@ -64,7 +64,7 @@ extension SignInViewController {
     
     func signIn(userId: String) {
         // MARK: SendBirdCall.authenticate()
-        let params = AuthenticateParams(userId: userId, accessToken: nil)
+        let params = AuthenticateParams(userId: userId, accessToken: nil, voipPushToken: UserDefaults.standard.pushToken, unique: false)
         
         SendBirdCall.authenticate(with: params) { user, error in
             guard let user = user, error == nil else {

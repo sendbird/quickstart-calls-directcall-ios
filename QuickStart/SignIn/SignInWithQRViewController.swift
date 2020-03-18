@@ -70,7 +70,7 @@ extension SignInWithQRViewController {
     func signIn() {
         let userId = UserDefaults.standard.user.id
         let accessToken = UserDefaults.standard.accessToken
-        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken)
+        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken, voipPushToken: UserDefaults.standard.pushToken, unique: false)
         
         SendBirdCall.authenticate(with: authParams) { user, error in
             guard let user = user, error == nil else {
