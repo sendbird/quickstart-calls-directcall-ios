@@ -25,10 +25,8 @@ class SettingsTableViewController: UITableViewController {
     }
     
     func setupUserInfo() {
-        self.userIdLabel.text = "User Id: \(UserDefaults.standard.user.id)"
-        self.userIdLabel.textColor = .lightPurple
+        self.userIdLabel.text = UserDefaults.standard.user.id
         self.usernameLabel.text = UserDefaults.standard.user.name
-        self.usernameLabel.textColor = .purple
         
         DispatchQueue.main.async { [weak self] in
             let profile = UserDefaults.standard.user.profile

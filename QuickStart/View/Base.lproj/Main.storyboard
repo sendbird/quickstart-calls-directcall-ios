@@ -274,13 +274,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3g-kY-c9q">
                                                     <rect key="frame" x="40" y="120" width="334" height="15"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdn-I1-Ekm">
                                                     <rect key="frame" x="40" y="92" width="334" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_user_profile_default" translatesAutoresizingMaskIntoConstraints="NO" id="APk-lX-5qt">
@@ -414,9 +414,9 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="HzU-T5-gMJ"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="userIdLabel" destination="o3g-kY-c9q" id="6hs-ik-6xN"/>
+                        <outlet property="userIdLabel" destination="Gdn-I1-Ekm" id="TIX-Ch-aij"/>
                         <outlet property="userProfileImageView" destination="APk-lX-5qt" id="5hq-py-S62"/>
-                        <outlet property="usernameLabel" destination="Gdn-I1-Ekm" id="p1T-KM-p9B"/>
+                        <outlet property="usernameLabel" destination="o3g-kY-c9q" id="52F-pZ-6JL"/>
                         <segue destination="pMP-aS-NoE" kind="show" identifier="appInfo" id="hbY-ly-HcS"/>
                     </connections>
                 </tableViewController>
