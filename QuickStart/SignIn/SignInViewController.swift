@@ -105,19 +105,7 @@ extension SignInViewController {
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        guard let keyboardFrameBegin = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else  { return }
-        let keyboardFrameBeginRect = keyboardFrameBegin.cgRectValue
-        let keyboardHeight = keyboardFrameBeginRect.size.height
-        
-        let safeArea = keyboardHeight + 8.0
-        let currentArea = self.view.frame.height - self.signInButton.frame.maxY
-        let gap = safeArea - currentArea
-            
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-            if gap > 0 {
-                self.logoImageView.alpha = 0.3
-                self.mainLabel.alpha = 0.0
-            }
             self.userIdTextField.layer.borderWidth = 1.0
             self.view.layoutIfNeeded()
         }
@@ -129,8 +117,6 @@ extension SignInViewController {
     @objc func keyboardWillHide(_ notification: Notification) {
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
             self.userIdTextField.layer.borderWidth = 0.0
-            self.logoImageView.alpha = 1.0
-            self.mainLabel.alpha = 1.0
             self.view.layoutIfNeeded()
         }
         animator.startAnimation()

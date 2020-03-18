@@ -207,7 +207,7 @@
                                     <constraint firstAttribute="height" constant="48" id="kQu-sc-JtL"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBird Calls Sample" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXe-dD-UH7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBird Calls Sample" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="jXe-dD-UH7">
                                 <rect key="frame" x="40" y="212" width="334" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="Vpq-5R-RVb"/>
@@ -1005,6 +1005,6 @@
         <image name="img_user_profile_default" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="z0d-vE-FZS"/>
+        <segue reference="Yib-DD-kYP"/>
     </inferredMetricsTieBreakers>
 </document>
