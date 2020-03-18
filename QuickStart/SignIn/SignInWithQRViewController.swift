@@ -28,6 +28,17 @@ class SignInWithQRViewController: UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if UserDefaults.standard.autoLogin == true {
+            guard let appId = UserDefaults.standard.appId else { return }
+            SendBirdCall.configure(appId: appId)
+            self.updateButtonUI()
+            self.signIn()
+        }
+    }
+    
     func resetButtonUI() {
         self.scanButton.backgroundColor = UIColor(red: 123 / 255, green: 83 / 255, blue: 239 / 255, alpha: 1.0)
         self.scanButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.88), for: .normal)
@@ -58,6 +69,8 @@ extension SignInWithQRViewController: QRCodeScanDelegate {
     // Delegate method
     func didScanQRCode(appId: String, userId: String, accessToken: String?) {
         SendBirdCall.configure(appId: appId)
+
+        UserDefaults.standard.appId = appId
         UserDefaults.standard.user.id = userId
         UserDefaults.standard.accessToken = accessToken
         self.updateButtonUI()

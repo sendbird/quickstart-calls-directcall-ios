@@ -8,6 +8,17 @@
 import Foundation
 
 extension UserDefaults {
+    var appId: String? {
+        get {
+            let userDefault = UserDefaults.standard
+            guard let appId = userDefault.value(forKey: "com.sendbird.calls.quickstart.appid") as? String, !appId.isEmpty else { return nil }
+            return appId
+        }
+        set {
+            let userDefault = UserDefaults.standard
+            userDefault.setValue(newValue, forKey: "com.sendbird.calls.quickstart.appid")
+        }
+    }
     var user: (id: String, name: String?, profile: String?) {
         get {
             let userDefault = UserDefaults.standard
