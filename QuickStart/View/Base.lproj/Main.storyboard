@@ -115,7 +115,20 @@
                     <view key="view" contentMode="scaleToFill" id="PGz-xV-q5e">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgGuideQrcode" translatesAutoresizingMaskIntoConstraints="NO" id="A2E-s0-gN7">
+                                <rect key="frame" x="87" y="312" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="Dbf-Z4-yfY"/>
+                                    <constraint firstAttribute="height" constant="240" id="iRv-zF-zha"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerX" secondItem="Uz5-PR-CCk" secondAttribute="centerX" id="FzM-jQ-h00"/>
+                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerY" secondItem="Uz5-PR-CCk" secondAttribute="centerY" id="kkN-ov-whm"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Uz5-PR-CCk"/>
                     </view>
                     <navigationItem key="navigationItem" title="Scan QR Code" id="UeW-zv-zcX">
@@ -244,12 +257,12 @@
         <scene sceneID="Uur-SI-aCY">
             <objects>
                 <tableViewController id="CaH-J7-yId" customClass="SettingsTableViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Lj9-Gl-2Ox">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Lj9-Gl-2Ox">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
-                            <tableViewSection id="Bkv-l2-pIi">
+                            <tableViewSection id="xc2-kB-c5U">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="146" id="Xwk-ei-klp">
                                         <rect key="frame" x="0.0" y="18" width="414" height="146"/>
@@ -283,14 +296,24 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCf-hs-mc2">
+                                                    <rect key="frame" x="16" y="145" width="382" height="1"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="kAX-dc-TFJ"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Gdn-I1-Ekm" firstAttribute="top" secondItem="APk-lX-5qt" secondAttribute="bottom" constant="8" id="H57-nS-mb6"/>
                                                 <constraint firstItem="o3g-kY-c9q" firstAttribute="leading" secondItem="7cp-eC-hk6" secondAttribute="leadingMargin" constant="20" id="LrJ-iL-2AW"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="o3g-kY-c9q" secondAttribute="trailing" constant="20" id="P82-6R-8cK"/>
+                                                <constraint firstAttribute="trailing" secondItem="vCf-hs-mc2" secondAttribute="trailing" constant="16" id="b1Q-Uc-kCY"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Gdn-I1-Ekm" secondAttribute="trailing" constant="20" id="bT9-Qp-dKR"/>
                                                 <constraint firstItem="APk-lX-5qt" firstAttribute="centerX" secondItem="7cp-eC-hk6" secondAttribute="centerX" id="dXI-gO-8kb"/>
                                                 <constraint firstItem="APk-lX-5qt" firstAttribute="top" secondItem="7cp-eC-hk6" secondAttribute="top" constant="20" id="fbb-GY-bPC"/>
+                                                <constraint firstItem="vCf-hs-mc2" firstAttribute="leading" secondItem="7cp-eC-hk6" secondAttribute="leading" constant="16" id="ha2-j1-Ygm"/>
+                                                <constraint firstAttribute="bottom" secondItem="vCf-hs-mc2" secondAttribute="bottom" id="pJQ-nH-nsd"/>
                                                 <constraint firstItem="Gdn-I1-Ekm" firstAttribute="leading" secondItem="7cp-eC-hk6" secondAttribute="leadingMargin" constant="20" id="tWj-Ku-pbz"/>
                                                 <constraint firstItem="o3g-kY-c9q" firstAttribute="top" secondItem="Gdn-I1-Ekm" secondAttribute="bottom" id="wG8-9g-4w2"/>
                                             </constraints>
@@ -316,6 +339,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysY-rZ-ZSZ">
+                                                    <rect key="frame" x="16" y="55" width="382" height="1"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="AYc-Ry-qxA"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Otl-ft-hUn" secondAttribute="trailing" constant="20" id="7Jb-ia-jSt"/>
@@ -327,6 +357,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="ysY-rZ-ZSZ" firstAttribute="leading" secondItem="9W8-oJ-p3h" secondAttribute="leading" constant="16" id="0y4-WI-oKA"/>
+                                            <constraint firstAttribute="bottom" secondItem="ysY-rZ-ZSZ" secondAttribute="bottom" id="3mR-7J-QmJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="ysY-rZ-ZSZ" secondAttribute="trailing" constant="16" id="9tW-FW-hya"/>
+                                        </constraints>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="56" id="Djb-AU-Mms">
                                         <rect key="frame" x="0.0" y="220" width="414" height="56"/>
@@ -347,6 +382,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xy7-fd-7r3">
+                                                    <rect key="frame" x="16" y="55" width="382" height="1"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="q9F-sY-pQD"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ffl-X6-ZUX" firstAttribute="top" secondItem="Q8P-rO-P6O" secondAttribute="top" constant="16" id="Co7-Jr-OcE"/>
@@ -358,6 +400,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Xy7-fd-7r3" firstAttribute="leading" secondItem="Djb-AU-Mms" secondAttribute="leading" constant="16" id="4AQ-Zj-l2s"/>
+                                            <constraint firstAttribute="trailing" secondItem="Xy7-fd-7r3" secondAttribute="trailing" constant="16" id="VjF-CL-Uxw"/>
+                                            <constraint firstAttribute="bottom" secondItem="Xy7-fd-7r3" secondAttribute="bottom" id="ttZ-8o-xmv"/>
+                                        </constraints>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -375,7 +422,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kx4-F6-0VM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1806" y="1519"/>
+            <point key="canvasLocation" x="1805.7971014492755" y="1518.75"/>
         </scene>
         <!--Application Information-->
         <scene sceneID="YJH-YU-ZAA">
@@ -954,6 +1001,7 @@
         <image name="iconAudioOff" width="32" height="32"/>
         <image name="iconInfo" width="24" height="24"/>
         <image name="iconLeave" width="24" height="24"/>
+        <image name="imgGuideQrcode" width="240" height="240"/>
         <image name="img_user_profile_default" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>

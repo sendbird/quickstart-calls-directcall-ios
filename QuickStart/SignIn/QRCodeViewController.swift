@@ -23,7 +23,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             guard let layer = self.previewLayer else { return }
             layer.frame = view.layer.bounds
             layer.videoGravity = .resizeAspectFill
-            view.layer.addSublayer(layer)
+            view.layer.insertSublayer(layer, at: 0)
         }
     }
     
@@ -91,11 +91,24 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         self.captureSession?.stopRunning()
 
-        guard let metadataObject = metadataObjects.first else { return }
-        
-        guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-        guard let stringValue = readableObject.stringValue else { return }
-        guard let data = Data(base64Encoded: stringValue) else { return }
+        guard let readableObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject else {
+            self.alertError(message: "Not available QR Code for SendBirdCalls") { _ in
+                self.captureSession?.startRunning()
+            }
+            return
+        }
+        guard let stringValue = readableObject.stringValue else {
+            self.alertError(message: "Not available QR Code for SendBirdCalls") { _ in
+                self.captureSession?.startRunning()
+            }
+            return
+        }
+        guard let data = Data(base64Encoded: stringValue) else {
+            self.alertError(message: "Not available QR Code for SendBirdCalls") { _ in
+                self.captureSession?.startRunning()
+            }
+            return
+        }
         
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         self.decodeBase64EncodedQRCode(data)
@@ -107,7 +120,9 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             self.dispatchQRInfo(decodedDict)
             self.dismiss(animated: true, completion: nil)
         } catch {
-            self.alertError(message: error.localizedDescription)
+            self.alertError(message: error.localizedDescription) { _ in
+                self.captureSession?.startRunning()
+            }
             print(error.localizedDescription)
         }
     }
