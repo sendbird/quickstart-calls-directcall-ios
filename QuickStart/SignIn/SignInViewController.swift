@@ -37,12 +37,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         self.setupUI()
         
         if UserDefaults.standard.autoLogin == true {
+            self.updateButtonUI()
             self.signIn(userId: UserDefaults.standard.user.id)
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -58,7 +55,7 @@ extension SignInViewController {
             self.alertError(message: "Please enter your ID and your name")
             return
         }
-        
+        self.updateButtonUI()
         self.signIn(userId: userId)
     }
     
@@ -70,6 +67,7 @@ extension SignInViewController {
             guard let user = user, error == nil else {
                 DispatchQueue.main.async { [weak self] in
                     self?.alertError(message: "💣 \(String(describing: error))")
+                    self?.resetButtonUI()
                 }
                 return
             }
@@ -77,6 +75,7 @@ extension SignInViewController {
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
             DispatchQueue.main.async { [weak self] in
+                self?.resetButtonUI()
                 self?.performSegue(withIdentifier: "signIn", sender: nil)
             }
         }
@@ -102,6 +101,20 @@ extension SignInViewController {
         let current = Calendar.current
         let year = current.component(.year, from: Date())
         self.copyrightLabel.text = "© \(year) SendBird"
+    }
+    
+    func resetButtonUI() {
+        self.signInButton.backgroundColor = UIColor(red: 123 / 255, green: 83 / 255, blue: 239 / 255, alpha: 1.0)
+        self.signInButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.88), for: .normal)
+        self.signInButton.setTitle("Sign In", for: .normal)
+        self.signInButton.isEnabled = true
+    }
+    
+    func updateButtonUI() {
+        self.signInButton.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1.0)
+        self.signInButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.12), for: .normal)
+        self.signInButton.setTitle("Signing In...", for: .normal)
+        self.signInButton.isEnabled = false
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
