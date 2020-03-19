@@ -12,15 +12,22 @@ import SendBirdCalls
 extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
     // MARK: SendBirdCallDelegate
     func didStartRinging(_ call: DirectCall) {
+        guard let uuid = call.callUUID else { return }
+        guard CXCallControllerManager.sharedController.callObserver.calls.isEmpty else { return }  // Should be cross-checked with state to prevent weird event processings
+        
+        // Use CXProvider to report the incoming call to the system
+        // Construct a CXCallUpdate describing the incoming call, including the caller.
+        let name = call.caller?.userId ?? "Unknown"
         let update = CXCallUpdate()
+        update.remoteHandle = CXHandle(type: .generic, value: name)
+        update.hasVideo = call.isVideoCall
         
-        if let userId = call.caller?.userId {
-            update.remoteHandle = CXHandle(type: .generic, value: userId)
+        // Report the incoming call to the system
+        self.provider.reportNewIncomingCall(with: uuid, update: update) { error in
+            if error == nil {
+                // success
+            }
         }
-        
-        guard let callUUID = call.callUUID else { return }
-        
-        self.provider.reportCall(with: callUUID, updated: update)
     }
     
     // MARK: DirectCallDelegate
