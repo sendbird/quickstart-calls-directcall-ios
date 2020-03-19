@@ -32,8 +32,6 @@ class SignInWithQRViewController: UIViewController {
         super.viewDidLoad()
         
         if UserDefaults.standard.autoLogin == true {
-            guard let appId = UserDefaults.standard.appId else { return }
-            SendBirdCall.configure(appId: appId)
             self.updateButtonUI()
             self.signIn()
         }

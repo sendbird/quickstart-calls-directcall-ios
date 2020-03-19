@@ -26,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
+        if let appId = UserDefaults.standard.appId {
+            SendBirdCall.configure(appId: appId)
+        }
+        
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
         #if DEBUG
         #error("If you don't use QR Code, configuring app ID is required.")

@@ -80,6 +80,7 @@ extension SettingsTableViewController {
             guard error == nil else { return }
             // Removed pushToken successfully
             UserDefaults.standard.pushToken = nil
+            UserDefaults.standard.appId = nil
         }
     }
 }
