@@ -65,11 +65,12 @@ extension AppDelegate: CXProviderDelegate {
         }
         
         // For decline
-        if call.endResult == .unknown {
-            call.end()
+        let params = AuthenticateParams(userId: UserDefaults.standard.user.id, accessToken: UserDefaults.standard.accessToken)
+        SendBirdCall.authenticate(with: params) { (user, error) in
+            call.end {
+                action.fulfill()
+            }
         }
-        
-        action.fulfill()
     }
     
     func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
