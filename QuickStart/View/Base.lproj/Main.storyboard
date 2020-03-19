@@ -339,13 +339,6 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysY-rZ-ZSZ">
-                                                    <rect key="frame" x="16" y="55" width="382" height="1"/>
-                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="AYc-Ry-qxA"/>
-                                                    </constraints>
-                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Otl-ft-hUn" secondAttribute="trailing" constant="20" id="7Jb-ia-jSt"/>
@@ -357,11 +350,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstItem="ysY-rZ-ZSZ" firstAttribute="leading" secondItem="9W8-oJ-p3h" secondAttribute="leading" constant="16" id="0y4-WI-oKA"/>
-                                            <constraint firstAttribute="bottom" secondItem="ysY-rZ-ZSZ" secondAttribute="bottom" id="3mR-7J-QmJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="ysY-rZ-ZSZ" secondAttribute="trailing" constant="16" id="9tW-FW-hya"/>
-                                        </constraints>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="56" id="Djb-AU-Mms">
                                         <rect key="frame" x="0.0" y="220" width="414" height="56"/>
@@ -382,6 +370,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ysY-rZ-ZSZ">
+                                                    <rect key="frame" x="16" y="0.0" width="382" height="1"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="AYc-Ry-qxA"/>
+                                                    </constraints>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xy7-fd-7r3">
                                                     <rect key="frame" x="16" y="55" width="382" height="1"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -391,9 +386,12 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="ysY-rZ-ZSZ" firstAttribute="leading" secondItem="Q8P-rO-P6O" secondAttribute="leading" constant="16" id="A0b-9k-Gyb"/>
                                                 <constraint firstItem="ffl-X6-ZUX" firstAttribute="top" secondItem="Q8P-rO-P6O" secondAttribute="top" constant="16" id="Co7-Jr-OcE"/>
+                                                <constraint firstItem="ysY-rZ-ZSZ" firstAttribute="top" secondItem="Q8P-rO-P6O" secondAttribute="top" id="IGV-ns-XKe"/>
                                                 <constraint firstItem="2Ps-Rh-bd3" firstAttribute="leading" secondItem="ffl-X6-ZUX" secondAttribute="trailing" constant="20" id="UnQ-xC-YEV"/>
                                                 <constraint firstItem="2Ps-Rh-bd3" firstAttribute="centerY" secondItem="ffl-X6-ZUX" secondAttribute="centerY" id="VkV-RK-3gE"/>
+                                                <constraint firstAttribute="trailing" secondItem="ysY-rZ-ZSZ" secondAttribute="trailing" constant="16" id="ek0-ee-3j9"/>
                                                 <constraint firstAttribute="bottom" secondItem="ffl-X6-ZUX" secondAttribute="bottom" constant="16" id="igj-IP-Fr4"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="2Ps-Rh-bd3" secondAttribute="trailing" constant="20" id="lx8-bS-FCN"/>
                                                 <constraint firstItem="ffl-X6-ZUX" firstAttribute="leading" secondItem="Q8P-rO-P6O" secondAttribute="leading" constant="16" id="tpv-2e-mMS"/>
