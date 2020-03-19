@@ -17,13 +17,20 @@ protocol QRCodeScanDelegate: class {
 class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     typealias SendBirdQRInfo = [String: String?]
     
-    var captureSession: AVCaptureSession?
+    var captureSession: AVCaptureSession? {
+        didSet {
+            guard let captureSession = self.captureSession else { return }
+            self.updateCaptureSession(captureSession)
+        }
+    }
     var previewLayer: AVCaptureVideoPreviewLayer? {
         didSet {
             guard let layer = self.previewLayer else { return }
             layer.frame = view.layer.bounds
             layer.videoGravity = .resizeAspectFill
             view.layer.insertSublayer(layer, at: 0)
+            
+            self.captureSession?.startRunning()
         }
     }
     
@@ -33,41 +40,6 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         super.viewDidLoad()
 
         self.captureSession = AVCaptureSession()
-
-        guard let captureSession = self.captureSession else { return }
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
-        let metadataOutput = AVCaptureMetadataOutput()
-        let videoInput: AVCaptureDeviceInput
-        do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-        } catch {
-            return
-        }
-
-        // Add Input
-        guard captureSession.canAddInput(videoInput) == true else {
-            self.alertError(message: "Your device does not support scanning a code from an item. Please use a device with a camera")
-            self.captureSession = nil
-            return
-        }
-        captureSession.addInput(videoInput)
-
-        // Add Output
-        guard captureSession.canAddOutput(metadataOutput) == true else {
-            self.alertError(message: "Your device does not support scanning a code from an item. Please use a device with a camera")
-            self.captureSession = nil
-            return
-        }
-        captureSession.addOutput(metadataOutput)
-        
-        // MetaData Output
-        metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        metadataOutput.metadataObjectTypes = [.qr]
-        
-        // Preview Set
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-
-        captureSession.startRunning()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -87,23 +59,40 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     @IBAction func didTapCancel() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    private func updateCaptureSession(_ captureSession: AVCaptureSession) {
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
+        let metadataOutput = AVCaptureMetadataOutput()
+        let videoInput: AVCaptureDeviceInput
+        do {
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+        } catch {
+            return
+        }
+
+        // Add Input / Output
+        guard captureSession.canAddInput(videoInput) == true,
+            captureSession.canAddOutput(metadataOutput) == true else {
+                self.alertError(message: "Your device does not support scanning a code from an item. Please use a device with a camera")
+                self.captureSession = nil
+                return
+        }
+        captureSession.addInput(videoInput)
+        captureSession.addOutput(metadataOutput)
+        
+        // MetaData Output
+        metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+        metadataOutput.metadataObjectTypes = [.qr]
+        
+        self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+    }
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         self.captureSession?.stopRunning()
 
-        guard let readableObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject else {
-            self.alertError(message: "Not available QR Code for SendBirdCalls") { _ in
-                self.captureSession?.startRunning()
-            }
-            return
-        }
-        guard let stringValue = readableObject.stringValue else {
-            self.alertError(message: "Not available QR Code for SendBirdCalls") { _ in
-                self.captureSession?.startRunning()
-            }
-            return
-        }
-        guard let data = Data(base64Encoded: stringValue) else {
+        guard let readableObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
+            let stringValue = readableObject.stringValue,
+            let data = Data(base64Encoded: stringValue) else {
             self.alertError(message: "Not available QR Code for SendBirdCalls") { _ in
                 self.captureSession?.startRunning()
             }
@@ -114,6 +103,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         self.decodeBase64EncodedQRCode(data)
     }
     
+    // MARK: Decode QR Code
     private func decodeBase64EncodedQRCode(_ code: Data) {
         do {
             let decodedDict = try JSONDecoder().decode(SendBirdQRInfo.self, from: code)
@@ -127,6 +117,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
     }
     
+    // MARK: QRCodeScanDelegate
     private func dispatchQRInfo(_ qrInfo: SendBirdQRInfo) {
         guard let appId = qrInfo["app_id"] as? String else { return }
         guard let userId = qrInfo["user_id"] as? String else { return }
