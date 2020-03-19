@@ -11,7 +11,7 @@
         <!--Sign In WithQR View Controller-->
         <scene sceneID="ccI-Pd-Ywy">
             <objects>
-                <viewController storyboardIdentifier="SignInWithQRViewController" id="8Z2-qt-Ig2" customClass="SignInWithQRViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInWithQRViewController" id="8Z2-qt-Ig2" customClass="SignInWithQRViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tm1-8i-vLk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                                     <constraint firstAttribute="width" constant="48" id="jcl-Vo-SQo"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBird Calls Sample" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5x-iw-uZH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBird Calls" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5x-iw-uZH">
                                 <rect key="frame" x="16" y="212" width="382" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="KA3-uE-zWS"/>
@@ -111,7 +111,7 @@
         <!--Scan QR Code-->
         <scene sceneID="h2T-4W-pqG">
             <objects>
-                <viewController id="ZQr-Ed-b7c" customClass="QRCodeViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ZQr-Ed-b7c" customClass="QRCodeViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PGz-xV-q5e">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -147,7 +147,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="SignInViewController" id="BYZ-38-t0r" customClass="SignInViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInViewController" id="BYZ-38-t0r" customClass="SignInViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -207,7 +207,7 @@
                                     <constraint firstAttribute="height" constant="48" id="kQu-sc-JtL"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBird Calls Sample" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="jXe-dD-UH7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBird Calls" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="jXe-dD-UH7">
                                 <rect key="frame" x="40" y="212" width="334" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="Vpq-5R-RVb"/>
@@ -256,7 +256,7 @@
         <!--Settings-->
         <scene sceneID="Uur-SI-aCY">
             <objects>
-                <tableViewController id="CaH-J7-yId" customClass="SettingsTableViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="CaH-J7-yId" customClass="SettingsTableViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Lj9-Gl-2Ox">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -425,7 +425,7 @@
         <!--Application Information-->
         <scene sceneID="YJH-YU-ZAA">
             <objects>
-                <tableViewController id="pMP-aS-NoE" customClass="AppInfoTableViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="pMP-aS-NoE" customClass="AppInfoTableViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ezj-DC-fEp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -461,7 +461,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="FA74F9B2-8CC9-49AF-AD02-A9AC0659484D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="Xe9-cB-163">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="AA74F9B2-8CC9-49AF-AD02-A9AC0659484D" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="Xe9-cB-163">
                                                     <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -492,7 +492,7 @@
         <!--Voice Call View Controller-->
         <scene sceneID="xQ3-Jv-7ju">
             <objects>
-                <viewController storyboardIdentifier="VoiceCallViewController" id="7ra-kc-2Kq" customClass="VoiceCallViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VoiceCallViewController" id="7ra-kc-2Kq" customClass="VoiceCallViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eVj-7G-Q5q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -616,7 +616,7 @@
         <!--Dial-->
         <scene sceneID="eda-BC-zTo">
             <objects>
-                <viewController storyboardIdentifier="DialViewController" id="QH3-LJ-tLk" customClass="DialViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DialViewController" id="QH3-LJ-tLk" customClass="DialViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rcF-ir-O6k">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -777,7 +777,7 @@
         <!--Video Call View Controller-->
         <scene sceneID="95y-fH-Uoo">
             <objects>
-                <viewController storyboardIdentifier="VideoCallViewController" id="Suw-Gg-jyg" customClass="VideoCallViewController" customModule="SendBirdCall" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoCallViewController" id="Suw-Gg-jyg" customClass="VideoCallViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wEz-Ud-OC4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -992,6 +992,6 @@
         <image name="img_user_profile_default" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="z0d-vE-FZS"/>
+        <segue reference="Yib-DD-kYP"/>
     </inferredMetricsTieBreakers>
 </document>
