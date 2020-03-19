@@ -65,12 +65,10 @@ extension AppDelegate: CXProviderDelegate {
         }
         
         // For decline
-        if call.endResult == .unknown {
-            let params = AuthenticateParams(userId: UserDefaults.standard.user.id, accessToken: nil)
-            SendBirdCall.authenticate(with: params) { (user, error) in
-                call.end {
-                    action.fulfill()
-                }
+        let params = AuthenticateParams(userId: UserDefaults.standard.user.id, accessToken: UserDefaults.standard.accessToken)
+        SendBirdCall.authenticate(with: params) { (user, error) in
+            call.end {
+                action.fulfill()
             }
         }
     }
