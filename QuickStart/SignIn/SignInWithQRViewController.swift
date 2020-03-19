@@ -86,7 +86,7 @@ extension SignInWithQRViewController {
         SendBirdCall.authenticate(with: authParams) { user, error in
             guard let user = user, error == nil else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.alertError(message: "💣 \(String(describing: error))")
+                    self?.presentErrorAlert(message: "💣 \(String(describing: error))")
                     self?.resetButtonUI()
                 }
                 return

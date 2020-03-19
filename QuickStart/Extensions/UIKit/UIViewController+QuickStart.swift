@@ -19,14 +19,14 @@ extension UIViewController {
         }
     }
     
-    func alertError(message: String) {
+    func presentErrorAlert(message: String) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let actionDone = UIAlertAction(title: "Done", style: .cancel)
         alert.addAction(actionDone)
         self.present(alert, animated: true, completion: nil)
     }
     
-    func alertError(message: String, closeHandler: @escaping((UIAlertAction) -> Void)) {
+    func presentErrorAlert(message: String, closeHandler: @escaping((UIAlertAction) -> Void)) {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         let actionDone = UIAlertAction(title: "Done", style: .cancel, handler: closeHandler)
         alert.addAction(actionDone)

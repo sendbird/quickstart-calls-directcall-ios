@@ -48,7 +48,7 @@ extension DialViewController {
     
     @IBAction func didTapVoiceCall() {
         guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else {
-            self.alertError(message: "Please enter user ID")
+            self.presentErrorAlert(message: "Please enter user ID")
             return
         }
         self.voiceCallButton.isEnabled = false
@@ -64,7 +64,7 @@ extension DialViewController {
             
             guard error == nil, let call = call else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.alertError(message: "Failed to call\nError: \(String(describing: error?.localizedDescription))")
+                    self?.presentErrorAlert(message: "Failed to call\nError: \(String(describing: error?.localizedDescription))")
                 }
                 return
             }
@@ -77,7 +77,7 @@ extension DialViewController {
     
     @IBAction func didTapVideoCall() {
         guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else {
-            self.alertError(message: "Please enter user ID")
+            self.presentErrorAlert(message: "Please enter user ID")
             return
         }
         self.videoCallButton.isEnabled = false
@@ -93,7 +93,7 @@ extension DialViewController {
             
             guard error == nil, let call = call else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.alertError(message: "Failed to make video call\nError: \(String(describing: error?.localizedDescription))")
+                    self?.presentErrorAlert(message: "Failed to make video call\nError: \(String(describing: error?.localizedDescription))")
                 }
                 return
             }

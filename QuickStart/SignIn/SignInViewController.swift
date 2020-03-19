@@ -52,7 +52,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
 extension SignInViewController {
     @IBAction func didTapSignIn() {
         guard let userId = self.userIdTextField.filteredText, !userId.isEmpty else {
-            self.alertError(message: "Please enter your ID and your name")
+            self.presentErrorAlert(message: "Please enter your ID and your name")
             return
         }
         self.updateButtonUI()
@@ -66,7 +66,7 @@ extension SignInViewController {
         SendBirdCall.authenticate(with: params) { user, error in
             guard let user = user, error == nil else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.alertError(message: "💣 \(String(describing: error))")
+                    self?.presentErrorAlert(message: "💣 \(String(describing: error))")
                     self?.resetButtonUI()
                 }
                 return

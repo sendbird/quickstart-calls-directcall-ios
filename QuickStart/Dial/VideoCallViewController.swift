@@ -120,7 +120,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     
     // MARK: - IBActions
     @IBAction func didTapFilpCamera() {
-        self.alertError(message: "Camera selection is not supported in Calls \(SendBirdCall.sdkVersion)")
+        self.presentErrorAlert(message: "Camera selection is not supported in Calls \(SendBirdCall.sdkVersion)")
     }
     
     @IBAction func didTapAudioOnOff(_ sender: UIButton) {

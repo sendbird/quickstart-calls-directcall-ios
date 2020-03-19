@@ -73,7 +73,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         // Add Input / Output
         guard captureSession.canAddInput(videoInput) == true,
             captureSession.canAddOutput(metadataOutput) == true else {
-                self.alertError(message: "Your device does not support scanning a code from an item. Please use a device with a camera")
+                self.presentErrorAlert(message: "Your device does not support scanning a code from an item. Please use a device with a camera")
                 self.captureSession = nil
                 return
         }
@@ -93,7 +93,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         guard let readableObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
             let stringValue = readableObject.stringValue,
             let data = Data(base64Encoded: stringValue) else {
-            self.alertError(message: "Not available QR Code for SendBirdCalls") { _ in
+            self.presentErrorAlert(message: "Not available QR Code for SendBirdCalls") { _ in
                 self.captureSession?.startRunning()
             }
             return
@@ -110,7 +110,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             self.dispatchQRInfo(decodedDict)
             self.dismiss(animated: true, completion: nil)
         } catch {
-            self.alertError(message: error.localizedDescription) { _ in
+            self.presentErrorAlert(message: error.localizedDescription) { _ in
                 self.captureSession?.startRunning()
             }
             print(error.localizedDescription)
