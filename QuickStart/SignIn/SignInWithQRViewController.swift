@@ -20,13 +20,6 @@ class SignInWithQRViewController: UIViewController {
             self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
         }
     }
-    @IBOutlet weak var copyrightLabel: UILabel! {
-        didSet {
-            let current = Calendar.current
-            let year = current.component(.year, from: Date())
-            self.copyrightLabel.text = "© \(year) SendBird"
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

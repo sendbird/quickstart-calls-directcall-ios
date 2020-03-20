@@ -14,14 +14,24 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mainLabel: UILabel!
     
     // ID
-    @IBOutlet weak var userIdTextField: UITextField!
+    @IBOutlet weak var userIdTextField: UITextField! {
+        didSet {
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.userIdTextField.frame.height))
+            self.userIdTextField.leftView = paddingView
+            self.userIdTextField.leftViewMode = UITextField.ViewMode.always
+        }
+    }
     
     // SignIn
     @IBOutlet weak var signInButton: UIButton!
     
     // Footnote
-    @IBOutlet weak var versionLabel: UILabel!
-    @IBOutlet weak var copyrightLabel: UILabel!
+    @IBOutlet weak var versionLabel: UILabel! {
+        didSet {
+            let sampleVersion = Bundle.main.version
+            self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
+        }
+    }
     
     var userId: String?
     var deviceToken: Data?
@@ -33,8 +43,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         self.userIdTextField.delegate = self
         
         NotificationCenter.observeKeyboard(action1: #selector(keyboardWillShow(_:)), action2: #selector(keyboardWillHide(_:)), on: self)
-        
-        self.setupUI()
         
         if UserDefaults.standard.autoLogin == true {
             self.updateButtonUI()
@@ -88,19 +96,6 @@ extension SignInViewController {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
-    }
-    
-    func setupUI() {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.userIdTextField.frame.height))
-        self.userIdTextField.leftView = paddingView
-        self.userIdTextField.leftViewMode = UITextField.ViewMode.always
-        
-        let sampleVersion = Bundle.main.version
-        self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
-        
-        let current = Calendar.current
-        let year = current.component(.year, from: Date())
-        self.copyrightLabel.text = "© \(year) SendBird"
     }
     
     func resetButtonUI() {

@@ -9,7 +9,7 @@
 import UIKit
 import SendBirdCalls
 
-class AppInfoTableViewController: UITableViewController {
+class AppInfoViewController: UIViewController {
     @IBOutlet weak var appNameLabel: UILabel!
     @IBOutlet weak var appIdLabel: UILabel!
     
