@@ -75,9 +75,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         }
         self.callTimerLabel.text = "Calling..."
         self.nameLabel.text = self.call.remoteUser?.userId
-        if let calleeId = self.call.callee?.userId {
-            self.mutedStateLabel.text = "\(calleeId) muted this call"
-        }
+        self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") muted this call"
 
         // Local Info
         self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled

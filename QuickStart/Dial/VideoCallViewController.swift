@@ -85,9 +85,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         }
         self.remoteProfileImageView.isHidden = true
         self.remoteUserIdLabel.text = self.call.remoteUser?.userId
-        if let calleeId = self.call.callee?.userId {
-            self.mutedStateLabel.text = "\(calleeId) muted this call"
-        }
+        self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") muted this call"
         
         // Local Info
         self.audioOffButton.isSelected = !self.call.isLocalAudioEnabled
