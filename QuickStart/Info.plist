@@ -25,9 +25,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow to take photo</string>
+	<string>Enable camera access so that others can see you during video calls.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow to speak to participant</string>
+	<string>Enable microphone access so that others can hear you.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>voip</string>
