@@ -21,6 +21,8 @@ class SignInWithQRViewController: UIViewController {
         }
     }
     
+    let activityIndicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,9 +32,24 @@ class SignInWithQRViewController: UIViewController {
         }
     }
     
+    func startLoading() {
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.style = .gray
+        self.view.addSubview(activityIndicator)
+        
+        self.activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    func stopLoading() {
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
+    
     func resetButtonUI() {
-        self.scanButton.backgroundColor = UIColor(red: 123 / 255, green: 83 / 255, blue: 239 / 255, alpha: 1.0)
         self.scanButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.88), for: .normal)
+        self.scanButton.backgroundColor = UIColor(red: 123 / 255, green: 83 / 255, blue: 239 / 255, alpha: 1.0)
         self.scanButton.setTitle("Scan QR Code", for: .normal)
         self.scanButton.isEnabled = true
     }
@@ -75,6 +92,7 @@ extension SignInWithQRViewController {
         let userId = UserDefaults.standard.user.id
         let accessToken = UserDefaults.standard.accessToken
         let authParams = AuthenticateParams(userId: userId, accessToken: accessToken, voipPushToken: UserDefaults.standard.pushToken, unique: false)
+        self.startLoading()
         
         SendBirdCall.authenticate(with: authParams) { user, error in
             guard let user = user, error == nil else {
@@ -89,6 +107,7 @@ extension SignInWithQRViewController {
             
             DispatchQueue.main.async { [weak self] in
                 self?.resetButtonUI()
+                self?.stopLoading()
                 self?.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
             }
         }

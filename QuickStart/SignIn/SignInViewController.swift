@@ -33,6 +33,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    var activityIndicator = UIActivityIndicatorView()
     var userId: String?
     var deviceToken: Data?
     
@@ -70,6 +71,7 @@ extension SignInViewController {
     func signIn(userId: String) {
         // MARK: SendBirdCall.authenticate()
         let params = AuthenticateParams(userId: userId, accessToken: nil, voipPushToken: UserDefaults.standard.pushToken, unique: false)
+        self.startLoading()
         
         SendBirdCall.authenticate(with: params) { user, error in
             guard let user = user, error == nil else {
@@ -84,6 +86,7 @@ extension SignInViewController {
             
             DispatchQueue.main.async { [weak self] in
                 self?.resetButtonUI()
+                self?.stopLoading()
                 self?.performSegue(withIdentifier: "signIn", sender: nil)
             }
         }
@@ -96,6 +99,21 @@ extension SignInViewController {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
+    }
+    
+    func startLoading() {
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.style = .gray
+        self.view.addSubview(activityIndicator)
+        
+        self.activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    func stopLoading() {
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
     
     func resetButtonUI() {
