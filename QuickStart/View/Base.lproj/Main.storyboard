@@ -622,7 +622,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User ID" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="eTD-yy-lbQ">
-                                <rect key="frame" x="40" y="398" width="334" height="56"/>
+                                <rect key="frame" x="40" y="376" width="334" height="56"/>
                                 <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="CkH-Dd-Ggc"/>
@@ -638,14 +638,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icLogoHorizontalPurple300" translatesAutoresizingMaskIntoConstraints="NO" id="Rre-NY-xyd">
-                                <rect key="frame" x="80" y="326" width="254" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="u4J-c9-8sR"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="twf-Fk-qMH">
-                                <rect key="frame" x="127" y="494" width="64" height="64"/>
+                                <rect key="frame" x="127" y="472" width="64" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="6ja-Aq-Y5C"/>
@@ -666,7 +660,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFJ-HJ-03Y">
-                                <rect key="frame" x="223" y="494" width="64" height="64"/>
+                                <rect key="frame" x="223" y="472" width="64" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="fbM-KH-iSR"/>
@@ -686,27 +680,88 @@
                                     <action selector="didTapVoiceCall" destination="QH3-LJ-tLk" eventType="touchUpInside" id="OK3-Oa-Yql"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make a call" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QG9-oG-JhN">
+                                <rect key="frame" x="24" y="251" width="366" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LnJ-3y-Xyu">
+                                <rect key="frame" x="24" y="296" width="366" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Med-Vq-M0B"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Enter the user ID of the user you wish to call, then press one of the video or voice call buttons">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineSpacing="4" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eg3-1U-GuL">
+                                <rect key="frame" x="0.0" y="87" width="414" height="1"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="4Gg-ou-ylY"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="Ue9-qz-Py8">
+                                <rect key="frame" x="24" y="49" width="34" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="0Ej-FA-0Yl"/>
+                                    <constraint firstAttribute="height" constant="34" id="qo9-By-6CV"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="17"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123456" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZIt-Bt-jdD">
+                                <rect key="frame" x="66" y="56" width="324" height="19.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="Rre-NY-xyd" secondAttribute="trailing" constant="80" id="7YG-WH-hSQ"/>
+                            <constraint firstItem="Eg3-1U-GuL" firstAttribute="top" secondItem="Jpp-zS-JFC" secondAttribute="top" constant="43" id="0IF-Ep-rUX"/>
                             <constraint firstItem="cFJ-HJ-03Y" firstAttribute="leading" secondItem="twf-Fk-qMH" secondAttribute="trailing" constant="32" id="98T-PP-pnp"/>
+                            <constraint firstItem="LnJ-3y-Xyu" firstAttribute="top" secondItem="QG9-oG-JhN" secondAttribute="bottom" constant="16" id="Acm-Ip-emb"/>
                             <constraint firstItem="eTD-yy-lbQ" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="40" id="AeA-nb-Rsg"/>
                             <constraint firstItem="cFJ-HJ-03Y" firstAttribute="top" secondItem="eTD-yy-lbQ" secondAttribute="bottom" constant="40" id="CJI-V6-9Fl"/>
+                            <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="ZIt-Bt-jdD" secondAttribute="trailing" constant="24" id="EFt-f2-8y1"/>
                             <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="eTD-yy-lbQ" secondAttribute="trailing" constant="40" id="F6v-lG-uwN"/>
-                            <constraint firstItem="Rre-NY-xyd" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="80" id="N7V-XO-OQh"/>
+                            <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="QG9-oG-JhN" secondAttribute="trailing" constant="24" id="KeT-4r-Bey"/>
                             <constraint firstItem="twf-Fk-qMH" firstAttribute="centerY" secondItem="cFJ-HJ-03Y" secondAttribute="centerY" id="Ozu-97-ZQd"/>
                             <constraint firstItem="eTD-yy-lbQ" firstAttribute="centerY" secondItem="Jpp-zS-JFC" secondAttribute="centerY" id="RCq-La-3hp"/>
-                            <constraint firstItem="eTD-yy-lbQ" firstAttribute="top" secondItem="Rre-NY-xyd" secondAttribute="bottom" constant="40" id="fNl-A4-ody"/>
+                            <constraint firstItem="ZIt-Bt-jdD" firstAttribute="leading" secondItem="Ue9-qz-Py8" secondAttribute="trailing" constant="8" id="Twc-8X-p4Z"/>
+                            <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="Eg3-1U-GuL" secondAttribute="trailing" id="Zjy-ZQ-pCQ"/>
+                            <constraint firstItem="QG9-oG-JhN" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="csT-SZ-fsd"/>
+                            <constraint firstItem="ZIt-Bt-jdD" firstAttribute="top" secondItem="Jpp-zS-JFC" secondAttribute="top" constant="12" id="gn2-vF-vl6"/>
+                            <constraint firstItem="Ue9-qz-Py8" firstAttribute="top" secondItem="Jpp-zS-JFC" secondAttribute="top" constant="5" id="knw-Sr-crq"/>
+                            <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="LnJ-3y-Xyu" secondAttribute="trailing" constant="24" id="mff-Li-ncj"/>
                             <constraint firstItem="twf-Fk-qMH" firstAttribute="centerX" secondItem="Jpp-zS-JFC" secondAttribute="centerX" constant="-48" id="neL-hJ-mc7"/>
+                            <constraint firstItem="eTD-yy-lbQ" firstAttribute="top" secondItem="LnJ-3y-Xyu" secondAttribute="bottom" constant="40" id="ogM-jc-gFz"/>
+                            <constraint firstItem="Eg3-1U-GuL" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" id="pnN-IQ-nRx"/>
+                            <constraint firstItem="LnJ-3y-Xyu" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="rG4-8e-wfv"/>
+                            <constraint firstItem="Ue9-qz-Py8" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="tLo-ms-kSH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jpp-zS-JFC"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="icCall" selectedImage="icCallFilled" id="3ad-QM-X1l"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Dial" largeTitleDisplayMode="never" id="oVN-Ba-bL7"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="calleeIdTextField" destination="eTD-yy-lbQ" id="ERA-CJ-joL"/>
+                        <outlet property="profileImageView" destination="Ue9-qz-Py8" id="DEC-qt-FVb"/>
+                        <outlet property="userIdLabel" destination="ZIt-Bt-jdD" id="2W5-go-yg6"/>
                         <outlet property="videoCallButton" destination="twf-Fk-qMH" id="t0k-VM-TQM"/>
                         <outlet property="voiceCallButton" destination="cFJ-HJ-03Y" id="MWE-TE-ma7"/>
                         <segue destination="7ra-kc-2Kq" kind="presentation" identifier="voiceCall" modalPresentationStyle="fullScreen" id="26j-eW-3We"/>
@@ -715,7 +770,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3Z-6X-Og9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1803" y="427"/>
+            <point key="canvasLocation" x="1806" y="427"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="7VQ-Kb-uEx">
@@ -729,33 +784,13 @@
                         <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="JA4-rK-gwS" kind="relationship" relationship="viewControllers" id="1ZM-Dr-X4e"/>
+                        <segue destination="QH3-LJ-tLk" kind="relationship" relationship="viewControllers" id="CDT-UQ-HA3"/>
                         <segue destination="C8o-Vj-xNh" kind="relationship" relationship="viewControllers" id="OmI-a9-LN5"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s6W-w9-znW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="201" y="1134"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="x39-Md-WgW">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JA4-rK-gwS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="icCall" selectedImage="iconCallVoiceFilled" id="Irh-eL-sAm"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eHo-IJ-ube">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="QH3-LJ-tLk" kind="relationship" relationship="rootViewController" id="Wsx-ik-665"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hRi-wq-4gj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1019" y="427"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m5a-WD-cYh">
@@ -991,18 +1026,17 @@
         <image name="btnSpeaker" width="64" height="64"/>
         <image name="btnVideoOff" width="64" height="64"/>
         <image name="icCall" width="24" height="24"/>
-        <image name="icLogoHorizontalPurple300" width="180" height="40"/>
+        <image name="icCallFilled" width="24" height="24"/>
         <image name="icLogoInverse01" width="48" height="48"/>
         <image name="icSettings" width="24" height="24"/>
         <image name="iconAudioOff" width="32" height="32"/>
         <image name="iconAvatar" width="64" height="64"/>
-        <image name="iconCallVoiceFilled" width="24" height="24"/>
         <image name="iconInfo" width="24" height="24"/>
         <image name="iconLeave" width="24" height="24"/>
         <image name="iconSettingsFilled" width="24" height="24"/>
         <image name="imgGuideQrcode" width="240" height="240"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Yib-DD-kYP"/>
+        <segue reference="z0d-vE-FZS"/>
     </inferredMetricsTieBreakers>
 </document>
