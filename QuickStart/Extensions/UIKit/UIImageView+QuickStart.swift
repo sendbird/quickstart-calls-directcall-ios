@@ -23,7 +23,9 @@ extension UIImageView {
             let profileURL = URL(string: urlString) else { return }
         guard let data = try? Data(contentsOf: profileURL) else { return }
         guard let image = UIImage(data: data) else { return }
-        self.image = image
+        DispatchQueue.main.async {
+            self.image = image
+        }
     }
 }
 

@@ -13,10 +13,8 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     // Profile
     @IBOutlet weak var profileImageView: UIImageView! {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                let profileURL = UserDefaults.standard.user.profile
-                self?.profileImageView.setImage(urlString: profileURL)
-            }
+            let profileURL = UserDefaults.standard.user.profile
+            self.profileImageView.setImage(urlString: profileURL)
         }
     }
     @IBOutlet weak var userIdLabel: UILabel! {
