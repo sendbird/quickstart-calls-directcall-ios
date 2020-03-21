@@ -50,7 +50,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            self.dialed(to: calleeId)
+            self.startCXCall(to: calleeId)
         }
     }
     
@@ -99,7 +99,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     }
     
     // MARK: - CallKit Methods
-    func dialed(to calleeId: String) {
+    func startCXCall(to calleeId: String) {
         
         let handle = CXHandle(type: .generic, value: calleeId)
         

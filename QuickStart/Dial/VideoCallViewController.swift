@@ -65,7 +65,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            self.dialed(to: calleeId)
+            self.startCXCall(to: calleeId)
         }
     }
     
@@ -147,7 +147,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     }
     
     // MARK: - CallKit Methods
-    func dialed(to calleeId: String) {
+    func startCXCall(to calleeId: String) {
         
         let handle = CXHandle(type: .generic, value: calleeId)
         
