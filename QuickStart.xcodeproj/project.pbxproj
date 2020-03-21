@@ -36,7 +36,6 @@
 		A9A72CB12387B44C007C0878 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9A72CAF2387B44C007C0878 /* LaunchScreen.storyboard */; };
 		A9A72CB92387BAE6007C0878 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A72CB82387BAE6007C0878 /* SignInViewController.swift */; };
 		A9AC8755241A202C004AB93B /* AppInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AC8754241A202C004AB93B /* AppInfoTableViewController.swift */; };
-		A9EC2AAE2425C83C0031EA0C /* String+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EC2AAD2425C83C0031EA0C /* String+QuickStart.swift */; };
 		C1DD1FF923AFB59900140657 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF823A0B2DE00842136 /* CallKit.framework */; };
 		C1DD1FFB23AFB59A00140657 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF623A0B2DA00842136 /* PushKit.framework */; };
 		C1F69B0F23C5A4E300C66F00 /* CXProvider+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */; };
@@ -78,7 +77,6 @@
 		A9AC8754241A202C004AB93B /* AppInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoTableViewController.swift; sourceTree = "<group>"; };
 		A9E98EF623A0B2DA00842136 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		A9E98EF823A0B2DE00842136 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
-		A9EC2AAD2425C83C0031EA0C /* String+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+QuickStart.swift"; sourceTree = "<group>"; };
 		C1E1B36823AD3D9D00275F8B /* SendBirdCalls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SendBirdCalls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E1B36D23AD3E5400275F8B /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
 		C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CXProvider+QuickStart.swift"; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */,
 				A99CC95923BA155700F9116A /* UIKit */,
 				A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */,
-				A9EC2AAD2425C83C0031EA0C /* String+QuickStart.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -368,7 +365,6 @@
 				A95A7C9E2420614A00EB0D56 /* SignInWithQRViewController.swift in Sources */,
 				A951A7A7238CC4DF00410E40 /* DialViewController.swift in Sources */,
 				A96839F02418ED0100317004 /* VideoCallViewController.swift in Sources */,
-				A9EC2AAE2425C83C0031EA0C /* String+QuickStart.swift in Sources */,
 				A9AC8755241A202C004AB93B /* AppInfoTableViewController.swift in Sources */,
 				A943CAF723C5AD06009F6E49 /* AppDelegate+CXProviderDelegate.swift in Sources */,
 				A91199BC2421257300208E21 /* DirectCallDataSource.swift in Sources */,
