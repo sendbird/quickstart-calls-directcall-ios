@@ -27,9 +27,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
-        if let appId = UserDefaults.standard.appId {
+        // SendBirdCall.configure(appId: YOUR_APP_ID)
+
+        if SendBirdCall.appId != nil {
+            // User ID Mode
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            guard let window = self.window else { return false }
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
+            window.rootViewController = viewController
+            window.makeKeyAndVisible()
+        } else if let appId = UserDefaults.standard.appId {
+            // QR Code Mode
             SendBirdCall.configure(appId: appId)
         }
+
         SendBirdCall.addDelegate(self, identifier: "DelegateIdentification")
         
         self.voipRegistration()
