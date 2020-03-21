@@ -15,7 +15,7 @@ import AVFoundation
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
-    var queue: DispatchQueue = DispatchQueue(label: "com.sendbird.quickstart.voicevideo.appdelegate")
+    var queue: DispatchQueue = DispatchQueue(label: "com.sendbird.calls.quickstart.appdelegate")
     var voipRegistry: PKPushRegistry?
     
     lazy var provider: CXProvider = {
@@ -27,18 +27,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
-        SendBirdCall.configure(appId: YOUR_APP_ID)
+        // SendBirdCall.configure(appId: YOUR_APP_ID)
+
+        if SendBirdCall.appId != nil {
+            // User ID Mode
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            guard let window = self.window else { return false }
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
+            window.rootViewController = viewController
+            window.makeKeyAndVisible()
+        } else if let appId = UserDefaults.standard.appId {
+            // QR Code Mode
+            SendBirdCall.configure(appId: appId)
+        }
+
         SendBirdCall.addDelegate(self, identifier: "DelegateIdentification")
         
         self.voipRegistration()
         
         return true
-    }
-    
-    // MARK: UISceneSession Lifecycle
-    @available(iOS 13.0, *)
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 }
 

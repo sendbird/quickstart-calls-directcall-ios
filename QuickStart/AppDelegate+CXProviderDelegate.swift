@@ -32,23 +32,26 @@ extension AppDelegate: CXProviderDelegate {
         }
         
         // MARK: SendBirdCalls - DirectCall.accept()
-        let callOptions = CallOptions(isAudioEnabled: true)
+        let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: call.isVideoCall)
         let acceptParams = AcceptParams(callOptions: callOptions)
         call.accept(with: acceptParams)
         
+        // If there is termination: Failed to load VoiceCallViewController from Main.storyboard. Please check its storyboard ID")
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "CallingViewController")
-        guard let callingVC = viewController as? CallingViewController else { return } // If there is termination: Failed to load CallingViewController from Main.storyboard. Please check its storyboard ID")
-                                        
-        callingVC.call = call
-        callingVC.isDialing = false
+        let viewController = storyboard.instantiateViewController(withIdentifier: call.isVideoCall ? "VideoCallViewController" : "VoiceCallViewController")
+
+        if var dataSource = viewController as? DirectCallDataSource {
+            dataSource.call = call
+            dataSource.isDialing = false
+        }
         
         if let topViewController = UIViewController.topViewController {
-            topViewController.present(callingVC, animated: true, completion: nil)
+            topViewController.present(viewController, animated: true, completion: nil)
         } else {
-            UIApplication.shared.keyWindow?.rootViewController = callingVC
+            UIApplication.shared.keyWindow?.rootViewController = viewController
             UIApplication.shared.keyWindow?.makeKeyAndVisible()
         }
+        
         // Signal to the system that the action has been successfully performed.
         action.fulfill()
     }
@@ -62,11 +65,12 @@ extension AppDelegate: CXProviderDelegate {
         }
         
         // For decline
-        if call.endResult == .unknown {
-            call.end()
+        let params = AuthenticateParams(userId: UserDefaults.standard.user.id, accessToken: UserDefaults.standard.accessToken)
+        SendBirdCall.authenticate(with: params) { (user, error) in
+            call.end {
+                action.fulfill()
+            }
         }
-        
-        action.fulfill()
     }
     
     func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {

@@ -16,4 +16,13 @@ extension Bundle {
         }
         return ""
     }
+    
+    var appName: String? {
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),
+            let infoDict = NSDictionary.init(contentsOfFile: path),
+            let appName = infoDict["CFBundleName"] as? String {
+                return appName
+        }
+        return ""
+    }
 }

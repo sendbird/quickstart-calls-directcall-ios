@@ -14,19 +14,26 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mainLabel: UILabel!
     
     // ID
-    @IBOutlet weak var userIdLabel: UILabel!
-    @IBOutlet weak var userIdTextField: UITextField!
+    @IBOutlet weak var userIdTextField: UITextField! {
+        didSet {
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.userIdTextField.frame.height))
+            self.userIdTextField.leftView = paddingView
+            self.userIdTextField.leftViewMode = UITextField.ViewMode.always
+        }
+    }
     
     // SignIn
     @IBOutlet weak var signInButton: UIButton!
     
     // Footnote
-    @IBOutlet weak var versionLabel: UILabel!
-    @IBOutlet weak var copyrightLabel: UILabel!
+    @IBOutlet weak var versionLabel: UILabel! {
+        didSet {
+            let sampleVersion = Bundle.main.version
+            self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
+        }
+    }
     
-    // Layout constraints
-    @IBOutlet weak var constraintFromKeyboard: NSLayoutConstraint!
-    
+    var activityIndicator = UIActivityIndicatorView()
     var userId: String?
     var deviceToken: Data?
     
@@ -38,15 +45,10 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.observeKeyboard(action1: #selector(keyboardWillShow(_:)), action2: #selector(keyboardWillHide(_:)), on: self)
         
-        self.setupUI()
-        
         if UserDefaults.standard.autoLogin == true {
+            self.updateButtonUI()
             self.signIn(userId: UserDefaults.standard.user.id)
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -59,21 +61,29 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
 extension SignInViewController {
     @IBAction func didTapSignIn() {
         guard let userId = self.userIdTextField.filteredText, !userId.isEmpty else {
-            self.alertError(message: "Please enter your ID and your name")
+            self.presentErrorAlert(message: "Please enter your ID and your name")
             return
         }
-        
+        self.updateButtonUI()
         self.signIn(userId: userId)
     }
     
     func signIn(userId: String) {
         // MARK: SendBirdCall.authenticate()
-        let params = AuthenticateParams(userId: userId, accessToken: nil)
+        let params = AuthenticateParams(userId: userId, accessToken: nil, voipPushToken: UserDefaults.standard.pushToken, unique: false)
+        self.startLoading()
         
         SendBirdCall.authenticate(with: params) { user, error in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.stopLoading()
+                self.resetButtonUI()
+            }
             guard let user = user, error == nil else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.alertError(message: "💣 \(String(describing: error))")
+                    guard let self = self else { return }
+                    let errorDescription = String(error?.localizedDescription ?? "")
+                    self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
                 }
                 return
             }
@@ -81,7 +91,8 @@ extension SignInViewController {
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
             DispatchQueue.main.async { [weak self] in
-                self?.performSegue(withIdentifier: "signIn", sender: nil)
+                guard let self = self else { return }
+                self.performSegue(withIdentifier: "signIn", sender: nil)
             }
         }
     }
@@ -95,40 +106,38 @@ extension SignInViewController {
         textField.resignFirstResponder()
     }
     
-    func setupUI() {
-        self.logoImageView.image = UIImage(named: "logo_sendbird")
-        self.mainLabel.text = "SendBirdCalls"
+    func startLoading() {
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.style = .gray
+        self.view.addSubview(activityIndicator)
         
-        self.userIdLabel.text = "ID"
-        self.userIdTextField.placeholder = "Enter your ID"
-        self.userIdTextField.textAlignment = .left
-        
-        self.signInButton.smoothAndWider()
-        self.signInButton.setTitle("Sign In")
-        
-        let sampleVersion = Bundle.main.version
-        self.versionLabel.text = "QuickStart \(sampleVersion)" + " SendBirdCalls \(SendBirdCall.sdkVersion)"
-        
-        let current = Calendar.current
-        let year = current.component(.year, from: Date())
-        self.copyrightLabel.text = "© \(year) SendBird"
+        self.activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    func stopLoading() {
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
+    }
+    
+    func resetButtonUI() {
+        self.signInButton.backgroundColor = UIColor(red: 123 / 255, green: 83 / 255, blue: 239 / 255, alpha: 1.0)
+        self.signInButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.88), for: .normal)
+        self.signInButton.setTitle("Sign In", for: .normal)
+        self.signInButton.isEnabled = true
+    }
+    
+    func updateButtonUI() {
+        self.signInButton.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1.0)
+        self.signInButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.12), for: .normal)
+        self.signInButton.setTitle("Signing In...", for: .normal)
+        self.signInButton.isEnabled = false
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        guard let keyboardFrameBegin = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else  { return }
-        let keyboardFrameBeginRect = keyboardFrameBegin.cgRectValue
-        let keyboardHeight = keyboardFrameBeginRect.size.height
-        
-        let safeArea = keyboardHeight + 8.0
-        let currentArea = self.view.frame.height - self.signInButton.frame.maxY
-        let gap = safeArea - currentArea
-            
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-            if gap > 0 {
-                self.constraintFromKeyboard.constant = self.constraintFromKeyboard.constant + gap
-                self.logoImageView.alpha = 0.3
-                self.mainLabel.alpha = 0.0
-            }
+            self.userIdTextField.layer.borderWidth = 1.0
             self.view.layoutIfNeeded()
         }
         animator.startAnimation()
@@ -137,12 +146,8 @@ extension SignInViewController {
     
     // MARK: When Keyboard Hide
     @objc func keyboardWillHide(_ notification: Notification) {
-        let value: CGFloat = 56.0
-        
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
-            self.constraintFromKeyboard.constant = value
-            self.logoImageView.alpha = 1.0
-            self.mainLabel.alpha = 1.0
+            self.userIdTextField.layer.borderWidth = 0.0
             self.view.layoutIfNeeded()
         }
         animator.startAnimation()

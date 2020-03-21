@@ -10,7 +10,7 @@ import CallKit
 extension CXProviderConfiguration {
     // The app's provider configuration, representing its CallKit capabilities
     static var `default`: CXProviderConfiguration {
-        let providerConfiguration = CXProviderConfiguration(localizedName: "com.sendbird.quickstart.calls.cxprovider")
+        let providerConfiguration = CXProviderConfiguration(localizedName: "com.sendbird.calls.quickstart.cxprovider")
         
         providerConfiguration.supportsVideo = false
         providerConfiguration.maximumCallsPerCallGroup = 1
