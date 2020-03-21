@@ -76,7 +76,8 @@ extension DialViewController {
             
             guard error == nil, let call = call else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.presentErrorAlert(message: "Failed to call\nError: \(String(describing: error?.localizedDescription))")
+                    let errorDescription = String(error?.localizedDescription.removeSlash() ?? "")
+                    self?.presentErrorAlert(message: "Failed to call\n\(errorDescription)")
                 }
                 return
             }
@@ -107,7 +108,8 @@ extension DialViewController {
             
             guard error == nil, let call = call else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.presentErrorAlert(message: "Failed to make video call\nError: \(String(describing: error?.localizedDescription))")
+                    let errorDescription = String(error?.localizedDescription.removeSlash() ?? "")
+                    self?.presentErrorAlert(message: "Failed to make video call\n\(errorDescription)")
                 }
                 return
             }
