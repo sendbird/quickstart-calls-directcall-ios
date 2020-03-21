@@ -37,6 +37,14 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         
         self.call.delegate = self
         
+        self.setupUI()
+        self.setupAudioOutputButton()
+        self.updateRemoteAudio(isEnabled: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         if self.isDialing == true {
             guard let calleeId = self.call.remoteUser?.userId else {
                 self.navigationController?.popViewController(animated: true)
@@ -44,9 +52,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
             }
             self.dialed(to: calleeId)
         }
-        self.setupUI()
-        self.setupAudioOutputButton()
-        self.updateRemoteAudio(isEnabled: true)
     }
     
     // MARK: - IBActions

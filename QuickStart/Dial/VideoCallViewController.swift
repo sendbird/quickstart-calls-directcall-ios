@@ -51,6 +51,15 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         
         self.call.delegate = self
         
+        self.setupVideoView()
+        self.setupUI()
+        self.updateRemoteAudio(isEnabled: true)
+        self.setupAudioOutputButton()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         if isDialing ?? false {
             guard let calleeId = self.call.remoteUser?.userId else {
                 self.navigationController?.popViewController(animated: true)
@@ -58,10 +67,6 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
             }
             self.dialed(to: calleeId)
         }
-        self.setupVideoView()
-        self.setupUI()
-        self.updateRemoteAudio(isEnabled: true)
-        self.setupAudioOutputButton()
     }
     
     // MARK: - Basic UI
