@@ -9,27 +9,26 @@ import UIKit
 import SendBirdCalls
 
 class SettingsTableViewController: UITableViewController {
-    @IBOutlet weak var userProfileImageView: UIImageView!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var userIdLabel: UILabel!
+    @IBOutlet weak var userProfileImageView: UIImageView! {
+        didSet {
+            let profile = UserDefaults.standard.user.profile
+            self.userProfileImageView.setImage(urlString: profile)
+        }
+    }
+    @IBOutlet weak var usernameLabel: UILabel! {
+        didSet {
+            self.usernameLabel.text = UserDefaults.standard.user.name
+        }
+    }
+    @IBOutlet weak var userIdLabel: UILabel! {
+        didSet {
+            self.userIdLabel.text = UserDefaults.standard.user.id
+        }
+    }
     
     enum CellRow: Int {
         case applnfo = 1
         case signOut = 2
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.setupUserInfo()
-    }
-    
-    func setupUserInfo() {
-        self.userIdLabel.text = UserDefaults.standard.user.id
-        self.usernameLabel.text = UserDefaults.standard.user.name
-        
-        let profile = UserDefaults.standard.user.profile
-        self.userProfileImageView.setImage(urlString: profile)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

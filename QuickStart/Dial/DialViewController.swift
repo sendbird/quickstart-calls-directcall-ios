@@ -11,7 +11,12 @@ import SendBirdCalls
 
 class DialViewController: UIViewController, UITextFieldDelegate {
     // Profile
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView! {
+        didSet {
+            let profileURL = UserDefaults.standard.user.profile
+            self.profileImageView.setImage(urlString: profileURL)
+        }
+    }
     @IBOutlet weak var userIdLabel: UILabel! {
         didSet {
             self.userIdLabel.text = UserDefaults.standard.user.id
@@ -37,9 +42,6 @@ class DialViewController: UIViewController, UITextFieldDelegate {
         
         self.calleeIdTextField.delegate = self
         NotificationCenter.observeKeyboard(action1: #selector(keyboardWillShow(_:)), action2: #selector(keyboardWillHide(_:)), on: self)
-        
-        let profileURL = UserDefaults.standard.user.profile
-        self.profileImageView.setImage(urlString: profileURL)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
