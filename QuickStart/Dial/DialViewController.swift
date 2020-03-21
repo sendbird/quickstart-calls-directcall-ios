@@ -11,12 +11,7 @@ import SendBirdCalls
 
 class DialViewController: UIViewController, UITextFieldDelegate {
     // Profile
-    @IBOutlet weak var profileImageView: UIImageView! {
-        didSet {
-            let profileURL = UserDefaults.standard.user.profile
-            self.profileImageView.setImage(urlString: profileURL)
-        }
-    }
+    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userIdLabel: UILabel! {
         didSet {
             self.userIdLabel.text = UserDefaults.standard.user.id
@@ -34,12 +29,17 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var voiceCallButton: UIButton!
     @IBOutlet weak var videoCallButton: UIButton!
     
+    let activityIndicator = UIActivityIndicatorView()
+    
     // MARK: Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.calleeIdTextField.delegate = self
         NotificationCenter.observeKeyboard(action1: #selector(keyboardWillShow(_:)), action2: #selector(keyboardWillHide(_:)), on: self)
+        
+        let profileURL = UserDefaults.standard.user.profile
+        self.profileImageView.setImage(urlString: profileURL)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -56,13 +56,13 @@ class DialViewController: UIViewController, UITextFieldDelegate {
 
 // MARK: - User Interaction with SendBirdCall
 extension DialViewController {
-    
     @IBAction func didTapVoiceCall() {
         guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else {
-            self.presentErrorAlert(message: "Please enter user ID")
+            self.presentErrorAlert(message: "Enter a valid user ID")
             return
         }
         self.voiceCallButton.isEnabled = false
+        self.startLoading()
         
         // MARK: SendBirdCall.dial()
         let callOptions = CallOptions(isAudioEnabled: true)
@@ -71,6 +71,7 @@ extension DialViewController {
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self] in
                 self?.voiceCallButton.isEnabled = true
+                self?.stopLoading()
             }
             
             guard error == nil, let call = call else {
@@ -92,6 +93,7 @@ extension DialViewController {
             return
         }
         self.videoCallButton.isEnabled = false
+        self.startLoading()
         
         // MARK: SendBirdCall.dial()
         let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: true)
@@ -100,6 +102,7 @@ extension DialViewController {
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self] in
                 self?.videoCallButton.isEnabled = true
+                self?.stopLoading()
             }
             
             guard error == nil, let call = call else {
@@ -153,6 +156,21 @@ extension DialViewController {
             
             self.view.layoutIfNeeded()
         })
+    }
+    
+    func startLoading() {
+        self.activityIndicator.center = self.view.center
+        self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.style = .gray
+        self.view.addSubview(activityIndicator)
+        
+        self.activityIndicator.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+    }
+    
+    func stopLoading() {
+        self.activityIndicator.stopAnimating()
+        UIApplication.shared.endIgnoringInteractionEvents()
     }
 }
 

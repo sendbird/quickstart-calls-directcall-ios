@@ -45,6 +45,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         NotificationCenter.observeKeyboard(action1: #selector(keyboardWillShow(_:)), action2: #selector(keyboardWillHide(_:)), on: self)
         
+        self.resetButtonUI()
         if UserDefaults.standard.autoLogin == true {
             self.updateButtonUI()
             self.signIn(userId: UserDefaults.standard.user.id)
@@ -76,6 +77,7 @@ extension SignInViewController {
         SendBirdCall.authenticate(with: params) { user, error in
             guard let user = user, error == nil else {
                 DispatchQueue.main.async { [weak self] in
+                    self?.stopLoading()
                     self?.presentErrorAlert(message: "💣 \(String(describing: error))")
                     self?.resetButtonUI()
                 }
@@ -85,7 +87,6 @@ extension SignInViewController {
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
             DispatchQueue.main.async { [weak self] in
-                self?.resetButtonUI()
                 self?.stopLoading()
                 self?.performSegue(withIdentifier: "signIn", sender: nil)
             }

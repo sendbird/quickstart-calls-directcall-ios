@@ -26,6 +26,7 @@ class SignInWithQRViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.resetButtonUI()
         if UserDefaults.standard.autoLogin == true {
             self.updateButtonUI()
             self.signIn()
@@ -97,6 +98,7 @@ extension SignInWithQRViewController {
         SendBirdCall.authenticate(with: authParams) { user, error in
             guard let user = user, error == nil else {
                 DispatchQueue.main.async { [weak self] in
+                    self?.stopLoading()
                     self?.presentErrorAlert(message: "💣 \(String(describing: error))")
                     self?.resetButtonUI()
                 }
@@ -106,7 +108,6 @@ extension SignInWithQRViewController {
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
             DispatchQueue.main.async { [weak self] in
-                self?.resetButtonUI()
                 self?.stopLoading()
                 self?.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
             }
