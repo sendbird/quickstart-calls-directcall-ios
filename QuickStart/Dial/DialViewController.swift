@@ -47,9 +47,9 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if var callVC = segue.destination as? DirectCallDataSource, let call = sender as? DirectCall {
-            callVC.call = call
-            callVC.isDialing = true
+        if var dataSource = segue.destination as? DirectCallDataSource, let call = sender as? DirectCall {
+            dataSource.call = call
+            dataSource.isDialing = true
         }
     }
 }

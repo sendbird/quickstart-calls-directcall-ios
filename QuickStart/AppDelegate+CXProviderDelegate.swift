@@ -40,9 +40,9 @@ extension AppDelegate: CXProviderDelegate {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(withIdentifier: call.isVideoCall ? "VideoCallViewController" : "VoiceCallViewController")
 
-        if var callVC = viewController as? DirectCallDataSource {
-            callVC.call = call
-            callVC.isDialing = false
+        if var dataSource = viewController as? DirectCallDataSource {
+            dataSource.call = call
+            dataSource.isDialing = false
         }
         
         if let topViewController = UIViewController.topViewController {
