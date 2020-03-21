@@ -19,6 +19,7 @@ extension UserDefaults {
             userDefault.setValue(newValue, forKey: "com.sendbird.calls.quickstart.appid")
         }
     }
+    
     var user: (id: String, name: String?, profile: String?) {
         get {
             let userDefault = UserDefaults.standard
@@ -64,5 +65,17 @@ extension UserDefaults {
         set {
             UserDefaults.standard.setValue(newValue, forKey: "com.sendbird.calls.quickstart.pushtoken")
         }
+    }
+}
+
+extension UserDefaults {
+    func clear() {
+        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.appid")
+        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.user.id")
+        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.user.name")
+        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.user.profile")
+        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.autologin")
+        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.accesstoken")
+        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.pushtoken")
     }
 }

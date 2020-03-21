@@ -53,7 +53,6 @@ class SettingsTableViewController: UITableViewController {
                 // MARK: Sign Out
                 self.signOut()
                 DispatchQueue.main.async {
-                    UserDefaults.standard.autoLogin = false
                     self.dismiss(animated: true, completion: nil)
                 }
             }
@@ -76,8 +75,7 @@ extension SettingsTableViewController {
         SendBirdCall.deauthenticate(voipPushToken: token) { error in
             guard error == nil else { return }
             // Removed pushToken successfully
-            UserDefaults.standard.pushToken = nil
-            UserDefaults.standard.appId = nil
+            UserDefaults.standard.clear()
         }
     }
 }
