@@ -75,7 +75,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         }
         self.callTimerLabel.text = "Calling..."
         self.nameLabel.text = self.call.remoteUser?.userId
-        self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") muted this call"
+        self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
 
         // Local Info
         self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
@@ -83,7 +83,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     
     func setupEndedCallUI() {
         self.callTimer?.invalidate()
-        self.callTimerLabel.text = "Ended"
+        self.callTimerLabel.text = "Call ended"
         
         self.endButton.isHidden = true
         self.speakerButton.isHidden = true

@@ -85,7 +85,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         }
         self.remoteProfileImageView.isHidden = true
         self.remoteUserIdLabel.text = self.call.remoteUser?.userId
-        self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") muted this call"
+        self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
         
         // Local Info
         self.audioOffButton.isSelected = !self.call.isLocalAudioEnabled
@@ -93,7 +93,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     
     func setupEndedCallUI() {
         // Tell user that the call has been ended.
-        self.callStatusLabel.text = "Ended"
+        self.callStatusLabel.text = "Call Ended"
         self.topSpaceRemoteUserId.constant = 244
         self.callStatusLabel.isHidden = false
         self.remoteUserIdLabel.isHidden = false
