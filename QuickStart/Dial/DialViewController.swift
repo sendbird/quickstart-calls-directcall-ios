@@ -72,20 +72,23 @@ extension DialViewController {
 
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self] in
-                self?.voiceCallButton.isEnabled = true
-                self?.stopLoading()
+                guard let self = self else { return }
+                self.voiceCallButton.isEnabled = true
+                self.stopLoading()
             }
             
             guard error == nil, let call = call else {
                 DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
                     let errorDescription = String(error?.localizedDescription.removeSlash() ?? "")
-                    self?.presentErrorAlert(message: "Failed to call\n\(errorDescription)")
+                    self.presentErrorAlert(message: "Failed to call\n\(errorDescription)")
                 }
                 return
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.performSegue(withIdentifier: "voiceCall", sender: call)
+                guard let self = self else { return }
+                self.performSegue(withIdentifier: "voiceCall", sender: call)
             }
         }
     }
@@ -104,20 +107,23 @@ extension DialViewController {
 
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self] in
-                self?.videoCallButton.isEnabled = true
-                self?.stopLoading()
+                guard let self = self else { return }
+                self.videoCallButton.isEnabled = true
+                self.stopLoading()
             }
             
             guard error == nil, let call = call else {
                 DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
                     let errorDescription = String(error?.localizedDescription.removeSlash() ?? "")
-                    self?.presentErrorAlert(message: "Failed to make video call\n\(errorDescription)")
+                    self.presentErrorAlert(message: "Failed to make video call\n\(errorDescription)")
                 }
                 return
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.performSegue(withIdentifier: "videoCall", sender: call)
+                guard let self = self else { return }
+                self.performSegue(withIdentifier: "videoCall", sender: call)
             }
         }
     }

@@ -95,12 +95,17 @@ extension SignInWithQRViewController {
         self.startLoading()
         
         SendBirdCall.authenticate(with: authParams) { user, error in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.stopLoading()
+                self.resetButtonUI()
+            }
+            
             guard let user = user, error == nil else {
                 DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
                     let errorDescription = String(error?.localizedDescription.removeSlash() ?? "")
-                    self?.stopLoading()
-                    self?.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
-                    self?.resetButtonUI()
+                    self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
                 }
                 return
             }
@@ -108,9 +113,8 @@ extension SignInWithQRViewController {
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
             DispatchQueue.main.async { [weak self] in
-                self?.stopLoading()
-                self?.resetButtonUI()
-                self?.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
+                guard let self = self else { return }
+                self.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
             }
         }
         
