@@ -15,7 +15,7 @@ import AVFoundation
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
-    var queue: DispatchQueue = DispatchQueue(label: "com.sendbird.quickstart.voicevideo.appdelegate")
+    var queue: DispatchQueue = DispatchQueue(label: "com.sendbird.calls.quickstart.appdelegate")
     var voipRegistry: PKPushRegistry?
     
     lazy var provider: CXProvider = {
@@ -26,10 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
+        // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
         if let appId = UserDefaults.standard.appId {
             SendBirdCall.configure(appId: appId)
         }
-        
         SendBirdCall.addDelegate(self, identifier: "DelegateIdentification")
         
         self.voipRegistration()
