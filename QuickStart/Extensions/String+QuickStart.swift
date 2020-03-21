@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+extension String {
+    func removeSlash() -> String {
+        return self.replacingOccurrences(of: "\\", with: "")
+    }
+}
