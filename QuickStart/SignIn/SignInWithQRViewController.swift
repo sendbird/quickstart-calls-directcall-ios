@@ -104,7 +104,7 @@ extension SignInWithQRViewController {
             guard let user = user, error == nil else {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    let errorDescription = String(error?.localizedDescription.removeSlash() ?? "")
+                    let errorDescription = String(error?.localizedDescription.removeBackSlash() ?? "")
                     self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
                 }
                 return
