@@ -261,28 +261,40 @@ extension VideoCallViewController {
 extension VideoCallViewController: DirectCallDelegate {
     // MARK: Required Methods
     func didConnect(_ call: DirectCall) {
-        self.remoteUserIdLabel.isHidden = true
-        self.callStatusLabel.isHidden = true
-        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.remoteUserIdLabel.isHidden = true
+            self.callStatusLabel.isHidden = true
+            self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        }
     }
     
     func didEnd(_ call: DirectCall) {
-        self.setupEndedCallUI()
-        
-        guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
-        guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        self.requestEndTransaction(of: call)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.setupEndedCallUI()
+            
+            guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
+            guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
+            self.requestEndTransaction(of: call)
+        }
     }
     
     // MARK: Optional Methods
     func didEstablish(_ call: DirectCall) {
-        self.resizeLocalVideoView()
-        
-        self.callStatusLabel.text = "Connecting..."
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.resizeLocalVideoView()
+            
+            self.callStatusLabel.text = "Connecting..."
+        }
     }
     
     func didRemoteAudioSettingsChange(_ call: DirectCall) {
-        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        }
     }
     
     func didRemoteVideoSettingsChange(_ call: DirectCall) {
@@ -290,21 +302,24 @@ extension VideoCallViewController: DirectCallDelegate {
     }
     
     func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
-        guard !call.isEnded else { return }
-        guard let output = session.currentRoute.outputs.first else { return }
-        
-        let outputType = output.portType
-        let outputName = output.portName
-        
-        // Customize images
-        var imageName = "btnSpeaker"
-        switch outputType {
-        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "btnBluetoothSelected"
-        case .builtInSpeaker: imageName = "btnSpeakerSelected"
-        default: imageName = "btnSpeaker"
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            guard !call.isEnded else { return }
+            guard let output = session.currentRoute.outputs.first else { return }
+            
+            let outputType = output.portType
+            let outputName = output.portName
+            
+            // Customize images
+            var imageName = "btnSpeaker"
+            switch outputType {
+            case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "btnBluetoothSelected"
+            case .builtInSpeaker: imageName = "btnSpeakerSelected"
+            default: imageName = "btnSpeaker"
+            }
+            
+            self.audioRouteButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
+            print("[QuickStart] Audio Route has been changed to \(outputName)")
         }
-        
-        self.audioRouteButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
-        print("[QuickStart] Audio Route has been changed to \(outputName)")
     }
 }

@@ -88,6 +88,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     
     func setupEndedCallUI() {
         self.callTimer?.invalidate()
+        self.callTimer = nil
         self.callTimerLabel.text = "Call ended"
         
         self.endButton.isHidden = true
@@ -169,7 +170,8 @@ extension VoiceCallViewController {
     func activeTimer() {
         self.callTimerLabel.text = "00:00"
         
-        self.callTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        self.callTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            guard let self = self else { return }
             let duration = Double(self.call.duration)
             
             let convertedTime = Int(duration / 1000)
@@ -187,6 +189,7 @@ extension VoiceCallViewController {
             // Timer Invalidate
             if self.call.endedAt != 0, timer.isValid {
                 timer.invalidate()
+                self.callTimer = nil
             }
         }
     }
@@ -197,48 +200,63 @@ extension VoiceCallViewController: DirectCallDelegate {
     // MARK: Required Methods
     // This method is required
     func didConnect(_ call: DirectCall) {
-        self.activeTimer()      // call.duration
-        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.activeTimer()      // call.duration
+            self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        }
     }
     
     func didEnd(_ call: DirectCall) {
-        self.setupEndedCallUI()
-        
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-            self.dismiss(animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.setupEndedCallUI()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard let self = self else { return }
+                self.dismiss(animated: true, completion: nil)
+            }
+            
+            guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
+            guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
+            self.requestEndTransaction(of: call)
         }
-        
-        guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
-        guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        self.requestEndTransaction(of: call)
-        
     }
     
     // MARK: Optional Methods
     func didEstablish(_ call: DirectCall) {
-        self.callTimerLabel.text = "Connecting..."
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.callTimerLabel.text = "Connecting..."
+        }
     }
     
     func didRemoteAudioSettingsChange(_ call: DirectCall) {
-        self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        }
     }
     
     func didAudioDeviceChange(_ call: DirectCall, session: AVAudioSession, previousRoute: AVAudioSessionRouteDescription, reason: AVAudioSession.RouteChangeReason) {
-        guard !call.isEnded else { return }
-        guard let output = session.currentRoute.outputs.first else { return }
-        
-        let outputType = output.portType
-        let outputName = output.portName
-        
-        // Customize images
-        var imageName = "btnSpeaker"
-        switch outputType {
-        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "btnBluetoothSelected"
-        case .builtInSpeaker: imageName = "btnSpeakerSelected"
-        default: imageName = "btnSpeaker"
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            guard !call.isEnded else { return }
+            guard let output = session.currentRoute.outputs.first else { return }
+            
+            let outputType = output.portType
+            let outputName = output.portName
+            
+            // Customize images
+            var imageName = "btnSpeaker"
+            switch outputType {
+            case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "btnBluetoothSelected"
+            case .builtInSpeaker: imageName = "btnSpeakerSelected"
+            default: imageName = "btnSpeaker"
+            }
+            
+            self.speakerButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
+            print("[QuickStart] Audio Route has been changed to \(outputName)")
         }
-        
-        self.speakerButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
-        print("[QuickStart] Audio Route has been changed to \(outputName)")
     }
 }
