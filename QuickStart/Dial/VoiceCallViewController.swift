@@ -13,7 +13,12 @@ import SendBirdCalls
 
 class VoiceCallViewController: UIViewController, DirectCallDataSource {
     
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView! {
+        didSet {
+            let profileURL = self.call.remoteUser?.profileURL
+            self.profileImageView.setImage(urlString: profileURL)
+        }
+    }
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var speakerButton: UIButton!
@@ -72,11 +77,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     func setupUI() {
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
-        }
-        
-        DispatchQueue.main.async { [weak self] in
-            let profileURL = self?.call.remoteUser?.profileURL
-            self?.profileImageView.setImage(urlString: profileURL)
         }
         self.callTimerLabel.text = "Calling..."
         self.nameLabel.text = self.call.remoteUser?.userId

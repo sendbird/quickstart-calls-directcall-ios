@@ -24,7 +24,13 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     
     // ImageView
     @IBOutlet weak var mutedStateImageView: UIImageView!
-    @IBOutlet weak var remoteProfileImageView: UIImageView!
+    @IBOutlet weak var remoteProfileImageView: UIImageView! {
+        didSet {
+            let profileURL = self.call.remoteUser?.profileURL
+            self.remoteProfileImageView.setImage(urlString: profileURL)
+            self.remoteProfileImageView.isHidden = true
+        }
+    }
     
     // Buttons
     @IBOutlet weak var audioRouteButton: UIButton!
@@ -84,11 +90,6 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         self.bottomConstraint.constant = -44
         
         // Remote Info
-        DispatchQueue.main.async { [weak self] in
-            let profileURL = self?.call.remoteUser?.profileURL
-            self?.remoteProfileImageView.setImage(urlString: profileURL)
-        }
-        self.remoteProfileImageView.isHidden = true
         self.remoteUserIdLabel.text = self.call.remoteUser?.userId
         self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
         
