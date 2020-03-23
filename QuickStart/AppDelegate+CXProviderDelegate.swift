@@ -32,7 +32,7 @@ extension AppDelegate: CXProviderDelegate {
         }
         
         // MARK: SendBirdCalls - DirectCall.accept()
-        let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: call.isVideoCall)
+        let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: call.isVideoCall, useFrontCamera: true)
         let acceptParams = AcceptParams(callOptions: callOptions)
         call.accept(with: acceptParams)
         

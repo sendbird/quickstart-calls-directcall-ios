@@ -102,7 +102,7 @@ extension DialViewController {
         self.startLoading()
         
         // MARK: SendBirdCall.dial()
-        let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: true)
+        let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: true, useFrontCamera: true)
         let dialParams = DialParams(calleeId: calleeId, isVideoCall: true, callOptions: callOptions, customItems: [:])
 
         SendBirdCall.dial(with: dialParams) { call, error in
