@@ -125,6 +125,26 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     // MARK: - IBActions
     @IBAction func didTapFilpCamera() {
         self.presentErrorAlert(message: "Camera selection is not supported in Calls \(SendBirdCall.sdkVersion)")
+        guard let currentCamera = self.call.currentVideoDevice else {
+            self.presentErrorAlert(message: "Failed to load current camera information.")
+            return
+        }
+        let currentPosition = currentCamera.position
+        let availableCapturers = self.call.availableVideoDevices
+        guard let oppositeCamera = availableCapturers.first(where: { $0.position != currentPosition }) else {
+            self.presentErrorAlert(message: "Failed to flip camera. Please retry.")
+            return
+        }
+        self.call.selectVideoDevice(oppositeCamera) { error in
+            guard error == nil else {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.presentErrorAlert(message: error?.localizedDescription ?? "")
+                }
+                return
+            }
+            // success
+        }
     }
     
     @IBAction func didTapAudioOnOff(_ sender: UIButton) {
