@@ -202,7 +202,7 @@ extension VideoCallViewController {
     }
     
     func mirrorLocalVideoView() {
-        guard let localSBView = self.localVideoView?.subviews[0] else { return }
+        guard let localSBView = self.localVideoView?.subviews.first else { return }
         localSBView.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
     }
     
