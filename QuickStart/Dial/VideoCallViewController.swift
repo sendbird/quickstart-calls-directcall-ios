@@ -124,13 +124,8 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     
     // MARK: - IBActions
     @IBAction func didTapFilpCamera() {
-        guard let currentCamera = self.call.currentVideoDevice else {
-            self.presentErrorAlert(message: "Failed to load current camera information. Please retry.")
-            return
-        }
-        let currentPosition = currentCamera.position
         let availableCapturers = self.call.availableVideoDevices
-        guard let oppositeCamera = availableCapturers.first(where: { $0.position != currentPosition }) else {
+        guard let oppositeCamera = availableCapturers.first(where: { $0.position != self.call.currentVideoDevice?.position }) else {
             self.presentErrorAlert(message: "Failed to flip camera. Please retry.")
             return
         }
