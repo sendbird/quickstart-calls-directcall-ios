@@ -127,6 +127,8 @@
                         <viewLayoutGuide key="safeArea" id="vhI-5x-sCY"/>
                     </view>
                     <connections>
+                        <outlet property="lineView" destination="tru-yo-3qA" id="vF3-VX-uK4"/>
+                        <outlet property="orLabel" destination="bcf-1p-rBa" id="xv7-Op-AH7"/>
                         <outlet property="scanButton" destination="YZR-b6-jmu" id="p5I-6e-eW0"/>
                         <outlet property="signInManuallyButton" destination="Wdt-8g-sll" id="tRQ-Tw-r09"/>
                         <outlet property="versionLabel" destination="njB-YT-BFm" id="SSx-tv-57D"/>
