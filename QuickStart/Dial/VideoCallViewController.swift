@@ -137,7 +137,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
                 }
                 return
             }
-            // success
+            self.mirrorLocalVideoView()
         }
     }
     
