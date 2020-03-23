@@ -179,6 +179,8 @@ extension VideoCallViewController {
         
         self.localVideoView?.embed(localSBVideoView)
         self.view?.embed(remoteSBVideoView)
+        
+        self.mirrorLocalVideoView()
     }
     
     func resizeLocalVideoView() {
@@ -197,6 +199,11 @@ extension VideoCallViewController {
             self.bottomConstraint.constant = self.view.frame.maxY - (topSafeMargin + bottomSafeMarging) - 176 // (topConstraint + video view height)
             self.view.layoutIfNeeded()
         })
+    }
+    
+    func mirrorLocalVideoView() {
+        guard let localSBView = self.localVideoView?.subviews[0] else { return }
+        localSBView.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
     }
     
     // SendBirdCalls: Start / Stop Video
