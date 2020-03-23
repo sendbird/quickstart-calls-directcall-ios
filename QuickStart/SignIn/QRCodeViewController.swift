@@ -10,10 +10,6 @@ import UIKit
 import AVFoundation
 import SendBirdCalls
 
-protocol QRCodeScanDelegate: class {
-    func didScanQRCode(appId: String, userId: String, accessToken: String?)
-}
-
 class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     typealias SendBirdQRInfo = [String: String?]
     
@@ -34,7 +30,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
     }
     
-    weak var delegate: QRCodeScanDelegate?
+    weak var delegate: SignInDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +118,6 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         guard let appId = qrInfo["app_id"] as? String else { return }
         guard let userId = qrInfo["user_id"] as? String else { return }
         let accessToken = qrInfo["access_token"] as? String
-        self.delegate?.didScanQRCode(appId: appId, userId: userId, accessToken: accessToken)
+        self.delegate?.didSignIn(appId: appId, userId: userId, accessToken: accessToken)
     }
 }

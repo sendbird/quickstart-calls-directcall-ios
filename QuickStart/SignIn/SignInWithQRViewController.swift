@@ -13,6 +13,13 @@ class SignInWithQRViewController: UIViewController {
     // Scan QR Code
     @IBOutlet weak var scanButton: UIButton!
     
+    // Sign In Manually
+    @IBOutlet weak var signInManuallyButton: UIButton!
+    
+    // Other components
+    @IBOutlet weak var lineView: UIView!
+    @IBOutlet weak var orLabel: UILabel!
+    
     // Footnote
     @IBOutlet weak var versionLabel: UILabel! {
         didSet {
@@ -32,6 +39,20 @@ class SignInWithQRViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "scanQR":
+            guard let qrCodeVC = segue.destination.children.first as? QRCodeViewController else { return }
+            qrCodeVC.delegate = self
+            if #available(iOS 13.0, *) { qrCodeVC.isModalInPresentation = true }
+        case "manual":
+            guard let signInVC = segue.destination.children.first as? SignInManuallyViewController else { return }
+            signInVC.delegate = self
+            if #available(iOS 13.0, *) { signInVC.isModalInPresentation = true }
+        default: return
+        }
+    }
+    
     func startLoading() {
         self.activityIndicator.center = self.view.center
         self.activityIndicator.hidesWhenStopped = true
@@ -48,13 +69,24 @@ class SignInWithQRViewController: UIViewController {
     }
     
     func resetButtonUI() {
+        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
+            self.lineView.isHidden = false
+            self.orLabel.isHidden = false
+            self.signInManuallyButton.isHidden = false
+        }
+        animator.startAnimation()
+        
         self.scanButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.88), for: .normal)
         self.scanButton.backgroundColor = UIColor(red: 123 / 255, green: 83 / 255, blue: 239 / 255, alpha: 1.0)
-        self.scanButton.setTitle("Scan QR Code", for: .normal)
+        self.scanButton.setTitle("Sign in with QR code", for: .normal)
         self.scanButton.isEnabled = true
     }
     
     func updateButtonUI() {
+        self.lineView.isHidden = true
+        self.orLabel.isHidden = true
+        self.signInManuallyButton.isHidden = true
+        
         self.scanButton.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1.0)
         self.scanButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.12), for: .normal)
         self.scanButton.setTitle("Signing In...", for: .normal)
@@ -63,19 +95,17 @@ class SignInWithQRViewController: UIViewController {
 }
 
 // MARK: - QR Code
-extension SignInWithQRViewController: QRCodeScanDelegate {
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "scanQR", let QRCodeVC = segue.destination.children.first as? QRCodeViewController else { return }
-        QRCodeVC.delegate = self
-    }
-    
+extension SignInWithQRViewController: SignInDelegate {
     @IBAction func didTapScanQRCode() {
         performSegue(withIdentifier: "scanQR", sender: nil)
     }
     
+    @IBAction func didTapSignInManually() {
+        performSegue(withIdentifier: "manual", sender: nil)
+    }
+    
     // Delegate method
-    func didScanQRCode(appId: String, userId: String, accessToken: String?) {
+    func didSignIn(appId: String, userId: String, accessToken: String?) {
         SendBirdCall.configure(appId: appId)
 
         UserDefaults.standard.appId = appId
@@ -107,6 +137,7 @@ extension SignInWithQRViewController {
                     let errorDescription = String(error?.localizedDescription ?? "")
                     self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
                 }
+                UserDefaults.standard.clear()
                 return
             }
             UserDefaults.standard.autoLogin = true
