@@ -87,29 +87,16 @@ class SignInWithQRViewController: UIViewController {
 }
 
 // MARK: - QR Code
-extension SignInWithQRViewController: QRCodeScanDelegate {
+extension SignInWithQRViewController: SignInDelegate {
     @IBAction func didTapScanQRCode() {
         performSegue(withIdentifier: "scanQR", sender: nil)
     }
     
-    // Delegate method
-    func didScanQRCode(appId: String, userId: String, accessToken: String?) {
-        SendBirdCall.configure(appId: appId)
-
-        UserDefaults.standard.appId = appId
-        UserDefaults.standard.user.id = userId
-        UserDefaults.standard.accessToken = accessToken
-        self.updateButtonUI()
-        self.signIn()
-    }
-}
-
-// MARK: - Sign In Manually
-extension SignInWithQRViewController: ManualSignInDelegate {
     @IBAction func didTapSignInManually() {
         performSegue(withIdentifier: "manual", sender: nil)
     }
     
+    // Delegate method
     func didSignIn(appId: String, userId: String, accessToken: String?) {
         SendBirdCall.configure(appId: appId)
 

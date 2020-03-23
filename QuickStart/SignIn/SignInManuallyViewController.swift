@@ -9,10 +9,6 @@
 import UIKit
 import SendBirdCalls
 
-protocol ManualSignInDelegate: class {
-    func didSignIn(appId: String, userId: String, accessToken: String?)
-}
-
 class SignInManuallyViewController: UIViewController {
     @IBOutlet weak var appIdTextField: UITextField! {
         didSet {
@@ -48,7 +44,7 @@ class SignInManuallyViewController: UIViewController {
         }
     }
     
-    weak var delegate: ManualSignInDelegate?
+    weak var delegate: SignInDelegate?
     
     @IBAction func didTapCancel() {
         self.dismiss(animated: true, completion: nil)
@@ -64,7 +60,7 @@ class SignInManuallyViewController: UIViewController {
             self.presentErrorAlert(message: "Please enter valid user ID")
             return
         }
-        let accessToken = self.userIdTextField.text
+        let accessToken = self.accessTokenTextField.text
         
         self.delegate?.didSignIn(appId: appId, userId: userId, accessToken: accessToken)
         self.dismiss(animated: true, completion: nil)
