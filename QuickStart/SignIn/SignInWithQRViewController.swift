@@ -40,9 +40,11 @@ class SignInWithQRViewController: UIViewController {
         case "scanQR":
             guard let qrCodeVC = segue.destination.children.first as? QRCodeViewController else { return }
             qrCodeVC.delegate = self
+            if #available(iOS 13.0, *) { qrCodeVC.isModalInPresentation = true }
         case "manual":
             guard let signInVC = segue.destination.children.first as? SignInManuallyViewController else { return }
             signInVC.delegate = self
+            if #available(iOS 13.0, *) { signInVC.isModalInPresentation = true }
         default: return
         }
     }
