@@ -137,6 +137,7 @@ extension SignInWithQRViewController {
                     let errorDescription = String(error?.localizedDescription ?? "")
                     self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
                 }
+                UserDefaults.standard.clear()
                 return
             }
             UserDefaults.standard.autoLogin = true
