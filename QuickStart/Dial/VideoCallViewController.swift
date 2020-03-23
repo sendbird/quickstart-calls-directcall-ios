@@ -124,9 +124,8 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     
     // MARK: - IBActions
     @IBAction func didTapFilpCamera() {
-        self.presentErrorAlert(message: "Camera selection is not supported in Calls \(SendBirdCall.sdkVersion)")
         guard let currentCamera = self.call.currentVideoDevice else {
-            self.presentErrorAlert(message: "Failed to load current camera information.")
+            self.presentErrorAlert(message: "Failed to load current camera information. Please retry.")
             return
         }
         let currentPosition = currentCamera.position
