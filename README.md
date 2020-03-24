@@ -61,7 +61,7 @@ $ pod install
 ## Specifying the App ID
 As shown below, the `SendBirdCall` instance must be initiated when a client app is launched. Initialization is done by using your `APP_ID` of your SendBird application in the dashboard. This **App ID** of the SendBird application must be specified inside the sample application’s source code.
 
-Find the `application(:didFinishLaunchingWithOptions:)` method from `AppDelegate.swift`. Replace `YOUR_APP_ID` with the `App ID` of the SendBird application created previously.
+Find the `application(_:didFinishLaunchingWithOptions:)` method from `AppDelegate.swift`. Replace `YOUR_APP_ID` with the `App ID` of the SendBird application created previously.
  
 ```Swift
 SendBirdCall.configure("YOUR_APP_ID")
