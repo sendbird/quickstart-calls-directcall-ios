@@ -59,9 +59,9 @@ $ pod install
 
 
 ## Specifying the App ID
-To connect this sample Android application to the SendBird application specified in the previous step, the **App ID** of the SendBird application must be specified inside the sample Android application’s source code.
+As shown below, the `SendBirdCall` instance must be initiated when a client app is launched. Initialization is done by using your `APP_ID` of your SendBird application in the dashboard. This **App ID** of the SendBird application must be specified inside the sample application’s source code.
 
-Find the `application(_, didFinishLaunchingWithOptions:)`method of the `AppDelegate.swift` instance. Replace `YOUR_APP_ID` with the `App ID` of the SendBird application created previously.
+Find the `application(_:didFinishLaunchingWithOptions:)` method from `AppDelegate.swift`. Replace `YOUR_APP_ID` with the `App ID` of the SendBird application created previously.
  
 ```Swift
 SendBirdCall.configure("YOUR_APP_ID")
@@ -88,7 +88,6 @@ To handle a native-implementation of receiving incoming calls, you can choose to
  4. If all steps have been followed correctly, an incoming call notification will appear on the `callee` user’s device.
  5. Reverse roles, and initiate a call from the other device.
  6. If the `caller` and `callee` devices are near each other, use headphones to prevent audio feedback.
- 7. The SendBird Calls Android Sample has been successfully implemented.
 
 ## Reference
 
