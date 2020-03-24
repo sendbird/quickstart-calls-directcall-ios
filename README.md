@@ -3,12 +3,12 @@
 
 ## Introduction
 
-The `SendBirdCalls` framework enables realtime VoIP communication between app users.  This repository contains a sample application intended to demonstrate a simple implementation of this framework. This readme document details how to get up and running using this sample application.
+The Calls SDK for iOS is used to initialize, configure, and build voice and video calling functionality into your iOS application. This repository contains a sample application intended to demonstrate a simple implementation of this framework, as well as the preliminary steps of implementing the Calls SDK into your own project. 
 
 ## Prerequisites
 - Mac OS with developer mode enabled
 - Xcode
- - **[Git Large File Storage](https://git-lfs.github.com/)** installed
+- **[Git Large File Storage](https://git-lfs.github.com/)** installed
 - Homebrew
 - At least one physical iOS device running iOS `10.0+`
 
@@ -23,13 +23,13 @@ $ brew install git-lfs
 Please refer to [https://git-lfs.github.com](https://git-lfs.github.com)
  
 ### Step 2. Install SDK via CocoaPods
-Open a terminal window, move to your project directory, and then open a `Podfile` by running the following command.
+Open a terminal window, navigate to your project directory, and then open your `Podfile` by running the following command.
 ```
 $ open Podfile
 ```
-Check whether the `Podfile` includes the following:
+Make sure that the `Podfile` includes the following:
 ```
-platform :ios, '8.0'
+platform :ios, '9.0'
  
 target 'YourProject' do
   use_frameworks!
@@ -41,8 +41,7 @@ And then install the `SendBirdCalls` framework via CocoaPods
 ```
 $ pod install
 ```
-> **Important**: Make sure to install Git LFS before installing the pod.
-> **Important**: Check the size of `webRTC.framework` in `SendBirdWebRTC` folder. It MUST be over 800 MB. If it is less than 800MB please follow the steps in the [SDK’s troubleshooting section](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md#library-not-loaded-webrtcframework).
+> **Important**: Make sure to install Git LFS before installing the pod. Check the size of `WebRTC.framework` in `SendBirdWebRTC` folder. It MUST be over 800 MB. If your loaded SendBirdWebRTC framework is smaller than that, check your Git Large File Storage settings and download again. Refer to [SDK’s troubleshooting section](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md#library-not-loaded-webrtcframework).
 
 
 ## Creating a SendBird application
@@ -78,7 +77,7 @@ SendBirdCall.configure("YOUR_APP_ID")
  6. If two iOS devices are available, repeat these steps to install the sample application on both the primary device and the secondary device.
 
 ## Registering push tokens
-In order to receive incoming calls, Apple’s [PushKit framework](https://developer.apple.com/documentation/pushkit) must be implemented. This is done by registering device tokens associate with your SendBird Applications. For more information refer to Apple’s [Voice Over IP (VoIP) Best Practices
+To handle a native-implementation of receiving incoming calls, you can choose to implement Apple’s [PushKit framework](https://developer.apple.com/documentation/pushkit) and CallKit. This is done by registering device tokens associate with your SendBird Applications. For more information refer to Apple’s [Voice Over IP (VoIP) Best Practices
 ](https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/OptimizeVoIP.html)
 
 ## Making calls
