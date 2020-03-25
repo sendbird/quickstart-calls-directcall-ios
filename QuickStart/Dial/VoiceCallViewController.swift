@@ -11,7 +11,7 @@ import CallKit
 import MediaPlayer
 import SendBirdCalls
 
-class VoiceCallViewController: UIViewController, DirectCallDataSource {
+class VoiceCallViewController: UIViewController, DirectCallDataSource, CXCallable {
     
     @IBOutlet weak var profileImageView: UIImageView! {
         didSet {
@@ -73,7 +73,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            self.startCXCall(to: calleeId)
+            self.startCXCall(self.call, calleeId: calleeId)
         }
     }
     
@@ -88,7 +88,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         call.end()
-        self.requestEndTransaction(of: call)
+        self.endCXCall(call)
     }
     
     // MARK: - Basic UI
@@ -103,26 +103,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         
         self.mutedStateImageView.isHidden = true
         self.mutedStateLabel.isHidden = true
-    }
-    
-    // MARK: - CallKit Methods
-    func startCXCall(to calleeId: String) {
-        
-        let handle = CXHandle(type: .generic, value: calleeId)
-        
-        let startCallAction = CXStartCallAction(call: call.callUUID!, handle: handle)
-        startCallAction.isVideo = call.isVideoCall
-        
-        let transaction = CXTransaction(action: startCallAction)
-        
-        CXCallControllerManager.requestTransaction(transaction, action: "SendBird - Start Call")
-    }
-    
-    func requestEndTransaction(of call: DirectCall) {
-        let endCallAction = CXEndCallAction(call: call.callUUID!)
-        let transaction = CXTransaction(action: endCallAction)
-        
-        CXCallControllerManager.requestTransaction(transaction, action: "SendBird - End Call")
     }
 }
 
@@ -221,7 +201,7 @@ extension VoiceCallViewController: DirectCallDelegate {
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        self.requestEndTransaction(of: call)
+        self.endCXCall(call)
     }
     
     // MARK: Optional Methods

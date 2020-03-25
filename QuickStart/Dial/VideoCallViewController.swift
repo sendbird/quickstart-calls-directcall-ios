@@ -13,7 +13,7 @@ import CallKit
 import AVFoundation
 import SendBirdCalls
 
-class VideoCallViewController: UIViewController, DirectCallDataSource {
+class VideoCallViewController: UIViewController, DirectCallDataSource, CXCallable {
     // Video Views
     @IBOutlet weak var localVideoView: UIView?
     
@@ -180,30 +180,8 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         self.endButton.isEnabled = false
         
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        
         call.end()
-        
-        self.requestEndTransaction(of: call)
-    }
-    
-    // MARK: - CallKit Methods
-    func startCXCall(to calleeId: String) {
-        
-        let handle = CXHandle(type: .generic, value: calleeId)
-        
-        let startCallAction = CXStartCallAction(call: call.callUUID!, handle: handle)
-        startCallAction.isVideo = call.isVideoCall
-        
-        let transaction = CXTransaction(action: startCallAction)
-        
-        CXCallControllerManager.requestTransaction(transaction, action: "SendBird - Start Call")
-    }
-    
-    func requestEndTransaction(of call: DirectCall) {
-        let endCallAction = CXEndCallAction(call: call.callUUID!)
-        let transaction = CXTransaction(action: endCallAction)
-        
-        CXCallControllerManager.requestTransaction(transaction, action: "SendBird - End Call")
+        self.endCXCall(call)
     }
 }
 
@@ -322,7 +300,7 @@ extension VideoCallViewController: DirectCallDelegate {
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        self.requestEndTransaction(of: call)
+        self.endCXCall(call)
     }
     
     // MARK: Optional Methods
