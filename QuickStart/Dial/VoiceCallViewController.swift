@@ -11,7 +11,7 @@ import CallKit
 import MediaPlayer
 import SendBirdCalls
 
-class VoiceCallViewController: UIViewController, DirectCallDataSource, CXCallable {
+class VoiceCallViewController: UIViewController, DirectCallDataSource {
     
     @IBOutlet weak var profileImageView: UIImageView! {
         didSet {
@@ -67,7 +67,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource, CXCallabl
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            self.startCXCall(self.call, calleeId: calleeId)
+            CXCallControllerManager.startCXCall(self.call, calleeId: calleeId)
         }
     }
     
@@ -82,7 +82,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource, CXCallabl
         
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         call.end()
-        self.endCXCall(call)
+        CXCallControllerManager.endCXCall(call)
     }
     
     // MARK: - Basic UI
@@ -195,7 +195,7 @@ extension VoiceCallViewController: DirectCallDelegate {
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        self.endCXCall(call)
+        CXCallControllerManager.endCXCall(call)
     }
     
     // MARK: Optional Methods

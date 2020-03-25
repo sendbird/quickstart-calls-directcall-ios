@@ -13,7 +13,7 @@ import CallKit
 import AVFoundation
 import SendBirdCalls
 
-class VideoCallViewController: UIViewController, DirectCallDataSource, CXCallable {
+class VideoCallViewController: UIViewController, DirectCallDataSource {
     // Video Views
     @IBOutlet weak var localVideoView: UIView?
     
@@ -104,7 +104,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource, CXCallabl
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            self.startCXCall(self.call, calleeId: calleeId)
+            CXCallControllerManager.startCXCall(self.call, calleeId: calleeId)
         }
     }
     
@@ -175,7 +175,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource, CXCallabl
         
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         call.end()
-        self.endCXCall(call)
+        CXCallControllerManager.endCXCall(call)
     }
 }
 
@@ -294,7 +294,7 @@ extension VideoCallViewController: DirectCallDelegate {
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        self.endCXCall(call)
+        CXCallControllerManager.endCXCall(call)
     }
     
     // MARK: Optional Methods
