@@ -20,8 +20,8 @@ class CXCallControllerManager {
         }
     }
     
-    static func startCXCall(_ call: DirectCall, calleeId: String) {
-        let handle = CXHandle(type: .generic, value: calleeId)
+    static func startCXCall(_ call: DirectCall) {
+        let handle = CXHandle(type: .generic, value: call.callee?.userId ?? "Callee ID")
         let startCallAction = CXStartCallAction(call: call.callUUID!, handle: handle)
         startCallAction.isVideo = call.isVideoCall
         

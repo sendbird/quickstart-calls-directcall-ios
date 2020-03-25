@@ -63,11 +63,11 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         super.viewDidAppear(animated)
         
         if self.isDialing == true {
-            guard let calleeId = self.call.remoteUser?.userId else {
+            guard self.call.remoteUser?.userId != nil else {
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            CXCallControllerManager.startCXCall(self.call, calleeId: calleeId)
+            CXCallControllerManager.startCXCall(self.call)
         }
     }
     
