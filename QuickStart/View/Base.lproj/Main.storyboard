@@ -58,14 +58,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tru-yo-3qA">
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tru-yo-3qA">
                                 <rect key="frame" x="24" y="371" width="366" height="1"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="qAQ-Rk-8DE"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcf-1p-rBa">
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcf-1p-rBa">
                                 <rect key="frame" x="185" y="361" width="44" height="21"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -127,8 +127,6 @@
                         <viewLayoutGuide key="safeArea" id="vhI-5x-sCY"/>
                     </view>
                     <connections>
-                        <outlet property="lineView" destination="tru-yo-3qA" id="vF3-VX-uK4"/>
-                        <outlet property="orLabel" destination="bcf-1p-rBa" id="xv7-Op-AH7"/>
                         <outlet property="scanButton" destination="YZR-b6-jmu" id="p5I-6e-eW0"/>
                         <outlet property="signInManuallyButton" destination="Wdt-8g-sll" id="tRQ-Tw-r09"/>
                         <outlet property="versionLabel" destination="njB-YT-BFm" id="SSx-tv-57D"/>
@@ -1231,6 +1229,6 @@
         <image name="imgGuideQrcode" width="240" height="240"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Yib-DD-kYP"/>
+        <segue reference="z0d-vE-FZS"/>
     </inferredMetricsTieBreakers>
 </document>
