@@ -18,11 +18,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource, CXCallabl
     @IBOutlet weak var localVideoView: UIView?
     
     // Labels
-    @IBOutlet weak var callStatusLabel: UILabel! {
-        didSet {
-            self.callStatusLabel.text = "Calling..."
-        }
-    }
+    @IBOutlet weak var callStatusLabel: UILabel!
     @IBOutlet weak var mutedStateLabel: UILabel! {
         didSet {
             self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
@@ -85,8 +81,6 @@ class VideoCallViewController: UIViewController, DirectCallDataSource, CXCallabl
     
     var call: DirectCall!
     var isDialing: Bool?
-    
-    let callController = CXCallController()
 
     override func viewDidLoad() {
         super.viewDidLoad()

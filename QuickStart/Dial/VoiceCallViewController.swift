@@ -32,11 +32,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource, CXCallabl
         }
     }
     @IBOutlet weak var endButton: UIButton!
-    @IBOutlet weak var callTimerLabel: UILabel! {
-        didSet {
-            self.callTimerLabel.text = "Calling..."
-        }
-    }
+    @IBOutlet weak var callTimerLabel: UILabel!
     
     // Notify muted state
     @IBOutlet weak var mutedStateImageView: UIImageView!
@@ -50,8 +46,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource, CXCallabl
     var isDialing: Bool?
     
     var callTimer: Timer?
-    
-    let callController = CXCallController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
