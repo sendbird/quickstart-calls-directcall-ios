@@ -63,11 +63,10 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         super.viewDidAppear(animated)
         
         if self.isDialing == true {
-            guard self.call.remoteUser?.userId != nil else {
+            CXCallController.shared.startCXCall(self.call)
+            if !CXCallController.isRquested {
                 self.navigationController?.popViewController(animated: true)
-                return
             }
-            CXCallControllerManager.startCXCall(self.call)
         }
     }
     
@@ -82,7 +81,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         call.end()
-        CXCallControllerManager.endCXCall(call)
+        CXCallController.shared.endCXCall(call)
     }
     
     // MARK: - Basic UI
@@ -195,7 +194,7 @@ extension VoiceCallViewController: DirectCallDelegate {
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        CXCallControllerManager.endCXCall(call)
+        CXCallController.shared.endCXCall(call)
     }
     
     // MARK: Optional Methods
