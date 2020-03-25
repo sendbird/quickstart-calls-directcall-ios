@@ -18,9 +18,21 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     @IBOutlet weak var localVideoView: UIView?
     
     // Labels
-    @IBOutlet weak var callStatusLabel: UILabel!
-    @IBOutlet weak var mutedStateLabel: UILabel!
-    @IBOutlet weak var remoteUserIdLabel: UILabel!
+    @IBOutlet weak var callStatusLabel: UILabel! {
+        didSet {
+            self.callStatusLabel.text = "Calling..."
+        }
+    }
+    @IBOutlet weak var mutedStateLabel: UILabel! {
+        didSet {
+            self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
+        }
+    }
+    @IBOutlet weak var remoteUserIdLabel: UILabel! {
+        didSet {
+            self.remoteUserIdLabel.text = self.call.remoteUser?.userId
+        }
+    }
     
     // ImageView
     @IBOutlet weak var mutedStateImageView: UIImageView!
@@ -34,15 +46,39 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     
     // Buttons
     @IBOutlet weak var audioRouteButton: UIButton!
-    @IBOutlet weak var audioOffButton: UIButton!
-    @IBOutlet weak var videoOffButton: UIButton!
+    @IBOutlet weak var audioOffButton: UIButton! {
+        didSet {
+            self.audioOffButton.isSelected = !self.call.isLocalAudioEnabled
+        }
+    }
+    @IBOutlet weak var videoOffButton: UIButton! {
+        didSet {
+            self.videoOffButton.isSelected = !self.call.isLocalVideoEnabled
+        }
+    }
     @IBOutlet weak var endButton: UIButton!
     
     // Contstraints of local video view
-    @IBOutlet weak var leadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var topConstraint: NSLayoutConstraint!
-    @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var leadingConstraint: NSLayoutConstraint! {
+        didSet {
+            self.leadingConstraint.constant = 0
+        }
+    }
+    @IBOutlet weak var topConstraint: NSLayoutConstraint! {
+        didSet {
+            self.topConstraint.constant = -44
+        }
+    }
+    @IBOutlet weak var trailingConstraint: NSLayoutConstraint! {
+        didSet {
+            self.trailingConstraint.constant = 0
+        }
+    }
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint! {
+        didSet {
+            self.bottomConstraint.constant = -44
+        }
+    }
     
     // Constraints of remote user ID
     @IBOutlet weak var topSpaceRemoteUserId: NSLayoutConstraint!
@@ -55,10 +91,13 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
+        
         self.call.delegate = self
         
         self.setupVideoView()
-        self.setupUI()
         self.updateRemoteAudio(isEnabled: true)
         self.setupAudioOutputButton()
     }
@@ -71,32 +110,11 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            self.startCXCall(to: calleeId)
+            self.startCXCall(self.call, calleeId: calleeId)
         }
     }
     
     // MARK: - Basic UI
-    func setupUI() {
-        if #available(iOS 13.0, *) {
-            self.isModalInPresentation = true
-        }
-            
-        self.callStatusLabel.text = "Calling..."
-        
-        // Local video view full screen
-        self.leadingConstraint.constant = 0
-        self.trailingConstraint.constant = 0
-        self.topConstraint.constant = -44
-        self.bottomConstraint.constant = -44
-        
-        // Remote Info
-        self.remoteUserIdLabel.text = self.call.remoteUser?.userId
-        self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
-        
-        // Local Info
-        self.audioOffButton.isSelected = !self.call.isLocalAudioEnabled
-    }
-    
     func setupEndedCallUI() {
         // Tell user that the call has been ended.
         self.callStatusLabel.text = "Call Ended"

@@ -19,16 +19,32 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
             self.profileImageView.setImage(urlString: profileURL)
         }
     }
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel! {
+        didSet {
+            self.nameLabel.text = self.call.remoteUser?.userId
+        }
+    }
     
     @IBOutlet weak var speakerButton: UIButton!
-    @IBOutlet weak var muteAudioButton: UIButton!
+    @IBOutlet weak var muteAudioButton: UIButton! {
+        didSet {
+            self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
+        }
+    }
     @IBOutlet weak var endButton: UIButton!
-    @IBOutlet weak var callTimerLabel: UILabel!
+    @IBOutlet weak var callTimerLabel: UILabel! {
+        didSet {
+            self.callTimerLabel.text = "Calling..."
+        }
+    }
     
     // Notify muted state
     @IBOutlet weak var mutedStateImageView: UIImageView!
-    @IBOutlet weak var mutedStateLabel: UILabel!
+    @IBOutlet weak var mutedStateLabel: UILabel! {
+        didSet {
+            self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
+        }
+    }
     
     var call: DirectCall!
     var isDialing: Bool?
@@ -40,9 +56,11 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
         self.call.delegate = self
         
-        self.setupUI()
         self.setupAudioOutputButton()
         self.updateRemoteAudio(isEnabled: true)
     }
@@ -74,18 +92,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     }
     
     // MARK: - Basic UI
-    func setupUI() {
-        if #available(iOS 13.0, *) {
-            self.isModalInPresentation = true
-        }
-        self.callTimerLabel.text = "Calling..."
-        self.nameLabel.text = self.call.remoteUser?.userId
-        self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
-
-        // Local Info
-        self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
-    }
-    
     func setupEndedCallUI() {
         self.callTimer?.invalidate()    // Main thread
         self.callTimer = nil
@@ -143,7 +149,6 @@ extension VoiceCallViewController {
         let width = self.speakerButton.frame.width
         let height = self.speakerButton.frame.height
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
-
     
         let routePickerView = SendBirdCall.routePickerView(frame: frame)
         self.customize(routePickerView)
