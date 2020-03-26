@@ -18,9 +18,9 @@ extension UITextField {
 // MARK: Design
 extension UITextField {
     @IBInspectable
-    var isPadding: Bool {
+    var isPaddingEnabled: Bool {
         get {
-            self.isPadding
+            self.isPaddingEnabled
         }
         set {
             guard newValue else { return }
