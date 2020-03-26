@@ -99,9 +99,10 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.isDialing == true {
-            CXCallController.shared.startCXCall(self.call)
-            if !CXCallController.isRequested {
+        guard self.isDialing == true else { return }
+        CXCallController.shared.startCXCall(self.call) { [weak self] isSucceed in
+            guard let self = self else { return }
+            if !isSucceed {
                 self.navigationController?.popViewController(animated: true)
             }
         }

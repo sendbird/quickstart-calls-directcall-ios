@@ -20,13 +20,13 @@ extension CXCallRequestable {
         }
     }
     
-    func startCXCall(_ call: DirectCall) {
+    func startCXCall(_ call: DirectCall, completionHandler: @escaping ((Bool) -> Void)) {
         guard let calleeId = call.callee?.userId else {
-            CXCallController.isRequested = false
+            DispatchQueue.main.async {
+                completionHandler(false)
+            }
             return
         }
-        CXCallController.isRequested = true
-        
         let handle = CXHandle(type: .generic, value: calleeId)
         let startCallAction = CXStartCallAction(call: call.callUUID!, handle: handle)
         startCallAction.isVideo = call.isVideoCall
@@ -34,6 +34,10 @@ extension CXCallRequestable {
         let transaction = CXTransaction(action: startCallAction)
         
         self.requestTransaction(transaction)
+        
+        DispatchQueue.main.async {
+            completionHandler(true)
+        }
     }
     
     func endCXCall(_ call: DirectCall) {
@@ -46,6 +50,4 @@ extension CXCallRequestable {
 
 extension CXCallController: CXCallRequestable {
     static let shared = CXCallController()
-    
-    static var isRequested = false  // `true` when the callee ID is valid, so it available to request transaction.
 }
