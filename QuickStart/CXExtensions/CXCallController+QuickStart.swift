@@ -12,7 +12,7 @@ import SendBirdCalls
 protocol CXCallRequestable { }
 
 extension CXCallRequestable {
-    private func requestTransaction(_ transaction: CXTransaction, action: String = "") {
+    private func requestTransaction(_ transaction: CXTransaction) {
         CXCallController.shared.request(transaction) { error in
             guard error == nil else { return }
             
@@ -33,14 +33,14 @@ extension CXCallRequestable {
         
         let transaction = CXTransaction(action: startCallAction)
         
-        self.requestTransaction(transaction, action: "SendBird - Start Call")
+        self.requestTransaction(transaction)
     }
     
     func endCXCall(_ call: DirectCall) {
         let endCallAction = CXEndCallAction(call: call.callUUID!)
         let transaction = CXTransaction(action: endCallAction)
         
-        self.requestTransaction(transaction, action: "SendBird - End Call")
+        self.requestTransaction(transaction)
     }
 }
 
