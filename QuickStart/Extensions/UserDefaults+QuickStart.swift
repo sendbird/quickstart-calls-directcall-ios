@@ -8,74 +8,70 @@
 import Foundation
 
 extension UserDefaults {
+    enum Key : String, CaseIterable {
+        case appId
+        case user
+        case accessToken
+        case autoLogin
+        case pushToken
+        
+        var value: String { "com.sendbird.calls.quickstart.\(self.rawValue.lowercased())" }
+    }
+    
+}
+
+extension UserDefaults {
     var appId: String? {
-        get {
-            let userDefault = UserDefaults.standard
-            guard let appId = userDefault.value(forKey: "com.sendbird.calls.quickstart.appid") as? String, !appId.isEmpty else { return nil }
-            return appId
-        }
-        set {
-            let userDefault = UserDefaults.standard
-            userDefault.setValue(newValue, forKey: "com.sendbird.calls.quickstart.appid")
-        }
+        get { UserDefaults.standard.get(objectType: String.self, forKey: Key.appId.value) }
+        set { UserDefaults.standard.set(newValue, forKey: Key.appId.value) }
     }
     
     var user: (id: String, name: String?, profile: String?) {
-        get {
-            let userDefault = UserDefaults.standard
-            guard let userId = userDefault.value(forKey: "com.sendbird.calls.quickstart.user.id") as? String else { return ("", nil, nil) }
-            let username = userDefault.value(forKey: "com.sendbird.calls.quickstart.user.name") as? String
-            let profile = userDefault.value(forKey: "com.sendbird.calls.quickstart.user.profile") as? String
-            return (userId, username, profile)
-        }
-        set {
-            let userDefault = UserDefaults.standard
-            userDefault.setValue(newValue.id, forKey: "com.sendbird.calls.quickstart.user.id")
-            userDefault.setValue(newValue.name, forKey: "com.sendbird.calls.quickstart.user.name")
-            userDefault.setValue(newValue.profile, forKey: "com.sendbird.calls.quickstart.user.profile")
-        }
+        get { UserDefaults.standard.get(objectType: User.self, forKey: Key.user.value)?.value ?? User.empty }
+        set { UserDefaults.standard.set(User(id: newValue.id, name: newValue.name, profile: newValue.profile), forKey: Key.user.value) }
     }
     
     var autoLogin: Bool {
-        get {
-            return UserDefaults.standard.value(forKey: "com.sendbird.calls.quickstart.autologin") as? Bool ?? false
-        }
-        set {
-            UserDefaults.standard.setValue(newValue, forKey: "com.sendbird.calls.quickstart.autologin")
-        }
+        get { UserDefaults.standard.bool(forKey: Key.autoLogin.value) }
+        set { UserDefaults.standard.set(newValue, forKey: Key.autoLogin.value) }
     }
     
     var accessToken: String? {
-        get {
-            guard let accessToken = UserDefaults.standard.value(forKey: "com.sendbird.calls.quickstart.accesstoken") as? String else {
-                return nil
-            }
-            return accessToken
-        }
-        set {
-            UserDefaults.standard.setValue(newValue, forKey: "com.sendbird.calls.quickstart.accesstoken")
-        }
+        get { UserDefaults.standard.get(objectType: String.self, forKey: Key.accessToken.value) }
+        set { UserDefaults.standard.set(newValue, forKey: Key.accessToken.value) }
     }
     
     var pushToken: Data? {
-        get {
-            guard let pushToken = UserDefaults.standard.value(forKey: "com.sendbird.calls.quickstart.pushtoken") as? Data else { return nil }
-            return pushToken
-        }
-        set {
-            UserDefaults.standard.setValue(newValue, forKey: "com.sendbird.calls.quickstart.pushtoken")
-        }
+        get { UserDefaults.standard.get(objectType: Data.self, forKey: Key.pushToken.value) }
+        set { UserDefaults.standard.set(newValue, forKey: Key.pushToken.value) }
     }
 }
 
 extension UserDefaults {
     func clear() {
-        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.appid")
-        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.user.id")
-        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.user.name")
-        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.user.profile")
-        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.autologin")
-        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.accesstoken")
-        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.pushtoken")
+        Key.allCases.map{$0.value}.forEach(UserDefaults.standard.removeObject)
+    }
+}
+
+extension UserDefaults {
+    fileprivate struct User: Codable {
+        let id: String
+        let name: String?
+        let profile: String?
+        
+        var value: (id: String, name: String?, profile: String?) { (id: id, name: name, profile: profile) }
+        static var empty: (id: String, name: String?, profile: String?) { (id: "", name: nil, profile: nil) }
+    }
+}
+
+extension UserDefaults {
+    func set<T: Codable>(object: T, forKey: String) {
+        guard let jsonData = try? JSONEncoder().encode(object) else { return }
+        set(jsonData, forKey: forKey)
+    }
+
+    func get<T: Codable>(objectType: T.Type, forKey: String) -> T? {
+        guard let result = value(forKey: forKey) as? Data else { return nil }
+        return try? JSONDecoder().decode(objectType, from: result)
     }
 }
