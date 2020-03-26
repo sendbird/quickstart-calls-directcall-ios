@@ -15,7 +15,7 @@ extension UIImageView {
     
     func border() {
         self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.lightPurple.cgColor
+        self.layer.borderColor = UIColor.QuickStart.lightPurple.cgColor
     }
     
     func setImage(urlString: String?) {
@@ -26,28 +26,6 @@ extension UIImageView {
             DispatchQueue.main.async {
                 guard let image = UIImage(data: data) else { return }
                 self.image = image
-            }
-        }
-    }
-}
-
-extension UIImage {
-    static var mutedAudioImage: UIImage? {
-        get {
-            if #available(iOS 13.0, *) {
-                return UIImage(systemName: "mic.slash.fill")
-            } else {
-                return UIImage(named: "icon_audio_mute")
-            }
-        }
-    }
-    
-    static var unmutedAudioImage: UIImage? {
-        get {
-            if #available(iOS 13.0, *) {
-                return UIImage(systemName: "mic.fill")
-            } else {
-                return UIImage(named: "icon_audio_unmute")
             }
         }
     }

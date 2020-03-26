@@ -7,7 +7,9 @@
 import UIKit
 
 extension NotificationCenter {
-    static func observeKeyboard(action1 actionAfterKeyboardShow: Selector, action2 actionBeforeKeyboardHide: Selector, on viewController: UIViewController) {
+    static func observeKeyboard(showAction actionAfterKeyboardShow: Selector,
+                                hideAction actionBeforeKeyboardHide: Selector,
+                                target viewController: UIViewController) {
         NotificationCenter.default.addObserver(viewController, selector: actionAfterKeyboardShow, name: UIWindow.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(viewController, selector: actionBeforeKeyboardHide, name: UIWindow.keyboardWillHideNotification, object: nil)
     }

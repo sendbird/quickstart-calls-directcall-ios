@@ -29,11 +29,11 @@ class SignInManuallyViewController: UIViewController {
     
     // MARK: - ManualSignInDelegate
     @IBAction func didTapSignIn() {
-        guard let appId = self.appIdTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !appId.isEmpty else {
+        guard let appId = self.appIdTextField.text?.collapseIfEmpty else {
             self.presentErrorAlert(message: "Please enter valid app ID")
             return
         }
-        guard let userId = self.userIdTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !userId.isEmpty else {
+        guard let userId = self.userIdTextField.text?.collapseIfEmpty else {
             self.presentErrorAlert(message: "Please enter valid user ID")
             return
         }
