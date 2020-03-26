@@ -140,8 +140,8 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 switch oppositeCamera.position {
-                case .front: self.mirrorLocalVideoView(isFrontCamera: true)
-                case .back: self.mirrorLocalVideoView(isFrontCamera: false)
+                case .front: self.mirrorLocalVideoView(isEnabled: true)
+                case .back: self.mirrorLocalVideoView(isEnabled: false)
                 default: return
                 }
             }
@@ -201,7 +201,7 @@ extension VideoCallViewController {
         self.localVideoView?.embed(localSBVideoView)
         self.view?.embed(remoteSBVideoView)
         
-        self.mirrorLocalVideoView(isFrontCamera: true)
+        self.mirrorLocalVideoView(isEnabled: true)
     }
     
     func resizeLocalVideoView() {
@@ -222,9 +222,9 @@ extension VideoCallViewController {
         })
     }
     
-    func mirrorLocalVideoView(isFrontCamera: Bool) {
+    func mirrorLocalVideoView(isEnabled: Bool) {
         guard let localSBView = self.localVideoView?.subviews.first else { return }
-        switch isFrontCamera {
+        switch isEnabled {
         case true: localSBView.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         case false: localSBView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }
