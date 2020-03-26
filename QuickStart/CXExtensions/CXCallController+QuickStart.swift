@@ -22,10 +22,10 @@ extension CXCallRequestable {
     
     func startCXCall(_ call: DirectCall) {
         guard let calleeId = call.callee?.userId else {
-            CXCallController.isRquested = false
+            CXCallController.isRequested = false
             return
         }
-        CXCallController.isRquested = true
+        CXCallController.isRequested = true
         
         let handle = CXHandle(type: .generic, value: calleeId)
         let startCallAction = CXStartCallAction(call: call.callUUID!, handle: handle)
@@ -47,5 +47,5 @@ extension CXCallRequestable {
 extension CXCallController: CXCallRequestable {
     static let shared = CXCallController()
     
-    static var isRquested = false  // `true` when the callee ID is valid, so it available to request transaction.
+    static var isRequested = false  // `true` when the callee ID is valid, so it available to request transaction.
 }

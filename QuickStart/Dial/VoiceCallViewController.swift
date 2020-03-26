@@ -64,7 +64,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         
         if self.isDialing == true {
             CXCallController.shared.startCXCall(self.call)
-            if !CXCallController.isRquested {
+            if !CXCallController.isRequested {
                 self.navigationController?.popViewController(animated: true)
             }
         }
