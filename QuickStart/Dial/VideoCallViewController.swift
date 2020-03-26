@@ -137,7 +137,14 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
                 }
                 return
             }
-            self.mirrorLocalVideoView()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                switch oppositeCamera.position {
+                case .front: self.mirrorLocalVideoView(isEnabled: true)
+                case .back: self.mirrorLocalVideoView(isEnabled: false)
+                default: return
+                }
+            }
         }
     }
     
@@ -194,7 +201,7 @@ extension VideoCallViewController {
         self.localVideoView?.embed(localSBVideoView)
         self.view?.embed(remoteSBVideoView)
         
-        self.mirrorLocalVideoView()
+        self.mirrorLocalVideoView(isEnabled: true)
     }
     
     func resizeLocalVideoView() {
@@ -215,9 +222,12 @@ extension VideoCallViewController {
         })
     }
     
-    func mirrorLocalVideoView() {
+    func mirrorLocalVideoView(isEnabled: Bool) {
         guard let localSBView = self.localVideoView?.subviews.first else { return }
-        localSBView.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        switch isEnabled {
+        case true: localSBView.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        case false: localSBView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        }
     }
     
     // SendBirdCalls: Start / Stop Video
