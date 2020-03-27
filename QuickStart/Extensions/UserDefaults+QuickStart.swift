@@ -23,27 +23,27 @@ extension UserDefaults {
 extension UserDefaults {
     var appId: String? {
         get { UserDefaults.standard.get(objectType: String.self, forKey: Key.appId.value) }
-        set { UserDefaults.standard.set(newValue, forKey: Key.appId.value) }
+        set { UserDefaults.standard.set(object: newValue, forKey: Key.appId.value) }
     }
     
     var user: (id: String, name: String?, profile: String?) {
-        get { UserDefaults.standard.get(objectType: User.self, forKey: Key.user.value)?.value ?? User.empty }
-        set { UserDefaults.standard.set(User(id: newValue.id, name: newValue.name, profile: newValue.profile), forKey: Key.user.value) }
+        get { UserDefaults.standard.get(objectType: UserDefaults.User.self, forKey: Key.user.value)?.value ?? User.empty }
+        set { UserDefaults.standard.set(object: UserDefaults.User(id: newValue.id, name: newValue.name, profile: newValue.profile), forKey: Key.user.value) }
     }
     
     var autoLogin: Bool {
         get { UserDefaults.standard.bool(forKey: Key.autoLogin.value) }
-        set { UserDefaults.standard.set(newValue, forKey: Key.autoLogin.value) }
+        set { UserDefaults.standard.set(object: newValue, forKey: Key.autoLogin.value) }
     }
     
     var accessToken: String? {
         get { UserDefaults.standard.get(objectType: String.self, forKey: Key.accessToken.value) }
-        set { UserDefaults.standard.set(newValue, forKey: Key.accessToken.value) }
+        set { UserDefaults.standard.set(object: newValue, forKey: Key.accessToken.value) }
     }
     
     var pushToken: Data? {
         get { UserDefaults.standard.get(objectType: Data.self, forKey: Key.pushToken.value) }
-        set { UserDefaults.standard.set(newValue, forKey: Key.pushToken.value) }
+        set { UserDefaults.standard.set(object: newValue, forKey: Key.pushToken.value) }
     }
 }
 
