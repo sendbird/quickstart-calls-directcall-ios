@@ -57,13 +57,13 @@ extension UserDefaults {
         }
     }
     
-    var pushToken: Data? {
+    var voipPushToken: Data? {
         get {
-            guard let pushToken = UserDefaults.standard.value(forKey: "com.sendbird.calls.quickstart.pushtoken") as? Data else { return nil }
+            guard let pushToken = UserDefaults.standard.value(forKey: "com.sendbird.calls.quickstart.pushtoken.voip") as? Data else { return nil }
             return pushToken
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: "com.sendbird.calls.quickstart.pushtoken")
+            UserDefaults.standard.setValue(newValue, forKey: "com.sendbird.calls.quickstart.pushtoken.voip")
         }
     }
 }
@@ -76,6 +76,5 @@ extension UserDefaults {
         UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.user.profile")
         UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.autologin")
         UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.accesstoken")
-        UserDefaults.standard.removeObject(forKey: "com.sendbird.calls.quickstart.pushtoken")
     }
 }
