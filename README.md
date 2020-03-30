@@ -2,6 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/sendbird/quickstart-calls-ios/blob/master/LICENSE.md)
 
+[![Download:
+AppStore](https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg)](https://apps.apple.com/gb/app/id1503477603)
+
 ## Introduction
 
 The Calls SDK for iOS is used to initialize, configure, and build voice and video calling functionality into your iOS application. This repository contains a sample application intended to demonstrate a simple implementation of this framework, as well as the preliminary steps of implementing the Calls SDK into your own project. 
