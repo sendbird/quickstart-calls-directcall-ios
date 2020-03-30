@@ -10,12 +10,7 @@ The Calls SDK for iOS is used to initialize, configure, and build voice and vide
 - Xcode
 - **[Git Large File Storage](https://git-lfs.github.com/)** installed
 - Homebrew
-- Certificate for VoIP push notification
 - At least one physical iOS device running iOS `10.0+`
-
-## Certificate
-
-To receive VoIP push notification, its certificate is required. Please see [How to Generate iOS Certificate](https://github.com/sendbird/how-to-generate-ios-certificate)
 
 ## Environement Setup
 
@@ -83,6 +78,8 @@ SendBirdCall.configure("YOUR_APP_ID")
 
 ## Registering push tokens
 In order to make and receive calls, authenticate the user with SendBird server with the `SendBirdCall.authenticate(with:)` method and **register a VoIP push token** to SendBird. You can register a VoIP push token during authentication by either providing it as a parameter in the `authenticate()` method, or after authentication has completed using the `SendBirdCall.registerVoIPPush(token:)` method. VoIP Push Notification will also enable receiving calls even when the app is in the background or terminated state. A valid APNS certificate also needs to be registered on the `SendBird Dashboard` : `Application` → `Settings` → `Notifications` → `Add certificate`.
+
+For more details about generating certificates, see this guide: [How to Generate a Certificate for VoIP Push Notification](https://github.com/sendbird/how-to-generate-ios-certificate)
 
 To handle a native-implementation of receiving incoming calls, you can choose to implement Apple’s [PushKit framework](https://developer.apple.com/documentation/pushkit) and CallKit. This is done by registering device tokens associate with your SendBird Applications. For more information refer to Apple’s [Voice Over IP (VoIP) Best Practices
 ](https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/OptimizeVoIP.html)
