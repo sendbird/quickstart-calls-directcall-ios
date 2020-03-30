@@ -1,5 +1,6 @@
 # SendBird Calls—QuickStart Guide for iOS
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/sendbird/quickstart-calls-ios/blob/master/LICENSE.md)
 
 ## Introduction
 
