@@ -10,7 +10,12 @@ The Calls SDK for iOS is used to initialize, configure, and build voice and vide
 - Xcode
 - **[Git Large File Storage](https://git-lfs.github.com/)** installed
 - Homebrew
+- Certificate for VoIP push notification
 - At least one physical iOS device running iOS `10.0+`
+
+## Certificate
+
+To receive VoIP push notification, its certificate is required. Please see [How to Generate iOS Certificate](https://github.com/sendbird/how-to-generate-ios-certificate)
 
 ## Environement Setup
 
