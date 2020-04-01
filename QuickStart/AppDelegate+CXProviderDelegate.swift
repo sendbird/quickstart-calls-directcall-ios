@@ -79,6 +79,14 @@ extension AppDelegate: CXProviderDelegate {
     }
     
     func provider(_ provider: CXProvider, timedOutPerforming action: CXAction) { }
+    
+    func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession) {
+        SendBirdCall.audioSessionDidActivate(audioSession)
+    }
+    
+    func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
+        SendBirdCall.audioSessionDidDeactivate(audioSession)
+    }
 }
 
 extension AppDelegate {
