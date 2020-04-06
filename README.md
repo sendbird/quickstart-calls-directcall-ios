@@ -98,6 +98,8 @@ When using CallKit to process your calls, there may be instances where the user 
 
 We need to make sure that our PushKit usage is in sync with the device's media permission state. If media permissions are not granted, we should destroy existing push token to stop receiving VoIP Push and ignore any incoming calls. 
 
+> Note, however, Apple's requires every VoIP Push Notifications to report a new incoming call to CallKit as writte in [Apple's Documentation](https://developer.apple.com/documentation/pushkit/pkpushregistrydelegate/2875784-pushregistry). Be sure to test your implementation and refer to Apple's [guidelines](https://developer.apple.com/documentation/pushkit/responding_to_voip_notifications_from_pushkit) on VoIP Push Notifications and CallKit. 
+
 In your AppDelegate's `pushRegistry(_:didReceiveIncomingPushWith:for:completion:)`, add the following: 
 ```swift
 guard AVAudioSession.sharedInstance().recordPermission == .granted else { // Here, we check if the audio permission is granted
