@@ -16,7 +16,7 @@ extension String {
         return self.trimmed.isEmpty
     }
     
-    public var collapseIfEmpty: String? {
+    public var collapsed: String? {
         if self.isEmptyOrWhitespace {
             return nil
         } else {

@@ -17,7 +17,10 @@ extension UIActivityIndicatorView {
         self.hidesWhenStopped = true
         self.style = .gray
         
-        if view != self.superview { view.addSubview(self) }
+        if view != self.superview {
+            self.superview?.removeFromSuperview()
+            view.addSubview(self)
+        }
         
         self.startAnimating()
         UIApplication.shared.beginIgnoringInteractionEvents()

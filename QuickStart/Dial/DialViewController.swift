@@ -55,7 +55,7 @@ class DialViewController: UIViewController, UITextFieldDelegate {
 // MARK: - User Interaction with SendBirdCall
 extension DialViewController {
     @IBAction func didTapVoiceCall() {
-        guard let calleeId = calleeIdTextField.text?.collapseIfEmpty else {
+        guard let calleeId = calleeIdTextField.text?.collapsed else {
             self.presentErrorAlert(message: "Enter a valid user ID")
             return
         }
@@ -90,7 +90,7 @@ extension DialViewController {
     }
     
     @IBAction func didTapVideoCall() {
-        guard let calleeId = calleeIdTextField.text?.collapseIfEmpty else {
+        guard let calleeId = calleeIdTextField.text?.collapsed else {
             self.presentErrorAlert(message: "Please enter user ID")
             return
         }
@@ -133,7 +133,7 @@ extension DialViewController {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return textField.text?.collapseIfEmpty != .none
+        return textField.text?.collapsed != .none
     }
     
     // MARK: When Keyboard Show

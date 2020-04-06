@@ -56,7 +56,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
 // MARK: - User Interaction with SendBirdCall
 extension SignInViewController {
     @IBAction func didTapSignIn() {
-        guard let userId = self.userIdTextField.text?.collapseIfEmpty else {
+        guard let userId = self.userIdTextField.text?.collapsed else {
             self.presentErrorAlert(message: "Please enter your ID and your name")
             return
         }
