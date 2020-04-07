@@ -32,7 +32,7 @@ extension UserDefaults {
     }
     
     var autoLogin: Bool {
-        get { UserDefaults.standard.bool(forKey: Key.autoLogin.value) }
+        get { UserDefaults.standard.get(objectType: Bool.self, forKey: Key.autoLogin.value) ?? false }
         set { UserDefaults.standard.set(object: newValue, forKey: Key.autoLogin.value) }
     }
     
