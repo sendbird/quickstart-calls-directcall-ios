@@ -174,6 +174,7 @@ extension VoiceCallViewController: DirectCallDelegate {
     func didConnect(_ call: DirectCall) {
         self.activeTimer()      // call.duration
         self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        CXCallControllerManager.shared.connectedCall(call)
     }
     
     func didEnd(_ call: DirectCall) {

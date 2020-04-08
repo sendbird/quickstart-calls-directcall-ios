@@ -288,6 +288,7 @@ extension VideoCallViewController: DirectCallDelegate {
         self.remoteUserIdLabel.isHidden = true
         self.callStatusLabel.isHidden = true
         self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        CXCallControllerManager.shared.connectedCall(call)
     }
     
     func didEnd(_ call: DirectCall) {
