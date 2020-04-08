@@ -10,8 +10,12 @@ import UIKit
 import CallKit
 import SendBirdCalls
 
+// This extension is for outgoing call from outside the app.
 extension AppDelegate {
+    
+    // MARK: - From URL
     // To make an outgoing call from url, you need to implement this method
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         guard let calleeId = url.calleeId else { return false }
         
@@ -39,8 +43,10 @@ extension AppDelegate {
         return true
     }
     
+    // MARK: - From Native Call Logs
     // To make an outgoing call from native call logs, so called "Recents" in iPhone, you need to implement this method and add IntentExtension as a new target.
     // Please refer to IntentHandler (path: ~/QuickStartIntent/IntentHandler.swift)
+    
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         guard let calleeId = userActivity.calleeId else {
             showError(with: "Could not determine callee ID")
@@ -75,6 +81,8 @@ extension AppDelegate {
         }
         return true
     }
+    
+    // MARK: - Actions
     
     private func dial(to calleeId: String, hasVideo video: Bool) {
         let callOption = CallOptions(isAudioEnabled: true, isVideoEnabled: video, localVideoView: nil, remoteVideoView: nil, useFrontCamera: true)
