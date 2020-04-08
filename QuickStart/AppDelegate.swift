@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // To make an outgoing call from native call logs, so called "Recents" in iPhone, you need to implement this method and add IntentExtension as a new target.
     // Please refer to IntentHandler (path: ~/QuickStartIntent/IntentHandler.swift)
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        guard let calleeId = userActivity.calleeId, calleeId == "ioio" else {
+        guard let calleeId = userActivity.calleeId else {
             showError(with: "Could not determine callee ID")
             return false
         }
@@ -80,7 +80,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let callOption = CallOptions(isAudioEnabled: true, isVideoEnabled: video, localVideoView: nil, remoteVideoView: nil, useFrontCamera: true)
         let dialParams = DialParams(calleeId: calleeId, isVideoCall: video, callOptions: callOption, customItems: [:])
         SendBirdCall.dial(with: dialParams) { call, error in
-            guard let call = call, error == nil else { return }
+            guard let call = call, error == nil else {
+                DispatchQueue.main.async { [ weak self] in
+                    guard let self = self else { return }
+                    self.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                }
+                return
+            }
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.showCallView(call, hasVideo: call.isVideoCall)
