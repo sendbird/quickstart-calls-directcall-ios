@@ -13,7 +13,9 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
     // MARK: SendBirdCallDelegate
     func didStartRinging(_ call: DirectCall) {
         guard let uuid = call.callUUID else { return }
-        guard CXCallControllerManager.sharedController.callObserver.calls.isEmpty else { return }  // Should be cross-checked with state to prevent weird event processings
+        call.delegate = self
+        
+        guard CXCallControllerManager.shared.currentCalls.isEmpty else { return }  // Should be cross-checked with state to prevent weird event processings
         
         // Use CXProvider to report the incoming call to the system
         // Construct a CXCallUpdate describing the incoming call, including the caller.
@@ -23,11 +25,7 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         update.hasVideo = call.isVideoCall
         
         // Report the incoming call to the system
-        self.provider.reportNewIncomingCall(with: uuid, update: update) { error in
-            if error == nil {
-                // success
-            }
-        }
+        CXCallControllerManager.shared.reportIncomingCall(with: uuid, update: update)
     }
     
     // MARK: DirectCallDelegate
@@ -55,6 +53,6 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         @unknown default: return
         }
      
-        self.provider.reportCall(with: callId, endedAt: Date(), reason: reason)
+        CXCallControllerManager.shared.endCall(for: callId, endedAt: Date(), reason: reason)
     }
 }

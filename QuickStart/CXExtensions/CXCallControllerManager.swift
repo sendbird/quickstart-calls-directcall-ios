@@ -1,25 +1,72 @@
 //
-//  AppDelegate+CXProviderDelegate.swift
+//  CXCallController+QuickStart.swift
 //  QuickStart
 //
 //  Copyright © 2020 SendBird, Inc. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import CallKit
+import UIKit
 import AVFoundation
 import SendBirdCalls
 
-extension AppDelegate: CXProviderDelegate {
+class CXCallControllerManager: NSObject {
+    static let shared = CXCallControllerManager()
+    private let controller = CXCallController()
+    
+    var currentCalls: [CXCall] { self.controller.callObserver.calls }
+    
+    private let provider: CXProvider
+    
+    override init() {
+        self.provider = CXProvider.default
+        
+        super.init()
+        
+        self.provider.setDelegate(self, queue: .main)
+    }
+    
+    func requestTransaction(_ transaction: CXTransaction, action: String = "") {
+        self.controller.request(transaction) { error in
+            guard error == nil else { return }
+            
+            // Requested transaction successfully
+        }
+    }
+    
+    func reportIncomingCall(with callID: UUID, update: CXCallUpdate, completionHandler: ((Error?)->Void)? = nil) {
+        self.provider.reportNewIncomingCall(with: callID, update: update) { (error) in
+            completionHandler?(error)
+        }
+    }
+    
+    func endCall(for callId: UUID, endedAt: Date, reason: CXCallEndedReason) {
+        self.provider.reportCall(with: callId, endedAt: endedAt, reason: reason)
+    }
+    
+    func connectedCall(_ call: DirectCall) {
+        self.provider.reportOutgoingCall(with: call.callUUID!, connectedAt: Date(timeIntervalSince1970: Double(call.startedAt)/1000))
+    }
+}
+
+extension CXCallControllerManager: CXProviderDelegate {
     func providerDidReset(_ provider: CXProvider) {
         //
     }
     
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
         // MARK: SendBirdCalls - SendBirdCall.getCall()
-        guard SendBirdCall.getCall(forUUID: action.callUUID) != nil else {
+        guard let call = SendBirdCall.getCall(forUUID: action.callUUID) else {
             action.fail()
             return
+        }
+        
+        let session = AVAudioSession.sharedInstance()
+        try? session.setCategory(.playAndRecord, mode: (call.isVideoCall ? .videoChat : .voiceChat))
+        
+        if call.myRole == .caller {
+            provider.reportOutgoingCall(with: call.callUUID!, startedConnectingAt: Date(timeIntervalSince1970: Double(call.startedAt)/1000))
         }
         
         action.fulfill()
@@ -84,6 +131,4 @@ extension AppDelegate: CXProviderDelegate {
         
         action.fulfill()
     }
-    
-    func provider(_ provider: CXProvider, timedOutPerforming action: CXAction) { }
 }

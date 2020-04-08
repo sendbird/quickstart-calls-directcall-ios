@@ -18,12 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var queue: DispatchQueue = DispatchQueue(label: "com.sendbird.calls.quickstart.appdelegate")
     var voipRegistry: PKPushRegistry?
     
-    lazy var provider: CXProvider = {
-        let provider = CXProvider.default
-        provider.setDelegate(self, queue: .main)
-        return provider
-    }()
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
@@ -86,8 +80,8 @@ extension AppDelegate: PKPushRegistryDelegate {
                 let update = CXCallUpdate()
                 update.remoteHandle = CXHandle(type: .generic, value: "invalid")
                 let randomUUID = UUID()
-                self.provider.reportNewIncomingCall(with: randomUUID, update: update) { error in
-                    self.provider.reportCall(with: randomUUID, endedAt: Date(), reason: .failed)
+                CXCallControllerManager.shared.reportIncomingCall(with: randomUUID, update: update) { error in
+                    CXCallControllerManager.shared.endCall(for: randomUUID, endedAt: Date(), reason: .failed)
                 }
                 completion()
                 return

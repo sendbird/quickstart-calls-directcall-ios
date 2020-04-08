@@ -101,7 +101,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     
     // MARK: - CallKit Methods
     func startCXCall(to calleeId: String) {
-        
         let handle = CXHandle(type: .generic, value: calleeId)
         
         let startCallAction = CXStartCallAction(call: call.callUUID!, handle: handle)
@@ -109,14 +108,14 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         
         let transaction = CXTransaction(action: startCallAction)
         
-        CXCallControllerManager.requestTransaction(transaction, action: "SendBird - Start Call")
+        CXCallControllerManager.shared.requestTransaction(transaction, action: "SendBird - Start Call")
     }
     
     func requestEndTransaction(of call: DirectCall) {
         let endCallAction = CXEndCallAction(call: call.callUUID!)
         let transaction = CXTransaction(action: endCallAction)
         
-        CXCallControllerManager.requestTransaction(transaction, action: "SendBird - End Call")
+        CXCallControllerManager.shared.requestTransaction(transaction, action: "SendBird - End Call")
     }
 }
 
@@ -204,6 +203,7 @@ extension VoiceCallViewController: DirectCallDelegate {
     func didConnect(_ call: DirectCall) {
         self.activeTimer()      // call.duration
         self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+        CXCallControllerManager.shared.connectedCall(call)
     }
     
     func didEnd(_ call: DirectCall) {
