@@ -66,6 +66,10 @@ extension CXCallControllerManager: CXProviderDelegate {
         try? session.setCategory(.playAndRecord, mode: (call.isVideoCall ? .videoChat : .voiceChat))
         
         if call.myRole == .caller {
+            let update = CXCallUpdate()
+            update.remoteHandle = CXHandle(type: .generic, value: call.callee?.userId ?? "Unknown")
+            update.localizedCallerName = call.callee?.userId ?? "Unknown"
+            provider.reportCall(with: call.callUUID!, updated: update)  // To update name information in native call logs
             provider.reportOutgoingCall(with: call.callUUID!, startedConnectingAt: Date(timeIntervalSince1970: Double(call.startedAt)/1000))
         }
         
