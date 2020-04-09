@@ -65,7 +65,7 @@ extension AppDelegate {
         
         let userId = UserDefaults.standard.user.id
         let accessToken = UserDefaults.standard.accessToken
-        if userId.isEmpty { return false }
+        guard !userId.isEmpty else { return false }
         
         let authParams = AuthenticateParams(userId: userId, accessToken: accessToken)
         SendBirdCall.authenticate(with: authParams) { [weak self] user, error in
