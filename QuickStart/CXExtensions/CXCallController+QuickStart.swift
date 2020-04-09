@@ -9,9 +9,9 @@ import Foundation
 import CallKit
 import SendBirdCalls
 
-protocol CXCallRequestable { }
-
-extension CXCallRequestable {
+extension CXCallController {
+    static let shared = CXCallController()
+    
     private func requestTransaction(_ transaction: CXTransaction) {
         CXCallController.shared.request(transaction) { error in
             guard error == nil else { return }
@@ -46,8 +46,4 @@ extension CXCallRequestable {
         
         self.requestTransaction(transaction)
     }
-}
-
-extension CXCallController: CXCallRequestable {
-    static let shared = CXCallController()
 }

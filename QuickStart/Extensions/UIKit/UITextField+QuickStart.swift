@@ -20,7 +20,8 @@ extension UITextField {
     @IBInspectable
     var isPaddingEnabled: Bool {
         get {
-            self.isPaddingEnabled
+            guard let paddingView = self.leftView else { return false }
+            return paddingView.frame.width != 0
         }
         set {
             guard newValue else { return }
