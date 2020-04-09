@@ -30,7 +30,7 @@ extension NSUserActivity: StartCallConvertible {
         return contact.personHandle?.value
     }
 
-    var video: Bool? {
+    var hasVideo: Bool? {
         guard
           let interaction = interaction,
           let startCallIntent = interaction.intent as? SupportedStartCallIntent

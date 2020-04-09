@@ -53,13 +53,13 @@ extension AppDelegate {
             return false
         }
         
-        guard let video = userActivity.video else {
+        guard let hasVideo = userActivity.hasVideo else {
             showError(with: "Could not determine video from call log")
             return false
         }
         
         guard SendBirdCall.currentUser == nil else {
-            self.dial(to: calleeId, hasVideo: video)
+            self.dial(to: calleeId, hasVideo: hasVideo)
             return true
         }
         
@@ -77,7 +77,7 @@ extension AppDelegate {
                 }
                 return
             }
-            self.dial(to: calleeId, hasVideo: video)
+            self.dial(to: calleeId, hasVideo: hasVideo)
         }
         return true
     }

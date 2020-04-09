@@ -8,9 +8,9 @@
 
 protocol StartCallConvertible {
     var calleeId: String? { get }
-    var video: Bool? { get }
+    var hasVideo: Bool? { get }
 }
 
 extension StartCallConvertible {
-    var video: Bool? { nil }
+    var hasVideo: Bool? { nil }
 }
