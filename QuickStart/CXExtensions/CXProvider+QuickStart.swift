@@ -6,12 +6,15 @@
 //
 
 import CallKit
+import UIKit
 
 extension CXProviderConfiguration {
     // The app's provider configuration, representing its CallKit capabilities
     static var `default`: CXProviderConfiguration {
-        let providerConfiguration = CXProviderConfiguration(localizedName: "com.sendbird.calls.quickstart.cxprovider")
-        
+        let providerConfiguration = CXProviderConfiguration(localizedName: "SendBird Calls")
+        if let image = UIImage(named: "icCallkitSb") {
+            providerConfiguration.iconTemplateImageData = image.pngData()
+        }
         providerConfiguration.supportsVideo = false
         providerConfiguration.maximumCallsPerCallGroup = 1
         providerConfiguration.supportedHandleTypes = [.generic]

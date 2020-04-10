@@ -66,8 +66,10 @@ extension SignInViewController {
     
     func signIn(userId: String) {
         // MARK: SendBirdCall.authenticate()
-        let params = AuthenticateParams(userId: userId, accessToken: nil, voipPushToken: UserDefaults.standard.pushToken, unique: false)
+
+        let params = AuthenticateParams(userId: userId, accessToken: nil, voipPushToken: UserDefaults.standard.voipPushToken, unique: false)
         self.indicator.startLoading(on: self.view)
+
         
         SendBirdCall.authenticate(with: params) { user, error in
             DispatchQueue.main.async { [weak self] in

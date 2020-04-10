@@ -13,7 +13,7 @@ extension UserDefaults {
         case user
         case accessToken
         case autoLogin
-        case pushToken
+        case voipPushToken
         
         var value: String { "com.sendbird.calls.quickstart.\(self.rawValue.lowercased())" }
     }
@@ -41,15 +41,16 @@ extension UserDefaults {
         set { UserDefaults.standard.set(object: newValue, forKey: Key.accessToken.value) }
     }
     
-    var pushToken: Data? {
-        get { UserDefaults.standard.get(objectType: Data.self, forKey: Key.pushToken.value) }
-        set { UserDefaults.standard.set(object: newValue, forKey: Key.pushToken.value) }
+    var voipPushToken: Data? {
+        get { UserDefaults.standard.get(objectType: Data.self, forKey: Key.voipPushToken.value) }
+        set { UserDefaults.standard.set(object: newValue, forKey: Key.voipPushToken.value) }
     }
 }
 
 extension UserDefaults {
     func clear() {
-        Key.allCases.map{$0.value}.forEach(UserDefaults.standard.removeObject)
+        let keys = Key.allCases.filter { $0 != .voipPushToken }
+        keys.map{$0.value}.forEach(UserDefaults.standard.removeObject)
     }
 }
 

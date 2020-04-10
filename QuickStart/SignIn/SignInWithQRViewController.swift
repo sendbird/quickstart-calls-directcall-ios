@@ -86,6 +86,10 @@ extension SignInWithQRViewController: SignInDelegate {
     // Delegate method
     func didSignIn(appId: String, userId: String, accessToken: String?) {
         SendBirdCall.configure(appId: appId)
+        // You must call `SendBirdCall.addDelegate(_:identifier:)` right after configuring new app ID
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            SendBirdCall.addDelegate(appDelegate, identifier: "com.sendbird.calls.quickstart.delegate")
+        }
 
         UserDefaults.standard.appId = appId
         UserDefaults.standard.user.id = userId
@@ -100,7 +104,8 @@ extension SignInWithQRViewController {
     func signIn() {
         let userId = UserDefaults.standard.user.id
         let accessToken = UserDefaults.standard.accessToken
-        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken, voipPushToken: UserDefaults.standard.pushToken, unique: false)
+        let voipPushToken = UserDefaults.standard.voipPushToken
+        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken, voipPushToken: voipPushToken, unique: false)
         self.indicator.startLoading(on: self.view)
         
         SendBirdCall.authenticate(with: authParams) { user, error in
@@ -127,7 +132,5 @@ extension SignInWithQRViewController {
                 self.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
             }
         }
-        
-        self.dismiss(animated: true, completion: nil)
     }
 }
