@@ -16,10 +16,6 @@ class SignInWithQRViewController: UIViewController {
     // Sign In Manually
     @IBOutlet weak var signInManuallyButton: UIButton!
     
-    // Other components
-    @IBOutlet weak var lineView: UIView!
-    @IBOutlet weak var orLabel: UILabel!
-    
     // Footnote
     @IBOutlet weak var versionLabel: UILabel! {
         didSet {
@@ -70,8 +66,7 @@ class SignInWithQRViewController: UIViewController {
     
     func resetButtonUI() {
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
-            self.lineView.isHidden = false
-            self.orLabel.isHidden = false
+            self.view.subviews.filter({ $0.tag == 1 }).forEach { $0.isHidden = false }  // Show lines and "Or" label
             self.signInManuallyButton.isHidden = false
         }
         animator.startAnimation()
@@ -83,8 +78,7 @@ class SignInWithQRViewController: UIViewController {
     }
     
     func updateButtonUI() {
-        self.lineView.isHidden = true
-        self.orLabel.isHidden = true
+        self.view.subviews.filter({ $0.tag == 1 }).forEach { $0.isHidden = true }   // Hide lines and "Or" label
         self.signInManuallyButton.isHidden = true
         
         self.scanButton.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1.0)

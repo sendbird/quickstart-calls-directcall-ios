@@ -24,13 +24,7 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Call
-    @IBOutlet weak var calleeIdTextField: UITextField! {
-        didSet {
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.calleeIdTextField.frame.height))
-            self.calleeIdTextField.leftView = paddingView
-            self.calleeIdTextField.leftViewMode = UITextField.ViewMode.always
-        }
-    }
+    @IBOutlet weak var calleeIdTextField: UITextField!
     @IBOutlet weak var voiceCallButton: UIButton!
     @IBOutlet weak var videoCallButton: UIButton!
     

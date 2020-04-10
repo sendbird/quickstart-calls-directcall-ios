@@ -14,13 +14,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mainLabel: UILabel!
     
     // ID
-    @IBOutlet weak var userIdTextField: UITextField! {
-        didSet {
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.userIdTextField.frame.height))
-            self.userIdTextField.leftView = paddingView
-            self.userIdTextField.leftViewMode = UITextField.ViewMode.always
-        }
-    }
+    @IBOutlet weak var userIdTextField: UITextField!
     
     // SignIn
     @IBOutlet weak var signInButton: UIButton!

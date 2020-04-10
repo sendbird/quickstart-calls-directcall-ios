@@ -19,30 +19,42 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
             self.profileImageView.setImage(urlString: profileURL)
         }
     }
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel! {
+        didSet {
+            self.nameLabel.text = self.call.remoteUser?.userId
+        }
+    }
     
     @IBOutlet weak var speakerButton: UIButton!
-    @IBOutlet weak var muteAudioButton: UIButton!
+    @IBOutlet weak var muteAudioButton: UIButton! {
+        didSet {
+            self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
+        }
+    }
     @IBOutlet weak var endButton: UIButton!
     @IBOutlet weak var callTimerLabel: UILabel!
     
     // Notify muted state
     @IBOutlet weak var mutedStateImageView: UIImageView!
-    @IBOutlet weak var mutedStateLabel: UILabel!
+    @IBOutlet weak var mutedStateLabel: UILabel! {
+        didSet {
+            self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
+        }
+    }
     
     var call: DirectCall!
     var isDialing: Bool?
     
     var callTimer: Timer?
     
-    let callController = CXCallController()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            self.isModalInPresentation = true
+        }
         self.call.delegate = self
         
-        self.setupUI()
         self.setupAudioOutputButton()
         self.updateRemoteAudio(isEnabled: true)
     }
@@ -50,13 +62,14 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.isDialing == true {
-            guard let calleeId = self.call.remoteUser?.userId else {
+        guard self.isDialing == true else { return }
+        CXCallController.shared.startCXCall(self.call) { [weak self] isSucceed in
+            guard let self = self else { return }
+            if !isSucceed {
                 self.navigationController?.popViewController(animated: true)
-                return
             }
-            self.startCXCall(to: calleeId)
         }
+        
     }
     
     // MARK: - IBActions
@@ -70,22 +83,10 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         call.end()
-        self.requestEndTransaction(of: call)
+        CXCallController.shared.endCXCall(call)
     }
     
     // MARK: - Basic UI
-    func setupUI() {
-        if #available(iOS 13.0, *) {
-            self.isModalInPresentation = true
-        }
-        self.callTimerLabel.text = "Calling..."
-        self.nameLabel.text = self.call.remoteUser?.userId
-        self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
-
-        // Local Info
-        self.muteAudioButton.isSelected = !self.call.isLocalAudioEnabled
-    }
-    
     func setupEndedCallUI() {
         self.callTimer?.invalidate()    // Main thread
         self.callTimer = nil
@@ -97,26 +98,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         
         self.mutedStateImageView.isHidden = true
         self.mutedStateLabel.isHidden = true
-    }
-    
-    // MARK: - CallKit Methods
-    func startCXCall(to calleeId: String) {
-        
-        let handle = CXHandle(type: .generic, value: calleeId)
-        
-        let startCallAction = CXStartCallAction(call: call.callUUID!, handle: handle)
-        startCallAction.isVideo = call.isVideoCall
-        
-        let transaction = CXTransaction(action: startCallAction)
-        
-        CXCallControllerManager.requestTransaction(transaction, action: "SendBird - Start Call")
-    }
-    
-    func requestEndTransaction(of call: DirectCall) {
-        let endCallAction = CXEndCallAction(call: call.callUUID!)
-        let transaction = CXTransaction(action: endCallAction)
-        
-        CXCallControllerManager.requestTransaction(transaction, action: "SendBird - End Call")
     }
 }
 
@@ -143,7 +124,6 @@ extension VoiceCallViewController {
         let width = self.speakerButton.frame.width
         let height = self.speakerButton.frame.height
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
-
     
         let routePickerView = SendBirdCall.routePickerView(frame: frame)
         self.customize(routePickerView)
@@ -216,7 +196,7 @@ extension VoiceCallViewController: DirectCallDelegate {
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        self.requestEndTransaction(of: call)
+        CXCallController.shared.endCXCall(call)
     }
     
     // MARK: Optional Methods
