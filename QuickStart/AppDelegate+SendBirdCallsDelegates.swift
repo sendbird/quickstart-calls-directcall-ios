@@ -15,7 +15,8 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         guard let uuid = call.callUUID else { return }
         call.delegate = self
         
-        guard CXCallControllerManager.shared.currentCalls.isEmpty else { return }  // Should be cross-checked with state to prevent weird event processings
+        // Should be cross-checked with state to prevent weird event processings
+        guard !CXCallControllerManager.shared.currentCalls.contains(where: { $0.uuid == uuid }) else { return }
         
         // Use CXProvider to report the incoming call to the system
         // Construct a CXCallUpdate describing the incoming call, including the caller.
@@ -23,6 +24,7 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         let update = CXCallUpdate()
         update.remoteHandle = CXHandle(type: .generic, value: name)
         update.hasVideo = call.isVideoCall
+        update.localizedCallerName = call.caller?.userId ?? "Unknown"
         
         // Report the incoming call to the system
         CXCallControllerManager.shared.reportIncomingCall(with: uuid, update: update)

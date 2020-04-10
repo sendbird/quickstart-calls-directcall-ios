@@ -69,6 +69,8 @@ extension CXCallControllerManager: CXProviderDelegate {
             let update = CXCallUpdate()
             update.remoteHandle = CXHandle(type: .generic, value: call.callee?.userId ?? "Unknown")
             update.localizedCallerName = call.callee?.userId ?? "Unknown"
+            update.hasVideo = call.isVideoCall
+            
             provider.reportCall(with: call.callUUID!, updated: update)  // To update name information in native call logs
             provider.reportOutgoingCall(with: call.callUUID!, startedConnectingAt: Date(timeIntervalSince1970: Double(call.startedAt)/1000))
         }
