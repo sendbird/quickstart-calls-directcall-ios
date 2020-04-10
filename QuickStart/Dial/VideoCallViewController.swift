@@ -34,9 +34,15 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     @IBOutlet weak var mutedStateImageView: UIImageView!
     @IBOutlet weak var remoteProfileImageView: UIImageView! {
         didSet {
-            let profileURL = self.call.remoteUser?.profileURL
-            self.remoteProfileImageView.setImage(urlString: profileURL)
+            guard let profileURL = self.call.remoteUser?.profileURL else { return }
+            guard let url = NSURL(string: profileURL) else { return }
             self.remoteProfileImageView.isHidden = true
+            ImageCache.shared.load(url: url) { image in
+                DispatchQueue.main.async {
+                    guard let image = image else { return }
+                    self.remoteProfileImageView.image = image
+                }
+            }
         }
     }
     

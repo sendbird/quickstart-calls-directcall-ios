@@ -11,8 +11,14 @@ import SendBirdCalls
 class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var userProfileImageView: UIImageView! {
         didSet {
-            let profile = UserDefaults.standard.user.profile
-            self.userProfileImageView.setImage(urlString: profile)
+            guard let profileURL = UserDefaults.standard.user.profile else { return }
+            guard let url = NSURL(string: profileURL) else { return }
+            ImageCache.shared.load(url: url) { image in
+                DispatchQueue.main.async {
+                    guard let image = image else { return }
+                    self.userProfileImageView.image = image
+                }
+            }
         }
     }
     @IBOutlet weak var usernameLabel: UILabel! {
