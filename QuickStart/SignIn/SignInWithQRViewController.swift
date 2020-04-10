@@ -24,7 +24,7 @@ class SignInWithQRViewController: UIViewController {
         }
     }
     
-    let activityIndicator = UIActivityIndicatorView()
+    let indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,21 +49,6 @@ class SignInWithQRViewController: UIViewController {
         }
     }
     
-    func startLoading() {
-        self.activityIndicator.center = self.view.center
-        self.activityIndicator.hidesWhenStopped = true
-        self.activityIndicator.style = .gray
-        self.view.addSubview(activityIndicator)
-        
-        self.activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-    }
-    
-    func stopLoading() {
-        self.activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
-    }
-    
     func resetButtonUI() {
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
             self.view.subviews.filter({ $0.tag == 1 }).forEach { $0.isHidden = false }  // Show lines and "Or" label
@@ -71,8 +56,8 @@ class SignInWithQRViewController: UIViewController {
         }
         animator.startAnimation()
         
-        self.scanButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.88), for: .normal)
-        self.scanButton.backgroundColor = UIColor(red: 123 / 255, green: 83 / 255, blue: 239 / 255, alpha: 1.0)
+        self.scanButton.setTitleColor(UIColor.QuickStart.lightGray.color, for: .normal)
+        self.scanButton.backgroundColor = UIColor.QuickStart.lightGray.color
         self.scanButton.setTitle("Sign in with QR code", for: .normal)
         self.scanButton.isEnabled = true
     }
@@ -81,8 +66,8 @@ class SignInWithQRViewController: UIViewController {
         self.view.subviews.filter({ $0.tag == 1 }).forEach { $0.isHidden = true }   // Hide lines and "Or" label
         self.signInManuallyButton.isHidden = true
         
-        self.scanButton.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1.0)
-        self.scanButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.12), for: .normal)
+        self.scanButton.backgroundColor = UIColor.QuickStart.lightGray.color
+        self.scanButton.setTitleColor(UIColor.black.withAlphaComponent(0.12), for: .normal)
         self.scanButton.setTitle("Signing In...", for: .normal)
         self.scanButton.isEnabled = false
     }
@@ -121,12 +106,12 @@ extension SignInWithQRViewController {
         let accessToken = UserDefaults.standard.accessToken
         let voipPushToken = UserDefaults.standard.voipPushToken
         let authParams = AuthenticateParams(userId: userId, accessToken: accessToken, voipPushToken: voipPushToken, unique: false)
-        self.startLoading()
+        self.indicator.startLoading(on: self.view)
         
         SendBirdCall.authenticate(with: authParams) { user, error in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.stopLoading()
+                self.indicator.stopLoading()
                 self.resetButtonUI()
             }
             

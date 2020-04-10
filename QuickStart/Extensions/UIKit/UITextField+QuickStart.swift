@@ -8,11 +8,7 @@
 import UIKit
 
 extension UITextField {
-    var filteredText: String? {
-        get {
-            return text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-    }
+    var filteredText: String? { text?.trimmed }
 }
 
 // MARK: Design
