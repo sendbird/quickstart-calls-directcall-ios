@@ -97,6 +97,42 @@ To handle a native-implementation of receiving incoming calls, implement Appleâ€
  5. Reverse roles, and initiate a call from the other device.
  6. If the `caller` and `callee` devices are near each other, use headphones to prevent audio feedback.
 
+# Advanced
+
+## Handling Incoming Calls without Media Permission
+When using CallKit to process your calls, there may be instances where the user has not granted media(audio/video) permissions. Without the necessary permissions, the call will proceed without audio and/or video, which can be critical to the user experience. Some other third-party apps implement different user flow to prevent the call from starting without according media permissions. However, due to CallKit requiring new incoming calls to be reported to CallKit immediately, there are some issues in implementing such change. Here is our solution:
+
+We need to make sure that our PushKit usage is in sync with the device's media permission state. If media permissions are not granted, we should destroy existing push token to stop receiving VoIP Push and ignore any incoming calls. 
+
+> Note, however, Apple's requires every VoIP Push Notifications to report a new incoming call to CallKit as writte in [Apple's Documentation](https://developer.apple.com/documentation/pushkit/pkpushregistrydelegate/2875784-pushregistry). Be sure to test your implementation and refer to Apple's [guidelines](https://developer.apple.com/documentation/pushkit/responding_to_voip_notifications_from_pushkit) on VoIP Push Notifications and CallKit. 
+
+In your AppDelegate's `pushRegistry(_:didReceiveIncomingPushWith:for:completion:)`, add the following: 
+```swift
+guard AVAudioSession.sharedInstance().recordPermission == .granted else { // Here, we check if the audio permission is granted
+  // If it is not granted, we will destroy current push registration to stop receiving push notifications
+  self.voipRegistry?.desiredPushTypes = nil
+  
+  // We will ignore current call and not present a new CallKit view. This will not cause crashes as we have destroyed current PushKit usage.
+  completion()
+  return
+}
+
+// Media permissions are granted, we will process the incoming call. 
+SendBirdCall.pushRegistry(registry, didReceiveIncomingPushWith: payload, for: type) { uuid in
+  ...
+```
+This will ignore incoming call if the media permissions are not granted, and prevent any future calls from being delivered to the device. 
+
+
+In your AppDelegate's `application(_:didFinishLaunchingWithOptions:)`, you may also want to register VoIP Push Notification only if the media permissions are granted.
+```swift
+if AVAudioSession.sharedInstance().recordPermission == .granted {
+  self.voipRegistration()
+}
+```
+
+Note, however, destroying existing PKPushRegistry will prevent any future VoIP Push Notifications to be sent to the device. If you want to start receiving VoIP Push Notifications again, you must re-register PKPushRegistry by doing `self.voipRegistry?.desiredPushTypes = [.voIP]`.
+
 ## Reference
 
  - [SendBird Calls iOS SDK Readme](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md)
