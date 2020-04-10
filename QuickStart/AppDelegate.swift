@@ -33,9 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // User ID Mode
             self.window = UIWindow(frame: UIScreen.main.bounds)
             guard let window = self.window else { return false }
-            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
-            window.rootViewController = viewController
+            window.rootViewController = UIStoryboard.signController()
             window.makeKeyAndVisible()
         } else if let appId = UserDefaults.standard.appId {
             // QR Code Mode

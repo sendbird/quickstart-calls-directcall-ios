@@ -118,7 +118,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         self.remoteProfileImageView.isHidden = false
         
         // Release resource
-        self.view.subviews[0].removeFromSuperview()
+        self.view.subviews.first?.removeFromSuperview()
         self.localVideoView?.isHidden = true
         self.mutedStateImageView.isHidden = true
         self.mutedStateLabel.isHidden = true
@@ -222,13 +222,14 @@ extension VideoCallViewController {
     
     // SendBirdCalls: Start / Stop Video
     func updateLocalVideo(isEnabled: Bool) {
-        self.videoOffButton.setBackgroundImage(UIImage(named: isEnabled ? "btnVideoOffSelected" : "btnVideoOff"), for: .normal)
+        self.videoOffButton.setBackgroundImage(.video(on: isEnabled),
+                                               for: .normal)
         if isEnabled {
             call.stopVideo()
-            self.localVideoView?.subviews[0].isHidden = true
+            self.localVideoView?.subviews.first?.isHidden = true
         } else {
             call.startVideo()
-            self.localVideoView?.subviews[0].isHidden = false
+            self.localVideoView?.subviews.first?.isHidden = false
         }
     }
 }
@@ -236,7 +237,7 @@ extension VideoCallViewController {
 // MARK: - SendBirdCalls: Audio Features
 extension VideoCallViewController {
     func updateLocalAudio(isEnabled: Bool) {
-        self.audioOffButton.setBackgroundImage(UIImage(named: isEnabled ? "btnAudioOffSelected" : "btnAudioOff"), for: .normal)
+        self.audioOffButton.setBackgroundImage(.audio(on: isEnabled), for: .normal)
         if isEnabled {
             call?.muteMicrophone()
         } else {
@@ -315,18 +316,8 @@ extension VideoCallViewController: DirectCallDelegate {
         guard !call.isEnded else { return }
         guard let output = session.currentRoute.outputs.first else { return }
         
-        let outputType = output.portType
-        let outputName = output.portName
-        
-        // Customize images
-        var imageName = "btnSpeaker"
-        switch outputType {
-        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "btnBluetoothSelected"
-        case .builtInSpeaker: imageName = "btnSpeakerSelected"
-        default: imageName = "btnSpeaker"
-        }
-        
-        self.audioRouteButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
-        print("[QuickStart] Audio Route has been changed to \(outputName)")
+        self.audioRouteButton.setBackgroundImage(.audio(output: output.portType),
+                                                 for: .normal)
+        print("[QuickStart] Audio Route has been changed to \(output.portName)")
     }
 }

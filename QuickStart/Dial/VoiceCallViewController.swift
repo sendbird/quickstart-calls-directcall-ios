@@ -104,7 +104,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
 // MARK: - SendBirdCalls: Audio Features
 extension VoiceCallViewController {
     func updateLocalAudio(isEnabled: Bool) {
-        self.muteAudioButton.setBackgroundImage(UIImage(named: isEnabled ? "btnAudioOffSelected" : "btnAudioOff"), for: .normal)
+        self.muteAudioButton.setBackgroundImage(.audio(on: isEnabled), for: .normal)
         if isEnabled {
             call?.muteMicrophone()
         } else {
@@ -153,20 +153,10 @@ extension VoiceCallViewController {
         // Main thread
         self.callTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
             guard let self = self else { return }
-            let duration = Double(self.call.duration)
-            
-            let convertedTime = Int(duration / 1000)
-            let hour = Int(convertedTime / 3600)
-            let minute = Int(convertedTime / 60) % 60
-            let second = Int(convertedTime % 60)
-            
+
             // update UI
-            let secondText = second < 10 ? "0\(second)" : "\(second)"
-            let minuteText = minute < 10 ? "0\(minute)" : "\(minute)"
-            let hourText = hour == 0 ? "" : "\(hour):"
-            
-            self.callTimerLabel.text = "\(hourText)\(minuteText):\(secondText)"
-            
+            self.callTimerLabel.text = self.call.duration.timerText()
+
             // Timer Invalidate
             if self.call.endedAt != 0, timer.isValid {
                 timer.invalidate()
@@ -212,18 +202,8 @@ extension VoiceCallViewController: DirectCallDelegate {
         guard !call.isEnded else { return }
         guard let output = session.currentRoute.outputs.first else { return }
         
-        let outputType = output.portType
-        let outputName = output.portName
-        
-        // Customize images
-        var imageName = "btnSpeaker"
-        switch outputType {
-        case .bluetoothA2DP, .bluetoothHFP, .bluetoothLE: imageName = "btnBluetoothSelected"
-        case .builtInSpeaker: imageName = "btnSpeakerSelected"
-        default: imageName = "btnSpeaker"
-        }
-        
-        self.speakerButton.setBackgroundImage(UIImage(named: imageName), for: .normal)
-        print("[QuickStart] Audio Route has been changed to \(outputName)")
+        self.speakerButton.setBackgroundImage(.audio(output: output.portType),
+                                                 for: .normal)
+        print("[QuickStart] Audio Route has been changed to \(output.portName)")
     }
 }
