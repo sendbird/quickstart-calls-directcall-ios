@@ -26,6 +26,10 @@ class CXCallManager: NSObject {
         
         self.provider.setDelegate(self, queue: .main)
     }
+    
+    func shouldProcessCall(for callId: UUID) -> Bool {
+        return !self.currentCalls.contains(where: { $0.uuid == callId })
+    }
 }
 
 extension CXCallManager { // Process with CXProvider

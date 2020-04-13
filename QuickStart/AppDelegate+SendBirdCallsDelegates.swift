@@ -15,7 +15,7 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         call.delegate = self // To receive call event through `DirectCallDelegate`
         
         guard let uuid = call.callUUID else { return }
-        guard CXCallManager.shared.currentCalls.contains(where: { $0.uuid == call.callUUID }) == false else { return }  // Should be cross-checked with state to prevent weird event processings
+        guard CXCallManager.shared.shouldProcessCall(for: uuid) else { return }  // Should be cross-checked with state to prevent weird event processings
         
         // Use CXProvider to report the incoming call to the system
         // Construct a CXCallUpdate describing the incoming call, including the caller.
