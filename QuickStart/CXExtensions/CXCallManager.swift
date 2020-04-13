@@ -11,13 +11,14 @@ import UIKit
 import AVFoundation
 import SendBirdCalls
 
-class CXCallControllerManager: NSObject {
-    static let shared = CXCallControllerManager()
-    private let controller = CXCallController()
+class CXCallManager: NSObject {
+    static let shared = CXCallManager()
+    
     
     var currentCalls: [CXCall] { self.controller.callObserver.calls }
     
     private let provider: CXProvider
+    private let controller = CXCallController()
     
     override init() {
         self.provider = CXProvider.default
@@ -26,7 +27,27 @@ class CXCallControllerManager: NSObject {
         
         self.provider.setDelegate(self, queue: .main)
     }
+}
+
+extension CXCallManager { // Process with CXProvider
+    func reportIncomingCall(with callID: UUID, update: CXCallUpdate, completionHandler: ((Error?)->Void)? = nil) {
+        self.provider.reportNewIncomingCall(with: callID, update: update) { (error) in
+            completionHandler?(error)
+        }
+    }
     
+    func endCall(for callId: UUID, endedAt: Date, reason: DirectCallEndResult) {
+        guard let endReason = reason.asCXCallEndedReason else { return }
+
+        self.provider.reportCall(with: callId, endedAt: endedAt, reason: endReason)
+    }
+    
+    func connectedCall(_ call: DirectCall) {
+        self.provider.reportOutgoingCall(with: call.callUUID!, connectedAt: Date(timeIntervalSince1970: Double(call.startedAt)/1000))
+    }
+}
+
+extension CXCallManager { // Process with CXTransaction
     func requestTransaction(_ transaction: CXTransaction, action: String = "") {
         self.controller.request(transaction) { error in
             guard error == nil else { return }
@@ -35,25 +56,36 @@ class CXCallControllerManager: NSObject {
         }
     }
     
-    func reportIncomingCall(with callID: UUID, update: CXCallUpdate, completionHandler: ((Error?)->Void)? = nil) {
-        self.provider.reportNewIncomingCall(with: callID, update: update) { (error) in
-            completionHandler?(error)
+    func startCXCall(_ call: DirectCall, completionHandler: @escaping ((Bool) -> Void)) {
+        guard let calleeId = call.callee?.userId else {
+            DispatchQueue.main.async {
+                completionHandler(false)
+            }
+            return
+        }
+        let handle = CXHandle(type: .generic, value: calleeId)
+        let startCallAction = CXStartCallAction(call: call.callUUID!, handle: handle)
+        startCallAction.isVideo = call.isVideoCall
+        
+        let transaction = CXTransaction(action: startCallAction)
+        
+        self.requestTransaction(transaction)
+        
+        DispatchQueue.main.async {
+            completionHandler(true)
         }
     }
     
-    func endCall(for callId: UUID, endedAt: Date, reason: CXCallEndedReason) {
-        self.provider.reportCall(with: callId, endedAt: endedAt, reason: reason)
-    }
-    
-    func connectedCall(_ call: DirectCall) {
-        self.provider.reportOutgoingCall(with: call.callUUID!, connectedAt: Date(timeIntervalSince1970: Double(call.startedAt)/1000))
+    func endCXCall(_ call: DirectCall) {
+        let endCallAction = CXEndCallAction(call: call.callUUID!)
+        let transaction = CXTransaction(action: endCallAction)
+        
+        self.requestTransaction(transaction)
     }
 }
 
-extension CXCallControllerManager: CXProviderDelegate {
-    func providerDidReset(_ provider: CXProvider) {
-        //
-    }
+extension CXCallManager: CXProviderDelegate {
+    func providerDidReset(_ provider: CXProvider) { }
     
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
         // MARK: SendBirdCalls - SendBirdCall.getCall()
@@ -136,7 +168,7 @@ extension CXCallControllerManager: CXProviderDelegate {
     }
 }
 
-extension AppDelegate {
+extension CXCallManager {
     func authenticateIfNeed(completionHandler: @escaping (Error?) -> Void) {
         guard SendBirdCall.currentUser == nil else {
             completionHandler(nil)
@@ -148,9 +180,7 @@ extension AppDelegate {
             completionHandler(error)
         }
     }
-}
-
-extension AppDelegate {
+    
     func showCallController(with call: DirectCall) {
         // If there is termination: Failed to load VoiceCallViewController from Main.storyboard. Please check its storyboard ID")
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -170,3 +200,21 @@ extension AppDelegate {
     }
 }
 
+extension DirectCallEndResult {
+    var asCXCallEndedReason: CXCallEndedReason? {
+        switch self {
+        case .completed, .connectionLost, .timedOut, .acceptFailed, .dialFailed, .unknown:
+            return .failed
+        case .canceled:
+            return .remoteEnded
+        case .declined:
+            return .declinedElsewhere
+        case .noAnswer:
+            return .unanswered
+        case .otherDeviceAccepted:
+            return .answeredElsewhere
+        case .none: return nil
+        @unknown default: return nil
+        }
+    }
+}
