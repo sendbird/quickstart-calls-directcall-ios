@@ -27,9 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // User ID Mode
             self.window = UIWindow(frame: UIScreen.main.bounds)
             guard let window = self.window else { return false }
-            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
-            window.rootViewController = viewController
+            window.rootViewController = UIStoryboard.signController()
             window.makeKeyAndVisible()
         } else if let appId = UserDefaults.standard.appId {
             // QR Code Mode
@@ -80,8 +78,9 @@ extension AppDelegate: PKPushRegistryDelegate {
                 let update = CXCallUpdate()
                 update.remoteHandle = CXHandle(type: .generic, value: "invalid")
                 let randomUUID = UUID()
-                CXCallControllerManager.shared.reportIncomingCall(with: randomUUID, update: update) { error in
-                    CXCallControllerManager.shared.endCall(for: randomUUID, endedAt: Date(), reason: .failed)
+
+                CXCallManager.shared.reportIncomingCall(with: randomUUID, update: update) { error in
+                    CXCallManager.shared.endCall(for: randomUUID, endedAt: Date(), reason: .acceptFailed)
                 }
                 completion()
                 return
