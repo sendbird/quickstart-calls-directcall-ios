@@ -49,8 +49,10 @@ extension CXCallManager { // Process with CXProvider
 extension CXCallManager { // Process with CXTransaction
     func requestTransaction(_ transaction: CXTransaction, action: String = "") {
         self.controller.request(transaction) { error in
-            guard error == nil else { return }
-            
+            guard error == nil else {
+                print("Error Requesting Transaction: \(String(describing: error))")
+                return
+            }
             // Requested transaction successfully
         }
     }
@@ -132,13 +134,17 @@ extension CXCallManager: CXProviderDelegate {
         }
         
         // For decline
-        self.authenticateIfNeed{ [weak call] (error) in
+        self.authenticateIfNeed { [weak call] (error) in
             guard error == nil else {
                 action.fail()
                 return
             }
             
-            call?.end {
+            if call?.endResult == DirectCallEndResult.none || call?.endResult == .unknown {
+                call?.end {
+                    action.fulfill()
+                }
+            } else {
                 action.fulfill()
             }
         }
