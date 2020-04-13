@@ -86,10 +86,14 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         self.captureSession?.stopRunning()
         
+        let invalidQRcode = "This QR code is not valid. Please generate and scan a user-specific QR code in Calls studio."
+        let appStoreLink = "This QR code is a link to download the mobile quickstart app, which is already installed on your device. To sign into this app, please generate and scan a user-specific QR code in Calls studio."
+        
         guard let readableObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
             let stringValue = readableObject.stringValue else {
                 // Invalid QR code
-                self.presentErrorAlert(message: "This QR code is not valid. Please generate and scan a user-specific QR code in Calls studio.") { _ in
+                self.presentErrorAlert(message: invalidQRcode) { [weak self] _ in
+                    guard let self = self else { return }
                     self.captureSession?.startRunning()
                 }
                 return
@@ -97,7 +101,8 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         
         guard stringValue != "https://dashboard.sendbird.com/calls/mobile" else {
             // AppStore link
-            self.presentErrorAlert(message: "This QR code is a link to download the mobile quickstart app, which is already installed on your device. To sign into this app, please generate and scan a user-specific QR code in Calls studio.") { _ in
+            self.presentErrorAlert(message: appStoreLink) { [weak self] _ in
+                guard let self = self else { return }
                 self.captureSession?.startRunning()
             }
             return
@@ -105,7 +110,8 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         
         guard let data = Data(base64Encoded: stringValue) else {
             // Invalid QR code
-            self.presentErrorAlert(message: "This QR code is not valid. Please generate and scan a user-specific QR code in Calls studio.") { _ in
+            self.presentErrorAlert(message: invalidQRcode) { [weak self] _ in
+                guard let self = self else { return }
                 self.captureSession?.startRunning()
             }
             return
