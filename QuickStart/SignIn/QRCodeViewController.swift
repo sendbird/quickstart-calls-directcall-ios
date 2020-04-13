@@ -11,6 +11,8 @@ import AVFoundation
 import SendBirdCalls
 
 class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    @IBOutlet weak var scanView: UIView!
+    
     typealias SendBirdQRInfo = [String: String?]
     
     var captureSession: AVCaptureSession? {
@@ -22,9 +24,9 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var previewLayer: AVCaptureVideoPreviewLayer? {
         didSet {
             guard let layer = self.previewLayer else { return }
-            layer.frame = view.layer.bounds
+            layer.frame = self.scanView.layer.bounds
             layer.videoGravity = .resizeAspectFill
-            view.layer.insertSublayer(layer, at: 0)
+            self.scanView.layer.insertSublayer(layer, at: 0)
             
             self.captureSession?.startRunning()
         }

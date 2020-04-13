@@ -287,18 +287,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yD8-fc-U49">
+                                <rect key="frame" x="0.0" y="56" width="414" height="698"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgGuideQrcode" translatesAutoresizingMaskIntoConstraints="NO" id="A2E-s0-gN7">
-                                <rect key="frame" x="87" y="312" width="240" height="240"/>
+                                <rect key="frame" x="87" y="285" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Dbf-Z4-yfY"/>
                                     <constraint firstAttribute="height" constant="240" id="iRv-zF-zha"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ux9-W3-evz">
+                                <rect key="frame" x="0.0" y="754" width="414" height="88"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in by scanning a QR code found in the Calls Studio of the SendBird Dashboard" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="m8i-zI-3fs">
+                                        <rect key="frame" x="24" y="24" width="366" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="m8i-zI-3fs" secondAttribute="bottom" constant="24" id="3V6-Hw-Tqe"/>
+                                    <constraint firstAttribute="height" constant="88" id="UoS-GV-wBz"/>
+                                    <constraint firstAttribute="trailing" secondItem="m8i-zI-3fs" secondAttribute="trailing" constant="24" id="aFD-N2-voF"/>
+                                    <constraint firstItem="m8i-zI-3fs" firstAttribute="top" secondItem="Ux9-W3-evz" secondAttribute="top" constant="24" id="fqQ-VT-6G3"/>
+                                    <constraint firstItem="m8i-zI-3fs" firstAttribute="leading" secondItem="Ux9-W3-evz" secondAttribute="leading" constant="24" id="xTa-Mc-fRQ"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerX" secondItem="Uz5-PR-CCk" secondAttribute="centerX" id="FzM-jQ-h00"/>
-                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerY" secondItem="Uz5-PR-CCk" secondAttribute="centerY" id="kkN-ov-whm"/>
+                            <constraint firstItem="Ux9-W3-evz" firstAttribute="trailing" secondItem="Uz5-PR-CCk" secondAttribute="trailing" id="1Bj-D5-x6B"/>
+                            <constraint firstItem="yD8-fc-U49" firstAttribute="leading" secondItem="Uz5-PR-CCk" secondAttribute="leading" id="DkS-HI-rHU"/>
+                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerX" secondItem="yD8-fc-U49" secondAttribute="centerX" id="FsI-av-qrk"/>
+                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerY" secondItem="yD8-fc-U49" secondAttribute="centerY" id="HTT-aI-gAb"/>
+                            <constraint firstItem="Ux9-W3-evz" firstAttribute="top" secondItem="yD8-fc-U49" secondAttribute="bottom" id="JRN-aQ-AlG"/>
+                            <constraint firstItem="Ux9-W3-evz" firstAttribute="leading" secondItem="Uz5-PR-CCk" secondAttribute="leading" id="Jps-pp-DzU"/>
+                            <constraint firstItem="yD8-fc-U49" firstAttribute="top" secondItem="Uz5-PR-CCk" secondAttribute="top" id="gbh-Yt-2WZ"/>
+                            <constraint firstItem="yD8-fc-U49" firstAttribute="trailing" secondItem="Uz5-PR-CCk" secondAttribute="trailing" id="lBc-Xg-jZR"/>
+                            <constraint firstAttribute="bottom" secondItem="Ux9-W3-evz" secondAttribute="bottom" id="m2c-xa-GtH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uz5-PR-CCk"/>
                     </view>
@@ -310,10 +339,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="scanView" destination="yD8-fc-U49" id="SXu-ES-xAZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ros-ta-8Xs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="194" y="425"/>
+            <point key="canvasLocation" x="192.75362318840581" y="424.55357142857139"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
