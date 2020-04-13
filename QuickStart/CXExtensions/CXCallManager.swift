@@ -14,7 +14,6 @@ import SendBirdCalls
 class CXCallManager: NSObject {
     static let shared = CXCallManager()
     
-    
     var currentCalls: [CXCall] { self.controller.callObserver.calls }
     
     private let provider: CXProvider
