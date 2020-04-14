@@ -21,9 +21,10 @@ class ImageCache {
     
     func load(url: URL, completion: @escaping imageHandler) {
         DispatchQueue.global(qos: .userInitiated).async {
-            let imageRequest = URLRequest(url: url)
-            // If there is cached image, return immediately.
+            // useProtocolCachePolicy: A default policy for URL load requests.
+            let imageRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy)
             
+            // If there is cached image, return immediately.
             if let cachedImage = self.cachedImage(for: imageRequest) {
                 completion(cachedImage, nil)
                 return
