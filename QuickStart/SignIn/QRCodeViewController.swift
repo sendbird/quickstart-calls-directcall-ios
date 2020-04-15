@@ -85,11 +85,33 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         self.captureSession?.stopRunning()
-
+        
+        let invalidQRcode = "This QR code is not valid. Please generate and scan a user-specific QR code in Calls studio."
+        let appStoreLink = "This QR code is a link to download the mobile quickstart app, which is already installed on your device. To sign into this app, please generate and scan a user-specific QR code in Calls studio."
+        
         guard let readableObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
-            let stringValue = readableObject.stringValue,
-            let data = Data(base64Encoded: stringValue) else {
-            self.presentErrorAlert(message: "Not available QR Code for SendBirdCalls") { _ in
+            let stringValue = readableObject.stringValue else {
+                // Invalid QR code
+                self.presentErrorAlert(message: invalidQRcode) { [weak self] _ in
+                    guard let self = self else { return }
+                    self.captureSession?.startRunning()
+                }
+                return
+        }
+        
+        guard stringValue != "https://dashboard.sendbird.com/calls/mobile" else {
+            // AppStore link
+            self.presentErrorAlert(message: appStoreLink) { [weak self] _ in
+                guard let self = self else { return }
+                self.captureSession?.startRunning()
+            }
+            return
+        }
+        
+        guard let data = Data(base64Encoded: stringValue) else {
+            // Invalid QR code
+            self.presentErrorAlert(message: invalidQRcode) { [weak self] _ in
+                guard let self = self else { return }
                 self.captureSession?.startRunning()
             }
             return
