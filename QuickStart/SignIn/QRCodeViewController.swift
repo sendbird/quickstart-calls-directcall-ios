@@ -11,6 +11,8 @@ import AVFoundation
 import SendBirdCalls
 
 class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    @IBOutlet weak var scanView: UIView!
+    
     typealias SendBirdQRInfo = [String: String?]
     
     var captureSession: AVCaptureSession? {
@@ -22,9 +24,9 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var previewLayer: AVCaptureVideoPreviewLayer? {
         didSet {
             guard let layer = self.previewLayer else { return }
-            layer.frame = view.layer.bounds
+            layer.frame = self.scanView.layer.bounds
             layer.videoGravity = .resizeAspectFill
-            view.layer.insertSublayer(layer, at: 0)
+            self.scanView.layer.insertSublayer(layer, at: 0)
             
             self.captureSession?.startRunning()
         }
@@ -86,7 +88,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         self.captureSession?.stopRunning()
         
-        let invalidQRcode = "This QR code is not valid. Please generate and scan a user-specific QR code in Calls studio."
+        let invalidQRcode = "Mobile sign-in is not enabled.  Please first enable notifications on the SendBird Dashboard."
         let appStoreLink = "This QR code is a link to download the mobile quickstart app, which is already installed on your device. To sign into this app, please generate and scan a user-specific QR code in Calls studio."
         
         guard let readableObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
