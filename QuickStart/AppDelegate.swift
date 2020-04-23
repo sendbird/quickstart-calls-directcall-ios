@@ -37,8 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // To process incoming call, you need to add `SendBirdCallDelegate` and implement its protocol methods.
         SendBirdCall.addDelegate(self, identifier: "com.sendbird.calls.quickstart.delegate")
         
-        self.voipRegistration()
-        
+        let useVoIPPush = false // Modify this value to test Remote Push Notifications
+        if useVoIPPush {
+            self.voipRegistration()
+        } else {
+            self.remoteNotificationsRegistration(application)
+        }
         return true
     }
     
@@ -66,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+// MARK: - PushKit
 extension AppDelegate: PKPushRegistryDelegate {
     func voipRegistration() {
         self.voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
@@ -74,7 +79,10 @@ extension AppDelegate: PKPushRegistryDelegate {
     }
     
     func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
-        //
+        SendBirdCall.unregisterVoIPPush(token: UserDefaults.standard.voipPushToken) { error in
+            guard error == nil else { return }
+        }
+        UserDefaults.standard.voipPushToken = nil
     }
     
     // MARK: SendBirdCalls - Registering push token.
@@ -84,7 +92,6 @@ extension AppDelegate: PKPushRegistryDelegate {
         
         SendBirdCall.registerVoIPPush(token: pushCredentials.token, unique: true) { error in
             guard error == nil else { return }
-            // Even if an error occurs, SendBirdCalls will save the pushToken value and reinvoke this method internally while authenticating.
         }
     }
     
@@ -113,3 +120,38 @@ extension AppDelegate: PKPushRegistryDelegate {
         }
     }
 }
+
+// MARK: - Remote Notification
+extension AppDelegate {
+    func remoteNotificationsRegistration(_ application: UIApplication) {
+        application.registerForRemoteNotifications()
+        
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            guard error == nil else {
+                print("Error while requesting permission for notifications.")
+                return
+            }
+            
+            // If success is true, the permission is given and notifications will be delivered.
+        }
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        // Check your app's configurations for APNs.
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        UserDefaults.standard.remotePushToken = deviceToken
+        SendBirdCall.registerRemotePush(token: deviceToken) { error in
+            print("Remote Notifications Device token is \(deviceToken.toHexString())")
+        }
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if userInfo.keys.contains("sendbird_calls") { // This is not necessary; SendBirdCall will not process and invoke the completionHandler for payloads that don't contain the key "sendbird_calls".
+            SendBirdCall.application(application, didReceiveRemoteNotification: userInfo)
+        }
+    }
+}
+
