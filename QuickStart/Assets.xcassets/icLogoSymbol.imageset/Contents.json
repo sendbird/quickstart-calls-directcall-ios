@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icLogoInverse01.png",
+      "filename" : "icLogoSymbol.png",
       "scale" : "1x"
     },
     {
-      "filename" : "icLogoInverse01@2x.png",
+      "filename" : "icLogoSymbol@2x.png",
       "scale" : "2x",
       "idiom" : "universal"
     },
     {
-      "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "icLogoInverse01@3x.png"
+      "idiom" : "universal",
+      "filename" : "icLogoSymbol@3x.png"
     }
   ],
   "info" : {
