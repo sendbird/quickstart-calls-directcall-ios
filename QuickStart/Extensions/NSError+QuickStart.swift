@@ -9,12 +9,7 @@
 import Foundation
 
 extension NSError {
-    
-    static var failedImageLoad: NSError {
-        let error = NSError(domain: "com.sendbird.quickstart.error.local",
-            code: 400001,
-            userInfo: [NSLocalizedDescriptionKey: "Failed to load image."])
-        
-        return error
-    }
+    static let failedImageLoad: NSError = NSError(domain: "com.sendbird.quickstart.error.local",
+                                                  code: 400001,
+                                                  userInfo: [NSLocalizedDescriptionKey: "Failed to load image."])
 }
