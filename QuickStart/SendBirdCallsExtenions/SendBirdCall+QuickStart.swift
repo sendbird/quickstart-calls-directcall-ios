@@ -27,9 +27,7 @@ extension SendBirdCall {
         }
     }
     
-    static func dialFromExternal(to calleeId: String, hasVideo: Bool) {
-        let callOption = CallOptions(isAudioEnabled: true, isVideoEnabled: hasVideo, localVideoView: nil, remoteVideoView: nil, useFrontCamera: true)
-        let dialParams = DialParams(calleeId: calleeId, isVideoCall: hasVideo, callOptions: callOption, customItems: [:])
+    static func dial(with dialParams: DialParams) {
         SendBirdCall.dial(with: dialParams) { call, error in
             guard let call = call, error == nil else {
                 UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
