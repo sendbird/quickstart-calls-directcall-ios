@@ -10,6 +10,11 @@ import UIKit
 import SendBirdCalls
 
 extension SendBirdCall {
+    /**
+     This method uses when,
+     - the user makes outgoing calls from native call history("Recents")
+     - the provider performs the specified end(decline) or answer call action.
+     */
     static func authenticateIfNeed(completionHandler: @escaping (Error?) -> Void) {
         guard SendBirdCall.currentUser == nil else {
             completionHandler(nil)
