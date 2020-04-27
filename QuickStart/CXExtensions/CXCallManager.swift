@@ -138,19 +138,19 @@ extension CXCallManager: CXProviderDelegate {
         }
         
         // For decline
-        self.authenticateIfNeed { [weak call] (error) in
-            guard error == nil else {
-                action.fail()
-                return
-            }
-            
-            if call?.endResult == DirectCallEndResult.none || call?.endResult == .unknown {
+        if call.endResult == DirectCallEndResult.none || call.endResult == .unknown {
+            self.authenticateIfNeed { [weak call] (error) in
+                guard error == nil else {
+                    action.fail()
+                    return
+                }
+                
                 call?.end {
                     action.fulfill()
                 }
-            } else {
-                action.fulfill()
             }
+        } else {
+            action.fulfill()
         }
     }
     
