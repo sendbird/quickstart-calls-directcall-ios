@@ -27,14 +27,10 @@ extension SendBirdCall {
         let dialParams = DialParams(calleeId: calleeId, isVideoCall: hasVideo, callOptions: callOption, customItems: [:])
         SendBirdCall.dial(with: dialParams) { call, error in
             guard let call = call, error == nil else {
-                DispatchQueue.main.async {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
-                }
+                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
                 return
             }
-            DispatchQueue.main.async {
-                UIApplication.shared.showCallController(with: call)
-            }
+            UIApplication.shared.showCallController(with: call)
         }
     }
 }

@@ -21,9 +21,7 @@ extension AppDelegate {
         
         SendBirdCall.authenticateIfNeed { error in
             guard error == nil else {
-                DispatchQueue.main.async {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
-                }
+                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
                 return
             }
             SendBirdCall.dialFromExternal(to: calleeId, hasVideo: false)
@@ -48,9 +46,7 @@ extension AppDelegate {
         
         SendBirdCall.authenticateIfNeed { error in
             guard error == nil else {
-                DispatchQueue.main.async {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
-                }
+                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
                 return
             }
             SendBirdCall.dialFromExternal(to: calleeId, hasVideo: hasVideo)
