@@ -139,15 +139,13 @@ extension CXCallManager: CXProviderDelegate {
         
         // For decline
         if call.endResult == DirectCallEndResult.none || call.endResult == .unknown {
-            self.authenticateIfNeed { [weak call] (error) in
-                guard error == nil else {
+            SendBirdCall.authenticateIfNeed { [weak call] (error) in
+                guard let call = call, error == nil else {
                     action.fail()
                     return
                 }
            
-                call?.end {
-                    action.fulfill()
-                }
+                call.end { action.fulfill() }
             }
         } else {
             action.fulfill()
