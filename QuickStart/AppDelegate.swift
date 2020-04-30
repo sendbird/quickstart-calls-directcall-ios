@@ -149,7 +149,7 @@ extension AppDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if userInfo.keys.contains("sendbird_calls") { // This is not necessary; SendBirdCall will not process and invoke the completionHandler for payloads that don't contain the key "sendbird_calls".
+        if userInfo.keys.contains("sendbird_call") { // This is not necessary; SendBirdCall will not process and invoke the completionHandler for payloads that don't contain the key "sendbird_calls".
             SendBirdCall.application(application, didReceiveRemoteNotification: userInfo)
         }
     }
