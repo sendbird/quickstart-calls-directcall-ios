@@ -9,13 +9,28 @@
 import Intents
 
 // To make an outgoing call from native call logs, so called "Recents" in iPhone, IntentExtension is required.
-class IntentHandler: INExtension, INStartCallIntentHandling, INStartAudioCallIntentHandling {
+class IntentHandler: INExtension, INStartVideoCallIntentHandling, INStartAudioCallIntentHandling {
+    func handle(intent: INStartVideoCallIntent, completion: @escaping (INStartVideoCallIntentResponse) -> Void) {
+        let response: INStartVideoCallIntentResponse
+        defer { completion(response) }
+        
+        // Ensure there is a person handle
+        guard intent.isValid else {
+            response = INStartVideoCallIntentResponse(code: .failure, userActivity: nil)
+            return
+        }
+        
+        let userActivity = NSUserActivity(activityType: String(describing: INStartVideoCallIntent.self))
+        
+        response = INStartVideoCallIntentResponse(code: .continueInApp, userActivity: userActivity)
+    }
+    
     func handle(intent: INStartAudioCallIntent, completion: @escaping (INStartAudioCallIntentResponse) -> Void) {
         let response: INStartAudioCallIntentResponse
         defer { completion(response) }
 
         // Ensure there is a person handle
-        guard intent.contacts?.first?.personHandle != nil else {
+        guard intent.isValid else {
             response = INStartAudioCallIntentResponse(code: .failure, userActivity: nil)
             return
         }
@@ -24,21 +39,24 @@ class IntentHandler: INExtension, INStartCallIntentHandling, INStartAudioCallInt
 
         response = INStartAudioCallIntentResponse(code: .continueInApp, userActivity: userActivity)
     }
-    
+}
+
+@available(iOS 13.0, *)
+extension IntentHandler: INStartCallIntentHandling {
     // If your app targets to iOS 13.0, you can remove above method and `INStartAudioCallIntentHandling` protocol
-    @available(iOS 13.0, *)
     func handle(intent: INStartCallIntent, completion: @escaping (INStartCallIntentResponse) -> Void) {
         let response: INStartCallIntentResponse
         defer { completion(response) }
 
         // Ensure there is a person handle
-        guard intent.contacts?.first?.personHandle != nil else {
+        guard intent.isValid else {
             response = INStartCallIntentResponse(code: .failure, userActivity: nil)
             return
         }
 
-        let userActivity = NSUserActivity(activityType: String(describing: INStartAudioCallIntent.self))
+        let userActivity = NSUserActivity(activityType: String(describing: INStartCallIntent.self))
 
         response = INStartCallIntentResponse(code: .continueInApp, userActivity: userActivity)
     }
 }
+

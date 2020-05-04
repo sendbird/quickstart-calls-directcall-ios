@@ -38,6 +38,7 @@
 		A99CC95423BA14CA00F9116A /* UITextView+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC95323BA14CA00F9116A /* UITextView+QuickStart.swift */; };
 		A99CC95623BA151000F9116A /* Data+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC95523BA151000F9116A /* Data+QuickStart.swift */; };
 		A99CC95823BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC95723BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift */; };
+		A9A53CE0245FF94900E8E654 /* INStartCallIntent+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A53CDF245FF94900E8E654 /* INStartCallIntent+QuickStart.swift */; };
 		A9A72CA52387B448007C0878 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A72CA42387B448007C0878 /* AppDelegate.swift */; };
 		A9A72CAC2387B449007C0878 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9A72CAA2387B449007C0878 /* Main.storyboard */; };
 		A9A72CAE2387B44C007C0878 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9A72CAD2387B44C007C0878 /* Assets.xcassets */; };
@@ -112,6 +113,7 @@
 		A99CC95323BA14CA00F9116A /* UITextView+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC95523BA151000F9116A /* Data+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC95723BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+QuickStart.swift"; sourceTree = "<group>"; };
+		A9A53CDF245FF94900E8E654 /* INStartCallIntent+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "INStartCallIntent+QuickStart.swift"; sourceTree = "<group>"; };
 		A9A72CA12387B448007C0878 /* SendBird Calls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SendBird Calls.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A72CA42387B448007C0878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A9A72CAB2387B449007C0878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			children = (
 				A9B75652243DBA77001E764B /* IntentHandler.swift */,
 				A9B75654243DBA77001E764B /* Info.plist */,
+				A9A53CDF245FF94900E8E654 /* INStartCallIntent+QuickStart.swift */,
 			);
 			path = QuickStartIntent;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9A53CE0245FF94900E8E654 /* INStartCallIntent+QuickStart.swift in Sources */,
 				A9B75653243DBA77001E764B /* IntentHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
