@@ -34,6 +34,14 @@ extension NSUserActivity: StartCallConvertible {
         guard let contact = startCallIntent.contacts?.first else { return nil }  // No callee ID
         guard let calleeId = contact.personHandle?.value else { return nil }
         let hasVideo = startCallIntent.hasVideo
-        return DialParams(calleeId: calleeId, isVideoCall: hasVideo, callOptions: CallOptions(isAudioEnabled: true, isVideoEnabled: hasVideo, localVideoView: nil, remoteVideoView: nil, useFrontCamera: true), customItems: [:])
+        
+        return DialParams(calleeId: calleeId,
+                          isVideoCall: hasVideo,
+                          callOptions: CallOptions(isAudioEnabled: true,
+                                                   isVideoEnabled: hasVideo,
+                                                   localVideoView: nil,
+                                                   remoteVideoView: nil,
+                                                   useFrontCamera: true),
+                          customItems: [:])
     }
 }
