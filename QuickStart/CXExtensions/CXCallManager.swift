@@ -115,7 +115,7 @@ extension CXCallManager: CXProviderDelegate {
             return
         }
         
-        self.authenticateIfNeed{ [weak call] (error) in
+        SendBirdCall.authenticateIfNeed{ [weak call] (error) in
             guard let call = call, error == nil else {
                 action.fail()
                 return
@@ -125,7 +125,7 @@ extension CXCallManager: CXProviderDelegate {
             let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: call.isVideoCall, useFrontCamera: true)
             let acceptParams = AcceptParams(callOptions: callOptions)
             call.accept(with: acceptParams)
-            self.showCallController(with: call)
+            UIApplication.shared.showCallController(with: call)
             action.fulfill()
         }
     }
@@ -139,15 +139,13 @@ extension CXCallManager: CXProviderDelegate {
         
         // For decline
         if call.endResult == DirectCallEndResult.none || call.endResult == .unknown {
-            self.authenticateIfNeed { [weak call] (error) in
-                guard error == nil else {
+            SendBirdCall.authenticateIfNeed { [weak call] (error) in
+                guard let call = call, error == nil else {
                     action.fail()
                     return
                 }
-                
-                call?.end {
-                    action.fulfill()
-                }
+           
+                call.end { action.fulfill() }
             }
         } else {
             action.fulfill()
@@ -174,38 +172,6 @@ extension CXCallManager: CXProviderDelegate {
     
     func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
         SendBirdCall.audioSessionDidDeactivate(audioSession)
-    }
-}
-
-extension CXCallManager {
-    func authenticateIfNeed(completionHandler: @escaping (Error?) -> Void) {
-        guard SendBirdCall.currentUser == nil else {
-            completionHandler(nil)
-            return
-        }
-        
-        let params = AuthenticateParams(userId: UserDefaults.standard.user.id, accessToken: UserDefaults.standard.accessToken)
-        SendBirdCall.authenticate(with: params) { (user, error) in
-            completionHandler(error)
-        }
-    }
-    
-    func showCallController(with call: DirectCall) {
-        // If there is termination: Failed to load VoiceCallViewController from Main.storyboard. Please check its storyboard ID")
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: call.isVideoCall ? "VideoCallViewController" : "VoiceCallViewController")
-
-        if var dataSource = viewController as? DirectCallDataSource {
-            dataSource.call = call
-            dataSource.isDialing = false
-        }
-        
-        if let topViewController = UIViewController.topViewController {
-            topViewController.present(viewController, animated: true, completion: nil)
-        } else {
-            UIApplication.shared.keyWindow?.rootViewController = viewController
-            UIApplication.shared.keyWindow?.makeKeyAndVisible()
-        }
     }
 }
 

@@ -175,6 +175,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         call.end()
+        
         CXCallManager.shared.endCXCall(call)
     }
 }
@@ -288,6 +289,7 @@ extension VideoCallViewController: DirectCallDelegate {
         self.remoteUserIdLabel.isHidden = true
         self.callStatusLabel.isHidden = true
         self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+
         CXCallManager.shared.connectedCall(call)
     }
     

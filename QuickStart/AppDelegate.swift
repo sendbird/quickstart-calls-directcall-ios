@@ -78,6 +78,7 @@ extension AppDelegate: PKPushRegistryDelegate {
                 let update = CXCallUpdate()
                 update.remoteHandle = CXHandle(type: .generic, value: "invalid")
                 let randomUUID = UUID()
+
                 CXCallManager.shared.reportIncomingCall(with: randomUUID, update: update) { error in
                     CXCallManager.shared.endCall(for: randomUUID, endedAt: Date(), reason: .acceptFailed)
                 }

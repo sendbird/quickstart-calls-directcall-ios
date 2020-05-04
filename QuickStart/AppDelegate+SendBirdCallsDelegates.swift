@@ -23,6 +23,7 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         let update = CXCallUpdate()
         update.remoteHandle = CXHandle(type: .generic, value: name)
         update.hasVideo = call.isVideoCall
+        update.localizedCallerName = call.caller?.userId ?? "Unknown"
         
         // Report the incoming call to the system
         CXCallManager.shared.reportIncomingCall(with: uuid, update: update)

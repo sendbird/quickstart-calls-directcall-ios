@@ -15,7 +15,10 @@ extension CXProviderConfiguration {
         if let image = UIImage(named: "icCallkitSb") {
             providerConfiguration.iconTemplateImageData = image.pngData()
         }
-        providerConfiguration.supportsVideo = false
+        // Even if `.supportsVideo` has `false` value, SendBirdCalls supports video call.
+        // However, it needs to be `true` if you want to make video call from native call log, so called "Recents"
+        // and update correct type of call log in Recents
+        providerConfiguration.supportsVideo = true
         providerConfiguration.maximumCallsPerCallGroup = 1
         providerConfiguration.supportedHandleTypes = [.generic]
         
