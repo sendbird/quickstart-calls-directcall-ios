@@ -6,11 +6,8 @@
 //  Copyright © 2020 SendBird Inc. All rights reserved.
 //
 
-protocol StartCallConvertible {
-    var calleeId: String? { get }
-    var hasVideo: Bool? { get }
-}
+import SendBirdCalls
 
-extension StartCallConvertible {
-    var hasVideo: Bool? { nil }
+protocol StartCallConvertible {
+    var dialParams: DialParams? { get }
 }

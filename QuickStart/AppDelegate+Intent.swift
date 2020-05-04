@@ -19,25 +19,18 @@ extension AppDelegate {
     // (Optional) To make an outgoing call from url, you need to use `application(_:open:options:)` method. The implementation is very similar as `application(_:continue:restorationHandler:)
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        guard let calleeId = userActivity.calleeId else {
-            UIApplication.shared.showError(with: "Could not determine callee ID")
-            return false
-        }
-        
-        guard let hasVideo = userActivity.hasVideo else {
-            UIApplication.shared.showError(with: "Could not determine video from call log")
+        guard let dialParams = userActivity.dialParams else {
+            UIApplication.shared.showError(with: "Could not determine dial params")
             return false
         }
         
         SendBirdCall.authenticateIfNeed { error in
-            guard error == nil else {
-                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+            if let error = error {
+                UIApplication.shared.showError(with: error.localizedDescription)
                 return
             }
             
             // Make an outgoing call
-            let callOption = CallOptions(isAudioEnabled: true, isVideoEnabled: hasVideo, localVideoView: nil, remoteVideoView: nil, useFrontCamera: true)
-            let dialParams = DialParams(calleeId: calleeId, isVideoCall: hasVideo, callOptions: callOption, customItems: [:])
             SendBirdCall.dial(with: dialParams)
         }
         
