@@ -13,6 +13,10 @@ class ImageCache {
     
     static let shared = ImageCache()
     
+    enum ImageCacheError: Error {
+        case failedToLoadImage
+    }
+    
     private func cachedImage(for imageRequest: URLRequest) -> UIImage? {
         // If there is no cached response for the image request, return immediately.
         guard let data = URLCache.shared.cachedResponse(for: imageRequest)?.data else { return nil }
@@ -35,7 +39,7 @@ class ImageCache {
                 guard let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
                     let data = data, let image = UIImage(data: data),
                     error == nil else {
-                        completion(nil, NSError.failedImageLoad)
+                        completion(nil, ImageCacheError.failedToLoadImage)
                         return
                 }
                 
