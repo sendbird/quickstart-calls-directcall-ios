@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icLayoutDefault.png",
+      "filename" : "iconCallHistory.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "icLayoutDefault@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "iconCallHistory@2x.png"
     },
     {
-      "filename" : "icLayoutDefault@3x.png",
       "scale" : "3x",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "iconCallHistory@3x.png"
     }
   ],
   "info" : {

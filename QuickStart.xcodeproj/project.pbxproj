@@ -30,6 +30,7 @@
 		A95C568F2459A82400C6EB04 /* CallHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C568E2459A82400C6EB04 /* CallHistoryViewController.swift */; };
 		A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */; };
 		A95E91C7242887730035274E /* SignInDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95E91C6242887730035274E /* SignInDelegate.swift */; };
+		A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A96823A7246278AE001C6F77 /* CallHistory.storyboard */; };
 		A96839F02418ED0100317004 /* VideoCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96839EF2418ED0100317004 /* VideoCallViewController.swift */; };
 		A968F6A42415CFF800E6EFD5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A968F6A32415CFF800E6EFD5 /* UIView+Extension.swift */; };
 		A99449592387E92400A4FFBB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99449582387E92400A4FFBB /* SettingsTableViewController.swift */; };
@@ -119,6 +120,7 @@
 		A95C568E2459A82400C6EB04 /* CallHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHistoryViewController.swift; sourceTree = "<group>"; };
 		A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInManuallyViewController.swift; sourceTree = "<group>"; };
 		A95E91C6242887730035274E /* SignInDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDelegate.swift; sourceTree = "<group>"; };
+		A96823A7246278AE001C6F77 /* CallHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CallHistory.storyboard; sourceTree = "<group>"; };
 		A96839EF2418ED0100317004 /* VideoCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallViewController.swift; sourceTree = "<group>"; };
 		A968F6A32415CFF800E6EFD5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		A99449582387E92400A4FFBB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			children = (
 				A9A72CAA2387B449007C0878 /* Main.storyboard */,
 				A9A72CAF2387B44C007C0878 /* LaunchScreen.storyboard */,
+				A96823A7246278AE001C6F77 /* CallHistory.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				A9A72CB12387B44C007C0878 /* LaunchScreen.storyboard in Resources */,
 				A9A72CAE2387B44C007C0878 /* Assets.xcassets in Resources */,
 				A9A72CAC2387B449007C0878 /* Main.storyboard in Resources */,
+				A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
