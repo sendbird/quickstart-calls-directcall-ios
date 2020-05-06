@@ -18,15 +18,25 @@ extension UIImageView {
         self.layer.borderColor = UIColor.QuickStart.lightPurple.cgColor
     }
     
-    func setImage(urlString: String?) {
-        DispatchQueue.global().async {
-            guard let urlString = urlString,
-                let profileURL = URL(string: urlString) else { return }
-            guard let data = try? Data(contentsOf: profileURL) else { return }
-            DispatchQueue.main.async {
-                guard let image = UIImage(data: data) else { return }
+    func updateImage(urlString: String?) {
+        guard let urlString = urlString else { return }
+        guard let profileURL = URL(string: urlString) else { return }
+        
+        ImageCache.shared.load(url: profileURL) { image, error in
+            guard error == nil else {
+                print(error?.localizedDescription ?? "Failed to load image")
+                return
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                // If returned image is same as current image
+                guard self.image == image else { return }
                 self.image = image
+                self.layoutIfNeeded()
             }
         }
     }
 }
+
+

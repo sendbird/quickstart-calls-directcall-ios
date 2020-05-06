@@ -35,8 +35,8 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     @IBOutlet weak var remoteProfileImageView: UIImageView! {
         didSet {
             let profileURL = self.call.remoteUser?.profileURL
-            self.remoteProfileImageView.setImage(urlString: profileURL)
             self.remoteProfileImageView.isHidden = true
+            self.remoteProfileImageView.updateImage(urlString: profileURL)
         }
     }
     
