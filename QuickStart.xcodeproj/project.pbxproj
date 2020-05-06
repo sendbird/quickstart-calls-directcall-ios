@@ -244,6 +244,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A96823A92462805B001C6F77 /* CallHistory */ = {
+			isa = PBXGroup;
+			children = (
+				A95C568E2459A82400C6EB04 /* CallHistoryViewController.swift */,
+				A95C568C2459A7F900C6EB04 /* CallHistoryTableViewCell.swift */,
+			);
+			path = CallHistory;
+			sourceTree = "<group>";
+		};
 		A99CC95923BA155700F9116A /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +305,7 @@
 				A91AAA6124447117003894AD /* SendBirdCallsExtenions */,
 				A95C568E2459A82400C6EB04 /* CallHistoryViewController.swift */,
 				A95C568C2459A7F900C6EB04 /* CallHistoryTableViewCell.swift */,
+				A96823A92462805B001C6F77 /* CallHistory */,
 				A9A72CAD2387B44C007C0878 /* Assets.xcassets */,
 				C1F69B0D23C5A4B000C66F00 /* CXExtensions */,
 				A907AA02238E582F000C9C79 /* Dial */,
