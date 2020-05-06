@@ -181,13 +181,11 @@ extension VoiceCallViewController: DirectCallDelegate {
     func didEnd(_ call: DirectCall) {
         self.setupEndedCallUI()
         
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            let callLog = call.callLog
+        DispatchQueue.main.async {
+            guard let callLog = call.callLog else { return }
             
-            guard let tabBarController = self.presentingViewController as? UITabBarController else { return }
-            guard let navigationController = tabBarController.viewControllers?[2] as? UINavigationController else { return }
-            guard let callHistoryVC = navigationController.viewControllers.first as? CallHistoryViewController else {
+            let storyboard = UIStoryboard.init(name: "CallHistory", bundle: nil)
+            guard let callHistoryVC = storyboard.instantiateInitialViewController() as? CallHistoryViewController else {
                 print("Jaesung, I failed to access CallHistoryViewController. 😓")
                 return
             }

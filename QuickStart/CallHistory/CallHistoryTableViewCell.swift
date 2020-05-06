@@ -40,7 +40,11 @@ class CallHistoryTableViewCell: UITableViewCell {
         self.callTypeImageView.image = UIImage(named: callType)
         self.remoteUserProfileImageView.setImage(urlString: remoteUser?.profileURL)
         self.remoteUserIDLabel.text = remoteUser?.userId
-        self.startedAtLabel.text = "\(Date(timeIntervalSince1970: Double(self.directCallLog.startedAt)))"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY/MM/d HH:mma"
+        
+        self.startedAtLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: Double(self.directCallLog.startedAt) / 1000))
         self.callDurationLabel.text = self.directCallLog.duration.timerText()
         self.endResultLabel.text = self.directCallLog.endResult.rawValue
     }
