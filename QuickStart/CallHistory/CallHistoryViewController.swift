@@ -13,6 +13,8 @@ class CallHistoryViewController: UITableViewController {
     var query: DirectCallLogListQuery?
     var callLogs: [DirectCallLog] = []
     
+    let indicator = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // query
@@ -72,14 +74,23 @@ extension CallHistoryViewController: DirectCallLogDelegate {
     func directCallLog(didUpdateTo updatedLog: DirectCallLog) {
         print("[DirectCallLogDelegate]\n\(updatedLog.duration)\n\(updatedLog.startedAt)\n\(updatedLog.endedAt)\n\(updatedLog.endedBy?.userId ?? "Unknown")")
         self.callLogs.insert(updatedLog, at: 0)
-        self.tableView.reloadData()
+        self.updateCallHistories()
     }
 }
 
+// MARK: - SendBirdCall: Make a Call
 extension CallHistoryViewController: CallHistoryCellDelegate {
     func didStartVoiceCall(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
+        cell.voiceCallButton.isEnabled = false
+        self.indicator.startLoading(on: self.view)
         
         SendBirdCall.dial(with: dialParams) { call, error in
+            DispatchQueue.main.async { [weak self] in
+                cell.voiceCallButton.isEnabled = true
+                guard let self = self else { return }
+                self.indicator.stopLoading()
+            }
+            
             guard let call = call, error == nil else {
                 DispatchQueue.main.async {
                     UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
@@ -93,7 +104,16 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
     }
     
     func didStartVideoCall(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
+        cell.videoCallButton.isEnabled = false
+        self.indicator.startLoading(on: self.view)
+        
         SendBirdCall.dial(with: dialParams) { call, error in
+            DispatchQueue.main.async { [weak self] in
+                cell.videoCallButton.isEnabled = true
+                guard let self = self else { return }
+                self.indicator.stopLoading()
+            }
+            
             guard let call = call, error == nil else {
                 DispatchQueue.main.async {
                     UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")

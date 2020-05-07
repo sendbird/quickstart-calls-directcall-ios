@@ -81,7 +81,9 @@
                                                 <constraint firstAttribute="height" constant="32" id="Vjm-pz-YU8"/>
                                                 <constraint firstAttribute="width" constant="32" id="ouq-Ec-vWE"/>
                                             </constraints>
-                                            <state key="normal" backgroundImage="btnCallVideo"/>
+                                            <state key="normal" backgroundImage="btnCallVideoTertiary"/>
+                                            <state key="disabled" backgroundImage="btnCallVideoTertiaryDisabled"/>
+                                            <state key="selected" backgroundImage="btnCallVideoTertiaryPressed"/>
                                             <connections>
                                                 <action selector="didTapVideoCall" destination="Bgc-eS-PBo" eventType="touchUpInside" id="ztW-8a-Kz5"/>
                                             </connections>
@@ -92,7 +94,9 @@
                                                 <constraint firstAttribute="height" constant="32" id="5vy-dy-Z19"/>
                                                 <constraint firstAttribute="width" constant="32" id="P8q-UN-3g0"/>
                                             </constraints>
-                                            <state key="normal" backgroundImage="btnCallVoice"/>
+                                            <state key="normal" backgroundImage="btnCallVoiceTertiary"/>
+                                            <state key="disabled" backgroundImage="btnCallVoiceTertiaryDisabled"/>
+                                            <state key="selected" backgroundImage="btnCallVoiceTertiaryPressed"/>
                                             <connections>
                                                 <action selector="didTapVoiceCall" destination="Bgc-eS-PBo" eventType="touchUpInside" id="crH-qE-xT7"/>
                                             </connections>
@@ -138,6 +142,8 @@
                                     <outlet property="remoteUserIDLabel" destination="l6Q-ya-Aj6" id="Gss-BM-gAe"/>
                                     <outlet property="remoteUserProfileImageView" destination="Lui-ip-xnT" id="YYG-Ue-NkV"/>
                                     <outlet property="startedAtLabel" destination="byr-rc-LcF" id="ao7-Hh-U6W"/>
+                                    <outlet property="videoCallButton" destination="zhF-a9-w0l" id="4Lp-cb-Q9S"/>
+                                    <outlet property="voiceCallButton" destination="FFc-Sz-uMA" id="pgk-Pt-jaW"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -165,8 +171,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btnCallVideo" width="64" height="64"/>
-        <image name="btnCallVoice" width="64" height="64"/>
+        <image name="btnCallVideoTertiary" width="32" height="32"/>
+        <image name="btnCallVideoTertiaryDisabled" width="32" height="32"/>
+        <image name="btnCallVideoTertiaryPressed" width="32" height="32"/>
+        <image name="btnCallVoiceTertiary" width="32" height="32"/>
+        <image name="btnCallVoiceTertiaryDisabled" width="32" height="32"/>
+        <image name="btnCallVoiceTertiaryPressed" width="32" height="32"/>
         <image name="iconAvatar" width="64" height="64"/>
         <image name="iconCallVoiceOutgoingFilled" width="20" height="20"/>
     </resources>

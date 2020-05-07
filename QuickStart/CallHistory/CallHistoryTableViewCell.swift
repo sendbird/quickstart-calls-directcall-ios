@@ -25,6 +25,9 @@ class CallHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var callDurationLabel: UILabel!
     @IBOutlet weak var endResultLabel: UILabel!
     
+    @IBOutlet weak var voiceCallButton: UIButton!
+    @IBOutlet weak var videoCallButton: UIButton!
+    
     var directCallLog: DirectCallLog! {
         didSet {
             self.updateUI()
