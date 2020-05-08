@@ -57,7 +57,7 @@ class SignInWithQRViewController: UIViewController {
         animator.startAnimation()
         
         self.scanButton.setTitleColor(UIColor.QuickStart.lightGray.color, for: .normal)
-        self.scanButton.backgroundColor = UIColor.QuickStart.lightGray.color
+        self.scanButton.backgroundColor = UIColor.QuickStart.purple.color
         self.scanButton.setTitle("Sign in with QR code", for: .normal)
         self.scanButton.isEnabled = true
     }
@@ -67,7 +67,7 @@ class SignInWithQRViewController: UIViewController {
         self.signInManuallyButton.isHidden = true
         
         self.scanButton.backgroundColor = UIColor.QuickStart.lightGray.color
-        self.scanButton.setTitleColor(UIColor.black.withAlphaComponent(0.12), for: .normal)
+        self.scanButton.setTitleColor(UIColor.QuickStart.black.color, for: .normal)
         self.scanButton.setTitle("Signing In...", for: .normal)
         self.scanButton.isEnabled = false
     }
@@ -119,7 +119,7 @@ extension SignInWithQRViewController {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     let errorDescription = String(error?.localizedDescription ?? "")
-                    self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
+                    self.presentErrorAlert(message: "\(errorDescription)")
                 }
                 UserDefaults.standard.clear()
                 return

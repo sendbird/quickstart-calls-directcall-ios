@@ -16,7 +16,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     @IBOutlet weak var profileImageView: UIImageView! {
         didSet {
             let profileURL = self.call.remoteUser?.profileURL
-            self.profileImageView.setImage(urlString: profileURL)
+            self.profileImageView.updateImage(urlString: profileURL)
         }
     }
     @IBOutlet weak var nameLabel: UILabel! {

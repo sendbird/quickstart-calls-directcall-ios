@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icLogoInverse01" translatesAutoresizingMaskIntoConstraints="NO" id="CUS-lC-bjB">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icLogoSymbol" translatesAutoresizingMaskIntoConstraints="NO" id="CUS-lC-bjB">
                                 <rect key="frame" x="183" y="140" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="501-bR-VK6"/>
@@ -284,18 +284,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yD8-fc-U49">
+                                <rect key="frame" x="0.0" y="56" width="414" height="698"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgGuideQrcode" translatesAutoresizingMaskIntoConstraints="NO" id="A2E-s0-gN7">
-                                <rect key="frame" x="87" y="312" width="240" height="240"/>
+                                <rect key="frame" x="87" y="285" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Dbf-Z4-yfY"/>
                                     <constraint firstAttribute="height" constant="240" id="iRv-zF-zha"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ux9-W3-evz">
+                                <rect key="frame" x="0.0" y="754" width="414" height="88"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in by scanning a QR code found in the Calls Studio of the SendBird Dashboard" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="m8i-zI-3fs">
+                                        <rect key="frame" x="24" y="24" width="366" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="m8i-zI-3fs" secondAttribute="bottom" constant="24" id="3V6-Hw-Tqe"/>
+                                    <constraint firstAttribute="height" constant="88" id="UoS-GV-wBz"/>
+                                    <constraint firstAttribute="trailing" secondItem="m8i-zI-3fs" secondAttribute="trailing" constant="24" id="aFD-N2-voF"/>
+                                    <constraint firstItem="m8i-zI-3fs" firstAttribute="top" secondItem="Ux9-W3-evz" secondAttribute="top" constant="24" id="fqQ-VT-6G3"/>
+                                    <constraint firstItem="m8i-zI-3fs" firstAttribute="leading" secondItem="Ux9-W3-evz" secondAttribute="leading" constant="24" id="xTa-Mc-fRQ"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerX" secondItem="Uz5-PR-CCk" secondAttribute="centerX" id="FzM-jQ-h00"/>
-                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerY" secondItem="Uz5-PR-CCk" secondAttribute="centerY" id="kkN-ov-whm"/>
+                            <constraint firstItem="Ux9-W3-evz" firstAttribute="trailing" secondItem="Uz5-PR-CCk" secondAttribute="trailing" id="1Bj-D5-x6B"/>
+                            <constraint firstItem="yD8-fc-U49" firstAttribute="leading" secondItem="Uz5-PR-CCk" secondAttribute="leading" id="DkS-HI-rHU"/>
+                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerX" secondItem="yD8-fc-U49" secondAttribute="centerX" id="FsI-av-qrk"/>
+                            <constraint firstItem="A2E-s0-gN7" firstAttribute="centerY" secondItem="yD8-fc-U49" secondAttribute="centerY" id="HTT-aI-gAb"/>
+                            <constraint firstItem="Ux9-W3-evz" firstAttribute="top" secondItem="yD8-fc-U49" secondAttribute="bottom" id="JRN-aQ-AlG"/>
+                            <constraint firstItem="Ux9-W3-evz" firstAttribute="leading" secondItem="Uz5-PR-CCk" secondAttribute="leading" id="Jps-pp-DzU"/>
+                            <constraint firstItem="yD8-fc-U49" firstAttribute="top" secondItem="Uz5-PR-CCk" secondAttribute="top" id="gbh-Yt-2WZ"/>
+                            <constraint firstItem="yD8-fc-U49" firstAttribute="trailing" secondItem="Uz5-PR-CCk" secondAttribute="trailing" id="lBc-Xg-jZR"/>
+                            <constraint firstAttribute="bottom" secondItem="Ux9-W3-evz" secondAttribute="bottom" id="m2c-xa-GtH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Uz5-PR-CCk"/>
                     </view>
@@ -307,6 +336,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="scanView" destination="yD8-fc-U49" id="SXu-ES-xAZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ros-ta-8Xs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -338,6 +370,8 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="padding">
                                         <real key="value" value="16"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isPadding" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isPaddingEnabled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBirdCall iOS ver0.0.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HlA-bV-w9E">
@@ -365,7 +399,7 @@
                                     <action selector="didTapSignIn" destination="BYZ-38-t0r" eventType="touchUpInside" id="ceu-Fk-JBx"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icLogoInverse01" translatesAutoresizingMaskIntoConstraints="NO" id="ptd-nL-C2T">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icLogoSymbol" translatesAutoresizingMaskIntoConstraints="NO" id="ptd-nL-C2T">
                                 <rect key="frame" x="183" y="140" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="d8h-Rz-NWP"/>
@@ -689,7 +723,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBm-GP-Ubc">
+                            <button opaque="NO" alpha="0.85" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBm-GP-Ubc">
                                 <rect key="frame" x="175" y="734" width="64" height="64"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1223,7 +1257,7 @@
         <image name="btnVideoOff" width="64" height="64"/>
         <image name="icCall" width="24" height="24"/>
         <image name="icCallFilled" width="24" height="24"/>
-        <image name="icLogoInverse01" width="48" height="48"/>
+        <image name="icLogoSymbol" width="48" height="48"/>
         <image name="icSettings" width="24" height="24"/>
         <image name="iconAudioOff" width="32" height="32"/>
         <image name="iconAvatar" width="64" height="64"/>

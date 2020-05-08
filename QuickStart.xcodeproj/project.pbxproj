@@ -17,6 +17,7 @@
 		A91199BC2421257300208E21 /* DirectCallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91199BB2421257300208E21 /* DirectCallDataSource.swift */; };
 		A91AAA5E244470BF003894AD /* UIApplication+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5D244470BF003894AD /* UIApplication+QuickStart.swift */; };
 		A91AAA6024447112003894AD /* SendBirdCall+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5F24447112003894AD /* SendBirdCall+QuickStart.swift */; };
+		A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5924444FB0003894AD /* ImageCache.swift */; };
 		A9409C462390FA8100410458 /* UserDefaults+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */; };
 		A9409C482390FA8E00410458 /* NotificationCenter+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */; };
 		A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */; };
@@ -50,6 +51,7 @@
 		A9B75653243DBA77001E764B /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B75652243DBA77001E764B /* IntentHandler.swift */; };
 		A9B75657243DBA77001E764B /* QuickStartIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A9B75650243DBA77001E764B /* QuickStartIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A9B7565E243DE933001E764B /* AppDelegate+Intent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */; };
+		A9DDC43A245FDE3100F042E7 /* QuickStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */; };
 		C1DD1FF923AFB59900140657 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF823A0B2DE00842136 /* CallKit.framework */; };
 		C1DD1FFB23AFB59A00140657 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF623A0B2DA00842136 /* PushKit.framework */; };
 		C1F69B0F23C5A4E300C66F00 /* CXProvider+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */; };
@@ -79,6 +81,16 @@
 		};
 /* End PBXCopyFilesBuildPhase section */
 
+/* Begin PBXContainerItemProxy section */
+		A9DDC43C245FDE3100F042E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A72C992387B448007C0878 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A9A72CA02387B448007C0878;
+			remoteInfo = QuickStart;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		49B07AB1242CBA8100EFF73A /* UIStoryboard+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+QuickStart.swift"; sourceTree = "<group>"; };
 		49B07AC9242D8B1F00EFF73A /* Int64+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int64+QuickStart.swift"; sourceTree = "<group>"; };
@@ -91,6 +103,7 @@
 		A91199BB2421257300208E21 /* DirectCallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectCallDataSource.swift; sourceTree = "<group>"; };
 		A91AAA5D244470BF003894AD /* UIApplication+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+QuickStart.swift"; sourceTree = "<group>"; };
 		A91AAA5F24447112003894AD /* SendBirdCall+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SendBirdCall+QuickStart.swift"; sourceTree = "<group>"; };
+		A91AAA5924444FB0003894AD /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+QuickStart.swift"; sourceTree = "<group>"; };
 		A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+QuickStart.swift"; sourceTree = "<group>"; };
 		A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+QuickStart.swift"; sourceTree = "<group>"; };
@@ -128,6 +141,9 @@
 		A9B75652243DBA77001E764B /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		A9B75654243DBA77001E764B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Intent.swift"; sourceTree = "<group>"; };
+		A9DDC437245FDE3100F042E7 /* QuickStartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickStartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartTests.swift; sourceTree = "<group>"; };
+		A9DDC43B245FDE3100F042E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9E98EF623A0B2DA00842136 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		A9E98EF823A0B2DE00842136 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		C1E1B36823AD3D9D00275F8B /* SendBirdCalls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SendBirdCalls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +165,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A9B7564D243DBA77001E764B /* Frameworks */ = {
+      isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9DDC434245FDE3100F042E7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -195,6 +218,7 @@
 				A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */,
 				A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */,
 				49B07AC9242D8B1F00EFF73A /* Int64+QuickStart.swift */,
+				A91AAA5924444FB0003894AD /* ImageCache.swift */,
 				A99CC95923BA155700F9116A /* UIKit */,
 				A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */,
 			);
@@ -238,6 +262,7 @@
 			children = (
 				A9A72CA32387B448007C0878 /* QuickStart */,
 				A9B75651243DBA77001E764B /* QuickStartIntent */,
+				A9DDC438245FDE3100F042E7 /* QuickStartTests */,
 				A9A72CA22387B448007C0878 /* Products */,
 				A956476D23964EF20086A33C /* Frameworks */,
 				B826118FFE703E8613633CBA /* Pods */,
@@ -249,6 +274,7 @@
 			children = (
 				A9A72CA12387B448007C0878 /* SendBird Calls.app */,
 				A9B75650243DBA77001E764B /* QuickStartIntent.appex */,
+				A9DDC437245FDE3100F042E7 /* QuickStartTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,6 +337,15 @@
 				A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */,
 			);
 			path = Intent;
+      sourceTree = "<group>";
+		};
+		A9DDC438245FDE3100F042E7 /* QuickStartTests */ = {
+			isa = PBXGroup;
+			children = (
+				A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */,
+				A9DDC43B245FDE3100F042E7 /* Info.plist */,
+			);
+			path = QuickStartTests;
 			sourceTree = "<group>";
 		};
 		B826118FFE703E8613633CBA /* Pods */ = {
@@ -362,15 +397,33 @@
 				A9B7564C243DBA77001E764B /* Sources */,
 				A9B7564D243DBA77001E764B /* Frameworks */,
 				A9B7564E243DBA77001E764B /* Resources */,
-			);
+      );
 			buildRules = (
 			);
 			dependencies = (
-			);
+      );
 			name = QuickStartIntent;
 			productName = QuickStartIntent;
 			productReference = A9B75650243DBA77001E764B /* QuickStartIntent.appex */;
 			productType = "com.apple.product-type.app-extension";
+		};
+		A9DDC436245FDE3100F042E7 /* QuickStartTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A9DDC440245FDE3100F042E7 /* Build configuration list for PBXNativeTarget "QuickStartTests" */;
+			buildPhases = (
+				A9DDC433245FDE3100F042E7 /* Sources */,
+				A9DDC434245FDE3100F042E7 /* Frameworks */,
+				A9DDC435245FDE3100F042E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A9DDC43D245FDE3100F042E7 /* PBXTargetDependency */,
+			);
+			name = QuickStartTests;
+			productName = QuickStartTests;
+			productReference = A9DDC437245FDE3100F042E7 /* QuickStartTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -387,6 +440,10 @@
 					};
 					A9B7564F243DBA77001E764B = {
 						CreatedOnToolsVersion = 11.4;
+          };
+					A9DDC436245FDE3100F042E7 = {
+						CreatedOnToolsVersion = 11.4;
+						TestTargetID = A9A72CA02387B448007C0878;
 					};
 				};
 			};
@@ -407,6 +464,7 @@
 			targets = (
 				A9A72CA02387B448007C0878 /* QuickStart */,
 				A9B7564F243DBA77001E764B /* QuickStartIntent */,
+				A9DDC436245FDE3100F042E7 /* QuickStartTests */,
 			);
 		};
 /* End PBXProject section */
@@ -423,6 +481,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A9B7564E243DBA77001E764B /* Resources */ = {
+      isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9DDC435245FDE3100F042E7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -480,6 +545,7 @@
 			files = (
 				49B07ACA242D8B1F00EFF73A /* Int64+QuickStart.swift in Sources */,
 				A968F6A42415CFF800E6EFD5 /* UIView+Extension.swift in Sources */,
+				A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */,
 				49D8015B242C8D68003CFFBA /* UIImage+QuickStart.swift in Sources */,
 				A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */,
 				A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */,
@@ -524,6 +590,14 @@
 			files = (
 				A9A53CE0245FF94900E8E654 /* INStartCallIntent+QuickStart.swift in Sources */,
 				A9B75653243DBA77001E764B /* IntentHandler.swift in Sources */,
+      );
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A9DDC433245FDE3100F042E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9DDC43A245FDE3100F042E7 /* QuickStartTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +608,14 @@
 			isa = PBXTargetDependency;
 			target = A9B7564F243DBA77001E764B /* QuickStartIntent */;
 			targetProxy = A9B75655243DBA77001E764B /* PBXContainerItemProxy */;
+    };
+/* End PBXTargetDependency section */
+
+/* Begin PBXTargetDependency section */
+		A9DDC43D245FDE3100F042E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A9A72CA02387B448007C0878 /* QuickStart */;
+			targetProxy = A9DDC43C245FDE3100F042E7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -591,7 +673,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -653,7 +735,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -683,7 +765,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = QuickStart/QuickStart.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -712,7 +794,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuickStart/QuickStart.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -771,6 +853,48 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+        };
+			name = Release;
+    };
+		A9DDC43E245FDE3100F042E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RM4A5PXTUX;
+				INFOPLIST_FILE = QuickStartTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart.QuickStartTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SendBird Calls.app/SendBird Calls";
+			};
+			name = Debug;
+		};
+		A9DDC43F245FDE3100F042E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RM4A5PXTUX;
+				INFOPLIST_FILE = QuickStartTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart.QuickStartTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SendBird Calls.app/SendBird Calls";
 			};
 			name = Release;
 		};
@@ -800,6 +924,15 @@
 			buildConfigurations = (
 				A9B75659243DBA77001E764B /* Debug */,
 				A9B7565A243DBA77001E764B /* Release */,
+      );
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A9DDC440245FDE3100F042E7 /* Build configuration list for PBXNativeTarget "QuickStartTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A9DDC43E245FDE3100F042E7 /* Debug */,
+				A9DDC43F245FDE3100F042E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

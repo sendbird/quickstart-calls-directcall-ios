@@ -105,7 +105,7 @@ extension SignInViewController {
     }
     
     func resetButtonUI() {
-        self.signInButton.backgroundColor = UIColor.QuickStart.blue.color
+        self.signInButton.backgroundColor = UIColor.QuickStart.purple.color
         self.signInButton.setTitleColor(UIColor.QuickStart.white.color, for: .normal)
         self.signInButton.setTitle("Sign In", for: .normal)
         self.signInButton.isEnabled = true
