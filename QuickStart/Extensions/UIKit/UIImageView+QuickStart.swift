@@ -27,11 +27,12 @@ extension UIImageView {
                 print(error?.localizedDescription ?? "Failed to load image")
                 return
             }
+            
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
                 // If returned image is same as current image
-                guard self.image == image else { return }
+                guard self.image != image else { return }
                 self.image = image
                 self.layoutIfNeeded()
             }

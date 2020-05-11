@@ -9,46 +9,78 @@
 import UIKit
 import SendBirdCalls
 
-class CallHistoryViewController: UITableViewController {
+class CallHistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var noHistoryIcon: UIImageView!
+    @IBOutlet weak var noHistoryLabel: UILabel!
+    
     var query: DirectCallLogListQuery?
-    var callLogs: [DirectCallLog] = []
+    var callLogs: [DirectCallLog] {
+        get { UserDefaults.standard.callLogs }
+        set {
+            self.tableView.isHidden = newValue.isEmpty
+            self.noHistoryIcon.isHidden = !newValue.isEmpty
+            self.noHistoryLabel.isHidden = !newValue.isEmpty
+        }
+    }
     
     let indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        self.navigationItem.title = "Call History"
+        
         // query
         let params = DirectCallLogListQuery.Params()
-        params.limit = 2
+        params.limit = 100
         self.query = SendBirdCall.createDirectCallLogListQuery(with: params)
         
-        self.callLogs = UserDefaults.standard.callLogs
+        guard self.callLogs.isEmpty else {
+            self.tableView.reloadData()
+            return
+        }
+        
+        self.tableView.isHidden = true
+        self.indicator.startLoading(on: self.view)
+        self.fetchCallLogsFromServer()
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.callLogs.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "directCallLogCell", for: indexPath) as! CallHistoryTableViewCell
         cell.delegate = self
         cell.directCallLog = self.callLogs[indexPath.row]
         return cell
     }
     
-    @IBAction func didTapCreateQuery() {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+    }
+    
+    func fetchCallLogsFromServer() {
         self.query?.next { callLogs, error in
-            guard let newCallLogs = callLogs else {
+            guard let newCallLogs = callLogs, !newCallLogs.isEmpty else {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.presentErrorAlert(message: error?.localizedDescription ?? "There is no more call logs")
+                    self.presentAlert(message: "Loaded all call logs from server successfully.")
+                    self.indicator.stopLoading()
                 }
                 return
             }
+            
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
@@ -61,26 +93,21 @@ class CallHistoryViewController: UITableViewController {
                 
                 self.updateCallHistories()
             }
+            
+            self.fetchCallLogsFromServer()
         }
     }
     
     func updateCallHistories() {
         self.tableView.reloadData()
+        
         UserDefaults.standard.callLogs = self.callLogs
-    }
-}
-
-extension CallHistoryViewController: DirectCallLogDelegate {
-    func directCallLog(didUpdateTo updatedLog: DirectCallLog) {
-        print("[DirectCallLogDelegate]\n\(updatedLog.duration)\n\(updatedLog.startedAt)\n\(updatedLog.endedAt)\n\(updatedLog.endedBy?.userId ?? "Unknown")")
-        self.callLogs.insert(updatedLog, at: 0)
-        self.updateCallHistories()
     }
 }
 
 // MARK: - SendBirdCall: Make a Call
 extension CallHistoryViewController: CallHistoryCellDelegate {
-    func didStartVoiceCall(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
+    func didTapVoiceCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
         cell.voiceCallButton.isEnabled = false
         self.indicator.startLoading(on: self.view)
         
@@ -103,9 +130,40 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
         }
     }
     
-    func didStartVideoCall(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
+    func didTapVideoCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
         cell.videoCallButton.isEnabled = false
         self.indicator.startLoading(on: self.view)
+        
+        SendBirdCall.dial(with: dialParams) { call, error in
+            DispatchQueue.main.async { [weak self] in
+                cell.videoCallButton.isEnabled = true
+                guard let self = self else { return }
+                self.indicator.stopLoading()
+            }
+            
+            guard let call = call, error == nil else {
+                DispatchQueue.main.async {
+                    UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                UIApplication.shared.showCallController(with: call)
+            }
+        }
+    }
+    
+    func didTapCallHistoryCell(_ cell: CallHistoryTableViewCell) {
+        guard let remoteUserID = cell.remoteUserIDLabel.text else { return }
+        
+        let dialParams = DialParams(calleeId: remoteUserID,
+                                    isVideoCall: cell.directCallLog.isVideoCall,
+                                    callOptions: CallOptions(isAudioEnabled: true,
+                                                             isVideoEnabled: cell.directCallLog.isVideoCall,
+                                                             localVideoView: nil,
+                                                             remoteVideoView: nil,
+                                                             useFrontCamera: true),
+                                    customItems: [:])
         
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self] in

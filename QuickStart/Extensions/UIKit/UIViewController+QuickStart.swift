@@ -25,4 +25,11 @@ extension UIViewController {
         alert.addAction(actionDone)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func presentAlert(message: String, closeHandler: ((UIAlertAction) -> Void)? = nil) {
+        let alert = UIAlertController(title: "🎉", message: message, preferredStyle: .alert)
+        let actionDone = UIAlertAction(title: "Done", style: .cancel, handler: closeHandler)
+        alert.addAction(actionDone)
+        self.present(alert, animated: true, completion: nil)
+    }
 }
