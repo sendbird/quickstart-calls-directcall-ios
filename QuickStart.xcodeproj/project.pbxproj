@@ -11,7 +11,9 @@
 		49B07ACA242D8B1F00EFF73A /* Int64+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B07AC9242D8B1F00EFF73A /* Int64+QuickStart.swift */; };
 		49D80157242C6C55003CFFBA /* String+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D80156242C6C55003CFFBA /* String+QuickStart.swift */; };
 		49D8015B242C8D68003CFFBA /* UIImage+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D8015A242C8D68003CFFBA /* UIImage+QuickStart.swift */; };
-		5281EB6E23A8602300EDA984 /* CXCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281EB6D23A8602300EDA984 /* CXCallManager.swift */; };
+		52414CD02468F326002D7045 /* AppDelegate+PushKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52414CCF2468F326002D7045 /* AppDelegate+PushKit.swift */; };
+		52414CD22468F355002D7045 /* AppDelegate+RemotePush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52414CD12468F355002D7045 /* AppDelegate+RemotePush.swift */; };
+		5260680B24A0A76100319980 /* CXCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5260680A24A0A76100319980 /* CXCallManager.swift */; };
 		8A5932EA8E7F784FC9593796 /* Pods_QuickStart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9DDAC64E8A0C1F265438FF3 /* Pods_QuickStart.framework */; };
 		A91199BC2421257300208E21 /* DirectCallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91199BB2421257300208E21 /* DirectCallDataSource.swift */; };
 		A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5924444FB0003894AD /* ImageCache.swift */; };
@@ -99,7 +101,9 @@
 		49D80156242C6C55003CFFBA /* String+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+QuickStart.swift"; sourceTree = "<group>"; };
 		49D8015A242C8D68003CFFBA /* UIImage+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+QuickStart.swift"; sourceTree = "<group>"; };
 		4C5CCED4A278506FC384ADA6 /* Pods-QuickStart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickStart.debug.xcconfig"; path = "Target Support Files/Pods-QuickStart/Pods-QuickStart.debug.xcconfig"; sourceTree = "<group>"; };
-		5281EB6D23A8602300EDA984 /* CXCallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CXCallManager.swift; sourceTree = "<group>"; };
+		52414CCF2468F326002D7045 /* AppDelegate+PushKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+PushKit.swift"; sourceTree = "<group>"; };
+		52414CD12468F355002D7045 /* AppDelegate+RemotePush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+RemotePush.swift"; sourceTree = "<group>"; };
+		5260680A24A0A76100319980 /* CXCallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CXCallManager.swift; sourceTree = "<group>"; };
 		70DECEBFA6F9F41B919BF0A7 /* Pods_QuickStart_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickStart_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A91199BB2421257300208E21 /* DirectCallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectCallDataSource.swift; sourceTree = "<group>"; };
 		A91AAA5924444FB0003894AD /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
@@ -304,6 +308,8 @@
 				A951A7B7238D23C000410E40 /* QuickStart.entitlements */,
 				A9A72CA42387B448007C0878 /* AppDelegate.swift */,
 				A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */,
+				52414CCF2468F326002D7045 /* AppDelegate+PushKit.swift */,
+				52414CD12468F355002D7045 /* AppDelegate+RemotePush.swift */,
 				A943CAF423C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift */,
 				A91AAA6124447117003894AD /* SendBirdCallsExtenions */,
 				A96823A92462805B001C6F77 /* CallHistory */,
@@ -380,7 +386,7 @@
 		C1F69B0D23C5A4B000C66F00 /* CXExtensions */ = {
 			isa = PBXGroup;
 			children = (
-				5281EB6D23A8602300EDA984 /* CXCallManager.swift */,
+				5260680A24A0A76100319980 /* CXCallManager.swift */,
 				C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */,
 			);
 			path = CXExtensions;
@@ -570,6 +576,7 @@
 				A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */,
 				49D8015B242C8D68003CFFBA /* UIImage+QuickStart.swift in Sources */,
 				A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */,
+				52414CD22468F355002D7045 /* AppDelegate+RemotePush.swift in Sources */,
 				A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */,
 				A95A7CA0242063C700EB0D56 /* QRCodeViewController.swift in Sources */,
 				A9A72CB92387BAE6007C0878 /* SignInViewController.swift in Sources */,
@@ -582,12 +589,12 @@
 				A99449592387E92400A4FFBB /* SettingsTableViewController.swift in Sources */,
 				49D80157242C6C55003CFFBA /* String+QuickStart.swift in Sources */,
 				A9409C482390FA8E00410458 /* NotificationCenter+QuickStart.swift in Sources */,
-				5281EB6E23A8602300EDA984 /* CXCallManager.swift in Sources */,
 				A93E1E0B246D559D00CD9690 /* CallHistoryTableViewCell.swift in Sources */,
 				A9A72CA52387B448007C0878 /* AppDelegate.swift in Sources */,
 				C1F69B0F23C5A4E300C66F00 /* CXProvider+QuickStart.swift in Sources */,
 				A973C0AD249A107100514CD3 /* UIActivityIndicatorView+QuickStart.swift in Sources */,
 				A99CC95023BA14A100F9116A /* UIColor+QuickStart.swift in Sources */,
+				5260680B24A0A76100319980 /* CXCallManager.swift in Sources */,
 				A95A7C9E2420614A00EB0D56 /* SignInWithQRViewController.swift in Sources */,
 				A97EDF2B246D1EEC0072DF3D /* CallHistory.swift in Sources */,
 				A951A7A7238CC4DF00410E40 /* DialViewController.swift in Sources */,
@@ -598,6 +605,7 @@
 				A95E91C7242887730035274E /* SignInDelegate.swift in Sources */,
 				A91199BC2421257300208E21 /* DirectCallDataSource.swift in Sources */,
 				A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */,
+				52414CD02468F326002D7045 /* AppDelegate+PushKit.swift in Sources */,
 				A99CC95823BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift in Sources */,
 				A943CAF523C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift in Sources */,
 				A994495D2387F22F00A4FFBB /* UIViewController+QuickStart.swift in Sources */,

@@ -69,7 +69,6 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
                 self.navigationController?.popViewController(animated: true)
             }
         }
-        
     }
     
     // MARK: - IBActions
