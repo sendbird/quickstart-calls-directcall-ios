@@ -100,13 +100,13 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         super.viewDidAppear(animated)
         
         guard self.isDialing == true else { return }
-        CXCallController.shared.startCXCall(self.call) { [weak self] isSuccess in
+        CXCallManager.shared.startCXCall(self.call) { [weak self] isSuccess in
             guard let self = self else { return }
             if !isSuccess {
                 self.navigationController?.popViewController(animated: true)
             }
         }
-    }
+    }  
     
     // MARK: - Basic UI
     func setupEndedCallUI() {
@@ -175,7 +175,8 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
         call.end()
-        CXCallController.shared.endCXCall(call)
+        
+        CXCallManager.shared.endCXCall(call)
     }
 }
 
@@ -288,6 +289,8 @@ extension VideoCallViewController: DirectCallDelegate {
         self.remoteUserIdLabel.isHidden = true
         self.callStatusLabel.isHidden = true
         self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
+
+        CXCallManager.shared.connectedCall(call)
     }
     
     func didEnd(_ call: DirectCall) {
@@ -295,7 +298,7 @@ extension VideoCallViewController: DirectCallDelegate {
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
-        CXCallController.shared.endCXCall(call)
+        CXCallManager.shared.endCXCall(call)
     }
     
     // MARK: Optional Methods

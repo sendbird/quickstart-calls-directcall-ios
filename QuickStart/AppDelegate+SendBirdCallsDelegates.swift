@@ -12,10 +12,10 @@ import SendBirdCalls
 extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
     // MARK: SendBirdCallDelegate
     func didStartRinging(_ call: DirectCall) {
-        call.delegate = self    // To receive call event through `DirectCallDelegate`
+        call.delegate = self // To receive call event through `DirectCallDelegate`
         
         guard let uuid = call.callUUID else { return }
-        guard CXCallController.shared.callObserver.calls.isEmpty else { return }  // Should be cross-checked with state to prevent weird event processings
+        guard CXCallManager.shared.shouldProcessCall(for: uuid) else { return }  // Should be cross-checked with state to prevent weird event processings
         
         // Use CXProvider to report the incoming call to the system
         // Construct a CXCallUpdate describing the incoming call, including the caller.
@@ -23,13 +23,10 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         let update = CXCallUpdate()
         update.remoteHandle = CXHandle(type: .generic, value: name)
         update.hasVideo = call.isVideoCall
+        update.localizedCallerName = call.caller?.userId ?? "Unknown"
         
         // Report the incoming call to the system
-        self.provider.reportNewIncomingCall(with: uuid, update: update) { error in
-            if error == nil {
-                // success
-            }
-        }
+        CXCallManager.shared.reportIncomingCall(with: uuid, update: update)
     }
     
     // MARK: DirectCallDelegate
@@ -41,22 +38,6 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
             callId = callUUID
         }
         
-        var reason: CXCallEndedReason = .failed
-        switch call.endResult {
-        case .completed, .connectionLost, .timedOut, .acceptFailed, .dialFailed, .unknown:
-            reason = .failed
-        case .canceled:
-            reason = .remoteEnded
-        case .declined:
-            reason = .declinedElsewhere
-        case .noAnswer:
-            reason = .unanswered
-        case .otherDeviceAccepted:
-            reason = .answeredElsewhere
-        case .none: return
-        @unknown default: return
-        }
-     
-        self.provider.reportCall(with: callId, endedAt: Date(), reason: reason)
+        CXCallManager.shared.endCall(for: callId, endedAt: Date(), reason: call.endResult)
     }
 }
