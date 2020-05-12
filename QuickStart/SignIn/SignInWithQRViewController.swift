@@ -86,10 +86,6 @@ extension SignInWithQRViewController: SignInDelegate {
     // Delegate method
     func didSignIn(appId: String, userId: String, accessToken: String?) {
         SendBirdCall.configure(appId: appId)
-        // You must call `SendBirdCall.addDelegate(_:identifier:)` right after configuring new app ID
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            SendBirdCall.addDelegate(appDelegate, identifier: "com.sendbird.calls.quickstart.delegate")
-        }
 
         UserDefaults.standard.appId = appId
         UserDefaults.standard.user.id = userId
