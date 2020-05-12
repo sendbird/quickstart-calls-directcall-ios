@@ -58,7 +58,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "directCallLogCell", for: indexPath) as! CallHistoryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! CallHistoryTableViewCell
         cell.delegate = self
         cell.directCallLog = self.callLogs[indexPath.row]
         return cell
