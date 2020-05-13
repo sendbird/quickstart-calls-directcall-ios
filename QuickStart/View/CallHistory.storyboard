@@ -165,22 +165,31 @@
                                 <color key="textColor" white="0.0" alpha="0.38" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uX-lQ-jEe">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.32000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="oRi-CC-j6W" firstAttribute="centerY" secondItem="EBD-j8-an7" secondAttribute="centerY" id="0cT-eL-qcX"/>
+                            <constraint firstAttribute="bottom" secondItem="9uX-lQ-jEe" secondAttribute="bottom" id="2Sv-sH-ztG"/>
                             <constraint firstItem="8w5-Ml-dmS" firstAttribute="trailing" secondItem="EBD-j8-an7" secondAttribute="trailing" id="547-IT-Wxi"/>
                             <constraint firstItem="EBD-j8-an7" firstAttribute="trailing" secondItem="dI5-GY-UKJ" secondAttribute="trailing" constant="20" id="59U-8w-5Dh"/>
+                            <constraint firstItem="9uX-lQ-jEe" firstAttribute="leading" secondItem="EBD-j8-an7" secondAttribute="leading" id="PRz-HF-4kg"/>
                             <constraint firstItem="8w5-Ml-dmS" firstAttribute="top" secondItem="EBD-j8-an7" secondAttribute="top" id="Qt0-pp-DZX"/>
+                            <constraint firstItem="9uX-lQ-jEe" firstAttribute="top" secondItem="EaW-XM-XuM" secondAttribute="top" id="RAG-wv-A5G"/>
                             <constraint firstItem="dI5-GY-UKJ" firstAttribute="top" secondItem="oRi-CC-j6W" secondAttribute="bottom" constant="28" id="Sqy-46-YNx"/>
                             <constraint firstItem="dI5-GY-UKJ" firstAttribute="leading" secondItem="EBD-j8-an7" secondAttribute="leading" constant="20" id="Wrv-tR-M75"/>
                             <constraint firstItem="8w5-Ml-dmS" firstAttribute="leading" secondItem="EBD-j8-an7" secondAttribute="leading" id="aLb-LQ-EAY"/>
+                            <constraint firstItem="9uX-lQ-jEe" firstAttribute="trailing" secondItem="EBD-j8-an7" secondAttribute="trailing" id="eQI-gL-nfo"/>
                             <constraint firstItem="oRi-CC-j6W" firstAttribute="centerX" secondItem="EBD-j8-an7" secondAttribute="centerX" id="icc-Ps-HJi"/>
                             <constraint firstAttribute="bottom" secondItem="8w5-Ml-dmS" secondAttribute="bottom" id="kcd-ZC-4d1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EBD-j8-an7"/>
                     </view>
                     <connections>
+                        <outlet property="darkView" destination="9uX-lQ-jEe" id="Ws9-d3-2QF"/>
                         <outlet property="noHistoryIcon" destination="oRi-CC-j6W" id="nVw-Fx-YIJ"/>
                         <outlet property="noHistoryLabel" destination="dI5-GY-UKJ" id="lN8-JU-bSo"/>
                         <outlet property="tableView" destination="8w5-Ml-dmS" id="WVE-fG-IjB"/>
@@ -188,7 +197,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mz-L1-hxW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2099" y="2199"/>
+            <point key="canvasLocation" x="2098.5507246376815" y="2198.4375"/>
         </scene>
     </scenes>
     <resources>

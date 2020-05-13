@@ -24,7 +24,10 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-    let indicator = UIActivityIndicatorView()
+    @IBOutlet weak var darkView: UIView! {
+        didSet { self.darkView.isHidden = true }
+    }
+    var indicator: ActivityIndicator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +48,10 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         self.tableView.isHidden = true
-        self.indicator.startLoading(on: self.view)
+        self.indicator = ActivityIndicator(view: self.view,
+                                           darkView: darkView)
+    
+        self.indicator?.startLoading()
         self.fetchCallLogsFromServer()
     }
     
@@ -76,7 +82,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.presentAlert(message: "Loaded all call logs from server successfully.")
-                    self.indicator.stopLoading()
+                    self.indicator?.stopLoading()
                 }
                 return
             }
@@ -109,13 +115,13 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
 extension CallHistoryViewController: CallHistoryCellDelegate {
     func didTapVoiceCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
         cell.voiceCallButton.isEnabled = false
-        self.indicator.startLoading(on: self.view)
+        self.indicator?.startLoading()
         
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self] in
                 cell.voiceCallButton.isEnabled = true
                 guard let self = self else { return }
-                self.indicator.stopLoading()
+                self.indicator?.stopLoading()
             }
             
             guard let call = call, error == nil else {
@@ -132,13 +138,13 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
     
     func didTapVideoCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
         cell.videoCallButton.isEnabled = false
-        self.indicator.startLoading(on: self.view)
+        self.indicator?.startLoading()
         
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self] in
                 cell.videoCallButton.isEnabled = true
                 guard let self = self else { return }
-                self.indicator.stopLoading()
+                self.indicator?.stopLoading()
             }
             
             guard let call = call, error == nil else {
@@ -169,7 +175,7 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
             DispatchQueue.main.async { [weak self] in
                 cell.videoCallButton.isEnabled = true
                 guard let self = self else { return }
-                self.indicator.stopLoading()
+                self.indicator?.stopLoading()
             }
             
             guard let call = call, error == nil else {
