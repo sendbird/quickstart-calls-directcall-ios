@@ -10,30 +10,22 @@ import UIKit
 import SendBirdCalls
 
 class CallHistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var noHistoryIcon: UIImageView!
     @IBOutlet weak var noHistoryLabel: UILabel!
-    
-    var query: DirectCallLogListQuery?
-    var callLogs: [DirectCallLog] {
-        get { UserDefaults.standard.callLogs }
-        set {
-            self.tableView.isHidden = newValue.isEmpty
-            self.noHistoryIcon.isHidden = !newValue.isEmpty
-            self.noHistoryLabel.isHidden = !newValue.isEmpty
-        }
-    }
-    
     @IBOutlet weak var darkView: UIView! {
         didSet { self.darkView.isHidden = true }
     }
+    
+    var query: DirectCallLogListQuery?
+    var callHistories: [CallHistory]  = CallHistory.fetchAll()
+    
     var indicator: ActivityIndicator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.tableView?.delegate = self
         
         self.navigationItem.title = "Call History"
         
@@ -42,17 +34,24 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         params.limit = 100
         self.query = SendBirdCall.createDirectCallLogListQuery(with: params)
         
-        guard self.callLogs.isEmpty else {
-            self.tableView.reloadData()
+        guard self.callHistories.isEmpty else {
+            self.tableView?.dataSource = self
             return
         }
         
-        self.tableView.isHidden = true
+        self.tableView?.isHidden = true
         self.indicator = ActivityIndicator(view: self.view,
                                            darkView: darkView)
     
         self.indicator?.startLoading()
+        self.tableView?.dataSource = self
         self.fetchCallLogsFromServer()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.updateCallHistories()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -60,20 +59,22 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.callLogs.count
+        return self.callHistories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! CallHistoryTableViewCell
+        let cell = self.tableView!.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! CallHistoryTableViewCell
         cell.delegate = self
-        cell.directCallLog = self.callLogs[indexPath.row]
+        cell.callHistory = self.callHistories[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.deselectRow(at: indexPath, animated: true)
-        
-        
+        self.tableView!.deselectRow(at: indexPath, animated: true)
+        self.view.isUserInteractionEnabled = false  // This will back to true im dial completion handler
+        let cell = tableView.cellForRow(at: indexPath) as! CallHistoryTableViewCell
+        // make a same type of call: video / voice call
+        didTapCallHistoryCell(cell)
     }
     
     func fetchCallLogsFromServer() {
@@ -81,7 +82,6 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
             guard let newCallLogs = callLogs, !newCallLogs.isEmpty else {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.presentAlert(message: "Loaded all call logs from server successfully.")
                     self.indicator?.stopLoading()
                 }
                 return
@@ -91,23 +91,28 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
                 guard let self = self else { return }
                 
                 // Update callLogs
-                let previousLogs = NSMutableOrderedSet(array: self.callLogs)
-                let newLogs = NSMutableOrderedSet(array: newCallLogs)
-                previousLogs.union(newLogs)
-                guard let updatedLogs = previousLogs.array as? [DirectCallLog] else { return }
-                self.callLogs = updatedLogs
+                let newHistories = newCallLogs.map { $0.convertToCallHistory() }
+                let previousSet = NSMutableOrderedSet(array: self.callHistories)
+                let newSet = NSMutableOrderedSet(array: newHistories)
+                previousSet.union(newSet)
+                guard let updatedSet = previousSet.array as? [CallHistory] else { return }
+                
+                // Store to UserDefaults
+                UserDefaults.standard.callHistories = updatedSet
                 
                 self.updateCallHistories()
             }
-            
             self.fetchCallLogsFromServer()
         }
     }
     
     func updateCallHistories() {
-        self.tableView.reloadData()
+        // Fetch stored histories
+        self.callHistories = UserDefaults.standard.callHistories
         
-        UserDefaults.standard.callLogs = self.callLogs
+        guard !self.callHistories.isEmpty else { return }
+        self.tableView?.isHidden = false
+        self.tableView?.reloadData()
     }
 }
 
@@ -161,11 +166,11 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
     
     func didTapCallHistoryCell(_ cell: CallHistoryTableViewCell) {
         guard let remoteUserID = cell.remoteUserIDLabel.text else { return }
-        
+        let isVideoCall = cell.callHistory.callTypeImageURL.lowercased().contains("video") == true
         let dialParams = DialParams(calleeId: remoteUserID,
-                                    isVideoCall: cell.directCallLog.isVideoCall,
+                                    isVideoCall: isVideoCall,
                                     callOptions: CallOptions(isAudioEnabled: true,
-                                                             isVideoEnabled: cell.directCallLog.isVideoCall,
+                                                             isVideoEnabled: isVideoCall,
                                                              localVideoView: nil,
                                                              remoteVideoView: nil,
                                                              useFrontCamera: true),
@@ -176,6 +181,7 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
                 cell.videoCallButton.isEnabled = true
                 guard let self = self else { return }
                 self.indicator?.stopLoading()
+                self.view.isUserInteractionEnabled = true
             }
             
             guard let call = call, error == nil else {

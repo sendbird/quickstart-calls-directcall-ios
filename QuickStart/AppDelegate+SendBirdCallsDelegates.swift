@@ -5,6 +5,7 @@
 //  Copyright © 2020 SendBird, Inc. All rights reserved..
 //
 
+import UIKit
 import CallKit
 import SendBirdCalls
 
@@ -39,5 +40,13 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         }
         
         CXCallManager.shared.endCall(for: callId, endedAt: Date(), reason: call.endResult)
+        
+        guard let callLog = call.callLog else { return }
+        UserDefaults.standard.callHistories.insert(callLog.convertToCallHistory(), at: 0)
+        
+        guard let tabBarController = self.window?.rootViewController?.presentedViewController as? UITabBarController else { return }
+        guard let callHistoryVC = tabBarController.callHistoryTab?.firstViewController as? CallHistoryViewController else { return }
+        
+        callHistoryVC.updateCallHistories()
     }
 }

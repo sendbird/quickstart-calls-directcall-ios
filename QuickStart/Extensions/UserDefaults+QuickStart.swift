@@ -15,7 +15,7 @@ extension UserDefaults {
         case accessToken
         case autoLogin
         case voipPushToken
-        case callLogs
+        case callHistories
         
         var value: String { "com.sendbird.calls.quickstart.\(self.rawValue.lowercased())" }
     }
@@ -48,9 +48,9 @@ extension UserDefaults {
         set { UserDefaults.standard.set(object: newValue, forKey: Key.voipPushToken.value) }
     }
     
-    var callLogs: [DirectCallLog] {
-        get { UserDefaults.standard.get(objectType: [DirectCallLog].self, forKey: Key.callLogs.value) ?? [] }
-        set { UserDefaults.standard.set(object: newValue, forKey: Key.callLogs.value)}
+    var callHistories: [CallHistory] {
+        get { UserDefaults.standard.get(objectType: [CallHistory].self, forKey: Key.callHistories.value) ?? [] }
+        set { UserDefaults.standard.set(object: newValue, forKey: Key.callHistories.value)}
     }
 }
 

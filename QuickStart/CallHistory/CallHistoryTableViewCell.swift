@@ -32,7 +32,7 @@ class CallHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var voiceCallButton: UIButton!
     @IBOutlet weak var videoCallButton: UIButton!
     
-    var directCallLog: DirectCallLog! {
+    var callHistory: CallHistory! {
         didSet {
             self.updateUI()
         }
@@ -41,32 +41,35 @@ class CallHistoryTableViewCell: UITableViewCell {
     weak var delegate: CallHistoryCellDelegate?
     
     func updateUI() {
-        let callType = self.directCallLog.isVideoCall ? self.directCallLog.myRole == .caller ? "iconCallVideoOutgoingFilled" : "iconCallVideoIncomingFilled" : self.directCallLog.myRole == .callee ? "iconCallVoiceOutgoingFilled" : "iconCallVoiceIncomingFilled"
-        let remoteUser = self.directCallLog.myRole == .caller ? self.directCallLog.callee : self.directCallLog.caller
+        let callType = self.callHistory.callTypeImageURL
         
         self.callTypeImageView.image = UIImage(named: callType)
-        self.remoteUserProfileImageView.updateImage(urlString: remoteUser?.profileURL)
-        self.remoteUserIDLabel.text = remoteUser?.userId
+        self.remoteUserProfileImageView.updateImage(urlString: self.callHistory.remoteUserProfileURL)
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY/MM/d HH:mm"
+        self.remoteUserIDLabel.text = self.callHistory.remoteUserID
         
-        self.startedAtLabel.text = dateFormatter.string(from: Date(timeIntervalSince1970: Double(self.directCallLog.startedAt) / 1000))
-        self.callDurationLabel.text = self.directCallLog.duration.timerText()
-        self.endResultLabel.text = self.directCallLog.endResult.rawValue
+        self.startedAtLabel.text = self.callHistory.startedAt
+        self.callDurationLabel.text = self.callHistory.duration
+        self.endResultLabel.text = self.callHistory.endResult
     }
     
     @IBAction func didTapVoiceCall() {
-        guard let remoteUser = self.directCallLog.myRole == .caller ? self.directCallLog.callee : self.directCallLog.caller else { return }
+        guard self.callHistory.remoteUserID != "Unknown" else { return }
         let callOptions = CallOptions(isAudioEnabled: true)
-        let dialParams = DialParams(calleeId: remoteUser.userId, isVideoCall: false, callOptions: callOptions, customItems: [:])
+        let dialParams = DialParams(calleeId: self.callHistory.remoteUserID,
+                                    isVideoCall: false,
+                                    callOptions: callOptions,
+                                    customItems: [:])
         self.delegate?.didTapVoiceCallButton(self, dialParams: dialParams)
     }
     
     @IBAction func didTapVideoCall() {
-        guard let remoteUser = self.directCallLog.myRole == .caller ? self.directCallLog.callee : self.directCallLog.caller else { return }
+        guard self.callHistory.remoteUserID != "Unknown" else { return }
         let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: true, localVideoView: nil, remoteVideoView: nil, useFrontCamera: true)
-        let dialParams = DialParams(calleeId: remoteUser.userId, isVideoCall: true, callOptions: callOptions, customItems: [:])
+        let dialParams = DialParams(calleeId: self.callHistory.remoteUserID,
+                                    isVideoCall: true,
+                                    callOptions: callOptions,
+                                    customItems: [:])
         self.delegate?.didTapVideoCallButton(self, dialParams: dialParams)
     }
 }

@@ -19,7 +19,10 @@ extension UIImageView {
     }
     
     func updateImage(urlString: String?) {
-        guard let urlString = urlString else { return }
+        guard let urlString = urlString, !urlString.isEmpty else {
+            self.image = UIImage(named: "iconAvatar")
+            return
+        }
         guard let profileURL = URL(string: urlString) else { return }
         
         ImageCache.shared.load(url: profileURL) { image, error in
