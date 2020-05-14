@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SendBirdCalls
 
 extension UserDefaults {
     enum Key : String, CaseIterable {
@@ -14,6 +15,7 @@ extension UserDefaults {
         case accessToken
         case autoLogin
         case voipPushToken
+        case callLogs
         
         var value: String { "com.sendbird.calls.quickstart.\(self.rawValue.lowercased())" }
     }
@@ -44,6 +46,11 @@ extension UserDefaults {
     var voipPushToken: Data? {
         get { UserDefaults.standard.get(objectType: Data.self, forKey: Key.voipPushToken.value) }
         set { UserDefaults.standard.set(object: newValue, forKey: Key.voipPushToken.value) }
+    }
+    
+    var callLogs: [DirectCallLog] {
+        get { UserDefaults.standard.get(objectType: [DirectCallLog].self, forKey: Key.callLogs.value) ?? [] }
+        set { UserDefaults.standard.set(object: newValue, forKey: Key.callLogs.value)}
     }
 }
 
