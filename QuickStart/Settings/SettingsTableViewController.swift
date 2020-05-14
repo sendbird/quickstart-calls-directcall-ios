@@ -70,11 +70,10 @@ class SettingsTableViewController: UITableViewController {
 extension SettingsTableViewController {
     func signOut() {
         guard let token = UserDefaults.standard.voipPushToken else { return }
-        UserDefaults.standard.clear()
         
         // MARK: SendBirdCall Deauthenticate
         SendBirdCall.deauthenticate(voipPushToken: token) { error in
-            print("deauthenticated")
+            UserDefaults.standard.clear()
             guard error == nil else { return }
         }
     }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SendBirdCalls
 
 extension UserDefaults {
     enum Key : String, CaseIterable {
