@@ -15,9 +15,11 @@
 		5281EB6E23A8602300EDA984 /* CXCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281EB6D23A8602300EDA984 /* CXCallManager.swift */; };
 		8A5932EA8E7F784FC9593796 /* Pods_QuickStart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9DDAC64E8A0C1F265438FF3 /* Pods_QuickStart.framework */; };
 		A91199BC2421257300208E21 /* DirectCallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91199BB2421257300208E21 /* DirectCallDataSource.swift */; };
+		A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5924444FB0003894AD /* ImageCache.swift */; };
 		A91AAA5E244470BF003894AD /* UIApplication+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5D244470BF003894AD /* UIApplication+QuickStart.swift */; };
 		A91AAA6024447112003894AD /* SendBirdCall+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5F24447112003894AD /* SendBirdCall+QuickStart.swift */; };
-		A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5924444FB0003894AD /* ImageCache.swift */; };
+		A93E1E0A246D559D00CD9690 /* CallHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93E1E08246D559D00CD9690 /* CallHistoryViewController.swift */; };
+		A93E1E0B246D559D00CD9690 /* CallHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93E1E09246D559D00CD9690 /* CallHistoryTableViewCell.swift */; };
 		A9409C462390FA8100410458 /* UserDefaults+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */; };
 		A9409C482390FA8E00410458 /* NotificationCenter+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */; };
 		A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */; };
@@ -26,8 +28,6 @@
 		A951A7AF238D154700410E40 /* VoiceCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A951A7AE238D154700410E40 /* VoiceCallViewController.swift */; };
 		A95A7C9E2420614A00EB0D56 /* SignInWithQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */; };
 		A95A7CA0242063C700EB0D56 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */; };
-		A95C568D2459A7F900C6EB04 /* CallHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C568C2459A7F900C6EB04 /* CallHistoryTableViewCell.swift */; };
-		A95C568F2459A82400C6EB04 /* CallHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95C568E2459A82400C6EB04 /* CallHistoryViewController.swift */; };
 		A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */; };
 		A95E91C7242887730035274E /* SignInDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95E91C6242887730035274E /* SignInDelegate.swift */; };
 		A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A96823A7246278AE001C6F77 /* CallHistory.storyboard */; };
@@ -70,6 +70,13 @@
 			remoteGlobalIDString = A9B7564F243DBA77001E764B;
 			remoteInfo = QuickStartIntent;
 		};
+		A9DDC43C245FDE3100F042E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9A72C992387B448007C0878 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A9A72CA02387B448007C0878;
+			remoteInfo = QuickStart;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -86,16 +93,6 @@
 		};
 /* End PBXCopyFilesBuildPhase section */
 
-/* Begin PBXContainerItemProxy section */
-		A9DDC43C245FDE3100F042E7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A9A72C992387B448007C0878 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A9A72CA02387B448007C0878;
-			remoteInfo = QuickStart;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		49B07AB1242CBA8100EFF73A /* UIStoryboard+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+QuickStart.swift"; sourceTree = "<group>"; };
 		49B07AC9242D8B1F00EFF73A /* Int64+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int64+QuickStart.swift"; sourceTree = "<group>"; };
@@ -106,9 +103,11 @@
 		5281EB6D23A8602300EDA984 /* CXCallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CXCallManager.swift; sourceTree = "<group>"; };
 		70DECEBFA6F9F41B919BF0A7 /* Pods_QuickStart_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickStart_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A91199BB2421257300208E21 /* DirectCallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectCallDataSource.swift; sourceTree = "<group>"; };
+		A91AAA5924444FB0003894AD /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		A91AAA5D244470BF003894AD /* UIApplication+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+QuickStart.swift"; sourceTree = "<group>"; };
 		A91AAA5F24447112003894AD /* SendBirdCall+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SendBirdCall+QuickStart.swift"; sourceTree = "<group>"; };
-		A91AAA5924444FB0003894AD /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		A93E1E08246D559D00CD9690 /* CallHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryViewController.swift; sourceTree = "<group>"; };
+		A93E1E09246D559D00CD9690 /* CallHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+QuickStart.swift"; sourceTree = "<group>"; };
 		A9409C472390FA8E00410458 /* NotificationCenter+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+QuickStart.swift"; sourceTree = "<group>"; };
 		A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+QuickStart.swift"; sourceTree = "<group>"; };
@@ -118,8 +117,6 @@
 		A951A7B7238D23C000410E40 /* QuickStart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickStart.entitlements; sourceTree = "<group>"; };
 		A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithQRViewController.swift; sourceTree = "<group>"; };
 		A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
-		A95C568C2459A7F900C6EB04 /* CallHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHistoryTableViewCell.swift; sourceTree = "<group>"; };
-		A95C568E2459A82400C6EB04 /* CallHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHistoryViewController.swift; sourceTree = "<group>"; };
 		A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInManuallyViewController.swift; sourceTree = "<group>"; };
 		A95E91C6242887730035274E /* SignInDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDelegate.swift; sourceTree = "<group>"; };
 		A96823A7246278AE001C6F77 /* CallHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CallHistory.storyboard; sourceTree = "<group>"; };
@@ -175,7 +172,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A9B7564D243DBA77001E764B /* Frameworks */ = {
-      isa = PBXFrameworksBuildPhase;
+			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -251,8 +248,8 @@
 		A96823A92462805B001C6F77 /* CallHistory */ = {
 			isa = PBXGroup;
 			children = (
-				A95C568E2459A82400C6EB04 /* CallHistoryViewController.swift */,
-				A95C568C2459A7F900C6EB04 /* CallHistoryTableViewCell.swift */,
+				A93E1E09246D559D00CD9690 /* CallHistoryTableViewCell.swift */,
+				A93E1E08246D559D00CD9690 /* CallHistoryViewController.swift */,
 				A97EDF2A246D1EEC0072DF3D /* CallHistory.swift */,
 			);
 			path = CallHistory;
@@ -309,8 +306,6 @@
 				A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */,
 				A943CAF423C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift */,
 				A91AAA6124447117003894AD /* SendBirdCallsExtenions */,
-				A95C568E2459A82400C6EB04 /* CallHistoryViewController.swift */,
-				A95C568C2459A7F900C6EB04 /* CallHistoryTableViewCell.swift */,
 				A96823A92462805B001C6F77 /* CallHistory */,
 				A9A72CAD2387B44C007C0878 /* Assets.xcassets */,
 				C1F69B0D23C5A4B000C66F00 /* CXExtensions */,
@@ -362,7 +357,7 @@
 				A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */,
 			);
 			path = Intent;
-      sourceTree = "<group>";
+			sourceTree = "<group>";
 		};
 		A9DDC438245FDE3100F042E7 /* QuickStartTests */ = {
 			isa = PBXGroup;
@@ -422,11 +417,11 @@
 				A9B7564C243DBA77001E764B /* Sources */,
 				A9B7564D243DBA77001E764B /* Frameworks */,
 				A9B7564E243DBA77001E764B /* Resources */,
-      );
+			);
 			buildRules = (
 			);
 			dependencies = (
-      );
+			);
 			name = QuickStartIntent;
 			productName = QuickStartIntent;
 			productReference = A9B75650243DBA77001E764B /* QuickStartIntent.appex */;
@@ -465,7 +460,7 @@
 					};
 					A9B7564F243DBA77001E764B = {
 						CreatedOnToolsVersion = 11.4;
-          };
+					};
 					A9DDC436245FDE3100F042E7 = {
 						CreatedOnToolsVersion = 11.4;
 						TestTargetID = A9A72CA02387B448007C0878;
@@ -507,7 +502,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A9B7564E243DBA77001E764B /* Resources */ = {
-      isa = PBXResourcesBuildPhase;
+			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -583,15 +578,15 @@
 				A951A7AF238D154700410E40 /* VoiceCallViewController.swift in Sources */,
 				A91AAA5E244470BF003894AD /* UIApplication+QuickStart.swift in Sources */,
 				A9B7565E243DE933001E764B /* AppDelegate+Intent.swift in Sources */,
+				A93E1E0A246D559D00CD9690 /* CallHistoryViewController.swift in Sources */,
 				A99CC95223BA14BC00F9116A /* UITextField+QuickStart.swift in Sources */,
-				A95C568F2459A82400C6EB04 /* CallHistoryViewController.swift in Sources */,
 				A99449592387E92400A4FFBB /* SettingsTableViewController.swift in Sources */,
 				49D80157242C6C55003CFFBA /* String+QuickStart.swift in Sources */,
 				A9409C482390FA8E00410458 /* NotificationCenter+QuickStart.swift in Sources */,
 				5281EB6E23A8602300EDA984 /* CXCallManager.swift in Sources */,
+				A93E1E0B246D559D00CD9690 /* CallHistoryTableViewCell.swift in Sources */,
 				A9A72CA52387B448007C0878 /* AppDelegate.swift in Sources */,
 				C1F69B0F23C5A4E300C66F00 /* CXProvider+QuickStart.swift in Sources */,
-				A95C568D2459A7F900C6EB04 /* CallHistoryTableViewCell.swift in Sources */,
 				A99CC95023BA14A100F9116A /* UIColor+QuickStart.swift in Sources */,
 				A95A7C9E2420614A00EB0D56 /* SignInWithQRViewController.swift in Sources */,
 				A97EDF2B246D1EEC0072DF3D /* CallHistory.swift in Sources */,
@@ -620,7 +615,7 @@
 			files = (
 				A9A53CE0245FF94900E8E654 /* INStartCallIntent+QuickStart.swift in Sources */,
 				A9B75653243DBA77001E764B /* IntentHandler.swift in Sources */,
-      );
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A9DDC433245FDE3100F042E7 /* Sources */ = {
@@ -638,10 +633,7 @@
 			isa = PBXTargetDependency;
 			target = A9B7564F243DBA77001E764B /* QuickStartIntent */;
 			targetProxy = A9B75655243DBA77001E764B /* PBXContainerItemProxy */;
-    };
-/* End PBXTargetDependency section */
-
-/* Begin PBXTargetDependency section */
+		};
 		A9DDC43D245FDE3100F042E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A9A72CA02387B448007C0878 /* QuickStart */;
@@ -883,9 +875,9 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-        };
+			};
 			name = Release;
-    };
+		};
 		A9DDC43E245FDE3100F042E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -954,7 +946,7 @@
 			buildConfigurations = (
 				A9B75659243DBA77001E764B /* Debug */,
 				A9B7565A243DBA77001E764B /* Release */,
-      );
+			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};

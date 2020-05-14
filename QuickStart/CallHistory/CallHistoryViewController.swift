@@ -196,32 +196,3 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
         }
     }
 }
-
-extension UIApplication {
-    func showError(with message: String) {
-        if let topViewController = UIViewController.topViewController {
-            topViewController.presentErrorAlert(message: message)
-        } else {
-            UIApplication.shared.keyWindow?.rootViewController?.presentErrorAlert(message: message)
-            UIApplication.shared.keyWindow?.makeKeyAndVisible()
-        }
-    }
-    
-    func showCallController(with call: DirectCall) {
-        // If there is termination: Failed to load VoiceCallViewController from Main.storyboard. Please check its storyboard ID")
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: call.isVideoCall ? "VideoCallViewController" : "VoiceCallViewController")
-        
-        if var dataSource = viewController as? DirectCallDataSource {
-            dataSource.call = call
-            dataSource.isDialing = false
-        }
-        
-        if let topViewController = UIViewController.topViewController {
-            topViewController.present(viewController, animated: true, completion: nil)
-        } else {
-            self.keyWindow?.rootViewController = viewController
-            self.keyWindow?.makeKeyAndVisible()
-        }
-    }
-}
