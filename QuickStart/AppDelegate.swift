@@ -41,6 +41,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        // End all ongoing calls when application is going to terminate
+        let callManager = CXCallManager.shared
+        let ongoingCalls = callManager.currentCalls.map { SendBirdCall.getCall(forUUID: $0.uuid)}
+        
+        ongoingCalls.forEach { directCall in
+            guard let directCall = directCall else { return }
+            // Sendbird Calls: End call
+            directCall.end()
+            
+            // CallKit: Request End transaction
+            callManager.endCXCall(directCall)
+            
+            // CallKit: Report End if uuid is valid
+            if let uuid = directCall.callUUID {
+                callManager.endCall(for: uuid, endedAt: Date(), reason: .none)
+            }
+        }
+    }
 }
 
 extension AppDelegate: PKPushRegistryDelegate {
