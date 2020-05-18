@@ -45,10 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // End all ongoing calls when application is going to terminate
         let callManager = CXCallManager.shared
-        let ongoingCalls = callManager.currentCalls.map { SendBirdCall.getCall(forUUID: $0.uuid)}
+        let ongoingCalls = callManager.currentCalls.compactMap { SendBirdCall.getCall(forUUID: $0.uuid) }
         
         ongoingCalls.forEach { directCall in
-            guard let directCall = directCall else { return }
             // Sendbird Calls: End call
             directCall.end()
             
