@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SendBirdCall.configure(appId: appId)
         }
         
-        // To process incoming call, you need to add `SendBirdDelegate` and implement its protocol methods.
+        // To process incoming call, you need to add `SendBirdCallDelegate` and implement its protocol methods.
         SendBirdCall.addDelegate(self, identifier: "com.sendbird.calls.quickstart.delegate")
         
         self.voipRegistration()
