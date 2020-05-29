@@ -105,32 +105,40 @@ extension SignInWithQRViewController {
         let userId = UserDefaults.standard.user.id
         let accessToken = UserDefaults.standard.accessToken
         let voipPushToken = UserDefaults.standard.voipPushToken
-        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken, voipPushToken: voipPushToken, unique: false)
+        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken)
+        
         self.indicator.startLoading(on: self.view)
         
         SendBirdCall.authenticate(with: authParams) { user, error in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.indicator.stopLoading()
-                self.resetButtonUI()
-            }
-            
             guard let user = user, error == nil else {
+                // Handling error
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
+                    self.indicator.stopLoading()
+                    self.resetButtonUI()
                     let errorDescription = String(error?.localizedDescription ?? "")
                     self.presentErrorAlert(message: "\(errorDescription)")
                 }
                 UserDefaults.standard.clear()
                 return
             }
+            
+            // Save data
             UserDefaults.standard.autoLogin = true
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
+            // register push token
+            SendBirdCall.registerVoIPPush(token: voipPushToken, unique: false) { error in
+                if let error = error { print(error) }
+                
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.indicator.stopLoading()
+                    self.resetButtonUI()
+                    self.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
+                }
             }
+            
         }
     }
 }

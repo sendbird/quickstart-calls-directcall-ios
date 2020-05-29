@@ -67,30 +67,37 @@ extension SignInViewController {
     func signIn(userId: String) {
         // MARK: SendBirdCall.authenticate()
 
-        let params = AuthenticateParams(userId: userId, accessToken: nil, voipPushToken: UserDefaults.standard.voipPushToken, unique: false)
+        let authParams = AuthenticateParams(userId: userId, accessToken: nil)
         self.indicator.startLoading(on: self.view)
 
         
-        SendBirdCall.authenticate(with: params) { user, error in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.indicator.stopLoading()
-                self.resetButtonUI()
-            }
+        SendBirdCall.authenticate(with: authParams) { user, error in
             guard let user = user, error == nil else {
+                // Handling error
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
+                    self.indicator.stopLoading()
+                    self.resetButtonUI()
                     let errorDescription = String(error?.localizedDescription ?? "")
                     self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
                 }
                 return
             }
+            
+            // Save data
             UserDefaults.standard.autoLogin = true
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.performSegue(withIdentifier: "signIn", sender: nil)
+            // register push token
+            SendBirdCall.registerVoIPPush(token: UserDefaults.standard.voipPushToken, unique: false) { error in
+                if let error = error { print(error) }
+                
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.indicator.stopLoading()
+                    self.resetButtonUI()
+                    self.performSegue(withIdentifier: "signIn", sender: nil)
+                }
             }
         }
     }
