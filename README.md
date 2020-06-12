@@ -135,13 +135,13 @@ Note, however, destroying existing PKPushRegistry will prevent any future VoIP P
 
 ## Creating a Local Video View Before Accepting Incoming Calls  
 
-You can create how the current user’s local video view will show on the screen before accepting an incoming call. Customize the current user’s local video view by following the steps below:
+You can create current user's local video view and customize its appearance before accepting an incoming call. Customize the current user’s local video view by following the steps below:
 
 1. Add a `UIView` to your storyboard.
 2. Create a view with the frame you want by using the `SendBirdVideoView` object.
-3. To add a subview, embed the `SendBirdVideoView` to the `UIView` from Step 1.
-4. Use the `availableVideoDevice` of `DirectCall` to get images from an available camera.
-5. Capture the video view by calling the `DirectCall.selectVideoDevice(_:completionHandler:)` method.
+3. To add a subview, [embed](https://github.com/sendbird/quickstart-calls-ios/blob/develop/QuickStart/Extensions/UIKit/UIView%2BExtension.swift) the `SendBirdVideoView` to the `UIView` from Step 1.
+4. Find an appropriate camera device by accessing the `availableVideoDevice` property of `DirectCall`.
+5. Start capturing video contents from the camera by calling the `DirectCall.selectVideoDevice(_:completionHandler:)` method.
 
 ```SWift
 @IBOutlet weak var localVideoView: UIView?
@@ -155,7 +155,7 @@ self.localVideoView?.embed(localSBVideoView)
 // Start rendering local video view
 guard let frontCamera = (call.availableVideoDevice.first { $0.position == .front }) else { return }
 call.selectVideoDevice(frontCamera) { (error) in
-// handle error
+    // handle error
 }
 ```
 
