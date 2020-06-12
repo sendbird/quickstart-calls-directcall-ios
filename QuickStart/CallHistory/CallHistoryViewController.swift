@@ -91,7 +91,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
                 guard let self = self else { return }
                 
                 // Update callLogs
-                let newHistories = newCallLogs.map { $0.convertToCallHistory() }
+                let newHistories = newCallLogs.map { CallHistory(callLog: $0) }
                 let previousSet = NSMutableOrderedSet(array: self.callHistories)
                 let newSet = NSMutableOrderedSet(array: newHistories)
                 previousSet.union(newSet)

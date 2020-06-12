@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SendBirdCalls
 
 struct CallHistory: Codable {
     let callTypeImageURL: String
@@ -16,33 +17,24 @@ struct CallHistory: Codable {
     let endResult: String
     let startedAt: String
     
+    static var dateFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY/MM/d HH:mm"
+        return dateFormatter
+    }
+    
     static func fetchAll() -> [CallHistory] {
         return UserDefaults.standard.callHistories
     }
-}
-
-import SendBirdCalls
-
-extension DirectCallLog {
-    func convertToCallHistory() -> CallHistory {
+    
+    init(callLog: DirectCallLog) {
+        self.callTypeImageURL = callLog.isVideoCall ? callLog.myRole == .caller ? "iconCallVideoOutgoingFilled" : "iconCallVideoIncomingFilled" : callLog.myRole == .callee ? "iconCallVoiceOutgoingFilled" : "iconCallVoiceIncomingFilled"
+        let remoteUser = callLog.myRole == .caller ? callLog.callee : callLog.caller
+        self.remoteUserProfileURL = remoteUser?.profileURL
+        self.remoteUserID = remoteUser?.userId ?? "Unknown"
         
-        let callType = self.isVideoCall ? self.myRole == .caller ? "iconCallVideoOutgoingFilled" : "iconCallVideoIncomingFilled" : self.myRole == .callee ? "iconCallVoiceOutgoingFilled" : "iconCallVoiceIncomingFilled"
-        
-        let remoteUser = self.myRole == .caller ? self.callee : self.caller
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY/MM/d HH:mm"
-        
-        let startedAtText = dateFormatter.string(from: Date(timeIntervalSince1970: Double(self.startedAt) / 1000))
-        let callDuration = self.duration.timerText()
-        let endResultText = self.endResult.rawValue
-        
-        let history = CallHistory(callTypeImageURL: callType,
-                                  remoteUserProfileURL: remoteUser?.profileURL,
-                                  remoteUserID: remoteUser?.userId ?? "Unknown",
-                                  duration: callDuration,
-                                  endResult: endResultText,
-                                  startedAt: startedAtText)
-        return history
+        self.startedAt = CallHistory.dateFormatter.string(from: Date(timeIntervalSince1970: Double(callLog.startedAt) / 1000))
+        self.duration = callLog.duration.timerText()
+        self.endResult = callLog.endResult.rawValue
     }
 }
