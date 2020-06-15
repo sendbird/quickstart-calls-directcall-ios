@@ -5,6 +5,8 @@
 
 The Calls SDK for iOS is used to initialize, configure, and build voice and video calling functionality into your iOS application. This repository contains a sample application intended to demonstrate a simple implementation of this framework, as well as the preliminary steps of implementing the Calls SDK into your own project. 
 
+> If you need any helps or have any issue / question, please visit [our community](https://community.sendbird.com) 
+
 ## Prerequisites
 - Mac OS with developer mode enabled
 - Xcode
