@@ -178,9 +178,9 @@ extension CXCallManager: CXProviderDelegate {
 extension DirectCallEndResult {
     var asCXCallEndedReason: CXCallEndedReason? {
         switch self {
-        case .completed, .connectionLost, .timedOut, .acceptFailed, .dialFailed, .unknown:
+        case .connectionLost, .timedOut, .acceptFailed, .dialFailed, .unknown:
             return .failed
-        case .canceled:
+        case .completed, .canceled:
             return .remoteEnded
         case .declined:
             return .declinedElsewhere
