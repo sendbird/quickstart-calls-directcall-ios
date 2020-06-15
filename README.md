@@ -133,6 +133,32 @@ if AVAudioSession.sharedInstance().recordPermission == .granted {
 
 Note, however, destroying existing PKPushRegistry will prevent any future VoIP Push Notifications to be sent to the device. If you want to start receiving VoIP Push Notifications again, you must re-register PKPushRegistry by doing `self.voipRegistry?.desiredPushTypes = [.voIP]`.
 
+## Creating a Local Video View Before Accepting Incoming Calls  
+
+You can create current user's local video view and customize its appearance before accepting an incoming call. Customize the current user’s local video view by following the steps below:
+
+1. Add a `UIView` to your storyboard.
+2. Create a view with the frame you want by using the `SendBirdVideoView` object.
+3. To add a subview, [embed](https://github.com/sendbird/quickstart-calls-ios/blob/develop/QuickStart/Extensions/UIKit/UIView%2BExtension.swift) the `SendBirdVideoView` to the `UIView` from Step 1.
+4. Find an appropriate camera device by accessing the `availableVideoDevice` property of `DirectCall`.
+5. Start capturing video contents from the camera by calling the `DirectCall.selectVideoDevice(_:completionHandler:)` method.
+
+```SWift
+@IBOutlet weak var localVideoView: UIView?
+
+// Create SendBirdVideoView
+let localSBVideoView = SendBirdVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
+
+// Embed the SendBirdVideoView to UIView
+self.localVideoView?.embed(localSBVideoView)
+
+// Start rendering local video view
+guard let frontCamera = (call.availableVideoDevice.first { $0.position == .front }) else { return }
+call.selectVideoDevice(frontCamera) { (error) in
+    // handle error
+}
+```
+
 ## Reference
 
  - [SendBird Calls iOS SDK Readme](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md)
