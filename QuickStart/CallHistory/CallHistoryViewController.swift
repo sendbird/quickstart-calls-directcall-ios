@@ -124,7 +124,7 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
     // When select table view cell, make a call based on its `CallHistory` information.
     func didTapCallHistoryCell(_ cell: CallHistoryTableViewCell) {
         guard let remoteUserID = cell.remoteUserIDLabel.text else { return }
-        let isVideoCall = cell.callHistory.callTypeImageURL.lowercased().contains("video") == true
+        let isVideoCall = cell.callHistory.hasVideo
         let dialParams = DialParams(calleeId: remoteUserID,
                                     isVideoCall: isVideoCall,
                                     callOptions: CallOptions(isAudioEnabled: true,

@@ -43,4 +43,31 @@ extension UIImageView {
     }
 }
 
+extension UIImage {
+    enum CallDirection {
+        case outgoing(_ type: CallType)
+        case incoming(_ type: CallType)
+        
+        enum CallType {
+            case voiceCall
+            case videoCall
+        }
+    }
+    
+    static func callTypeImage(outgoing: Bool, hasVideo: Bool) -> UIImage? {
+        let type: CallDirection.CallType = hasVideo ? .videoCall : .voiceCall
+        let direction: CallDirection = outgoing ? .outgoing(type) : .incoming(type)
+        switch direction {
+            case .outgoing(.voiceCall):
+                return UIImage(named: "iconCallVoiceOutgoingFilled")
+            case .outgoing(.videoCall):
+                return UIImage(named: "iconCallVideoOutgoingFilled")
+            case .incoming(.voiceCall):
+                return UIImage(named: "iconCallVoiceIncomingFilled")
+            case .incoming(.videoCall):
+                return UIImage(named: "iconCallVideoIncomingFilled")
+        }
+    }
+}
+
 

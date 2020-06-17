@@ -6,11 +6,12 @@
 //  Copyright © 2020 SendBird Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import SendBirdCalls
 
 struct CallHistory: Codable {
-    let callTypeImageURL: String
+    let outgoing: Bool
+    let hasVideo: Bool
     let remoteUserProfileURL: String?
     let remoteUserID: String
     let duration: String
@@ -28,7 +29,8 @@ struct CallHistory: Codable {
     }
     
     init(callLog: DirectCallLog) {
-        self.callTypeImageURL = callLog.isVideoCall ? callLog.myRole == .caller ? "iconCallVideoOutgoingFilled" : "iconCallVideoIncomingFilled" : callLog.myRole == .callee ? "iconCallVoiceOutgoingFilled" : "iconCallVoiceIncomingFilled"
+        self.outgoing = callLog.myRole == .caller
+        self.hasVideo = callLog.isVideoCall
         let remoteUser = callLog.myRole == .caller ? callLog.callee : callLog.caller
         self.remoteUserProfileURL = remoteUser?.profileURL
         self.remoteUserID = remoteUser?.userId ?? "Unknown"

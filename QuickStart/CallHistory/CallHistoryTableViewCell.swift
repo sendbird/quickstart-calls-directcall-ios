@@ -41,9 +41,7 @@ class CallHistoryTableViewCell: UITableViewCell {
     weak var delegate: CallHistoryCellDelegate?
     
     func updateUI() {
-        let callType = self.callHistory.callTypeImageURL
-        
-        self.callTypeImageView.image = UIImage(named: callType)
+        self.callTypeImageView.image = UIImage.callTypeImage(outgoing: self.callHistory.outgoing, hasVideo: self.callHistory.hasVideo)
         self.remoteUserProfileImageView.updateImage(urlString: self.callHistory.remoteUserProfileURL)
         
         self.remoteUserIDLabel.text = self.callHistory.remoteUserID
