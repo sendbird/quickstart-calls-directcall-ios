@@ -20,7 +20,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     var query: DirectCallLogListQuery?
     var callHistories: [CallHistory]  = CallHistory.fetchAll()
     
-    var indicator: ActivityIndicator?
+    let indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +40,8 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         self.tableView?.isHidden = true
-        self.indicator = ActivityIndicator(view: self.view,
-                                           darkView: darkView)
     
-        self.indicator?.startLoading()
+        self.indicator.startLoading(on: self.view)
         self.tableView?.dataSource = self
         self.fetchCallLogsFromServer()
     }
@@ -86,7 +84,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
                 // Stop indicator animation when there is no more call logs.
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.indicator?.stopLoading()
+                    self.indicator.stopLoading()
                 }
                 return
             }
@@ -135,13 +133,13 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
                                                              remoteVideoView: nil,
                                                              useFrontCamera: true),
                                     customItems: [:])
-        
+        self.indicator.startLoading(on: self.view)
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self, weak cell] in
                 guard let self = self else { return }
                 guard let cell = cell else { return }
                 cell.videoCallButton.isEnabled = true
-                self.indicator?.stopLoading()
+                self.indicator.stopLoading()
                 self.view.isUserInteractionEnabled = true
             }
             
@@ -160,14 +158,14 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
     // Make a voice call
     func didTapVoiceCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
         cell.voiceCallButton.isEnabled = false
-        self.indicator?.startLoading()
+        self.indicator.startLoading(on: self.view)
         
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self, weak cell] in
                 guard let self = self else { return }
                 guard let cell = cell else { return }
                 cell.voiceCallButton.isEnabled = true
-                self.indicator?.stopLoading()
+                self.indicator.stopLoading()
             }
             
             guard let call = call, error == nil else {
@@ -185,14 +183,14 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
     // Make a video call
     func didTapVideoCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
         cell.videoCallButton.isEnabled = false
-        self.indicator?.startLoading()
+        self.indicator.startLoading(on: self.view)
         
         SendBirdCall.dial(with: dialParams) { call, error in
             DispatchQueue.main.async { [weak self, weak cell] in
                 guard let self = self else { return }
                 guard let cell = cell else { return }
                 cell.videoCallButton.isEnabled = true
-                self.indicator?.stopLoading()
+                self.indicator.stopLoading()
             }
             
             guard let call = call, error == nil else {

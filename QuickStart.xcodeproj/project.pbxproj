@@ -10,7 +10,6 @@
 		49B07AB2242CBA8100EFF73A /* UIStoryboard+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B07AB1242CBA8100EFF73A /* UIStoryboard+QuickStart.swift */; };
 		49B07ACA242D8B1F00EFF73A /* Int64+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B07AC9242D8B1F00EFF73A /* Int64+QuickStart.swift */; };
 		49D80157242C6C55003CFFBA /* String+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D80156242C6C55003CFFBA /* String+QuickStart.swift */; };
-		49D80159242C81F0003CFFBA /* UIActivityIndicatorView+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D80158242C81F0003CFFBA /* UIActivityIndicatorView+QuickStart.swift */; };
 		49D8015B242C8D68003CFFBA /* UIImage+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D8015A242C8D68003CFFBA /* UIImage+QuickStart.swift */; };
 		5281EB6E23A8602300EDA984 /* CXCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281EB6D23A8602300EDA984 /* CXCallManager.swift */; };
 		8A5932EA8E7F784FC9593796 /* Pods_QuickStart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9DDAC64E8A0C1F265438FF3 /* Pods_QuickStart.framework */; };
@@ -97,7 +96,6 @@
 		49B07AB1242CBA8100EFF73A /* UIStoryboard+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+QuickStart.swift"; sourceTree = "<group>"; };
 		49B07AC9242D8B1F00EFF73A /* Int64+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int64+QuickStart.swift"; sourceTree = "<group>"; };
 		49D80156242C6C55003CFFBA /* String+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+QuickStart.swift"; sourceTree = "<group>"; };
-		49D80158242C81F0003CFFBA /* UIActivityIndicatorView+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+QuickStart.swift"; sourceTree = "<group>"; };
 		49D8015A242C8D68003CFFBA /* UIImage+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+QuickStart.swift"; sourceTree = "<group>"; };
 		4C5CCED4A278506FC384ADA6 /* Pods-QuickStart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickStart.debug.xcconfig"; path = "Target Support Files/Pods-QuickStart/Pods-QuickStart.debug.xcconfig"; sourceTree = "<group>"; };
 		5281EB6D23A8602300EDA984 /* CXCallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CXCallManager.swift; sourceTree = "<group>"; };
@@ -266,7 +264,6 @@
 				A99CC94F23BA14A100F9116A /* UIColor+QuickStart.swift */,
 				A99CC94923BA142F00F9116A /* UIImageView+QuickStart.swift */,
 				A99CC94D23BA145F00F9116A /* UIButton+QuickStart.swift */,
-				49D80158242C81F0003CFFBA /* UIActivityIndicatorView+QuickStart.swift */,
 				A968F6A32415CFF800E6EFD5 /* UIView+Extension.swift */,
 				49D8015A242C8D68003CFFBA /* UIImage+QuickStart.swift */,
 				49B07AB1242CBA8100EFF73A /* UIStoryboard+QuickStart.swift */,
@@ -572,7 +569,6 @@
 				A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */,
 				A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */,
 				A95A7CA0242063C700EB0D56 /* QRCodeViewController.swift in Sources */,
-				49D80159242C81F0003CFFBA /* UIActivityIndicatorView+QuickStart.swift in Sources */,
 				A9A72CB92387BAE6007C0878 /* SignInViewController.swift in Sources */,
 				A9409C462390FA8100410458 /* UserDefaults+QuickStart.swift in Sources */,
 				A951A7AF238D154700410E40 /* VoiceCallViewController.swift in Sources */,
