@@ -11,12 +11,10 @@ import SendBirdCalls
 
 protocol CallHistoryCellDelegate: class {
     // make voice call from call history
-    func didTapVoiceCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams)
+    func didTapVoiceCallButton(with callHistory: CallHistory)
     
     // make video call from call history
-    func didTapVideoCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams)
-    
-    func didTapCallHistoryCell(_ cell: CallHistoryTableViewCell)
+    func didTapVideoCallButton(with callHistory: CallHistory)
 }
 
 class CallHistoryTableViewCell: UITableViewCell {
@@ -53,22 +51,13 @@ class CallHistoryTableViewCell: UITableViewCell {
     
     @IBAction func didTapVoiceCall() {
         guard self.callHistory.remoteUserID != "Unknown" else { return }
-        let callOptions = CallOptions(isAudioEnabled: true)
-        let dialParams = DialParams(calleeId: self.callHistory.remoteUserID,
-                                    isVideoCall: false,
-                                    callOptions: callOptions,
-                                    customItems: [:])
-        self.delegate?.didTapVoiceCallButton(self, dialParams: dialParams)
+        self.delegate?.didTapVoiceCallButton(with: self.callHistory)
     }
     
     @IBAction func didTapVideoCall() {
         guard self.callHistory.remoteUserID != "Unknown" else { return }
-        let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: true, localVideoView: nil, remoteVideoView: nil, useFrontCamera: true)
-        let dialParams = DialParams(calleeId: self.callHistory.remoteUserID,
-                                    isVideoCall: true,
-                                    callOptions: callOptions,
-                                    customItems: [:])
-        self.delegate?.didTapVideoCallButton(self, dialParams: dialParams)
+        
+        self.delegate?.didTapVideoCallButton(with: self.callHistory)
     }
 }
 
