@@ -137,9 +137,10 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
                                     customItems: [:])
         
         SendBirdCall.dial(with: dialParams) { call, error in
-            DispatchQueue.main.async { [weak self] in
-                cell.videoCallButton.isEnabled = true
+            DispatchQueue.main.async { [weak self, weak cell] in
                 guard let self = self else { return }
+                guard let cell = cell else { return }
+                cell.videoCallButton.isEnabled = true
                 self.indicator?.stopLoading()
                 self.view.isUserInteractionEnabled = true
             }
@@ -162,9 +163,10 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
         self.indicator?.startLoading()
         
         SendBirdCall.dial(with: dialParams) { call, error in
-            DispatchQueue.main.async { [weak self] in
-                cell.voiceCallButton.isEnabled = true
+            DispatchQueue.main.async { [weak self, weak cell] in
                 guard let self = self else { return }
+                guard let cell = cell else { return }
+                cell.voiceCallButton.isEnabled = true
                 self.indicator?.stopLoading()
             }
             
@@ -186,9 +188,10 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
         self.indicator?.startLoading()
         
         SendBirdCall.dial(with: dialParams) { call, error in
-            DispatchQueue.main.async { [weak self] in
-                cell.videoCallButton.isEnabled = true
+            DispatchQueue.main.async { [weak self, weak cell] in
                 guard let self = self else { return }
+                guard let cell = cell else { return }
+                cell.videoCallButton.isEnabled = true
                 self.indicator?.stopLoading()
             }
             
