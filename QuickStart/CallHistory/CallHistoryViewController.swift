@@ -133,12 +133,14 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
                                                              remoteVideoView: nil,
                                                              useFrontCamera: true),
                                     customItems: [:])
+        
+        self.tableView?.isUserInteractionEnabled = false
         self.indicator.startLoading(on: self.view)
+        
         SendBirdCall.dial(with: dialParams) { call, error in
-            DispatchQueue.main.async { [weak self, weak cell] in
+            DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                guard let cell = cell else { return }
-                cell.videoCallButton.isEnabled = true
+                self.tableView?.isUserInteractionEnabled = true
                 self.indicator.stopLoading()
                 self.view.isUserInteractionEnabled = true
             }
