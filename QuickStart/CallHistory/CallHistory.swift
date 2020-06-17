@@ -38,3 +38,9 @@ struct CallHistory: Codable {
         self.endResult = callLog.endResult.rawValue
     }
 }
+
+extension CallHistory: Hashable, Comparable {
+    static func < (lhs: CallHistory, rhs: CallHistory) -> Bool {
+        return lhs.startedAt < rhs.startedAt
+    }
+}

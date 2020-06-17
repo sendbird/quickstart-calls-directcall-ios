@@ -54,6 +54,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         self.updateCallHistories()
     }
     
+    // MARK: - Set Up Table View
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -77,9 +78,12 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         didTapCallHistoryCell(cell)
     }
     
+    // MARK: - Update Call Histories
     func fetchCallLogsFromServer() {
+        // Get next call logs with query
         self.query?.next { callLogs, error in
             guard let newCallLogs = callLogs, !newCallLogs.isEmpty else {
+                // Stop indicator animation when there is no more call logs.
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.indicator?.stopLoading()
@@ -92,16 +96,17 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
                 
                 // Update callLogs
                 let newHistories = newCallLogs.map { CallHistory(callLog: $0) }
-                let previousSet = NSMutableOrderedSet(array: self.callHistories)
-                let newSet = NSMutableOrderedSet(array: newHistories)
-                previousSet.union(newSet)
-                guard let updatedSet = previousSet.array as? [CallHistory] else { return }
+                let previousSet = Set(self.callHistories)
+                let newSet = Set(newHistories)
+                let updateArray = previousSet.union(newSet).sorted(by: >)
                 
                 // Store to UserDefaults
-                UserDefaults.standard.callHistories = updatedSet
+                UserDefaults.standard.callHistories = updateArray
                 
+                // Update view based on stored data
                 self.updateCallHistories()
             }
+            // Keep fetching next call logs until there is no more
             self.fetchCallLogsFromServer()
         }
     }
@@ -118,6 +123,40 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
 
 // MARK: - SendBirdCall: Make a Call
 extension CallHistoryViewController: CallHistoryCellDelegate {
+    // When select table view cell, make a call based on its `CallHistory` information.
+    func didTapCallHistoryCell(_ cell: CallHistoryTableViewCell) {
+        guard let remoteUserID = cell.remoteUserIDLabel.text else { return }
+        let isVideoCall = cell.callHistory.callTypeImageURL.lowercased().contains("video") == true
+        let dialParams = DialParams(calleeId: remoteUserID,
+                                    isVideoCall: isVideoCall,
+                                    callOptions: CallOptions(isAudioEnabled: true,
+                                                             isVideoEnabled: isVideoCall,
+                                                             localVideoView: nil,
+                                                             remoteVideoView: nil,
+                                                             useFrontCamera: true),
+                                    customItems: [:])
+        
+        SendBirdCall.dial(with: dialParams) { call, error in
+            DispatchQueue.main.async { [weak self] in
+                cell.videoCallButton.isEnabled = true
+                guard let self = self else { return }
+                self.indicator?.stopLoading()
+                self.view.isUserInteractionEnabled = true
+            }
+            
+            guard let call = call, error == nil else {
+                DispatchQueue.main.async {
+                    UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                UIApplication.shared.showCallController(with: call)
+            }
+        }
+    }
+    
+    // Make a voice call
     func didTapVoiceCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
         cell.voiceCallButton.isEnabled = false
         self.indicator?.startLoading()
@@ -141,6 +180,7 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
         }
     }
     
+    // Make a video call
     func didTapVideoCallButton(_ cell: CallHistoryTableViewCell, dialParams: DialParams) {
         cell.videoCallButton.isEnabled = false
         self.indicator?.startLoading()
@@ -150,38 +190,6 @@ extension CallHistoryViewController: CallHistoryCellDelegate {
                 cell.videoCallButton.isEnabled = true
                 guard let self = self else { return }
                 self.indicator?.stopLoading()
-            }
-            
-            guard let call = call, error == nil else {
-                DispatchQueue.main.async {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                UIApplication.shared.showCallController(with: call)
-            }
-        }
-    }
-    
-    func didTapCallHistoryCell(_ cell: CallHistoryTableViewCell) {
-        guard let remoteUserID = cell.remoteUserIDLabel.text else { return }
-        let isVideoCall = cell.callHistory.callTypeImageURL.lowercased().contains("video") == true
-        let dialParams = DialParams(calleeId: remoteUserID,
-                                    isVideoCall: isVideoCall,
-                                    callOptions: CallOptions(isAudioEnabled: true,
-                                                             isVideoEnabled: isVideoCall,
-                                                             localVideoView: nil,
-                                                             remoteVideoView: nil,
-                                                             useFrontCamera: true),
-                                    customItems: [:])
-        
-        SendBirdCall.dial(with: dialParams) { call, error in
-            DispatchQueue.main.async { [weak self] in
-                cell.videoCallButton.isEnabled = true
-                guard let self = self else { return }
-                self.indicator?.stopLoading()
-                self.view.isUserInteractionEnabled = true
             }
             
             guard let call = call, error == nil else {
