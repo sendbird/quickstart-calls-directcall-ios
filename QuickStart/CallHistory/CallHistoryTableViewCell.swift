@@ -9,14 +9,6 @@
 import UIKit
 import SendBirdCalls
 
-protocol CallHistoryCellDelegate: class {
-    // make voice call from call history
-    func didTapVoiceCallButton(with callHistory: CallHistory)
-    
-    // make video call from call history
-    func didTapVideoCallButton(with callHistory: CallHistory)
-}
-
 class CallHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var callTypeImageView: UIImageView!
     
@@ -30,13 +22,16 @@ class CallHistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var voiceCallButton: UIButton!
     @IBOutlet weak var videoCallButton: UIButton!
     
+    typealias Event = ((CallHistory) -> Void)
+    
+    var tryVoiceCall: Event?
+    var tryVideoCall: Event?
+    
     var callHistory: CallHistory! {
         didSet {
             self.updateUI()
         }
     }
-    
-    weak var delegate: CallHistoryCellDelegate?
     
     func updateUI() {
         self.callTypeImageView.image = UIImage.callTypeImage(outgoing: self.callHistory.outgoing, hasVideo: self.callHistory.hasVideo)
@@ -51,13 +46,12 @@ class CallHistoryTableViewCell: UITableViewCell {
     
     @IBAction func didTapVoiceCall() {
         guard self.callHistory.remoteUserID != "Unknown" else { return }
-        self.delegate?.didTapVoiceCallButton(with: self.callHistory)
+        self.tryVoiceCall?(self.callHistory)
     }
     
     @IBAction func didTapVideoCall() {
         guard self.callHistory.remoteUserID != "Unknown" else { return }
-        
-        self.delegate?.didTapVideoCallButton(with: self.callHistory)
+        self.tryVideoCall?(self.callHistory)
     }
 }
 

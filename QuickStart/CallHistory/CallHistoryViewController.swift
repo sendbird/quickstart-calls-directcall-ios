@@ -63,8 +63,21 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView!.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! CallHistoryTableViewCell
-        cell.delegate = self
+        
         cell.callHistory = self.callHistories[indexPath.row]
+        
+        // Make a call when tap voice call button on the cell
+        cell.tryVoiceCall = { [weak self] callHistory in
+            guard let self = self else { return }
+            self.didTapVoiceCallButton(with: callHistory)
+        }
+        
+        // Make a call when tap video call button on the cell
+        cell.tryVideoCall = { [weak self] callHistory in
+            guard let self = self else { return }
+            self.didTapVideoCallButton(with: callHistory)
+        }
+        
         return cell
     }
     
@@ -120,7 +133,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
 }
 
 // MARK: - SendBirdCall: Make a Call
-extension CallHistoryViewController: CallHistoryCellDelegate {
+extension CallHistoryViewController {
     // When select table view cell, make a call based on its `CallHistory` information.
     func didTapCallHistoryCell(_ cell: CallHistoryTableViewCell) {
         guard let remoteUserID = cell.remoteUserIDLabel.text else { return }
