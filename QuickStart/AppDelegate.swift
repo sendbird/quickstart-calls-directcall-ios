@@ -43,7 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        // End all ongoing calls when application is going to terminate
+        // This method will be called when the app is forcefully terminated.
+        // End all ongoing calls in this method.
         let callManager = CXCallManager.shared
         let ongoingCalls = callManager.currentCalls.compactMap { SendBirdCall.getCall(forUUID: $0.uuid) }
         
@@ -59,6 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 callManager.endCall(for: uuid, endedAt: Date(), reason: .none)
             }
         }
+        // However, because iOS gives a limited time to perform remaining tasks,
+        // There might be some calls failed to be ended
+        // In this case, I recommend that you register local notification to notify the unterminated calls.
     }
 }
 
