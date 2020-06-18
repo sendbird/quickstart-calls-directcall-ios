@@ -185,10 +185,7 @@ extension VoiceCallViewController: DirectCallDelegate {
             guard let callLog = call.callLog else { return }
             UserDefaults.standard.callHistories.insert(CallHistory(callLog: callLog), at: 0)
             
-            guard let tabBarController = self.presentingViewController as? UITabBarController else { return }
-            guard let callHistoryVC = tabBarController.callHistoryTab?.firstViewController as? CallHistoryViewController else { return }
-            
-            callHistoryVC.updateCallHistories()
+            CallHistoryViewController.shared?.updateCallHistories()
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in

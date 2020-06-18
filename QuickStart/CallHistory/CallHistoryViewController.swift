@@ -10,6 +10,14 @@ import UIKit
 import SendBirdCalls
 
 class CallHistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    /// - Note: Access `CallHistoryViewController` externally.
+    static var shared: CallHistoryViewController? {
+        guard let tabBarController = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController as? UITabBarController else { return nil }
+        
+        return tabBarController.callHistoryTab?.firstViewController as? CallHistoryViewController
+    }
+    
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var noHistoryIcon: UIImageView!
     @IBOutlet weak var noHistoryLabel: UILabel!
@@ -122,6 +130,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    /// - Note: To access externally, please use `CallHistoryViewController.shared`
     func updateCallHistories() {
         // Fetch stored histories
         self.callHistories = UserDefaults.standard.callHistories
