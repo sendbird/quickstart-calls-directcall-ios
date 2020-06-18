@@ -298,7 +298,7 @@ extension VideoCallViewController: DirectCallDelegate {
             guard let callLog = call.callLog else { return }
             UserDefaults.standard.callHistories.insert(CallHistory(callLog: callLog), at: 0)
             
-            CallHistoryViewController.shared?.updateCallHistories()
+            CallHistoryViewController.main?.updateCallHistories()
         }
         
         self.setupEndedCallUI()
