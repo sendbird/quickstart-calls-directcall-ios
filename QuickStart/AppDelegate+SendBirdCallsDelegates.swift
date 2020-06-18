@@ -44,9 +44,6 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         guard let callLog = call.callLog else { return }
         UserDefaults.standard.callHistories.insert(CallHistory(callLog: callLog), at: 0)
         
-        guard let tabBarController = self.window?.rootViewController?.presentedViewController as? UITabBarController else { return }
-        guard let callHistoryVC = tabBarController.callHistoryTab?.firstViewController as? CallHistoryViewController else { return }
-        
-        callHistoryVC.updateCallHistories()
+        CallHistoryViewController.shared?.updateCallHistories()
     }
 }
