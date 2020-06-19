@@ -33,24 +33,20 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView?.delegate = self
-        
         self.navigationItem.title = "Call History"
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
         
         // query
         let params = DirectCallLogListQuery.Params()
         params.limit = 100
         self.query = SendBirdCall.createDirectCallLogListQuery(with: params)
         
-        guard self.callHistories.isEmpty else {
-            self.tableView?.dataSource = self
-            return
-        }
+        guard self.callHistories.isEmpty else { return }
         
         self.tableView?.isHidden = true
     
         self.indicator.startLoading(on: self.view)
-        self.tableView?.dataSource = self
         self.fetchCallLogsFromServer()
     }
     
