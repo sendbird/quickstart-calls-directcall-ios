@@ -915,7 +915,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eg3-1U-GuL">
-                                <rect key="frame" x="0.0" y="87.5" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="90" width="414" height="1"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.12" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="4Gg-ou-ylY"/>
@@ -940,10 +940,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User ID: 192081" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8c-GM-NKq">
-                                <rect key="frame" x="66" y="71" width="324" height="12"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="Uhq-be-Q9Y"/>
-                                </constraints>
+                                <rect key="frame" x="66" y="71" width="324" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.38" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
