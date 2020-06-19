@@ -152,15 +152,11 @@ extension CallHistoryViewController {
                 self.tableView?.isUserInteractionEnabled = true
                 self.indicator.stopLoading()
                 self.view.isUserInteractionEnabled = true
-            }
-            
-            guard let call = call, error == nil else {
-                DispatchQueue.main.async {
+    
+                guard let call = call, error == nil else {
                     UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                    return
                 }
-                return
-            }
-            DispatchQueue.main.async {
                 UIApplication.shared.showCallController(with: call)
             }
         }
@@ -181,15 +177,12 @@ extension CallHistoryViewController {
                 guard let self = self else { return }
                 self.tableView?.isUserInteractionEnabled = true
                 self.indicator.stopLoading()
-            }
-            
-            guard let call = call, error == nil else {
-                DispatchQueue.main.async {
+                
+                guard let call = call, error == nil else {
                     UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                    return
                 }
-                return
-            }
-            DispatchQueue.main.async {
+                
                 UIApplication.shared.showCallController(with: call)
             }
         }
@@ -211,15 +204,11 @@ extension CallHistoryViewController {
                 guard let self = self else { return }
                 self.tableView?.isUserInteractionEnabled = true
                 self.indicator.stopLoading()
-            }
-            
-            guard let call = call, error == nil else {
-                DispatchQueue.main.async {
+                
+                guard let call = call, error == nil else {
                     UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                    return
                 }
-                return
-            }
-            DispatchQueue.main.async {
                 UIApplication.shared.showCallController(with: call)
             }
         }
