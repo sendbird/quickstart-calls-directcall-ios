@@ -181,7 +181,6 @@ extension CallHistoryViewController {
         let dialParams = DialParams(calleeId: callHistory.remoteUserID,
                                     isVideoCall: false,
                                     callOptions: callOptions,
-        
                                     customItems: [:])
         self.tableView?.isUserInteractionEnabled = false
         self.indicator.startLoading(on: self.view)
