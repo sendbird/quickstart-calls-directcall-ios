@@ -19,11 +19,6 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBOutlet weak var tableView: UITableView?
-    @IBOutlet weak var noHistoryIcon: UIImageView!
-    @IBOutlet weak var noHistoryLabel: UILabel!
-    @IBOutlet weak var darkView: UIView! {
-        didSet { self.darkView.isHidden = true }
-    }
     
     var query: DirectCallLogListQuery?
     var callHistories: [CallHistory]  = CallHistory.fetchAll()
