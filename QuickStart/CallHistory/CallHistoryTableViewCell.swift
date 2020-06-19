@@ -14,9 +14,9 @@ class CallHistoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var remoteUserProfileImageView: UIImageView!
     
+    @IBOutlet weak var remoteNicknameLabel: UILabel!
     @IBOutlet weak var remoteUserIDLabel: UILabel!
     @IBOutlet weak var startedAtLabel: UILabel!
-    @IBOutlet weak var callDurationLabel: UILabel!
     @IBOutlet weak var endResultLabel: UILabel!
     
     @IBOutlet weak var voiceCallButton: UIButton!
@@ -37,11 +37,11 @@ class CallHistoryTableViewCell: UITableViewCell {
         self.callTypeImageView.image = UIImage.callTypeImage(outgoing: self.callHistory.outgoing, hasVideo: self.callHistory.hasVideo)
         self.remoteUserProfileImageView.updateImage(urlString: self.callHistory.remoteUserProfileURL)
         
-        self.remoteUserIDLabel.text = self.callHistory.remoteUserID
+        self.remoteNicknameLabel.text = self.callHistory.remoteNickname
+        self.remoteUserIDLabel.text = "User ID: " + self.callHistory.remoteUserID
         
         self.startedAtLabel.text = self.callHistory.startedAt
-        self.callDurationLabel.text = self.callHistory.duration
-        self.endResultLabel.text = self.callHistory.endResult
+        self.endResultLabel.text = self.callHistory.endResult + " · " + self.callHistory.duration
     }
     
     @IBAction func didTapVoiceCall() {
