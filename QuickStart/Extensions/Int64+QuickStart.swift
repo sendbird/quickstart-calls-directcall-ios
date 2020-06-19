@@ -21,7 +21,7 @@ extension Int64 {
         var timeText = [String]()
         
         if hour > 0 { timeText.append(String(hour) + "h") }
-        timeText.append(String(format: "%02d", minute) + "m")
+        if minute > 0 { timeText.append(String(format: "%02d", minute) + "m") }
         timeText.append(String(format: "%02d", second) + "s")
         
         return timeText.joined(separator: " ")
