@@ -168,8 +168,6 @@
                         <viewLayoutGuide key="safeArea" id="U6h-JI-zaO"/>
                     </view>
                     <connections>
-                        <outlet property="noHistoryIcon" destination="Zov-bO-pUi" id="3Eb-b8-Whu"/>
-                        <outlet property="noHistoryLabel" destination="frj-5K-Qge" id="3U6-12-hkr"/>
                         <outlet property="tableView" destination="ry6-Kb-agE" id="rdt-DL-HVg"/>
                     </connections>
                 </viewController>
