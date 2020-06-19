@@ -21,7 +21,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     }
     @IBOutlet weak var nameLabel: UILabel! {
         didSet {
-            self.nameLabel.text = self.call.remoteUser?.userId
+            self.nameLabel.text = self.call.remoteUser?.nickname ?? self.call.remoteUser?.userId
         }
     }
     

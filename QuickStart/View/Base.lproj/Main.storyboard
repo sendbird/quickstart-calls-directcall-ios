@@ -1204,10 +1204,10 @@
                         <outlet property="localVideoView" destination="7qS-YE-bhu" id="cJw-oG-57c"/>
                         <outlet property="mutedStateImageView" destination="Zlx-JV-OdF" id="tdZ-Na-4Hy"/>
                         <outlet property="mutedStateLabel" destination="vgx-ao-2Sm" id="NlO-pr-0a4"/>
+                        <outlet property="remoteNicknameLabel" destination="FCX-ZN-pc3" id="76q-t7-SIL"/>
                         <outlet property="remoteProfileImageView" destination="Ju7-Dw-VFh" id="V9L-2Y-1rq"/>
-                        <outlet property="remoteUserIdLabel" destination="FCX-ZN-pc3" id="76q-t7-SIL"/>
                         <outlet property="topConstraint" destination="Elr-DT-cpV" id="Cao-9G-iEC"/>
-                        <outlet property="topSpaceRemoteUserId" destination="peP-hg-ezY" id="fDZ-SB-AWX"/>
+                        <outlet property="topSpaceRemoteNickname" destination="peP-hg-ezY" id="fDZ-SB-AWX"/>
                         <outlet property="trailingConstraint" destination="5j5-nn-xFV" id="VQ7-Jd-Efj"/>
                         <outlet property="videoOffButton" destination="Rze-eW-ca8" id="IPT-2c-WwP"/>
                     </connections>

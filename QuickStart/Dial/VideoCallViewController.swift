@@ -24,9 +24,9 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
             self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
         }
     }
-    @IBOutlet weak var remoteUserIdLabel: UILabel! {
+    @IBOutlet weak var remoteNicknameLabel: UILabel! {
         didSet {
-            self.remoteUserIdLabel.text = self.call.remoteUser?.userId
+            self.remoteNicknameLabel.text = self.call.remoteUser?.nickname ?? self.call.remoteUser?.userId
         }
     }
     
@@ -77,7 +77,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     }
     
     // Constraints of remote user ID
-    @IBOutlet weak var topSpaceRemoteUserId: NSLayoutConstraint!
+    @IBOutlet weak var topSpaceRemoteNickname: NSLayoutConstraint!
     
     var call: DirectCall!
     var isDialing: Bool?
@@ -112,9 +112,9 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     func setupEndedCallUI() {
         // Tell user that the call has been ended.
         self.callStatusLabel.text = "Call Ended"
-        self.topSpaceRemoteUserId.constant = 244
+        self.topSpaceRemoteNickname.constant = 244
         self.callStatusLabel.isHidden = false
-        self.remoteUserIdLabel.isHidden = false
+        self.remoteNicknameLabel.isHidden = false
         self.remoteProfileImageView.isHidden = false
         
         // Release resource
@@ -286,7 +286,7 @@ extension VideoCallViewController {
 extension VideoCallViewController: DirectCallDelegate {
     // MARK: Required Methods
     func didConnect(_ call: DirectCall) {
-        self.remoteUserIdLabel.isHidden = true
+        self.remoteNicknameLabel.isHidden = true
         self.callStatusLabel.isHidden = true
         self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
 
