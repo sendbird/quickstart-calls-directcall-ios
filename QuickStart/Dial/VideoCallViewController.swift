@@ -329,5 +329,8 @@ extension VideoCallViewController: DirectCallDelegate {
         self.audioRouteButton.setBackgroundImage(.audio(output: output.portType),
                                                  for: .normal)
         print("[QuickStart] Audio Route has been changed to \(output.portName)")
+        
+        // Disable to display `AVAudioPickerView` (also `MPVolumeView`) when it is speaker mode.
+        self.audioRouteButton.isEnabled = !(output.portType == .builtInSpeaker)
     }
 }
