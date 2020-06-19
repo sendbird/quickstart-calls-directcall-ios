@@ -29,10 +29,6 @@
                                 <color key="textColor" white="0.0" alpha="0.38" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYR-w4-wId">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.32000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ry6-Kb-agE">
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -163,20 +159,15 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="qYR-w4-wId" firstAttribute="leading" secondItem="U6h-JI-zaO" secondAttribute="leading" id="47e-Er-1Qw"/>
-                            <constraint firstItem="qYR-w4-wId" firstAttribute="trailing" secondItem="U6h-JI-zaO" secondAttribute="trailing" id="EMH-9e-8Qj"/>
-                            <constraint firstItem="qYR-w4-wId" firstAttribute="top" secondItem="nxn-1Z-1Uk" secondAttribute="top" id="HNf-q2-szd"/>
-                            <constraint firstItem="Zov-bO-pUi" firstAttribute="centerX" secondItem="qYR-w4-wId" secondAttribute="centerX" id="Ioh-mZ-0cw"/>
-                            <constraint firstAttribute="bottom" secondItem="qYR-w4-wId" secondAttribute="bottom" id="MPR-qI-A4p"/>
+                            <constraint firstItem="Zov-bO-pUi" firstAttribute="centerY" secondItem="U6h-JI-zaO" secondAttribute="centerY" id="6Uu-Zg-rc7"/>
+                            <constraint firstItem="Zov-bO-pUi" firstAttribute="centerX" secondItem="U6h-JI-zaO" secondAttribute="centerX" id="MiP-kq-vC4"/>
                             <constraint firstItem="U6h-JI-zaO" firstAttribute="trailing" secondItem="frj-5K-Qge" secondAttribute="trailing" constant="20" id="OqC-mx-8JP"/>
-                            <constraint firstItem="Zov-bO-pUi" firstAttribute="centerY" secondItem="qYR-w4-wId" secondAttribute="centerY" id="ebi-Zx-Hu5"/>
                             <constraint firstItem="frj-5K-Qge" firstAttribute="leading" secondItem="U6h-JI-zaO" secondAttribute="leading" constant="20" id="g6i-g4-RR2"/>
                             <constraint firstItem="frj-5K-Qge" firstAttribute="top" secondItem="Zov-bO-pUi" secondAttribute="bottom" constant="28" id="o69-ov-yOE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U6h-JI-zaO"/>
                     </view>
                     <connections>
-                        <outlet property="darkView" destination="qYR-w4-wId" id="8Ma-0S-IZ9"/>
                         <outlet property="noHistoryIcon" destination="Zov-bO-pUi" id="3Eb-b8-Whu"/>
                         <outlet property="noHistoryLabel" destination="frj-5K-Qge" id="3U6-12-hkr"/>
                         <outlet property="tableView" destination="ry6-Kb-agE" id="rdt-DL-HVg"/>
