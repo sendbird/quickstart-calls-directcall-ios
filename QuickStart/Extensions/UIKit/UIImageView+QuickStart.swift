@@ -19,7 +19,10 @@ extension UIImageView {
     }
     
     func updateImage(urlString: String?) {
-        guard let urlString = urlString else { return }
+        guard let urlString = urlString, !urlString.isEmpty else {
+            self.image = UIImage(named: "iconAvatar")
+            return
+        }
         guard let profileURL = URL(string: urlString) else { return }
         
         ImageCache.shared.load(url: profileURL) { image, error in
@@ -27,16 +30,15 @@ extension UIImageView {
                 print(error?.localizedDescription ?? "Failed to load image")
                 return
             }
+            
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
                 // If returned image is same as current image
-                guard self.image == image else { return }
+                guard self.image != image else { return }
                 self.image = image
                 self.layoutIfNeeded()
             }
         }
     }
 }
-
-

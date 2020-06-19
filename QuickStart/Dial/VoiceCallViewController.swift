@@ -181,6 +181,13 @@ extension VoiceCallViewController: DirectCallDelegate {
     func didEnd(_ call: DirectCall) {
         self.setupEndedCallUI()
         
+        DispatchQueue.main.async {
+            guard let callLog = call.callLog else { return }
+            UserDefaults.standard.callHistories.insert(CallHistory(callLog: callLog), at: 0)
+            
+            CallHistoryViewController.main?.updateCallHistories()
+        }
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else { return }
             self.dismiss(animated: true, completion: nil)

@@ -2,7 +2,7 @@
 //  UIActivityIndicatorView+QuickStart.swift
 //  QuickStart
 //
-//  Created by Damon Park on 2020/03/26.
+//  Created by Jaesung Lee on 2020/06/17.
 //  Copyright © 2020 SendBird Inc. All rights reserved.
 //
 
@@ -33,3 +33,4 @@ extension UIActivityIndicatorView {
         UIApplication.shared.endIgnoringInteractionEvents()
     }
 }
+

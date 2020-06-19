@@ -1,19 +1,19 @@
 {
   "images" : [
     {
+      "filename" : "btnCallVoiceTertiaryPressed.png",
       "idiom" : "universal",
-      "filename" : "icLayoutDefault.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "icLayoutDefault@2x.png",
+      "filename" : "btnCallVoiceTertiaryPressed@2x.png",
       "scale" : "2x"
     },
     {
-      "filename" : "icLayoutDefault@3x.png",
+      "idiom" : "universal",
       "scale" : "3x",
-      "idiom" : "universal"
+      "filename" : "btnCallVoiceTertiaryPressed@3x.png"
     }
   ],
   "info" : {

@@ -294,6 +294,13 @@ extension VideoCallViewController: DirectCallDelegate {
     }
     
     func didEnd(_ call: DirectCall) {
+        DispatchQueue.main.async {
+            guard let callLog = call.callLog else { return }
+            UserDefaults.standard.callHistories.insert(CallHistory(callLog: callLog), at: 0)
+            
+            CallHistoryViewController.main?.updateCallHistories()
+        }
+        
         self.setupEndedCallUI()
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
