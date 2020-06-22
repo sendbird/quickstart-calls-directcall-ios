@@ -29,9 +29,8 @@
                                 <color key="textColor" white="0.0" alpha="0.38" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ry6-Kb-agE">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ry6-Kb-agE">
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCell" rowHeight="96" id="wKw-vl-HgF" customClass="CallHistoryTableViewCell" customModule="SendBird_Calls" customModuleProvider="target">
@@ -160,10 +159,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Zov-bO-pUi" firstAttribute="centerY" secondItem="U6h-JI-zaO" secondAttribute="centerY" id="6Uu-Zg-rc7"/>
+                            <constraint firstItem="ry6-Kb-agE" firstAttribute="leading" secondItem="U6h-JI-zaO" secondAttribute="leading" id="7y0-Of-lbC"/>
                             <constraint firstItem="Zov-bO-pUi" firstAttribute="centerX" secondItem="U6h-JI-zaO" secondAttribute="centerX" id="MiP-kq-vC4"/>
                             <constraint firstItem="U6h-JI-zaO" firstAttribute="trailing" secondItem="frj-5K-Qge" secondAttribute="trailing" constant="20" id="OqC-mx-8JP"/>
+                            <constraint firstItem="ry6-Kb-agE" firstAttribute="top" secondItem="U6h-JI-zaO" secondAttribute="top" id="RzB-9E-kQD"/>
+                            <constraint firstAttribute="bottom" secondItem="ry6-Kb-agE" secondAttribute="bottom" id="Txv-rq-IjS"/>
                             <constraint firstItem="frj-5K-Qge" firstAttribute="leading" secondItem="U6h-JI-zaO" secondAttribute="leading" constant="20" id="g6i-g4-RR2"/>
                             <constraint firstItem="frj-5K-Qge" firstAttribute="top" secondItem="Zov-bO-pUi" secondAttribute="bottom" constant="28" id="o69-ov-yOE"/>
+                            <constraint firstItem="ry6-Kb-agE" firstAttribute="trailing" secondItem="U6h-JI-zaO" secondAttribute="trailing" id="ttm-2d-kMP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U6h-JI-zaO"/>
                     </view>
