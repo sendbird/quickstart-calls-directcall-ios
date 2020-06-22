@@ -38,7 +38,8 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     @IBOutlet weak var mutedStateImageView: UIImageView!
     @IBOutlet weak var mutedStateLabel: UILabel! {
         didSet {
-            self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
+            guard let remoteUser = self.call.remoteUser else { return }
+            self.mutedStateLabel.text = "\(remoteUser.nickname ?? remoteUser.userId) is on mute"
         }
     }
     
