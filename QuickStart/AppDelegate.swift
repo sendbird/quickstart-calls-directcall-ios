@@ -37,12 +37,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // To process incoming call, you need to add `SendBirdCallDelegate` and implement its protocol methods.
         SendBirdCall.addDelegate(self, identifier: "com.sendbird.calls.quickstart.delegate")
         
-        let useVoIPPush = false // Modify this value to test Remote Push Notifications
-        if useVoIPPush {
-            self.voipRegistration()
-        } else {
-            self.remoteNotificationsRegistration(application)
+        var pushOption: PushOption = .voip // Modify this value to test different Push Notification type settings
+        
+        switch pushOption {
+        case .voip: self.voipRegistration()
+        case .remote: self.remoteNotificationsRegistration(application)
+        case .none: break
         }
+        
         return true
     }
     
@@ -68,4 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // There might be some calls failed to be ended
         // In this case, I recommend that you register local notification to notify the unterminated calls.
     }
+}
+
+enum PushOption {
+    case voip
+    case remote
+    case none
 }
