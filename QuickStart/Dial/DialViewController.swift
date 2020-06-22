@@ -14,7 +14,7 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var profileImageView: UIImageView! {
         didSet {
             let profileURL = UserDefaults.standard.user.profile
-            self.profileImageView.setImage(urlString: profileURL)
+            self.profileImageView.updateImage(urlString: profileURL)
         }
     }
     @IBOutlet weak var userIdLabel: UILabel! {
@@ -24,24 +24,20 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Call
-    @IBOutlet weak var calleeIdTextField: UITextField! {
-        didSet {
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.calleeIdTextField.frame.height))
-            self.calleeIdTextField.leftView = paddingView
-            self.calleeIdTextField.leftViewMode = UITextField.ViewMode.always
-        }
-    }
+    @IBOutlet weak var calleeIdTextField: UITextField!
     @IBOutlet weak var voiceCallButton: UIButton!
     @IBOutlet weak var videoCallButton: UIButton!
     
-    let activityIndicator = UIActivityIndicatorView()
+    let indicator = UIActivityIndicatorView()
     
     // MARK: Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.calleeIdTextField.delegate = self
-        NotificationCenter.observeKeyboard(action1: #selector(keyboardWillShow(_:)), action2: #selector(keyboardWillHide(_:)), on: self)
+        NotificationCenter.observeKeyboard(showAction: #selector(keyboardWillShow(_:)),
+                                           hideAction: #selector(keyboardWillHide(_:)),
+                                           target: self)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -59,12 +55,12 @@ class DialViewController: UIViewController, UITextFieldDelegate {
 // MARK: - User Interaction with SendBirdCall
 extension DialViewController {
     @IBAction func didTapVoiceCall() {
-        guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else {
+        guard let calleeId = calleeIdTextField.text?.collapsed else {
             self.presentErrorAlert(message: "Enter a valid user ID")
             return
         }
         self.voiceCallButton.isEnabled = false
-        self.startLoading()
+        self.indicator.startLoading(on: self.view)
         
         // MARK: SendBirdCall.dial()
         let callOptions = CallOptions(isAudioEnabled: true)
@@ -74,7 +70,7 @@ extension DialViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.voiceCallButton.isEnabled = true
-                self.stopLoading()
+                self.indicator.stopLoading()
             }
             
             guard error == nil, let call = call else {
@@ -94,12 +90,12 @@ extension DialViewController {
     }
     
     @IBAction func didTapVideoCall() {
-        guard let calleeId = calleeIdTextField.filteredText, !calleeId.isEmpty else {
+        guard let calleeId = calleeIdTextField.text?.collapsed else {
             self.presentErrorAlert(message: "Please enter user ID")
             return
         }
         self.videoCallButton.isEnabled = false
-        self.startLoading()
+        self.indicator.startLoading(on: self.view)
         
         // MARK: SendBirdCall.dial()
         let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: true, useFrontCamera: true)
@@ -109,7 +105,7 @@ extension DialViewController {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.videoCallButton.isEnabled = true
-                self.stopLoading()
+                self.indicator.stopLoading()
             }
             
             guard error == nil, let call = call else {
@@ -137,8 +133,7 @@ extension DialViewController {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        guard let text = textField.filteredText, !text.isEmpty else { return false }
-        return true
+        return textField.text?.collapsed != .none
     }
     
     // MARK: When Keyboard Show
@@ -166,21 +161,6 @@ extension DialViewController {
             
             self.view.layoutIfNeeded()
         })
-    }
-    
-    func startLoading() {
-        self.activityIndicator.center = self.view.center
-        self.activityIndicator.hidesWhenStopped = true
-        self.activityIndicator.style = .gray
-        self.view.addSubview(activityIndicator)
-        
-        self.activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-    }
-    
-    func stopLoading() {
-        self.activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
     }
 }
 

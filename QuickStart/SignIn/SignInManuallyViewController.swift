@@ -10,32 +10,9 @@ import UIKit
 import SendBirdCalls
 
 class SignInManuallyViewController: UIViewController {
-    @IBOutlet weak var appIdTextField: UITextField! {
-        didSet {
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.appIdTextField.frame.height))
-            self.appIdTextField.leftView = paddingView
-            self.appIdTextField.leftViewMode = UITextField.ViewMode.always
-            self.appIdTextField.delegate = self
-        }
-    }
-    
-    @IBOutlet weak var userIdTextField: UITextField! {
-        didSet {
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.userIdTextField.frame.height))
-            self.userIdTextField.leftView = paddingView
-            self.userIdTextField.leftViewMode = UITextField.ViewMode.always
-            self.userIdTextField.delegate = self
-        }
-    }
-    
-    @IBOutlet weak var accessTokenTextField: UITextField! {
-        didSet {
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.accessTokenTextField.frame.height))
-            self.accessTokenTextField.leftView = paddingView
-            self.accessTokenTextField.leftViewMode = UITextField.ViewMode.always
-            self.accessTokenTextField.delegate = self
-        }
-    }
+    @IBOutlet weak var appIdTextField: UITextField!
+    @IBOutlet weak var userIdTextField: UITextField!
+    @IBOutlet weak var accessTokenTextField: UITextField!
     
     @IBOutlet weak var versionLabel: UILabel! {
         didSet {
@@ -52,11 +29,11 @@ class SignInManuallyViewController: UIViewController {
     
     // MARK: - ManualSignInDelegate
     @IBAction func didTapSignIn() {
-        guard let appId = self.appIdTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !appId.isEmpty else {
+        guard let appId = self.appIdTextField.text?.collapsed else {
             self.presentErrorAlert(message: "Please enter valid app ID")
             return
         }
-        guard let userId = self.userIdTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !userId.isEmpty else {
+        guard let userId = self.userIdTextField.text?.collapsed else {
             self.presentErrorAlert(message: "Please enter valid user ID")
             return
         }

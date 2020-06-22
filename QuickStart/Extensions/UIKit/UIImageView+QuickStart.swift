@@ -15,39 +15,29 @@ extension UIImageView {
     
     func border() {
         self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.lightPurple.cgColor
+        self.layer.borderColor = UIColor.QuickStart.lightPurple.cgColor
     }
     
-    func setImage(urlString: String?) {
-        DispatchQueue.global().async {
-            guard let urlString = urlString,
-                let profileURL = URL(string: urlString) else { return }
-            guard let data = try? Data(contentsOf: profileURL) else { return }
-            DispatchQueue.main.async {
-                guard let image = UIImage(data: data) else { return }
+    func updateImage(urlString: String?) {
+        guard let urlString = urlString, !urlString.isEmpty else {
+            self.image = UIImage(named: "iconAvatar")
+            return
+        }
+        guard let profileURL = URL(string: urlString) else { return }
+        
+        ImageCache.shared.load(url: profileURL) { image, error in
+            guard error == nil else {
+                print(error?.localizedDescription ?? "Failed to load image")
+                return
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                // If returned image is same as current image
+                guard self.image != image else { return }
                 self.image = image
-            }
-        }
-    }
-}
-
-extension UIImage {
-    static var mutedAudioImage: UIImage? {
-        get {
-            if #available(iOS 13.0, *) {
-                return UIImage(systemName: "mic.slash.fill")
-            } else {
-                return UIImage(named: "icon_audio_mute")
-            }
-        }
-    }
-    
-    static var unmutedAudioImage: UIImage? {
-        get {
-            if #available(iOS 13.0, *) {
-                return UIImage(systemName: "mic.fill")
-            } else {
-                return UIImage(named: "icon_audio_unmute")
+                self.layoutIfNeeded()
             }
         }
     }

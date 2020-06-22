@@ -14,7 +14,7 @@ extension UITextView {
     }
     
     func border() {
-        self.layer.borderColor = UIColor.purple.cgColor
+        self.layer.borderColor = UIColor.QuickStart.purple.cgColor
         self.layer.borderWidth = 1.0
     }
 }

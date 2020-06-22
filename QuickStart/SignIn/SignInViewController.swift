@@ -14,13 +14,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mainLabel: UILabel!
     
     // ID
-    @IBOutlet weak var userIdTextField: UITextField! {
-        didSet {
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: self.userIdTextField.frame.height))
-            self.userIdTextField.leftView = paddingView
-            self.userIdTextField.leftViewMode = UITextField.ViewMode.always
-        }
-    }
+    @IBOutlet weak var userIdTextField: UITextField!
     
     // SignIn
     @IBOutlet weak var signInButton: UIButton!
@@ -33,7 +27,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    var activityIndicator = UIActivityIndicatorView()
+    var indicator = UIActivityIndicatorView()
     var userId: String?
     var deviceToken: Data?
     
@@ -43,7 +37,9 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         self.userIdTextField.delegate = self
         
-        NotificationCenter.observeKeyboard(action1: #selector(keyboardWillShow(_:)), action2: #selector(keyboardWillHide(_:)), on: self)
+        NotificationCenter.observeKeyboard(showAction: #selector(keyboardWillShow(_:)),
+                                           hideAction: #selector(keyboardWillHide(_:)),
+                                           target: self)
         
         if UserDefaults.standard.autoLogin == true {
             self.updateButtonUI()
@@ -60,7 +56,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
 // MARK: - User Interaction with SendBirdCall
 extension SignInViewController {
     @IBAction func didTapSignIn() {
-        guard let userId = self.userIdTextField.filteredText, !userId.isEmpty else {
+        guard let userId = self.userIdTextField.text?.collapsed else {
             self.presentErrorAlert(message: "Please enter your ID and your name")
             return
         }
@@ -70,29 +66,38 @@ extension SignInViewController {
     
     func signIn(userId: String) {
         // MARK: SendBirdCall.authenticate()
-        let params = AuthenticateParams(userId: userId, accessToken: nil, voipPushToken: UserDefaults.standard.voipPushToken, unique: false)
-        self.startLoading()
+
+        let authParams = AuthenticateParams(userId: userId, accessToken: nil)
+        self.indicator.startLoading(on: self.view)
+
         
-        SendBirdCall.authenticate(with: params) { user, error in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.stopLoading()
-                self.resetButtonUI()
-            }
+        SendBirdCall.authenticate(with: authParams) { user, error in
             guard let user = user, error == nil else {
+                // Handling error
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
+                    self.indicator.stopLoading()
+                    self.resetButtonUI()
                     let errorDescription = String(error?.localizedDescription ?? "")
                     self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
                 }
                 return
             }
+            
+            // Save data
             UserDefaults.standard.autoLogin = true
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.performSegue(withIdentifier: "signIn", sender: nil)
+            // register push token
+            SendBirdCall.registerVoIPPush(token: UserDefaults.standard.voipPushToken, unique: false) { error in
+                if let error = error { print(error) }
+                
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.indicator.stopLoading()
+                    self.resetButtonUI()
+                    self.performSegue(withIdentifier: "signIn", sender: nil)
+                }
             }
         }
     }
@@ -106,31 +111,16 @@ extension SignInViewController {
         textField.resignFirstResponder()
     }
     
-    func startLoading() {
-        self.activityIndicator.center = self.view.center
-        self.activityIndicator.hidesWhenStopped = true
-        self.activityIndicator.style = .gray
-        self.view.addSubview(activityIndicator)
-        
-        self.activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-    }
-    
-    func stopLoading() {
-        self.activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
-    }
-    
     func resetButtonUI() {
-        self.signInButton.backgroundColor = UIColor(red: 123 / 255, green: 83 / 255, blue: 239 / 255, alpha: 1.0)
-        self.signInButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.88), for: .normal)
+        self.signInButton.backgroundColor = UIColor.QuickStart.purple.color
+        self.signInButton.setTitleColor(UIColor.QuickStart.white.color, for: .normal)
         self.signInButton.setTitle("Sign In", for: .normal)
         self.signInButton.isEnabled = true
     }
     
     func updateButtonUI() {
-        self.signInButton.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1.0)
-        self.signInButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.12), for: .normal)
+        self.signInButton.backgroundColor = UIColor.QuickStart.lightGray.color
+        self.signInButton.setTitleColor(UIColor.QuickStart.black.color, for: .normal)
         self.signInButton.setTitle("Signing In...", for: .normal)
         self.signInButton.isEnabled = false
     }

@@ -18,12 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var queue: DispatchQueue = DispatchQueue(label: "com.sendbird.calls.quickstart.appdelegate")
     var voipRegistry: PKPushRegistry?
     
-    lazy var provider: CXProvider = {
-        let provider = CXProvider.default
-        provider.setDelegate(self, queue: .main)
-        return provider
-    }()
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
@@ -33,21 +27,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // User ID Mode
             self.window = UIWindow(frame: UIScreen.main.bounds)
             guard let window = self.window else { return false }
-            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
-            window.rootViewController = viewController
+            window.rootViewController = UIStoryboard.signController()
             window.makeKeyAndVisible()
         } else if let appId = UserDefaults.standard.appId {
             // QR Code Mode
             SendBirdCall.configure(appId: appId)
         }
         
-        // You must call `SendBirdCall.addDelegate(_:identifier:)` right after configuring new app ID
+        // To process incoming call, you need to add `SendBirdCallDelegate` and implement its protocol methods.
         SendBirdCall.addDelegate(self, identifier: "com.sendbird.calls.quickstart.delegate")
         
         self.voipRegistration()
         
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        // This method will be called when the app is forcefully terminated.
+        // End all ongoing calls in this method.
+        let callManager = CXCallManager.shared
+        let ongoingCalls = callManager.currentCalls.compactMap { SendBirdCall.getCall(forUUID: $0.uuid) }
+        
+        ongoingCalls.forEach { directCall in
+            // Sendbird Calls: End call
+            directCall.end()
+            
+            // CallKit: Request End transaction
+            callManager.endCXCall(directCall)
+            
+            // CallKit: Report End if uuid is valid
+            if let uuid = directCall.callUUID {
+                callManager.endCall(for: uuid, endedAt: Date(), reason: .none)
+            }
+        }
+        // However, because iOS gives a limited time to perform remaining tasks,
+        // There might be some calls failed to be ended
+        // In this case, I recommend that you register local notification to notify the unterminated calls.
     }
 }
 
@@ -86,8 +101,9 @@ extension AppDelegate: PKPushRegistryDelegate {
                 let update = CXCallUpdate()
                 update.remoteHandle = CXHandle(type: .generic, value: "invalid")
                 let randomUUID = UUID()
-                self.provider.reportNewIncomingCall(with: randomUUID, update: update) { error in
-                    self.provider.reportCall(with: randomUUID, endedAt: Date(), reason: .failed)
+
+                CXCallManager.shared.reportIncomingCall(with: randomUUID, update: update) { error in
+                    CXCallManager.shared.endCall(for: randomUUID, endedAt: Date(), reason: .acceptFailed)
                 }
                 completion()
                 return

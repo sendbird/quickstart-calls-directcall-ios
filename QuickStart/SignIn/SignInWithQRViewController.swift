@@ -16,10 +16,6 @@ class SignInWithQRViewController: UIViewController {
     // Sign In Manually
     @IBOutlet weak var signInManuallyButton: UIButton!
     
-    // Other components
-    @IBOutlet weak var lineView: UIView!
-    @IBOutlet weak var orLabel: UILabel!
-    
     // Footnote
     @IBOutlet weak var versionLabel: UILabel! {
         didSet {
@@ -28,7 +24,7 @@ class SignInWithQRViewController: UIViewController {
         }
     }
     
-    let activityIndicator = UIActivityIndicatorView()
+    let indicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,42 +49,25 @@ class SignInWithQRViewController: UIViewController {
         }
     }
     
-    func startLoading() {
-        self.activityIndicator.center = self.view.center
-        self.activityIndicator.hidesWhenStopped = true
-        self.activityIndicator.style = .gray
-        self.view.addSubview(activityIndicator)
-        
-        self.activityIndicator.startAnimating()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-    }
-    
-    func stopLoading() {
-        self.activityIndicator.stopAnimating()
-        UIApplication.shared.endIgnoringInteractionEvents()
-    }
-    
     func resetButtonUI() {
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
-            self.lineView.isHidden = false
-            self.orLabel.isHidden = false
+            self.view.subviews.filter({ $0.tag == 1 }).forEach { $0.isHidden = false }  // Show lines and "Or" label
             self.signInManuallyButton.isHidden = false
         }
         animator.startAnimation()
         
-        self.scanButton.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 0.88), for: .normal)
-        self.scanButton.backgroundColor = UIColor(red: 123 / 255, green: 83 / 255, blue: 239 / 255, alpha: 1.0)
+        self.scanButton.setTitleColor(UIColor.QuickStart.lightGray.color, for: .normal)
+        self.scanButton.backgroundColor = UIColor.QuickStart.purple.color
         self.scanButton.setTitle("Sign in with QR code", for: .normal)
         self.scanButton.isEnabled = true
     }
     
     func updateButtonUI() {
-        self.lineView.isHidden = true
-        self.orLabel.isHidden = true
+        self.view.subviews.filter({ $0.tag == 1 }).forEach { $0.isHidden = true }   // Hide lines and "Or" label
         self.signInManuallyButton.isHidden = true
         
-        self.scanButton.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1.0)
-        self.scanButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.12), for: .normal)
+        self.scanButton.backgroundColor = UIColor.QuickStart.lightGray.color
+        self.scanButton.setTitleColor(UIColor.QuickStart.black.color, for: .normal)
         self.scanButton.setTitle("Signing In...", for: .normal)
         self.scanButton.isEnabled = false
     }
@@ -107,10 +86,6 @@ extension SignInWithQRViewController: SignInDelegate {
     // Delegate method
     func didSignIn(appId: String, userId: String, accessToken: String?) {
         SendBirdCall.configure(appId: appId)
-        // You must call `SendBirdCall.addDelegate(_:identifier:)` right after configuring new app ID
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            SendBirdCall.addDelegate(appDelegate, identifier: "com.sendbird.calls.quickstart.delegate")
-        }
 
         UserDefaults.standard.appId = appId
         UserDefaults.standard.user.id = userId
@@ -126,32 +101,40 @@ extension SignInWithQRViewController {
         let userId = UserDefaults.standard.user.id
         let accessToken = UserDefaults.standard.accessToken
         let voipPushToken = UserDefaults.standard.voipPushToken
-        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken, voipPushToken: voipPushToken, unique: false)
-        self.startLoading()
+        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken)
+        
+        self.indicator.startLoading(on: self.view)
         
         SendBirdCall.authenticate(with: authParams) { user, error in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.stopLoading()
-                self.resetButtonUI()
-            }
-            
             guard let user = user, error == nil else {
+                // Handling error
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
+                    self.indicator.stopLoading()
+                    self.resetButtonUI()
                     let errorDescription = String(error?.localizedDescription ?? "")
-                    self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
+                    self.presentErrorAlert(message: "\(errorDescription)")
                 }
                 UserDefaults.standard.clear()
                 return
             }
+            
+            // Save data
             UserDefaults.standard.autoLogin = true
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
+            // register push token
+            SendBirdCall.registerVoIPPush(token: voipPushToken, unique: false) { error in
+                if let error = error { print(error) }
+                
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.indicator.stopLoading()
+                    self.resetButtonUI()
+                    self.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
+                }
             }
+            
         }
     }
 }
