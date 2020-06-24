@@ -23,4 +23,9 @@ extension String {
             return self.trimmed
         }
     }
+    
+    func unwrapNickname() -> String {
+        guard self.isEmptyOrWhitespace else { return "—" }
+        return self
+    }
 }

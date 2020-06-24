@@ -22,12 +22,14 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     @IBOutlet weak var mutedStateLabel: UILabel! {
         didSet {
             guard let remoteUser = self.call.remoteUser else { return }
-            self.mutedStateLabel.text = "\(remoteUser.nickname ?? remoteUser.userId) is on mute"
+            let name = remoteUser.nickname?.isEmptyOrWhitespace == true ? remoteUser.userId : remoteUser.nickname!
+            self.mutedStateLabel.text = "\(name) is on mute"
         }
     }
     @IBOutlet weak var remoteNicknameLabel: UILabel! {
         didSet {
-            self.remoteNicknameLabel.text = self.call.remoteUser?.nickname ?? self.call.remoteUser?.userId
+            let nickname = self.call.remoteUser?.nickname
+            self.remoteNicknameLabel.text = nickname?.isEmptyOrWhitespace == true ? self.call.remoteUser?.userId : nickname
         }
     }
     

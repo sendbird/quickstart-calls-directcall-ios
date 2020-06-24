@@ -19,7 +19,7 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     }
     @IBOutlet weak var nicknameLabel: UILabel! {
         didSet {
-            self.nicknameLabel.text = UserDefaults.standard.user.name ?? "—"
+            self.nicknameLabel.text = UserDefaults.standard.user.name?.unwrapNickname()
         }
     }
     @IBOutlet weak var userIDLabel: UILabel! {

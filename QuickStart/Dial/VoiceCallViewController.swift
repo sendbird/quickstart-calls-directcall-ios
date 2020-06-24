@@ -21,7 +21,8 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     }
     @IBOutlet weak var nameLabel: UILabel! {
         didSet {
-            self.nameLabel.text = self.call.remoteUser?.nickname ?? self.call.remoteUser?.userId
+            let nickname = self.call.remoteUser?.nickname
+            self.nameLabel.text = nickname?.isEmptyOrWhitespace == true ? self.call.remoteUser?.userId : nickname
         }
     }
     
@@ -39,7 +40,9 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     @IBOutlet weak var mutedStateLabel: UILabel! {
         didSet {
             guard let remoteUser = self.call.remoteUser else { return }
-            self.mutedStateLabel.text = "\(remoteUser.nickname ?? remoteUser.userId) is on mute"
+            let name = remoteUser.nickname?.isEmptyOrWhitespace == true ? remoteUser.userId : remoteUser.nickname!
+            
+            self.mutedStateLabel.text = "\(name) is on mute"
         }
     }
     
