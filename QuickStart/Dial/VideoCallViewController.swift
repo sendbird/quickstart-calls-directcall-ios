@@ -21,12 +21,15 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     @IBOutlet weak var callStatusLabel: UILabel!
     @IBOutlet weak var mutedStateLabel: UILabel! {
         didSet {
-            self.mutedStateLabel.text = "\(self.call.remoteUser?.userId ?? "Remote user") is on mute"
+            guard let remoteUser = self.call.remoteUser else { return }
+            let name = remoteUser.nickname?.isEmptyOrWhitespace == true ? remoteUser.userId : remoteUser.nickname!
+            self.mutedStateLabel.text = "\(name) is on mute"
         }
     }
-    @IBOutlet weak var remoteUserIdLabel: UILabel! {
+    @IBOutlet weak var remoteNicknameLabel: UILabel! {
         didSet {
-            self.remoteUserIdLabel.text = self.call.remoteUser?.userId
+            let nickname = self.call.remoteUser?.nickname
+            self.remoteNicknameLabel.text = nickname?.isEmptyOrWhitespace == true ? self.call.remoteUser?.userId : nickname
         }
     }
     
@@ -77,7 +80,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     }
     
     // Constraints of remote user ID
-    @IBOutlet weak var topSpaceRemoteUserId: NSLayoutConstraint!
+    @IBOutlet weak var topSpaceRemoteNickname: NSLayoutConstraint!
     
     var call: DirectCall!
     var isDialing: Bool?
@@ -112,9 +115,9 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     func setupEndedCallUI() {
         // Tell user that the call has been ended.
         self.callStatusLabel.text = "Call Ended"
-        self.topSpaceRemoteUserId.constant = 244
+        self.topSpaceRemoteNickname.constant = 244
         self.callStatusLabel.isHidden = false
-        self.remoteUserIdLabel.isHidden = false
+        self.remoteNicknameLabel.isHidden = false
         self.remoteProfileImageView.isHidden = false
         
         // Release resource
@@ -286,7 +289,7 @@ extension VideoCallViewController {
 extension VideoCallViewController: DirectCallDelegate {
     // MARK: Required Methods
     func didConnect(_ call: DirectCall) {
-        self.remoteUserIdLabel.isHidden = true
+        self.remoteNicknameLabel.isHidden = true
         self.callStatusLabel.isHidden = true
         self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
 
@@ -329,5 +332,8 @@ extension VideoCallViewController: DirectCallDelegate {
         self.audioRouteButton.setBackgroundImage(.audio(output: output.portType),
                                                  for: .normal)
         print("[QuickStart] Audio Route has been changed to \(output.portName)")
+        
+        // Disable to display `AVAudioPickerView` (also `MPVolumeView`) when it is speaker mode.
+        self.audioRouteButton.isEnabled = output.portType != .builtInSpeaker
     }
 }

@@ -17,9 +17,14 @@ class DialViewController: UIViewController, UITextFieldDelegate {
             self.profileImageView.updateImage(urlString: profileURL)
         }
     }
-    @IBOutlet weak var userIdLabel: UILabel! {
+    @IBOutlet weak var nicknameLabel: UILabel! {
         didSet {
-            self.userIdLabel.text = UserDefaults.standard.user.id
+            self.nicknameLabel.text = UserDefaults.standard.user.name.unwrap(with: "-")
+        }
+    }
+    @IBOutlet weak var userIDLabel: UILabel! {
+        didSet {
+            self.userIDLabel.text = "User ID: " + UserDefaults.standard.user.id
         }
     }
     
