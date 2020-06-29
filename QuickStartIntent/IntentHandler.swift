@@ -59,4 +59,3 @@ extension IntentHandler: INStartCallIntentHandling {
         response = INStartCallIntentResponse(code: .continueInApp, userActivity: userActivity)
     }
 }
-

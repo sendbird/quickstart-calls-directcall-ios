@@ -33,7 +33,7 @@ class CXCallManager: NSObject {
 }
 
 extension CXCallManager { // Process with CXProvider
-    func reportIncomingCall(with callID: UUID, update: CXCallUpdate, completionHandler: ((Error?)->Void)? = nil) {
+    func reportIncomingCall(with callID: UUID, update: CXCallUpdate, completionHandler: ((Error?) -> Void)? = nil) {
         self.provider.reportNewIncomingCall(with: callID, update: update) { (error) in
             completionHandler?(error)
         }
@@ -115,7 +115,7 @@ extension CXCallManager: CXProviderDelegate {
             return
         }
         
-        SendBirdCall.authenticateIfNeed{ [weak call] (error) in
+        SendBirdCall.authenticateIfNeed { [weak call] (error) in
             guard let call = call, error == nil else {
                 action.fail()
                 return

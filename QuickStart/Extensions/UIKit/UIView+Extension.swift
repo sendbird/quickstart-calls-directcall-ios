@@ -29,8 +29,7 @@ extension UIView {
 
 // MARK: For Storyboard
 extension UIView {
-    @IBInspectable
-    var cornerRadius: CGFloat {
+    @IBInspectable var cornerRadius: CGFloat {
         get {
             layer.cornerRadius
         }
@@ -42,8 +41,7 @@ extension UIView {
         }
     }
 
-    @IBInspectable
-    var borderWidth: CGFloat {
+    @IBInspectable var borderWidth: CGFloat {
         get {
             layer.borderWidth
         }
@@ -52,8 +50,7 @@ extension UIView {
         }
     }
     
-    @IBInspectable
-    var borderColor: UIColor? {
+    @IBInspectable var borderColor: UIColor? {
         get {
             layer.borderColor.map(UIColor.init)
         }

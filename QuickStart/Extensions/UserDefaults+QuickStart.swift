@@ -8,7 +8,7 @@
 import Foundation
 
 extension UserDefaults {
-    enum Key : String, CaseIterable {
+    enum Key: String, CaseIterable {
         case appId
         case user
         case accessToken
@@ -27,9 +27,9 @@ extension UserDefaults {
         set { UserDefaults.standard.set(object: newValue, forKey: Key.appId.value) }
     }
     
-    var user: (id: String, name: String?, profile: String?) {
+    var user: (userId: String, name: String?, profile: String?) {
         get { UserDefaults.standard.get(objectType: UserDefaults.User.self, forKey: Key.user.value)?.value ?? User.empty }
-        set { UserDefaults.standard.set(object: UserDefaults.User(id: newValue.id, name: newValue.name, profile: newValue.profile), forKey: Key.user.value) }
+        set { UserDefaults.standard.set(object: UserDefaults.User(userId: newValue.userId, name: newValue.name, profile: newValue.profile), forKey: Key.user.value) }
     }
     
     var autoLogin: Bool {
@@ -49,25 +49,25 @@ extension UserDefaults {
     
     var callHistories: [CallHistory] {
         get { UserDefaults.standard.get(objectType: [CallHistory].self, forKey: Key.callHistories.value) ?? [] }
-        set { UserDefaults.standard.set(object: newValue, forKey: Key.callHistories.value)}
+        set { UserDefaults.standard.set(object: newValue, forKey: Key.callHistories.value) }
     }
 }
 
 extension UserDefaults {
     func clear() {
         let keys = Key.allCases.filter { $0 != .voipPushToken }
-        keys.map{$0.value}.forEach(UserDefaults.standard.removeObject)
+        keys.map { $0.value }.forEach(UserDefaults.standard.removeObject)
     }
 }
 
 extension UserDefaults {
     fileprivate struct User: Codable {
-        let id: String
+        let userId: String
         let name: String?
         let profile: String?
         
-        var value: (id: String, name: String?, profile: String?) { (id: id, name: name, profile: profile) }
-        static var empty: (id: String, name: String?, profile: String?) { (id: "", name: nil, profile: nil) }
+        var value: (userId: String, name: String?, profile: String?) { (userId: userId, name: name, profile: profile) }
+        static var empty: (userId: String, name: String?, profile: String?) { (userId: "", name: nil, profile: nil) }
     }
 }
 

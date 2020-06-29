@@ -226,7 +226,7 @@ extension VideoCallViewController {
     
     // SendBirdCalls: Start / Stop Video
     func updateLocalVideo(isEnabled: Bool) {
-        self.videoOffButton.setBackgroundImage(.video(on: isEnabled),
+        self.videoOffButton.setBackgroundImage(.video(isOn: isEnabled),
                                                for: .normal)
         if isEnabled {
             call.stopVideo()
@@ -241,7 +241,7 @@ extension VideoCallViewController {
 // MARK: - SendBirdCalls: Audio Features
 extension VideoCallViewController {
     func updateLocalAudio(isEnabled: Bool) {
-        self.audioOffButton.setBackgroundImage(.audio(on: isEnabled), for: .normal)
+        self.audioOffButton.setBackgroundImage(.audio(isOn: isEnabled), for: .normal)
         if isEnabled {
             call?.muteMicrophone()
         } else {
@@ -261,7 +261,6 @@ extension VideoCallViewController {
         let width = self.audioRouteButton.frame.width
         let height = self.audioRouteButton.frame.height
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
-        
         
         let routePickerView = SendBirdCall.routePickerView(frame: frame)
         self.customize(routePickerView)

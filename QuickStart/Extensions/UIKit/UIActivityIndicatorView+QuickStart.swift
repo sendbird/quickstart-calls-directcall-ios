@@ -33,4 +33,3 @@ extension UIActivityIndicatorView {
         UIApplication.shared.endIgnoringInteractionEvents()
     }
 }
-
