@@ -17,7 +17,7 @@ class SettingsTableViewController: UITableViewController {
     }
     @IBOutlet weak var usernameLabel: UILabel! {
         didSet {
-            self.usernameLabel.text = UserDefaults.standard.user.name?.unwrapNickname()
+            self.usernameLabel.text = UserDefaults.standard.user.name.unwrap(with: "-")
         }
     }
     @IBOutlet weak var userIdLabel: UILabel! {
@@ -89,4 +89,3 @@ extension SettingsTableViewController {
         }
     }
 }
-
