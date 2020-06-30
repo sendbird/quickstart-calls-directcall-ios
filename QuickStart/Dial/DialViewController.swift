@@ -53,6 +53,7 @@ class DialViewController: UIViewController, UITextFieldDelegate {
         if var dataSource = segue.destination as? DirectCallDataSource, let call = sender as? DirectCall {
             dataSource.call = call
             dataSource.isDialing = true
+            (dataSource as? UIViewController)?.modalPresentationStyle = .fullScreen
         }
     }
 }

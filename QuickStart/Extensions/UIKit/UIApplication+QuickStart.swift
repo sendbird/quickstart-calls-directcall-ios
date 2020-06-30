@@ -16,6 +16,7 @@ extension UIApplication {
             // If there is termination: Failed to load VoiceCallViewController from Main.storyboard. Please check its storyboard ID")
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: call.isVideoCall ? "VideoCallViewController" : "VoiceCallViewController")
+            viewController.modalPresentationStyle = .fullScreen
             
             if var dataSource = viewController as? DirectCallDataSource {
                 dataSource.call = call
