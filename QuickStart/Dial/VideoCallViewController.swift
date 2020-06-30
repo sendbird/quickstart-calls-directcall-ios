@@ -92,15 +92,11 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
             self.isModalInPresentation = true
         }
         
-        self.reloadData()
+        self.call.delegate = self
         
         self.setupVideoView()
         self.updateRemoteAudio(isEnabled: true)
         self.setupAudioOutputButton()
-    }
-    
-    func reloadData() {
-        self.call.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {

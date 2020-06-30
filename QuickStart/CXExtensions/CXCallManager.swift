@@ -126,10 +126,10 @@ extension CXCallManager: CXProviderDelegate {
             let acceptParams = AcceptParams(callOptions: callOptions)
             call.accept(with: acceptParams)
             
-            if var onGoingCallView = UIViewController.topViewController as? DirectCallDataSource {
-                onGoingCallView.call.delegate = nil
-                onGoingCallView.call = call
-                onGoingCallView.reloadData()
+            if let onGoingCallView = UIViewController.topViewController as? DirectCallDataSource {
+                (onGoingCallView as? UIViewController)?.dismiss(animated: true, completion: {
+                    UIApplication.shared.showCallController(with: call)
+                })
             } else {
                 UIApplication.shared.showCallController(with: call)
             }
