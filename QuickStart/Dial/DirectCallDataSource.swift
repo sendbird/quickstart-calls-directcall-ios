@@ -13,4 +13,6 @@ protocol DirectCallDataSource {
     var call: DirectCall! { get set }
     
     var isDialing: Bool? { get set }
+    
+    func reloadData()
 }

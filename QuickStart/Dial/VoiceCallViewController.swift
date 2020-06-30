@@ -57,10 +57,14 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
         }
-        self.call.delegate = self
+        self.reloadData()
         
         self.setupAudioOutputButton()
         self.updateRemoteAudio(isEnabled: true)
+    }
+    
+    func reloadData() {
+        self.call.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -192,9 +196,17 @@ extension VoiceCallViewController: DirectCallDelegate {
             CallHistoryViewController.main?.updateCallHistories()
         }
         
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            
             guard let self = self else { return }
-            self.dismiss(animated: true, completion: nil)
+            
+            // When the new view controller is appeared, it must be presented on a previous view controller. In this case, you have to dismiss a previous view controller.
+            if self.call.callId == call.callId {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                call.delegate = nil
+            }
         }
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }

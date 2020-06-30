@@ -125,7 +125,14 @@ extension CXCallManager: CXProviderDelegate {
             let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: call.isVideoCall, useFrontCamera: true)
             let acceptParams = AcceptParams(callOptions: callOptions)
             call.accept(with: acceptParams)
-            UIApplication.shared.showCallController(with: call)
+            
+            if var onGoingCallView = UIViewController.topViewController as? DirectCallDataSource {
+                onGoingCallView.call.delegate = nil
+                onGoingCallView.call = call
+                onGoingCallView.reloadData()
+            } else {
+                UIApplication.shared.showCallController(with: call)
+            }
             action.fulfill()
         }
     }
