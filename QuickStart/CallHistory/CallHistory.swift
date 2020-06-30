@@ -14,13 +14,14 @@ struct CallHistory: Codable {
     let hasVideo: Bool
     let remoteUserProfileURL: String?
     let remoteUserID: String
+    let remoteNickname: String
     let duration: String
     let endResult: String
     let startedAt: String
     
     static var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY/MM/d HH:mm"
+        dateFormatter.dateFormat = "YYYY/MM/dd HH:mm"
         return dateFormatter
     }
     
@@ -34,6 +35,7 @@ struct CallHistory: Codable {
         let remoteUser = callLog.myRole == .caller ? callLog.callee : callLog.caller
         self.remoteUserProfileURL = remoteUser?.profileURL
         self.remoteUserID = remoteUser?.userId ?? "Unknown"
+        self.remoteNickname = remoteUser?.nickname ?? "—"
         
         self.startedAt = CallHistory.dateFormatter.string(from: Date(timeIntervalSince1970: Double(callLog.startedAt) / 1000))
         self.duration = callLog.duration.timerText()

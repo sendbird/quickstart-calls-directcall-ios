@@ -17,12 +17,19 @@ class SettingsTableViewController: UITableViewController {
     }
     @IBOutlet weak var usernameLabel: UILabel! {
         didSet {
-            self.usernameLabel.text = UserDefaults.standard.user.name
+            self.usernameLabel.text = UserDefaults.standard.user.name.unwrap(with: "-")
         }
     }
     @IBOutlet weak var userIdLabel: UILabel! {
         didSet {
-            self.userIdLabel.text = UserDefaults.standard.user.id
+            self.userIdLabel.text = "User ID " + UserDefaults.standard.user.id
+        }
+    }
+    
+    @IBOutlet weak var versionLabel: UILabel! {
+        didSet {
+            let sampleVersion = Bundle.main.version
+            self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
         }
     }
     
@@ -72,10 +79,13 @@ extension SettingsTableViewController {
         guard let token = UserDefaults.standard.voipPushToken else { return }
         
         // MARK: SendBirdCall Deauthenticate
-        SendBirdCall.deauthenticate(voipPushToken: token) { error in
+        SendBirdCall.unregisterVoIPPush(token: token) { error in
+            // Handle error
+            if let error = error { print("[QuickStart]" + error.localizedDescription) }
+            
             UserDefaults.standard.clear()
-            guard error == nil else { return }
+            
+            SendBirdCall.deauthenticate { _ in }
         }
     }
 }
-
