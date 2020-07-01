@@ -22,7 +22,7 @@ class SettingsTableViewController: UITableViewController {
     }
     @IBOutlet weak var userIdLabel: UILabel! {
         didSet {
-            self.userIdLabel.text = "User ID " + UserDefaults.standard.user.id
+            self.userIdLabel.text = "User ID: " + UserDefaults.standard.user.id
         }
     }
     
