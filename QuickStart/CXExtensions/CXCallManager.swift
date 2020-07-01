@@ -124,15 +124,17 @@ extension CXCallManager: CXProviderDelegate {
             // MARK: SendBirdCalls - DirectCall.accept()
             let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: call.isVideoCall, useFrontCamera: true)
             let acceptParams = AcceptParams(callOptions: callOptions)
-            call.accept(with: acceptParams)
             
             if let onGoingCallView = UIViewController.topViewController as? DirectCallDataSource {
-                (onGoingCallView as? UIViewController)?.dismiss(animated: true, completion: {
+                (onGoingCallView as? UIViewController)?.dismiss(animated: true) {
+                    call.accept(with: acceptParams)
                     UIApplication.shared.showCallController(with: call)
-                })
+                }
             } else {
+                call.accept(with: acceptParams)
                 UIApplication.shared.showCallController(with: call)
             }
+            
             action.fulfill()
         }
     }

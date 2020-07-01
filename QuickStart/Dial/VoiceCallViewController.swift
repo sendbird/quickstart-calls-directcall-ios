@@ -194,15 +194,8 @@ extension VoiceCallViewController: DirectCallDelegate {
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            
             guard let self = self else { return }
-            
-            // When the new view controller is appeared, it must be presented on a previous view controller. In this case, you have to dismiss a previous view controller.
-            if self.call.callId == call.callId {
-                self.dismiss(animated: true, completion: nil)
-            } else {
-                call.delegate = nil
-            }
+            self.dismiss(animated: true, completion: nil)
         }
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }

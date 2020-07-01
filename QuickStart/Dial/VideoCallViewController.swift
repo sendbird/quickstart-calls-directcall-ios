@@ -130,11 +130,6 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         self.audioOffButton.isHidden = true
         self.videoOffButton.isHidden = true
         self.audioRouteButton.isHidden = true
-        
-        // Go back to `Dial` view
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-            self.dismiss(animated: true, completion: nil)
-        }
     }
     
     // MARK: - IBActions
@@ -293,6 +288,8 @@ extension VideoCallViewController: DirectCallDelegate {
         self.callStatusLabel.isHidden = true
         self.updateRemoteAudio(isEnabled: call.isRemoteAudioEnabled)
 
+        self.resizeLocalVideoView()
+
         CXCallManager.shared.connectedCall(call)
     }
     
@@ -305,6 +302,11 @@ extension VideoCallViewController: DirectCallDelegate {
         }
         
         self.setupEndedCallUI()
+        // Go back to `Dial` view
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            guard let self = self else { return }
+            self.dismiss(animated: true, completion: nil)
+        }
         
         guard let enderId = call.endedBy?.userId, let myId = SendBirdCall.currentUser?.userId, enderId != myId else { return }
         guard let call = SendBirdCall.getCall(forCallId: self.call.callId) else { return }
@@ -313,7 +315,6 @@ extension VideoCallViewController: DirectCallDelegate {
     
     // MARK: Optional Methods
     func didEstablish(_ call: DirectCall) {
-        self.resizeLocalVideoView()
         self.callStatusLabel.text = "Connecting..."
     }
     
