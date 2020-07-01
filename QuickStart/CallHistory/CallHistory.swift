@@ -35,7 +35,7 @@ struct CallHistory: Codable {
         let remoteUser = callLog.myRole == .caller ? callLog.callee : callLog.caller
         self.remoteUserProfileURL = remoteUser?.profileURL
         self.remoteUserID = remoteUser?.userId ?? "Unknown"
-        self.remoteNickname = remoteUser?.nickname.unwrap(with: "-") ?? "-"
+        self.remoteNickname = (remoteUser?.nickname).unwrap(with: "-")
         
         self.startedAt = CallHistory.dateFormatter.string(from: Date(timeIntervalSince1970: Double(callLog.startedAt) / 1000))
         self.duration = callLog.duration.timerText()
