@@ -132,7 +132,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
 extension CallHistoryViewController {
     // When select table view cell, make a call based on its `CallHistory` information.
     func didTapCallHistoryCell(_ cell: CallHistoryTableViewCell) {
-        guard let remoteUserID = cell.remoteNicknameLabel.text else { return }
+        let remoteUserID = cell.callHistory.remoteUserID
         let isVideoCall = cell.callHistory.hasVideo
         let dialParams = DialParams(calleeId: remoteUserID,
                                     isVideoCall: isVideoCall,
