@@ -27,9 +27,9 @@ extension UserDefaults {
         set { UserDefaults.standard.set(object: newValue, forKey: Key.appId.value) }
     }
     
-    var user: (userId: String, name: String?, profile: String?) {
+    var user: (userId: String, nickname: String?, profileURL: String?) {
         get { UserDefaults.standard.get(objectType: UserDefaults.User.self, forKey: Key.user.value)?.value ?? User.empty }
-        set { UserDefaults.standard.set(object: UserDefaults.User(userId: newValue.userId, name: newValue.name, profile: newValue.profile), forKey: Key.user.value) }
+        set { UserDefaults.standard.set(object: UserDefaults.User(userId: newValue.userId, nickname: newValue.nickname, profileURL: newValue.profileURL), forKey: Key.user.value) }
     }
     
     var autoLogin: Bool {
@@ -63,11 +63,11 @@ extension UserDefaults {
 extension UserDefaults {
     fileprivate struct User: Codable {
         let userId: String
-        let name: String?
-        let profile: String?
+        let nickname: String?
+        let profileURL: String?
         
-        var value: (userId: String, name: String?, profile: String?) { (userId: userId, name: name, profile: profile) }
-        static var empty: (userId: String, name: String?, profile: String?) { (userId: "", name: nil, profile: nil) }
+        var value: (userId: String, nickname: String?, profileURL: String?) { (userId: userId, nickname: nickname, profileURL: profileURL) }
+        static var empty: (userId: String, nickname: String?, profileURL: String?) { (userId: "", nickname: nil, profileURL: nil) }
     }
 }
 
