@@ -13,8 +13,7 @@ extension UITextField {
 
 // MARK: Design
 extension UITextField {
-    @IBInspectable
-    var isPaddingEnabled: Bool {
+    @IBInspectable var isPaddingEnabled: Bool {
         get {
             guard let paddingView = self.leftView else { return false }
             return paddingView.frame.width != 0

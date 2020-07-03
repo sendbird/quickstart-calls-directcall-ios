@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 extension UIImage {
-    enum QuickStart : String {
+    enum QuickStart: String {
         case btnAudioOffSelected
         case btnAudioOff
         
@@ -34,12 +34,12 @@ extension UIImage {
         }
     }
     
-    static func audio(on: Bool) -> UIImage? {
-        (on ? QuickStart.btnAudioOffSelected : QuickStart.btnAudioOff).image
+    static func audio(isOn: Bool) -> UIImage? {
+        (isOn ? QuickStart.btnAudioOffSelected : QuickStart.btnAudioOff).image
     }
     
-    static func video(on: Bool) -> UIImage? {
-        (on ? QuickStart.btnVideoOffSelected : QuickStart.btnVideoOff).image
+    static func video(isOn: Bool) -> UIImage? {
+        (isOn ? QuickStart.btnVideoOffSelected : QuickStart.btnVideoOff).image
     }
     
     static func audio(output: AVAudioSession.Port) -> UIImage? {
@@ -58,14 +58,14 @@ extension UIImage {
         let type: CallDirection.CallType = hasVideo ? .videoCall : .voiceCall
         let direction: CallDirection = outgoing ? .outgoing(type) : .incoming(type)
         switch direction {
-            case .outgoing(.voiceCall):
-                return UIImage(named: "iconCallVoiceOutgoingFilled")
-            case .outgoing(.videoCall):
-                return UIImage(named: "iconCallVideoOutgoingFilled")
-            case .incoming(.voiceCall):
-                return UIImage(named: "iconCallVoiceIncomingFilled")
-            case .incoming(.videoCall):
-                return UIImage(named: "iconCallVideoIncomingFilled")
+        case .outgoing(.voiceCall):
+            return UIImage(named: "iconCallVoiceOutgoingFilled")
+        case .outgoing(.videoCall):
+            return UIImage(named: "iconCallVideoOutgoingFilled")
+        case .incoming(.voiceCall):
+            return UIImage(named: "iconCallVoiceIncomingFilled")
+        case .incoming(.videoCall):
+            return UIImage(named: "iconCallVideoIncomingFilled")
         }
     }
 }

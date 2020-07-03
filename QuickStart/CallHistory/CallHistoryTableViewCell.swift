@@ -54,4 +54,3 @@ class CallHistoryTableViewCell: UITableViewCell {
         self.tryVideoCall?(self.callHistory)
     }
 }
-

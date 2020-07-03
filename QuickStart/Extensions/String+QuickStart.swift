@@ -9,11 +9,11 @@
 import Foundation
 extension String {
     public var trimmed: String {
-        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     public var isEmptyOrWhitespace: Bool {
-        return self.trimmed.isEmpty
+        self.trimmed.isEmpty
     }
     
     public var collapsed: String? {

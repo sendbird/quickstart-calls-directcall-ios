@@ -13,18 +13,18 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     // Profile
     @IBOutlet weak var profileImageView: UIImageView! {
         didSet {
-            let profileURL = UserDefaults.standard.user.profile
+            let profileURL = UserDefaults.standard.user.profileURL
             self.profileImageView.updateImage(urlString: profileURL)
         }
     }
     @IBOutlet weak var nicknameLabel: UILabel! {
         didSet {
-            self.nicknameLabel.text = UserDefaults.standard.user.name.unwrap(with: "-")
+            self.nicknameLabel.text = UserDefaults.standard.user.nickname.unwrap(with: "-")
         }
     }
     @IBOutlet weak var userIDLabel: UILabel! {
         didSet {
-            self.userIDLabel.text = "User ID: " + UserDefaults.standard.user.id
+            self.userIDLabel.text = "User ID: " + UserDefaults.standard.user.userId
         }
     }
     
@@ -142,7 +142,8 @@ extension DialViewController {
     }
     
     // MARK: When Keyboard Show
-    @objc func keyboardWillShow(_ notification: Notification) {
+    @objc
+    func keyboardWillShow(_ notification: Notification) {
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
             self.calleeIdTextField.layer.borderWidth = 1.0
             self.voiceCallButton.alpha = 0.0
@@ -155,7 +156,8 @@ extension DialViewController {
     }
     
     // MARK: When Keyboard Hide
-    @objc func keyboardWillHide(_ notification: Notification) {
+    @objc
+    func keyboardWillHide(_ notification: Notification) {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
             self.calleeIdTextField.layer.borderWidth = 0.0
             self.voiceCallButton.alpha = 1.0
@@ -168,4 +170,3 @@ extension DialViewController {
         })
     }
 }
-

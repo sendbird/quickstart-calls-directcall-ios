@@ -88,7 +88,7 @@ extension SignInWithQRViewController: SignInDelegate {
         SendBirdCall.configure(appId: appId)
 
         UserDefaults.standard.appId = appId
-        UserDefaults.standard.user.id = userId
+        UserDefaults.standard.user.userId = userId
         UserDefaults.standard.accessToken = accessToken
         self.updateButtonUI()
         self.signIn()
@@ -98,7 +98,7 @@ extension SignInWithQRViewController: SignInDelegate {
 // MARK: SendBirdCalls
 extension SignInWithQRViewController {
     func signIn() {
-        let userId = UserDefaults.standard.user.id
+        let userId = UserDefaults.standard.user.userId
         let accessToken = UserDefaults.standard.accessToken
         let voipPushToken = UserDefaults.standard.voipPushToken
         let authParams = AuthenticateParams(userId: userId, accessToken: accessToken)
