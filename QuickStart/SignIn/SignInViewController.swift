@@ -43,7 +43,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         
         if UserDefaults.standard.autoLogin == true {
             self.updateButtonUI()
-            self.signIn(userId: UserDefaults.standard.user.id)
+            self.signIn(userId: UserDefaults.standard.user.userId)
         }
     }
     
@@ -51,7 +51,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
 }
-
 
 // MARK: - User Interaction with SendBirdCall
 extension SignInViewController {
@@ -69,7 +68,6 @@ extension SignInViewController {
 
         let authParams = AuthenticateParams(userId: userId, accessToken: nil)
         self.indicator.startLoading(on: self.view)
-
         
         SendBirdCall.authenticate(with: authParams) { user, error in
             guard let user = user, error == nil else {
@@ -102,11 +100,9 @@ extension SignInViewController {
         }
     }
 }
-    
 
 // MARK: UI
 extension SignInViewController {
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
@@ -125,7 +121,8 @@ extension SignInViewController {
         self.signInButton.isEnabled = false
     }
     
-    @objc func keyboardWillShow(_ notification: Notification) {
+    @objc
+    func keyboardWillShow(_ notification: Notification) {
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
             self.userIdTextField.layer.borderWidth = 1.0
             self.view.layoutIfNeeded()
@@ -133,9 +130,9 @@ extension SignInViewController {
         animator.startAnimation()
     }
     
-    
     // MARK: When Keyboard Hide
-    @objc func keyboardWillHide(_ notification: Notification) {
+    @objc
+    func keyboardWillHide(_ notification: Notification) {
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeOut) {
             self.userIdTextField.layer.borderWidth = 0.0
             self.view.layoutIfNeeded()

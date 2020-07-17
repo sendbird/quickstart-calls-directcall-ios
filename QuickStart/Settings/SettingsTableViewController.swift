@@ -11,18 +11,18 @@ import SendBirdCalls
 class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var userProfileImageView: UIImageView! {
         didSet {
-            let profileURL = UserDefaults.standard.user.profile
+            let profileURL = UserDefaults.standard.user.profileURL
             self.userProfileImageView.updateImage(urlString: profileURL)
         }
     }
     @IBOutlet weak var usernameLabel: UILabel! {
         didSet {
-            self.usernameLabel.text = UserDefaults.standard.user.name.unwrap(with: "-")
+            self.usernameLabel.text = UserDefaults.standard.user.nickname.unwrap(with: "-")
         }
     }
     @IBOutlet weak var userIdLabel: UILabel! {
         didSet {
-            self.userIdLabel.text = "User ID: " + UserDefaults.standard.user.id
+            self.userIdLabel.text = "User ID: " + UserDefaults.standard.user.userId
         }
     }
     

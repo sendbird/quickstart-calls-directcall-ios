@@ -9,7 +9,7 @@
 import UIKit
 
 class ImageCache {
-    typealias imageHandler = ((UIImage?, Error?) -> ())
+    typealias ImageHandler = ((UIImage?, Error?) -> Void)
     
     static let shared = ImageCache()
     
@@ -23,7 +23,7 @@ class ImageCache {
         return UIImage(data: data)
     }
     
-    func load(url: URL, completion: @escaping imageHandler) {
+    func load(url: URL, completion: @escaping ImageHandler) {
         DispatchQueue.global(qos: .userInitiated).async {
             // useProtocolCachePolicy: A default policy for URL load requests.
             let imageRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy)
@@ -49,7 +49,8 @@ class ImageCache {
                 
                 completion(image, nil)
                 
-            }.resume()
+            }
+            .resume()
         }
     }
 }

@@ -28,6 +28,6 @@ extension CXProviderConfiguration {
 
 extension CXProvider {
     static var `default`: CXProvider {
-        return CXProvider(configuration: .`default`)
+        CXProvider(configuration: .`default`)
     }
 }

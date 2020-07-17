@@ -57,7 +57,8 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView!.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as! CallHistoryTableViewCell
+        guard let cell = self.tableView!.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath) as? CallHistoryTableViewCell
+            else { return UITableViewCell() }
         
         cell.callHistory = self.callHistories[indexPath.row]
         
@@ -79,7 +80,8 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView!.deselectRow(at: indexPath, animated: true)
         self.view.isUserInteractionEnabled = false  // This will back to true im dial completion handler
-        let cell = tableView.cellForRow(at: indexPath) as! CallHistoryTableViewCell
+        
+        guard let cell = tableView.cellForRow(at: indexPath) as? CallHistoryTableViewCell else { return }
         // make a same type of call: video / voice call
         self.didTapCallHistoryCell(cell)
     }
@@ -87,7 +89,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     // MARK: - Update Call Histories
     func fetchCallLogsFromServer() {
         // Get next call logs with query
-        self.query?.next { callLogs, error in
+        self.query?.next { callLogs, _ in
             guard let newCallLogs = callLogs, !newCallLogs.isEmpty else {
                 // Stop indicator animation when there is no more call logs.
                 DispatchQueue.main.async { [weak self] in

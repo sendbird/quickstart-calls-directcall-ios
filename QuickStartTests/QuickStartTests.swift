@@ -21,7 +21,7 @@ class QuickStartTests: XCTestCase {
             return
         }
         
-        ImageCache.shared.load(url: profileURL) { image, error in
+        ImageCache.shared.load(url: profileURL) { _, error in
             guard let error = error as? ImageCache.ImageCacheError else {
                 XCTFail("There is no error even it has a wrong URL")
                 return

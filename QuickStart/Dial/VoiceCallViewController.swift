@@ -108,7 +108,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
 // MARK: - SendBirdCalls: Audio Features
 extension VoiceCallViewController {
     func updateLocalAudio(isEnabled: Bool) {
-        self.muteAudioButton.setBackgroundImage(.audio(on: isEnabled), for: .normal)
+        self.muteAudioButton.setBackgroundImage(.audio(isOn: isEnabled), for: .normal)
         if isEnabled {
             call?.muteMicrophone()
         } else {

@@ -26,7 +26,6 @@ extension INStartCallIntent: SupportedStartCallIntent {
     var hasVideo: Bool { self.callCapability == .videoCall }
 }
 
-
 extension NSUserActivity: StartCallConvertible {
     var dialParams: DialParams? {
         guard let interaction = interaction else { return nil }
