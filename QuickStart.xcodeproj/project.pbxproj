@@ -33,6 +33,7 @@
 		A968F6A42415CFF800E6EFD5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A968F6A32415CFF800E6EFD5 /* UIView+Extension.swift */; };
 		A973C0AD249A107100514CD3 /* UIActivityIndicatorView+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973C0AC249A107100514CD3 /* UIActivityIndicatorView+QuickStart.swift */; };
 		A97EDF2B246D1EEC0072DF3D /* CallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97EDF2A246D1EEC0072DF3D /* CallHistory.swift */; };
+		A98DFA5524D2D8B900B28C3C /* AppDelegate+SoundEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98DFA5424D2D8B900B28C3C /* AppDelegate+SoundEffects.swift */; };
 		A99449592387E92400A4FFBB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99449582387E92400A4FFBB /* SettingsTableViewController.swift */; };
 		A994495D2387F22F00A4FFBB /* UIViewController+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A994495C2387F22F00A4FFBB /* UIViewController+QuickStart.swift */; };
 		A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC94923BA142F00F9116A /* UIImageView+QuickStart.swift */; };
@@ -61,6 +62,10 @@
 		A9B7565E243DE933001E764B /* AppDelegate+Intent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */; };
 		A9C05DBC24F4D7C60071D56B /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9C05DBB24F4D7C60071D56B /* Settings.storyboard */; };
 		A9C05DBE24F4D8F50071D56B /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9C05DBD24F4D8F50071D56B /* SignIn.storyboard */; };
+		A9CDBA5024C93B7C005BF36B /* ConnectionRestored.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9CDBA4C24C93B7B005BF36B /* ConnectionRestored.mp3 */; };
+		A9CDBA5124C93B7C005BF36B /* Ringing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9CDBA4D24C93B7B005BF36B /* Ringing.mp3 */; };
+		A9CDBA5224C93B7C005BF36B /* ConnectionLost.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9CDBA4E24C93B7B005BF36B /* ConnectionLost.mp3 */; };
+		A9CDBA5324C93B7C005BF36B /* Dialing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9CDBA4F24C93B7B005BF36B /* Dialing.mp3 */; };
 		A9DDC43A245FDE3100F042E7 /* QuickStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */; };
 		A9E1B3A72464038A00EB3F18 /* UITabBarController+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E1B3A62464038A00EB3F18 /* UITabBarController+QuickStart.swift */; };
 		A9E574E424DD1ECA002098E7 /* CredentialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E574E324DD1ECA002098E7 /* CredentialManager.swift */; };
@@ -129,6 +134,7 @@
 		A968F6A32415CFF800E6EFD5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		A973C0AC249A107100514CD3 /* UIActivityIndicatorView+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+QuickStart.swift"; sourceTree = "<group>"; };
 		A97EDF2A246D1EEC0072DF3D /* CallHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHistory.swift; sourceTree = "<group>"; };
+		A98DFA5424D2D8B900B28C3C /* AppDelegate+SoundEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+SoundEffects.swift"; sourceTree = "<group>"; };
 		A99449582387E92400A4FFBB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A994495C2387F22F00A4FFBB /* UIViewController+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC94923BA142F00F9116A /* UIImageView+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+QuickStart.swift"; sourceTree = "<group>"; };
@@ -160,6 +166,10 @@
 		A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Intent.swift"; sourceTree = "<group>"; };
 		A9C05DBB24F4D7C60071D56B /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		A9C05DBD24F4D8F50071D56B /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
+		A9CDBA4C24C93B7B005BF36B /* ConnectionRestored.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ConnectionRestored.mp3; sourceTree = "<group>"; };
+		A9CDBA4D24C93B7B005BF36B /* Ringing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ringing.mp3; sourceTree = "<group>"; };
+		A9CDBA4E24C93B7B005BF36B /* ConnectionLost.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ConnectionLost.mp3; sourceTree = "<group>"; };
+		A9CDBA4F24C93B7B005BF36B /* Dialing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Dialing.mp3; sourceTree = "<group>"; };
 		A9DDC437245FDE3100F042E7 /* QuickStartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickStartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartTests.swift; sourceTree = "<group>"; };
 		A9DDC43B245FDE3100F042E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -318,9 +328,11 @@
 				A951A7B7238D23C000410E40 /* QuickStart.entitlements */,
 				A9A72CA42387B448007C0878 /* AppDelegate.swift */,
 				A9ABF21A2513CCDA004977F3 /* AppDelegate+VoIPPush.swift */,
+				A98DFA5424D2D8B900B28C3C /* AppDelegate+SoundEffects.swift */,
 				A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */,
 				A9ABF21C2513CF12004977F3 /* AppDelegate+URLScheme.swift */,
 				A943CAF423C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift */,
+				A9CDBA5424C93B85005BF36B /* Sounds */,
 				A91AAA6124447117003894AD /* SendBirdCallsExtenions */,
 				A96823A92462805B001C6F77 /* CallHistory */,
 				A9A72CAD2387B44C007C0878 /* Assets.xcassets */,
@@ -386,6 +398,17 @@
 				A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */,
 			);
 			path = Intent;
+			sourceTree = "<group>";
+		};
+		A9CDBA5424C93B85005BF36B /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				A9CDBA4E24C93B7B005BF36B /* ConnectionLost.mp3 */,
+				A9CDBA4C24C93B7B005BF36B /* ConnectionRestored.mp3 */,
+				A9CDBA4F24C93B7B005BF36B /* Dialing.mp3 */,
+				A9CDBA4D24C93B7B005BF36B /* Ringing.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		A9DDC438245FDE3100F042E7 /* QuickStartTests */ = {
@@ -524,12 +547,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9CDBA5224C93B7C005BF36B /* ConnectionLost.mp3 in Resources */,
+				A9CDBA5324C93B7C005BF36B /* Dialing.mp3 in Resources */,
 				A9A72CB12387B44C007C0878 /* LaunchScreen.storyboard in Resources */,
 				A9A72CAE2387B44C007C0878 /* Assets.xcassets in Resources */,
 				A9A72CAC2387B449007C0878 /* Main.storyboard in Resources */,
 				A9C05DBC24F4D7C60071D56B /* Settings.storyboard in Resources */,
 				A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */,
 				A9C05DBE24F4D8F50071D56B /* SignIn.storyboard in Resources */,
+				A9CDBA5024C93B7C005BF36B /* ConnectionRestored.mp3 in Resources */,
+				A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */,
+				A9CDBA5124C93B7C005BF36B /* Ringing.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +674,7 @@
 				A9E574E424DD1ECA002098E7 /* CredentialManager.swift in Sources */,
 				A97EDF2B246D1EEC0072DF3D /* CallHistory.swift in Sources */,
 				A951A7A7238CC4DF00410E40 /* DialViewController.swift in Sources */,
+				A98DFA5524D2D8B900B28C3C /* AppDelegate+SoundEffects.swift in Sources */,
 				A9B7562F243DA949001E764B /* StartCallConvertible.swift in Sources */,
 				A96839F02418ED0100317004 /* VideoCallViewController.swift in Sources */,
 				A9AC8755241A202C004AB93B /* AppInfoTableViewController.swift in Sources */,

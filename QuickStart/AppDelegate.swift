@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // To receive incoming call, you need to register VoIP push token
         self.voipRegistration()
+        self.setDirectCallSounds()
         
         return true
     }
