@@ -36,4 +36,37 @@ extension AppDelegate {
         
         return true
     }
+    
+    // MARK: - URL Scheme
+    // Used URL scheme: sendbird
+    // Following method tries to sign in with account information decoded from passed URL.
+    // For more information about Custom URL Scheme for your app, see [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        
+        guard SendBirdCall.currentUser == nil else {
+            UIApplication.shared.showError(with: "Please log out current account")
+            return false
+        }
+        
+        // Decoding
+        SendBirdCredentialManager.shared.decode(url: url) { (credential, error) in
+            guard let credential = credential else {
+                // Failed
+                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to sign in with URL")
+                
+                return
+            }
+            
+            // Succeed
+            if SendBirdCredentialManager.shared.delegate == nil {
+                // If SignInDelegate were nil(SignInWithQRVC has not been loaded yet), store the credentials
+                SendBirdCall.configure(appId: credential.appId)
+                UserDefaults.standard.appId = credential.appId
+                UserDefaults.standard.user.userId = credential.userId
+                UserDefaults.standard.accessToken = credential.accessToken
+                UserDefaults.standard.autoLogin = true
+            }
+        }
+        return true
+    }
 }

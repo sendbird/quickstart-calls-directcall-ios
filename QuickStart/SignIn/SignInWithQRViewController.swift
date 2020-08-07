@@ -29,6 +29,8 @@ class SignInWithQRViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        SendBirdCredentialManager.shared.delegate = self
+        
         if UserDefaults.standard.autoLogin == true {
             self.updateButtonUI()
             self.signIn()
@@ -39,7 +41,6 @@ class SignInWithQRViewController: UIViewController {
         switch segue.identifier {
         case "scanQR":
             guard let qrCodeVC = segue.destination.children.first as? QRCodeViewController else { return }
-            qrCodeVC.delegate = self
             if #available(iOS 13.0, *) { qrCodeVC.isModalInPresentation = true }
         case "manual":
             guard let signInVC = segue.destination.children.first as? SignInManuallyViewController else { return }
