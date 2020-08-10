@@ -121,13 +121,14 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         
         // Decoding
         SendBirdCredentialManager.shared.decode(base64EncodedData: data) { (credential, error) in
-            guard credential != nil else {
+            guard let credential = credential else {
                 // Failed
                 self.presentErrorAlert(message: error?.localizedDescription ?? "Failed to sign in") { _ in
                     self.captureSession?.startRunning()
                 }
                 return
             }
+            SendBirdCredentialManager.shared.signIn(with: credential)
             self.dismiss(animated: true, completion: nil)
         }
     }

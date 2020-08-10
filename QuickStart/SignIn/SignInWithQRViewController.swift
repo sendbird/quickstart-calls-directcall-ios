@@ -29,12 +29,8 @@ class SignInWithQRViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // After setting a delegate, delegate.didSignIn will be called.
         SendBirdCredentialManager.shared.delegate = self
-        
-        if UserDefaults.standard.autoLogin == true {
-            self.updateButtonUI()
-            self.signIn()
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -85,12 +81,9 @@ extension SignInWithQRViewController: SignInDelegate {
     }
     
     // Delegate method
-    func didSignIn(appId: String, userId: String, accessToken: String?) {
-        SendBirdCall.configure(appId: appId)
-
-        UserDefaults.standard.appId = appId
-        UserDefaults.standard.user.userId = userId
-        UserDefaults.standard.accessToken = accessToken
+    func didSignIn(credential: SendBirdCredentialManager.SendBirdCredential) {
+        // Store credential
+        UserDefaults.standard.credential = credential
         self.updateButtonUI()
         self.signIn()
     }
@@ -99,12 +92,15 @@ extension SignInWithQRViewController: SignInDelegate {
 // MARK: SendBirdCalls
 extension SignInWithQRViewController {
     func signIn() {
-        let userId = UserDefaults.standard.user.userId
-        let accessToken = UserDefaults.standard.accessToken
+        // Execute only when the app ID is valid.
+        guard let credential = UserDefaults.standard.credential else { return }
         let voipPushToken = UserDefaults.standard.voipPushToken
-        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken)
+        let authParams = AuthenticateParams(userId: credential.userID,
+                                            accessToken: credential.accessToken)
         
         self.indicator.startLoading(on: self.view)
+        
+        SendBirdCall.configure(appId: credential.appID)
         
         SendBirdCall.authenticate(with: authParams) { user, error in
             guard let user = user, error == nil else {
@@ -116,13 +112,13 @@ extension SignInWithQRViewController {
                     let errorDescription = String(error?.localizedDescription ?? "")
                     self.presentErrorAlert(message: "\(errorDescription)")
                 }
+                // If there is something wrong, clear all stored information except for voip push token.
                 UserDefaults.standard.clear()
                 return
             }
             
-            // Save data
-            UserDefaults.standard.autoLogin = true
-            UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
+            // Store the details for the user for its ID as a key.
+            UserDefaults.standard.userDetail = (user.nickname, user.profileURL)
             
             // register push token
             SendBirdCall.registerVoIPPush(token: voipPushToken, unique: false) { error in

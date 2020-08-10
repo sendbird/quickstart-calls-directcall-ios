@@ -39,7 +39,12 @@ class SignInManuallyViewController: UIViewController {
         }
         let accessToken = self.accessTokenTextField.text
         
-        self.delegate?.didSignIn(appId: appId, userId: userId, accessToken: accessToken)
+        let credential = SendBirdCredentialManager.SendBirdCredential(appID: appId,
+                                                                      userID: userId,
+                                                                      accessToken: accessToken)
+        
+        // Refer to `SignInWithQRViewController.didSignIn`
+        self.delegate?.didSignIn(credential: credential)
         self.dismiss(animated: true, completion: nil)
     }
 }

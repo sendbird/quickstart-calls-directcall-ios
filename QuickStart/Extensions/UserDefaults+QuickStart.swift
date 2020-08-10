@@ -9,10 +9,8 @@ import Foundation
 
 extension UserDefaults {
     enum Key: String, CaseIterable {
-        case appId
-        case user
-        case accessToken
-        case autoLogin
+        case credential
+        case userDetail
         case voipPushToken
         case callHistories
         
@@ -22,29 +20,27 @@ extension UserDefaults {
 }
 
 extension UserDefaults {
-    var appId: String? {
-        get { UserDefaults.standard.get(objectType: String.self, forKey: Key.appId.value) }
-        set { UserDefaults.standard.set(object: newValue, forKey: Key.appId.value) }
+    var credential: SendBirdCredentialManager.SendBirdCredential? {
+        get { UserDefaults.standard.get(objectType: SendBirdCredentialManager.SendBirdCredential.self,
+                                        forKey: Key.credential.value) }
+        set { UserDefaults.standard.set(object: newValue,
+                                        forKey: Key.credential.value) }
     }
     
-    var user: (userId: String, nickname: String?, profileURL: String?) {
-        get { UserDefaults.standard.get(objectType: UserDefaults.User.self, forKey: Key.user.value)?.value ?? User.empty }
-        set { UserDefaults.standard.set(object: UserDefaults.User(userId: newValue.userId, nickname: newValue.nickname, profileURL: newValue.profileURL), forKey: Key.user.value) }
-    }
-    
-    var autoLogin: Bool {
-        get { UserDefaults.standard.get(objectType: Bool.self, forKey: Key.autoLogin.value) ?? false }
-        set { UserDefaults.standard.set(object: newValue, forKey: Key.autoLogin.value) }
-    }
-    
-    var accessToken: String? {
-        get { UserDefaults.standard.get(objectType: String.self, forKey: Key.accessToken.value) }
-        set { UserDefaults.standard.set(object: newValue, forKey: Key.accessToken.value) }
+    var userDetail: (nickname: String?, profileURL: String?)? {
+        get {
+            guard let userID = credential?.userID else { return nil }
+            return UserDefaults.standard.get(objectType: UserDefaults.UserDetail.self, forKey: Key.userDetail.value + ".\(userID)")?.value
+        }
+        set {
+            guard let userID = credential?.userID else { return }
+            UserDefaults.standard.set(object: UserDefaults.UserDetail(nickname: newValue?.nickname, profileURL: newValue?.profileURL), forKey: Key.userDetail.value + ".\(userID)")
+        }
     }
     
     var voipPushToken: Data? {
-        get { UserDefaults.standard.get(objectType: Data.self, forKey: Key.voipPushToken.value) }
-        set { UserDefaults.standard.set(object: newValue, forKey: Key.voipPushToken.value) }
+        get { UserDefaults.standard.value(forKey: Key.voipPushToken.value) as? Data }
+        set { UserDefaults.standard.set(newValue, forKey: Key.voipPushToken.value) }
     }
     
     var callHistories: [CallHistory] {
@@ -61,13 +57,11 @@ extension UserDefaults {
 }
 
 extension UserDefaults {
-    fileprivate struct User: Codable {
-        let userId: String
+    fileprivate struct UserDetail: Codable {
         let nickname: String?
         let profileURL: String?
         
-        var value: (userId: String, nickname: String?, profileURL: String?) { (userId: userId, nickname: nickname, profileURL: profileURL) }
-        static var empty: (userId: String, nickname: String?, profileURL: String?) { (userId: "", nickname: nil, profileURL: nil) }
+        var value: (nickname: String?, profileURL: String?) { (nickname: nickname, profileURL: profileURL) }
     }
 }
 

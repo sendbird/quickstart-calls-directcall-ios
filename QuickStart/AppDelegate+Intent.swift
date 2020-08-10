@@ -58,14 +58,7 @@ extension AppDelegate {
             }
             
             // Succeed
-            if SendBirdCredentialManager.shared.delegate == nil {
-                // If SignInDelegate were nil(SignInWithQRVC has not been loaded yet), store the credentials
-                SendBirdCall.configure(appId: credential.appId)
-                UserDefaults.standard.appId = credential.appId
-                UserDefaults.standard.user.userId = credential.userId
-                UserDefaults.standard.accessToken = credential.accessToken
-                UserDefaults.standard.autoLogin = true
-            }
+            SendBirdCredentialManager.shared.signIn(with: credential)
         }
         return true
     }

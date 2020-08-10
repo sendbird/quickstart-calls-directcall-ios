@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let window = self.window else { return false }
             window.rootViewController = UIStoryboard.signController()
             window.makeKeyAndVisible()
-        } else if let appId = UserDefaults.standard.appId {
+        } else if let appId = UserDefaults.standard.credential?.appID {
             // QR Code Mode
             SendBirdCall.configure(appId: appId)
         }
