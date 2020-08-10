@@ -13,13 +13,13 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     // Profile
     @IBOutlet weak var profileImageView: UIImageView! {
         didSet {
-            let profileURL = UserDefaults.standard.userDetail?.profileURL
+            let profileURL = UserDefaults.standard.userDetail.profileURL
             self.profileImageView.updateImage(urlString: profileURL)
         }
     }
     @IBOutlet weak var nicknameLabel: UILabel! {
         didSet {
-            self.nicknameLabel.text = UserDefaults.standard.userDetail?.nickname.unwrap(with: "-")
+            self.nicknameLabel.text = UserDefaults.standard.userDetail.nickname.unwrap(with: "-")
         }
     }
     @IBOutlet weak var userIDLabel: UILabel! {

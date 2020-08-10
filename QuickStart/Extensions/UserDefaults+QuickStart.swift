@@ -27,14 +27,13 @@ extension UserDefaults {
                                         forKey: Key.credential.value) }
     }
     
-    var userDetail: (nickname: String?, profileURL: String?)? {
-        get {
-            guard let userID = credential?.userID else { return nil }
-            return UserDefaults.standard.get(objectType: UserDefaults.UserDetail.self, forKey: Key.userDetail.value + ".\(userID)")?.value
-        }
+    var userDetail: (nickname: String?, profileURL: String?) {
+        get { UserDefaults.standard.get(objectType: UserDefaults.UserDetail.self,
+                                        forKey: Key.userDetail.value)?.value ?? UserDetail.empty }
         set {
-            guard let userID = credential?.userID else { return }
-            UserDefaults.standard.set(object: UserDefaults.UserDetail(nickname: newValue?.nickname, profileURL: newValue?.profileURL), forKey: Key.userDetail.value + ".\(userID)")
+            UserDefaults.standard.set(object: UserDefaults.UserDetail(nickname: newValue.nickname,
+                                                                      profileURL: newValue.profileURL),
+                                      forKey: Key.userDetail.value)
         }
     }
     
@@ -62,6 +61,7 @@ extension UserDefaults {
         let profileURL: String?
         
         var value: (nickname: String?, profileURL: String?) { (nickname: nickname, profileURL: profileURL) }
+        static var empty: (nickname: String?, profileURL: String?) { (nickname: nil, profileURL: nil) }
     }
 }
 
