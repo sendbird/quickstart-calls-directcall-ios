@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var queue: DispatchQueue = DispatchQueue(label: "com.sendbird.calls.quickstart.appdelegate")
-    var voipRegistry: PKPushRegistry?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
@@ -37,13 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // To process incoming call, you need to add `SendBirdCallDelegate` and implement its protocol methods.
         SendBirdCall.addDelegate(self, identifier: "com.sendbird.calls.quickstart.delegate")
         
-        var pushOption: PushOption = .voip // Modify this value to test different Push Notification type settings
-        
-        switch pushOption {
-        case .voip: self.voipRegistration()
-        case .remote: self.remoteNotificationsRegistration(application)
-        case .none: break
-        }
+        self.remoteNotificationsRegistration(application)
         
         return true
     }
@@ -70,10 +63,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // There might be some calls failed to be ended
         // In this case, I recommend that you register local notification to notify the unterminated calls.
     }
-}
-
-enum PushOption {
-    case voip
-    case remote
-    case none
 }

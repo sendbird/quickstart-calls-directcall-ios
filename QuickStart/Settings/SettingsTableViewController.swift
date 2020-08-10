@@ -71,10 +71,12 @@ extension SettingsTableViewController {
     func signOut() {
         guard let token = UserDefaults.standard.voipPushToken else { return }
         
-        // MARK: SendBirdCall Deauthenticate
-        SendBirdCall.deauthenticate(voipPushToken: token) { error in
-            UserDefaults.standard.clear()
-            guard error == nil else { return }
+        SendBirdCall.unregisterVoIPPush(token: token) { error in
+            // MARK: SendBirdCall Deauthenticate
+            SendBirdCall.deauthenticate { error in
+                UserDefaults.standard.clear()
+                guard error == nil else { return }
+            }
         }
     }
 }
