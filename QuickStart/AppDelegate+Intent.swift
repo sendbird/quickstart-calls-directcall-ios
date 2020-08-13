@@ -48,18 +48,6 @@ extension AppDelegate {
             return false
         }
         
-        // Decoding
-        SendBirdCredentialManager.shared.decode(url: url) { (credential, error) in
-            guard let credential = credential else {
-                // Failed
-                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to sign in with URL")
-                
-                return
-            }
-            
-            // Succeed
-            SendBirdCredentialManager.shared.signIn(with: credential)
-        }
-        return true
+        return SendBirdCredentialManager.shared.handle(url: url)
     }
 }

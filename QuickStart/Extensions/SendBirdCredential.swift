@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class SendBirdCredentialManager {
     enum CredentialError: Swift.Error {
@@ -54,12 +55,48 @@ class SendBirdCredentialManager {
     }
     
     static let shared = SendBirdCredentialManager()
+    static let urlScheme = "sendbird://"
     
     weak var delegate: SignInDelegate? {
         didSet {
             // Start "auto sign in" when the Sign In view has been loaded.
             guard let credential = UserDefaults.standard.credential else { return }
             SendBirdCredentialManager.shared.signIn(with: credential)
+        }
+    }
+    
+    /// Handle URL scheme containg `sendbird://` as a prefix and signs in.
+    ///  - Parameters:
+    ///     - url: URL from URL scheme.
+    /// - Returns: The boolean value indicating whether the url is valid or not.
+    func handle(url: URL) -> Bool {
+        // Check URL validation
+        guard url.absoluteString.contains(SendBirdCredentialManager.urlScheme) else { return false }
+        
+        self.decode(url: url) { (credential, error) in
+            guard let credential = credential else {
+                // Failed
+                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to sign in with URL")
+                
+                return
+            }
+            
+            // Succeed
+            self.signIn(with: credential)
+        }
+        
+        return true
+    }
+    
+    /// Handle data from QR code and signs in.
+    /// - Parameters:
+    ///     - qrData: The data from QR code.
+    ///     - completion: The completion handler that allows you to handle the result.
+    func handle(qrData: Data, completion: @escaping (Error?) -> Void) {
+        // Decoding
+        self.decode(base64EncodedData: qrData) { (credential, error) in
+            if let credential = credential { self.signIn(with: credential) }
+            completion(error)
         }
     }
     
@@ -76,7 +113,7 @@ class SendBirdCredentialManager {
     }
     
     func decode(url: URL, completion: @escaping (SendBirdCredential?, Error?) -> Void) {
-        let stringValue = url.absoluteString.replacingOccurrences(of: "sendbird://", with: "")
+        let stringValue = url.absoluteString.replacingOccurrences(of: SendBirdCredentialManager.urlScheme, with: "")
         guard let data = Data(base64Encoded: stringValue) else {
             DispatchQueue.main.async { completion(nil, CredentialError.invalidURL) }
             return

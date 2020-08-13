@@ -119,16 +119,16 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         
-        // Decoding
-        SendBirdCredentialManager.shared.decode(base64EncodedData: data) { (credential, error) in
-            guard let credential = credential else {
+        SendBirdCredentialManager.shared.handle(qrData: data) { (error) in
+            if let error = error {
                 // Failed
-                self.presentErrorAlert(message: error?.localizedDescription ?? "Failed to sign in") { _ in
+                self.presentErrorAlert(message: error.localizedDescription) { _ in
                     self.captureSession?.startRunning()
                 }
                 return
             }
-            SendBirdCredentialManager.shared.signIn(with: credential)
+            
+            // Succeed
             self.dismiss(animated: true, completion: nil)
         }
     }
