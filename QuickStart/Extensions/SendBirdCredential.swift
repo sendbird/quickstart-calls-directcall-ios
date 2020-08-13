@@ -63,10 +63,6 @@ class SendBirdCredentialManager {
         }
     }
     
-    var currentCredentail: SendBirdCredential? {
-        get { UserDefaults.standard.credential }
-    }
-    
     /// Take `Data` object and reture result
     func decode(base64EncodedData data: Data, completion: @escaping (SendBirdCredential?, Error?) -> Void) {
         do {
