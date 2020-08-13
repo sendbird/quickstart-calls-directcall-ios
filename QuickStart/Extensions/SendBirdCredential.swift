@@ -55,7 +55,7 @@ class SendBirdCredentialManager {
     }
     
     static let shared = SendBirdCredentialManager()
-    static let urlScheme = "sendbird://"
+    private static let urlScheme = "sendbird://"
     
     weak var delegate: SignInDelegate? {
         didSet {
@@ -101,7 +101,7 @@ class SendBirdCredentialManager {
     }
     
     /// Take `Data` object and reture result
-    func decode(base64EncodedData data: Data, completion: @escaping (SendBirdCredential?, Error?) -> Void) {
+    private func decode(base64EncodedData data: Data, completion: @escaping (SendBirdCredential?, Error?) -> Void) {
         do {
             let credential = try JSONDecoder().decode(SendBirdCredential.self, from: data)
             DispatchQueue.main.async {
@@ -112,7 +112,7 @@ class SendBirdCredentialManager {
         }
     }
     
-    func decode(url: URL, completion: @escaping (SendBirdCredential?, Error?) -> Void) {
+    private func decode(url: URL, completion: @escaping (SendBirdCredential?, Error?) -> Void) {
         let stringValue = url.absoluteString.replacingOccurrences(of: SendBirdCredentialManager.urlScheme, with: "")
         guard let data = Data(base64Encoded: stringValue) else {
             DispatchQueue.main.async { completion(nil, CredentialError.invalidURL) }
@@ -122,7 +122,7 @@ class SendBirdCredentialManager {
         self.decode(base64EncodedData: data, completion: completion)
     }
     
-    func signIn(with credential: SendBirdCredential) {
+    private func signIn(with credential: SendBirdCredential) {
         if let delegate = self.delegate {
             // Refer to `SignInWithQRViewController.didSignIn`
             delegate.didSignIn(credential: credential)
