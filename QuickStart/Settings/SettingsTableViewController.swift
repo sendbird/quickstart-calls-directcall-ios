@@ -82,27 +82,21 @@ class SettingsTableViewController: UITableViewController {
 // MARK: - SendBirdCall Interaction
 extension SettingsTableViewController {
     func signOut(_ completionHandler: @escaping ((_ error: Error?) -> Void)) {
-        DispatchQueue.global().async {
-            let mutex = DispatchSemaphore(value: 0)
-            
-            var tempError: Error?
-            if let token = UserDefaults.standard.voipPushToken {
-                SendBirdCall.unregisterVoIPPush(token: token) { error in
-                    tempError = error
-                    mutex.signal()
-                }
-                mutex.wait()
-            }
-            
+        let logOut: (() -> Void) = {
             // MARK: SendBirdCall Deauthenticate
             SendBirdCall.deauthenticate { error in
                 if error == nil { UserDefaults.standard.clear() }
-                tempError = error
-                mutex.signal()
+                completionHandler(error)
             }
-            mutex.wait()
-            
-            completionHandler(tempError)
+        }
+        
+        if let token = UserDefaults.standard.voipPushToken {
+            SendBirdCall.unregisterVoIPPush(token: token) { error in
+                print("[QuickStart] Unregister VoIP Push Token with error: \(String(describing: error?.localizedDescription))")
+                logOut()
+            }
+        } else {
+            logOut()
         }
     }
 }
