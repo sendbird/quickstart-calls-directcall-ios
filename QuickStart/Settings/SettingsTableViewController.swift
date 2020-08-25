@@ -58,9 +58,15 @@ class SettingsTableViewController: UITableViewController {
             
             let actionSignOut = UIAlertAction(title: "Sign Out", style: .default) { _ in
                 // MARK: Sign Out
-                self.signOut()
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
+                self.signOut { error in
+                    if let error = error {
+                        self.presentErrorAlert(message: "[QuickStart]" + error.localizedDescription)
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 }
             }
             let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
@@ -75,17 +81,22 @@ class SettingsTableViewController: UITableViewController {
 
 // MARK: - SendBirdCall Interaction
 extension SettingsTableViewController {
-    func signOut() {
-        guard let token = UserDefaults.standard.voipPushToken else { return }
+    func signOut(_ completionHandler: @escaping ((_ error: Error?) -> Void)) {
+        let logOut: (() -> Void) = {
+            // MARK: SendBirdCall Deauthenticate
+            SendBirdCall.deauthenticate { error in
+                if error == nil { UserDefaults.standard.clear() }
+                completionHandler(error)
+            }
+        }
         
-        // MARK: SendBirdCall Deauthenticate
-        SendBirdCall.unregisterVoIPPush(token: token) { error in
-            // Handle error
-            if let error = error { print("[QuickStart]" + error.localizedDescription) }
-            
-            UserDefaults.standard.clear()
-            
-            SendBirdCall.deauthenticate { _ in }
+        if let token = UserDefaults.standard.voipPushToken {
+            SendBirdCall.unregisterVoIPPush(token: token) { error in
+                print("[QuickStart] Unregister VoIP Push Token with error: \(String(describing: error?.localizedDescription))")
+                logOut()
+            }
+        } else {
+            logOut()
         }
     }
 }
