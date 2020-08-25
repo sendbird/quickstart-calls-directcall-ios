@@ -11,13 +11,18 @@ import UIKit
 extension UIStoryboard {
     private static var main: UIStoryboard { UIStoryboard.init(name: "Main", bundle: nil) }
     
+    private static var signIn: UIStoryboard { UIStoryboard.init(name: "SignIn", bundle: nil) }
+    
     fileprivate enum QuickStart: String {
         case signIn = "SignInViewController"
         case videoCall = "VideoCallViewController"
         case voiceCall = "VoiceCallViewController"
         
         var controller: UIViewController {
-            UIStoryboard.main.instantiateViewController(withIdentifier: self.rawValue)
+            switch self {
+                case .signIn: return UIStoryboard.signIn.instantiateViewController(withIdentifier: self.rawValue)
+                default: return UIStoryboard.main.instantiateViewController(withIdentifier: self.rawValue)
+            }
         }
     }
 }
