@@ -176,8 +176,11 @@ if SendBirdCall.getOngoingCallCount() > 1 {
 If you’re using Apple’s CallKit framework, you should use `CXProviderConfiguration` instead to set the allowed number of the current user’s ongoing calls as shown below:
 
 ```swift
-providerConfiguration.maximumCallsPerCallGroup = 1
-providerConfiguration.maximumCallGroups = 1
+let configuration = CXProviderConfiguration(localizedName: "Application Name")
+configuration.maximumCallsPerCallGroup = 1
+configuration.maximumCallGroups = 1
+...
+let provider = CXProvider(configuration: configuration)
 ```
 
 ## Reference
