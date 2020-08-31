@@ -41,13 +41,17 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                                            hideAction: #selector(keyboardWillHide(_:)),
                                            target: self)
         
-        guard let credential = UserDefaults.standard.credential else { return }
-        self.updateButtonUI()
-        self.signIn(userId: credential.userID)
+        self.updateUIWithCredential()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    func updateUIWithCredential() {
+        guard let credential = UserDefaults.standard.credential else { return }
+        self.updateButtonUI()
+        self.signIn(userId: credential.userID)
     }
 }
 

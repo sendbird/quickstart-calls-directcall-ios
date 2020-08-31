@@ -100,11 +100,9 @@ extension SignInWithQRViewController {
         
         self.indicator.startLoading(on: self.view)
         
-        // Update app ID if is needed
-        if SendBirdCall.appId != credential.appID {
-            SendBirdCall.configure(appId: credential.appID)
-        }
-        
+        // Update app ID
+        SendBirdCall.configure(appId: credential.appID)
+
         SendBirdCall.authenticate(with: authParams) { user, error in
             guard let user = user, error == nil else {
                 // Handling error
