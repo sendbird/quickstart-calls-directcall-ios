@@ -163,6 +163,23 @@ call.selectVideoDevice(frontCamera) { (error) in
 }
 ```
 
+## Allowing only one call at a time
+
+Currently Sendbird Calls only supports a one-to-one call and the call waiting feature isn’t available yet. Using the `SendBirdCall.getOngoingCallCount()` method, you can retrieve the number of the current user’s ongoing calls and end a call if the call count has reached its limit.
+
+```swift
+if SendBirdCall.getOngoingCallCount() > 1 {
+    call.end()
+}
+```
+
+If you’re using Apple’s CallKit framework, you should use `CXProviderConfiguration` instead to set the allowed number of the current user’s ongoing calls as shown below:
+
+```swift
+providerConfiguration.maximumCallsPerCallGroup = 1
+providerConfiguration.maximumCallGroups = 1
+```
+
 ## Reference
 
  - [SendBird Calls iOS SDK Readme](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md)
