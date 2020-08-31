@@ -85,10 +85,12 @@ SendBirdCall.configure("YOUR_APP_ID")
 ## Registering push tokens
 In order to make and receive calls, authenticate the user with SendBird server with the `SendBirdCall.authenticate(with:)` method and **register a VoIP push token** to SendBird. Register a VoIP push token during authentication by either providing it as a parameter in the `authenticate()` method, or after authentication has completed using the `SendBirdCall.registerVoIPPush(token:)` method. VoIP Push Notification will also enable receiving calls even when the app is in the background or terminated state. A valid VoIP Services certificate or Apple Push Notification Service certificate also needs to be registered on the `SendBird Dashboard` : `Application` → `Settings` → `Notifications` → `Add certificate`.
 
-For more details about generating certificates, see this guide: [How to Generate a Certificate for VoIP Push Notification](https://github.com/sendbird/how-to-generate-ios-certificate)
+For more details about generating certificates, see this guide: [How to Generate a Certificate for VoIP Push Notification](https://github.com/sendbird/guidelines-ios/tree/master/How%20to%20generate%20iOS%20certificate)
 
 To handle a native-implementation of receiving incoming calls, implement Apple’s [PushKit framework](https://developer.apple.com/documentation/pushkit) and CallKit. This is done by registering the push tokens associated with the SendBird Applications and handling appropriate events. For more information refer to Apple’s [Voice Over IP (VoIP) Best Practices
 ](https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/OptimizeVoIP.html)
+
+For more details about using CallKit framework, see this guide: [How to develop VoIP app with CallKit](https://github.com/sendbird/guidelines-ios/tree/master/How%20to%20develop%20VoIP%20app%20with%20CallKit)
 
 ## Making calls
 
