@@ -110,11 +110,8 @@ class SendBirdCredentialManager {
     }
     
     private func signIn(with credential: SendBirdCredential) {
-        if let delegate = self.delegate {
-            // Refer to `SignInWithQRViewController.didSignIn`
-            delegate.didSignIn(credential: credential)
-        } else {
-            UserDefaults.standard.credential = credential
-        }
+        // Refer to `SignInWithQRViewController.didSignIn`
+        UserDefaults.standard.credential = credential
+        delegate?.didSignIn(credential: credential)
     }
 }
