@@ -119,7 +119,9 @@ extension SignInWithQRViewController {
             }
             
             // Store the details for the user for its ID as a key.
-            UserDefaults.standard.userDetail = (user.nickname, user.profileURL)
+            let credential = UserDefaults.standard.credential
+            let updated = credential?.details(nickname: user.nickname, profileURL: user.profileURL)
+            UserDefaults.standard.credential = updated
             
             // register push token
             SendBirdCall.registerVoIPPush(token: voipPushToken, unique: false) { error in

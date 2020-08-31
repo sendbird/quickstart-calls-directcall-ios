@@ -10,7 +10,6 @@ import Foundation
 extension UserDefaults {
     enum Key: String, CaseIterable {
         case credential
-        case userDetail
         case voipPushToken
         case callHistories
         
@@ -25,16 +24,6 @@ extension UserDefaults {
                                         forKey: Key.credential.value) }
         set { UserDefaults.standard.set(object: newValue,
                                         forKey: Key.credential.value) }
-    }
-    
-    var userDetail: (nickname: String?, profileURL: String?) {
-        get { UserDefaults.standard.get(objectType: UserDefaults.UserDetail.self,
-                                        forKey: Key.userDetail.value)?.value ?? UserDetail.empty }
-        set {
-            UserDefaults.standard.set(object: UserDefaults.UserDetail(nickname: newValue.nickname,
-                                                                      profileURL: newValue.profileURL),
-                                      forKey: Key.userDetail.value)
-        }
     }
     
     var voipPushToken: Data? {
@@ -52,16 +41,6 @@ extension UserDefaults {
     func clear() {
         let keys = Key.allCases.filter { $0 != .voipPushToken }
         keys.map { $0.value }.forEach(UserDefaults.standard.removeObject)
-    }
-}
-
-extension UserDefaults {
-    fileprivate struct UserDetail: Codable {
-        let nickname: String?
-        let profileURL: String?
-        
-        var value: (nickname: String?, profileURL: String?) { (nickname: nickname, profileURL: profileURL) }
-        static var empty: (nickname: String?, profileURL: String?) { (nickname: nil, profileURL: nil) }
     }
 }
 

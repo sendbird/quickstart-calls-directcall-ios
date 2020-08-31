@@ -24,6 +24,9 @@ class SendBirdCredentialManager {
         let appID: String
         let userID: String
         let accessToken: String?
+        // User details
+        let nickname: String?
+        let profileURL: String?
         
         enum CredentialKey: String, CodingKey {
             case appID = "app_id"
@@ -37,12 +40,17 @@ class SendBirdCredentialManager {
             self.appID = try container.decode(String.self, forKey: .appID)
             self.userID = try container.decode(String.self, forKey: .userID)
             self.accessToken = try? container.decode(String.self, forKey: .accessToken)
+            
+            self.nickname = nil
+            self.profileURL = nil
         }
         
-        init(appID: String, userID: String, accessToken: String?) {
+        init(appID: String, userID: String, accessToken: String?, nickname: String? = nil, profileURL: String? = nil) {
             self.appID = appID
             self.userID = userID
             self.accessToken = accessToken
+            self.nickname = nickname
+            self.profileURL = profileURL
         }
         
         func encode(to encoder: Encoder) throws {
@@ -51,6 +59,12 @@ class SendBirdCredentialManager {
             try container.encode(appID, forKey: .appID)
             try container.encode(userID, forKey: .userID)
             try? container.encode(accessToken, forKey: .accessToken)
+        }
+        
+        func details(nickname: String? = nil, profileURL: String? = nil) -> SendBirdCredential {
+            guard nickname != nil || profileURL != nil else { return self }
+            let credential = SendBirdCredential(appID: self.appID, userID: self.userID, accessToken: self.accessToken, nickname: nickname, profileURL: profileURL)
+            return credential
         }
     }
     

@@ -88,7 +88,9 @@ extension SignInViewController {
             }
             
             // Save data
-            UserDefaults.standard.userDetail = (user.nickname, user.profileURL)
+            let credential = UserDefaults.standard.credential
+            let updated = credential?.details(nickname: user.nickname, profileURL: user.profileURL)
+            UserDefaults.standard.credential = updated
             
             // register push token
             SendBirdCall.registerVoIPPush(token: UserDefaults.standard.voipPushToken, unique: false) { error in
