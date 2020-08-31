@@ -15,7 +15,7 @@ class SendBirdCredentialManager {
         
         var localizedDescription: String {
             switch self {
-                case .invalidURL: return "Invalid URL"
+            case .invalidURL: return "Invalid URL"
             }
         }
     }
@@ -73,16 +73,11 @@ class SendBirdCredentialManager {
         // Check URL validation
         guard url.absoluteString.contains(SendBirdCredentialManager.urlScheme) else { return false }
         
-        self.decode(url: url) { (credential, error) in
-            guard let credential = credential else {
-                // Failed
-                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to sign in with URL")
-                
-                return
-            }
-            
-            // Succeed
+        do {
+            let credential = try self.decode(url: url)
             self.signIn(with: credential)
+        } catch {
+            UIApplication.shared.showError(with: error.localizedDescription)
         }
         
         return true
@@ -92,34 +87,26 @@ class SendBirdCredentialManager {
     /// - Parameters:
     ///     - qrData: The data from QR code.
     ///     - completion: The completion handler that allows you to handle the result.
-    func handle(qrData: Data, completion: @escaping (Error?) -> Void) {
+    func handle(qrData: Data, onSucceed: () -> Void, onFailed: (Error) -> Void) {
         // Decoding
-        self.decode(base64EncodedData: qrData) { (credential, error) in
-            if let credential = credential { self.signIn(with: credential) }
-            completion(error)
+        do {
+            let credential = try self.decode(base64EncodedData: qrData)
+            self.signIn(with: credential)
+            onSucceed()
+        } catch {
+            onFailed(error)
         }
     }
     
     /// Take `Data` object and reture result
-    private func decode(base64EncodedData data: Data, completion: @escaping (SendBirdCredential?, Error?) -> Void) {
-        do {
-            let credential = try JSONDecoder().decode(SendBirdCredential.self, from: data)
-            DispatchQueue.main.async {
-                completion(credential, nil)
-            }
-        } catch {
-            DispatchQueue.main.async { completion(nil, error) }
-        }
+    private func decode(base64EncodedData data: Data) throws -> SendBirdCredential {
+        return try JSONDecoder().decode(SendBirdCredential.self, from: data)
     }
     
-    private func decode(url: URL, completion: @escaping (SendBirdCredential?, Error?) -> Void) {
+    private func decode(url: URL) throws -> SendBirdCredential {
         let stringValue = url.absoluteString.replacingOccurrences(of: SendBirdCredentialManager.urlScheme, with: "")
-        guard let data = Data(base64Encoded: stringValue) else {
-            DispatchQueue.main.async { completion(nil, CredentialError.invalidURL) }
-            return
-        }
-        
-        self.decode(base64EncodedData: data, completion: completion)
+        guard let data = Data(base64Encoded: stringValue) else { throw CredentialError.invalidURL }
+        return try self.decode(base64EncodedData: data)
     }
     
     private func signIn(with credential: SendBirdCredential) {

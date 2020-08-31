@@ -119,17 +119,12 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         
-        SendBirdCredentialManager.shared.handle(qrData: data) { (error) in
-            if let error = error {
-                // Failed
-                self.presentErrorAlert(message: error.localizedDescription) { _ in
-                    self.captureSession?.startRunning()
-                }
-                return
+        SendBirdCredentialManager.shared.handle(qrData: data, onSucceed: {
+            self.dismiss(animated: true, completion: nil) // Succeed
+        }) { (error) in
+            self.presentErrorAlert(message: error.localizedDescription) { _ in // Failed
+                self.captureSession?.startRunning()
             }
-            
-            // Succeed
-            self.dismiss(animated: true, completion: nil)
         }
     }
 }
