@@ -18,11 +18,16 @@ extension UIStoryboard {
         case videoCall = "VideoCallViewController"
         case voiceCall = "VoiceCallViewController"
         
-        var controller: UIViewController {
+        private var storyboard: UIStoryboard {
             switch self {
-                case .signIn: return UIStoryboard.signIn.instantiateViewController(withIdentifier: self.rawValue)
-                default: return UIStoryboard.main.instantiateViewController(withIdentifier: self.rawValue)
+                case .signIn: return .signIn
+                case .videoCall: return .main
+                case .voiceCall: return .main
             }
+        }
+        
+        var controller: UIViewController {
+            self.storyboard.instantiateViewController(withIdentifier: self.rawValue)
         }
     }
 }

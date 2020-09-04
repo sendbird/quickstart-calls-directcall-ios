@@ -9,6 +9,8 @@ disabled_rules: # rule identifiers to exclude from running
   - xctfail_message
   - function_parameter_count
   - large_tuple
+  - switch_case_alignment
+  - valid_ibinspectable
 opt_in_rules: # some rules are only opt-in
   - implicit_return
   - explicit_self
