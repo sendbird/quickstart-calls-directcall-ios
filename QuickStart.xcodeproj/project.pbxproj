@@ -228,7 +228,6 @@
 				A9409C452390FA8100410458 /* UserDefaults+QuickStart.swift */,
 				49B07AC9242D8B1F00EFF73A /* Int64+QuickStart.swift */,
 				A91AAA5924444FB0003894AD /* ImageCache.swift */,
-				A9E574E324DD1ECA002098E7 /* SendBirdCredential.swift */,
 				A99CC95923BA155700F9116A /* UIKit */,
 				A943CAF223C5AAB8009F6E49 /* Bundle+QuickStart.swift */,
 			);
@@ -334,6 +333,7 @@
 		A9A72CBB2387BCE2007C0878 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
+				A9E574E324DD1ECA002098E7 /* SendBirdCredential.swift */,
 				A9A72CB82387BAE6007C0878 /* SignInViewController.swift */,
 				A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */,
 				A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */,
