@@ -25,7 +25,6 @@ extension String {
     }
 }
 
-
 extension Optional where Wrapped == String {
     /// Unwraps optional value with replacement.
     ///
@@ -37,7 +36,7 @@ extension Optional where Wrapped == String {
     func unwrap(with replacement: String, checkWhiteSpace: Bool = true) -> String {
         guard let unwrappedValue = self else { return replacement }
         // Check empty string or whitespace if needed
-        if checkWhiteSpace, unwrappedValue.isEmptyOrWhitespace { return replacement  }
+        if checkWhiteSpace, unwrappedValue.isEmptyOrWhitespace { return replacement }
         return unwrappedValue
     }
 }
