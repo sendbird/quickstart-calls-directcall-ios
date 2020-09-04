@@ -29,7 +29,7 @@ class SignInWithQRViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // After setting a delegate, delegate.didSignIn will be called.
+        // After setting a delegate, delegate.processSignIn will be called.
         SendBirdCredentialManager.shared.delegate = self
     }
     
@@ -81,19 +81,18 @@ extension SignInWithQRViewController: SignInDelegate {
     }
     
     // Delegate method
-    func didSignIn(credential: SendBirdCredentialManager.SendBirdCredential) {
+    func processSignIn(credential: SendBirdCredentialManager.SendBirdCredential) {
         // Store credential
         UserDefaults.standard.credential = credential
         self.updateButtonUI()
-        self.signIn()
+        self.signIn(with: credential)
     }
 }
 
 // MARK: SendBirdCalls
 extension SignInWithQRViewController {
-    func signIn() {
+    func signIn(with credential: SendBirdCredentialManager.SendBirdCredential) {
         // Execute only when the app ID is valid.
-        guard let credential = UserDefaults.standard.credential else { return }
         let voipPushToken = UserDefaults.standard.voipPushToken
         let authParams = AuthenticateParams(userId: credential.userID,
                                             accessToken: credential.accessToken)

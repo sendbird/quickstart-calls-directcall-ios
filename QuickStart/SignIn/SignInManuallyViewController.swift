@@ -44,7 +44,7 @@ class SignInManuallyViewController: UIViewController {
                                                                       accessToken: accessToken)
         
         // Refer to `SignInWithQRViewController.didSignIn`
-        self.delegate?.didSignIn(credential: credential)
+        self.delegate?.processSignIn(credential: credential)
         self.dismiss(animated: true, completion: nil)
     }
 }
