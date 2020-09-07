@@ -62,7 +62,6 @@ class SendBirdCredentialManager {
         }
         
         func details(nickname: String? = nil, profileURL: String? = nil) -> SendBirdCredential {
-            guard nickname != nil || profileURL != nil else { return self }
             let credential = SendBirdCredential(appID: self.appID, userID: self.userID, accessToken: self.accessToken, nickname: nickname, profileURL: profileURL)
             return credential
         }
