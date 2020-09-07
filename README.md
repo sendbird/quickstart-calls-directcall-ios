@@ -54,7 +54,7 @@ You can only integrate one Sendbird application per app for your service regardl
  
 #### Step 2. Install SDK via CocoaPods or Carthage
 
-##### CocoaPods
+##### - CocoaPods
 
 Open a terminal window. Navigate to the project directory, and then open the `Podfile` by running the following command:
 
@@ -80,7 +80,7 @@ Install the `SendBirdCalls` framework via **CocoaPods**.
 $ pod install
 ```
 
-##### Carthage
+##### - Carthage
 
 You can also use **Carthage** to integrate the `SendBirdCalls` framework into your Xcode project.
 
@@ -107,105 +107,127 @@ $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/WebRTC.framework
 ```
 10. For more information, refer to the [Carthage’s guide](https://github.com/Carthage/Carthage#quick-start).
 
+<br />
 
-## Creating a SendBird application
+## Getting started
 
- 1. Login or Sign-up for an account at [dashboard](https://dashboard.sendbird.com).
- 2. Create or select an application on the SendBird Dashboard.
- 3. Note the `Application ID` for future reference.
- 4. [Contact sales](https://sendbird.com/contact-sales) to get the `Calls` menu enabled in the dashboard. (Self-serve coming soon.)
+If you would like to try the sample app specifically fit to your usage, you can do so by following the steps below. 
 
-## Creating test users
+### Create a SendBird application
 
- 1. In the SendBird dashboard, navigate to the `Users` menu.
- 2. Create at least two new users, one that will be the `caller`, and one that will be the `callee`.
- 3. Note the `User ID` of each user for future reference.
+ 1. Login or Sign-up for an account on [Sendbird Dashboard](https://dashboard.sendbird.com).
+ 2. Create or select an application on the dashboard.
+ 3. Note your Sendbird application ID for future reference.
+ 4. [Contact sales](https://get.sendbird.com/talk-to-sales.html) to get the **Calls** menu enabled on your dashboard. A **self-serve** will be available soon to help you purchase call credits automatically from your dashboard.  
+
+### Create test users
+
+ 1. On the SendBird dashboard, navigate to the **Users** menu.
+ 2. Create at least two new users: one as a `caller`, and the other as a `callee`.
+ 3. Note the `user_id` of each user for future reference.
 
 
-## Specifying the App ID
-As shown below, the `SendBirdCall` instance must be initiated when a client app is launched. Initialization is done by setting the `APP_ID` of the SendBird application in the dashboard. This **App ID** of the SendBird application must be specified inside the sample application’s source code.
+### Specify the Application ID
 
-Find the `application(_:didFinishLaunchingWithOptions:)` method from `AppDelegate.swift`. Replace `YOUR_APP_ID` with the `App ID` of the SendBird application created previously.
+As shown below, the `SendBirdCall` instance must be initiated when a sample client app is launched. TTo initialize the sample with your Sendbird application, go to the Sendbird dashboard, create a Sendbird application, and then specify the `APP_ID` inside the sample application’s source code. 
+
+In the source code, find the `application(_:didFinishLaunchingWithOptions:)` method from `AppDelegate.swift`. Replace `SAMPLE_APP_ID` with `APP_ID` of your Sendbird application created earlier.
  
-```Swift
-SendBirdCall.configure("YOUR_APP_ID")
+```swift
+SendBirdCall.configure("SAMPLE_APP_ID")
 ```
  
-## Installing and running the sample application
+### Install and run the sample app
 
- 1. Verify that Xcode open on the development Mac and the sample application project is open
- 2. Plug the primary iOS device into the Mac running Xcode
- 3. Unlock the iOS device 
- 4. Run the application by pressing the **`▶`** Run button or typing `⌘+R`
- 5. Open the newly installed app on the iOS device
- 6. If two iOS devices are available, repeat these steps to install the sample application on both the primary device and the secondary device.
+1. Verify that Xcode is open on your Mac system and the sample application project is open. 
+2. Plug the primary iOS device into the Mac running Xcode
+3. Unlock the iOS device
+4. Run the application by pressing the `▶` **Run** button or typing `⌘+R`
+5. Open the newly installed app on the iOS device
+6. If two iOS devices are available, repeat these steps to install the sample application on each device.
 
-## Registering push tokens
-In order to make and receive calls, authenticate the user with SendBird server with the `SendBirdCall.authenticate(with:)` method and **register a VoIP push token** to SendBird. Register a VoIP push token during authentication by either providing it as a parameter in the `authenticate()` method, or after authentication has completed using the `SendBirdCall.registerVoIPPush(token:)` method. VoIP Push Notification will also enable receiving calls even when the app is in the background or terminated state. A valid VoIP Services certificate or Apple Push Notification Service certificate also needs to be registered on the `SendBird Dashboard` : `Application` → `Settings` → `Notifications` → `Add certificate`.
+<br />
 
-For more details about generating certificates, see this guide: [How to Generate a Certificate for VoIP Push Notification](https://github.com/sendbird/guidelines-ios/tree/master/How%20to%20generate%20iOS%20certificate)
+## Making your first call
 
-To handle a native-implementation of receiving incoming calls, implement Apple’s [PushKit framework](https://developer.apple.com/documentation/pushkit) and CallKit. This is done by registering the push tokens associated with the SendBird Applications and handling appropriate events. For more information refer to Apple’s [Voice Over IP (VoIP) Best Practices
+### Register push tokens
+
+VoIP Push Notification enables receiving calls even when the app is in the background or in the terminated state. 
+ 
+To make and receive calls, authenticate the user with Sendbird server with the `SendBirdCall.authenticate(with:)` method and register a VoIP push token to Sendbird server. 
+ 
+You can register a VoIP push token (specific, the current user’ ) by passing it as an argument to a parameter either in the `authenticate()` method during authentication, or in the `SendBirdCall.registerVoIPPush(token:)` method after completing the authentication. 
+ 
+Furthermore, a valid VoIP Services certificate or Apple Push Notification Service certificate also needs to be registered on [SendBird Dashboard](https://dashboard.sendbird.com) which you can do so on **Add certificate** under **Application** > **Settings** > **Notifications**.
+
+#### More about certificates
+
+For more details about generating certificates, refer to [How to Generate a Certificate for VoIP Push Notification](https://github.com/sendbird/guidelines-ios/tree/master/How%20to%20generate%20iOS%20certificate).
+
+#### More about native-implementation
+
+To handle a native-implementation of receiving incoming calls, implement Apple’s [PushKit](https://developer.apple.com/documentation/pushkit) and [CallKit](https://developer.apple.com/documentation/callkit) frameworks. To implement the frameworks, register the push tokens associated with Sendbird Applications and handling of appropriate events. For more information, refer to Apple’s [Voice Over IP (VoIP) Best Practices
 ](https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/OptimizeVoIP.html)
 
-For more details about using CallKit framework, see this guide: [How to develop VoIP app with CallKit](https://github.com/sendbird/guidelines-ios/tree/master/How%20to%20develop%20VoIP%20app%20with%20CallKit)
+### How to make a call
 
-## Making calls
+1. Log in to the sample application on the primary device with the user ID set as the `caller`.
+2. Log in to the sample application on the secondary device using the ID of the user set as the `callee`. Alternatively, you can also use the Calls widget found on the Calls dashboard to log in as the `callee`.
+3. On the primary device, specify the user ID of the `callee` and initiate a call.
+4. If all steps are followed correctly, an incoming call notification will appear on the device of the `callee`.
+5. Reverse the roles. Initiate a call from the other device.
+6. If the two testing devices are near each other, use headphones to make a call to prevent audio feedback.
 
- 1. Log in to the primary device’s sample application with the ID of the user designated as the `caller`.
- 2. Log in to the secondary device’s sample application with ID of the user designated as the `callee`.  Alternatively, use the Calls widget found on the Calls dashboard to login as the `callee`.
- 3. On the primary device, specify the user ID of the `callee` and initiate a call.
- 4. If all steps have been followed correctly, an incoming call notification will appear on the `callee` user’s device.
- 5. Reverse roles, and initiate a call from the other device.
- 6. If the `caller` and `callee` devices are near each other, use headphones to prevent audio feedback.
+<br />
 
-# Advanced
+## Advanced
 
-## Handling Incoming Calls without Media Permission
-When using CallKit to process your calls, there may be instances where the user has not granted media(audio/video) permissions. Without the necessary permissions, the call will proceed without audio and/or video, which can be critical to the user experience. Some other third-party apps implement different user flow to prevent the call from starting without according media permissions. However, due to CallKit requiring new incoming calls to be reported to CallKit immediately, there are some issues in implementing such change. Here is our solution:
+### Handle an incoming call without media permission
 
-We need to make sure that our PushKit usage is in sync with the device's media permission state. If media permissions are not granted, we should destroy existing push token to stop receiving VoIP Push and ignore any incoming calls. 
+When using CallKit to process your call, there may be times where a user makes a call without allowing media permission for audio and/or video access. Without such permission, the call will proceed without audio and/or video, which may not deliver the intended user experience. On the other hand, some other calling apps implement different user flow and require a media permission before starting a call. 
+ 
+Thus, you may face some issues regarding implementation because CallKit requires every VoIP Push Notifications to report a new incoming call instantaneously as specified on [Apple's Documentation](https://developer.apple.com/documentation/pushkit/pkpushregistrydelegate/2875784-pushregistry). When you face an issue related to this matter, refer to the following steps: 
+ 
+First, make sure that PushKit usage is in sync with the device's media permission state. If media permission is not allowed, destroy the existing push token to stop receiving VoIP Push and to ignore any incoming calls. Be sure to test your implementation and refer to [Apple's guidelines](https://developer.apple.com/documentation/pushkit/responding_to_voip_notifications_from_pushkit) on VoIP Push Notifications and CallKit.
 
-> Note, however, Apple's requires every VoIP Push Notifications to report a new incoming call to CallKit as writte in [Apple's Documentation](https://developer.apple.com/documentation/pushkit/pkpushregistrydelegate/2875784-pushregistry). Be sure to test your implementation and refer to Apple's [guidelines](https://developer.apple.com/documentation/pushkit/responding_to_voip_notifications_from_pushkit) on VoIP Push Notifications and CallKit. 
+Second, to ignore an incoming call if the media permission is not allowed and to prevent any future calls from being delivered to the device, on your `AppDelegate's pushRegistry(_:didReceiveIncomingPushWith:for:completion:)`, add the following:
 
-In your AppDelegate's `pushRegistry(_:didReceiveIncomingPushWith:for:completion:)`, add the following: 
 ```swift
 guard AVAudioSession.sharedInstance().recordPermission == .granted else { // Here, we check if the audio permission is granted
-  // If it is not granted, we will destroy current push registration to stop receiving push notifications
-  self.voipRegistry?.desiredPushTypes = nil
-  
-  // We will ignore current call and not present a new CallKit view. This will not cause crashes as we have destroyed current PushKit usage.
-  completion()
-  return
+    // If it is not granted, we will destroy current push registration to stop receiving push notifications
+    self.voipRegistry?.desiredPushTypes = nil
+    
+    // We will ignore current call and not present a new CallKit view. This will not cause crashes as we have destroyed current PushKit usage.
+    completion()
+    return
 }
 
 // Media permissions are granted, we will process the incoming call. 
 SendBirdCall.pushRegistry(registry, didReceiveIncomingPushWith: payload, for: type) { uuid in
-  ...
+    ...
 ```
-This will ignore incoming call if the media permissions are not granted, and prevent any future calls from being delivered to the device. 
 
+Third, if you would like to register VoIP Push Notification only if the media permission is allowed, on your AppDelegate's `application(_:didFinishLaunchingWithOptions:)`, add the following:
 
-In your AppDelegate's `application(_:didFinishLaunchingWithOptions:)`, you may also want to register VoIP Push Notification only if the media permissions are granted.
 ```swift
 if AVAudioSession.sharedInstance().recordPermission == .granted {
-  self.voipRegistration()
+    self.voipRegistration()
 }
 ```
 
-Note, however, destroying existing PKPushRegistry will prevent any future VoIP Push Notifications to be sent to the device. If you want to start receiving VoIP Push Notifications again, you must re-register PKPushRegistry by doing `self.voipRegistry?.desiredPushTypes = [.voIP]`.
+> Note: Destroying existing PKPushRegistry will prevent any future VoIP Push Notifications to be sent to the device. If you want to start receiving VoIP Push Notifications again, you must re-register PKPushRegistry by using `self.voipRegistry?.desiredPushTypes = [.voIP]`.
 
-## Creating a Local Video View Before Accepting Incoming Calls  
+### Create a Local Video View Before Accepting Incoming Calls  
 
-You can create current user's local video view and customize its appearance before accepting an incoming call. Customize the current user’s local video view by following the steps below:
+You can create a current user's local video view and customize its appearance before accepting an incoming call. Follow the steps below to customize the current user’s local video view:
 
 1. Add a `UIView` to your storyboard.
 2. Create a view with the frame you want by using the `SendBirdVideoView` object.
-3. To add a subview, [embed](https://github.com/sendbird/quickstart-calls-ios/blob/develop/QuickStart/Extensions/UIKit/UIView%2BExtension.swift) the `SendBirdVideoView` to the `UIView` from Step 1.
+3. To add a subview, [embed](https://github.com/sendbird/quickstart-calls-ios/blob/develop/QuickStart/Extensions/UIKit/UIView%2BExtension.swift) the `SendBirdVideoView` to the `UIView` from **Step 1**.
 4. Find an appropriate camera device by accessing the `availableVideoDevice` property of `DirectCall`.
 5. Start capturing video contents from the camera by calling the `DirectCall.selectVideoDevice(_:completionHandler:)` method.
 
-```SWift
+```swift
 @IBOutlet weak var localVideoView: UIView?
 
 // Create SendBirdVideoView
@@ -221,7 +243,7 @@ call.selectVideoDevice(frontCamera) { (error) in
 }
 ```
 
-## Allowing only one call at a time
+### Allow only one call at a time
 
 Currently Sendbird Calls only supports a one-to-one call and the call waiting feature isn’t available yet. Using the `SendBirdCall.getOngoingCallCount()` method, you can retrieve the number of the current user’s ongoing calls and end a call if the call count has reached its limit.
 
@@ -238,9 +260,12 @@ let configuration = CXProviderConfiguration(localizedName: "Application Name")
 configuration.maximumCallsPerCallGroup = 1
 configuration.maximumCallGroups = 1
 ...
+
 let provider = CXProvider(configuration: configuration)
 ```
 
+<br />
+
 ## Reference
 
- - [SendBird Calls iOS SDK Readme](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md)
+For further detail on Sendbird Calls for iOS, refer to [Sendbird Calls SDK for iOS Readme](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md).
