@@ -112,7 +112,7 @@ $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/WebRTC.framework
 
 If you would like to try the sample app specifically fit to your usage, you can do so by following the steps below. 
 
-### Create a SendBird application
+### Create a Sendbird application
 
  1. Login or Sign-up for an account on [Sendbird Dashboard](https://dashboard.sendbird.com).
  2. Create or select an application on the dashboard.
@@ -121,7 +121,7 @@ If you would like to try the sample app specifically fit to your usage, you can 
 
 ### Create test users
 
- 1. On the SendBird dashboard, navigate to the **Users** menu.
+ 1. On the Sendbird dashboard, navigate to the **Users** menu.
  2. Create at least two new users: one as a `caller`, and the other as a `callee`.
  3. Note the `user_id` of each user for future reference.
 
