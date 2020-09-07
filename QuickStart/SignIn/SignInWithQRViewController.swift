@@ -30,7 +30,7 @@ class SignInWithQRViewController: UIViewController {
         super.viewDidLoad()
         
         // After setting a delegate, delegate.processSignIn will be called.
-        SendBirdCredentialManager.shared.delegate = self
+        self.configureCredentialDelegate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,6 +67,13 @@ class SignInWithQRViewController: UIViewController {
         self.scanButton.setTitleColor(UIColor.QuickStart.black.color, for: .normal)
         self.scanButton.setTitle("Signing In...", for: .normal)
         self.scanButton.isEnabled = false
+    }
+    
+    func configureCredentialDelegate() {
+        SendBirdCredentialManager.shared.delegate = self
+        
+        guard let credential = UserDefaults.standard.credential else { return }
+        SendBirdCredentialManager.shared.signIn(with: credential)
     }
 }
 

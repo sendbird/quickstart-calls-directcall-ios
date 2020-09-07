@@ -70,13 +70,7 @@ class SendBirdCredentialManager {
     static let shared = SendBirdCredentialManager()
     private static let urlScheme = "sendbird://"
     
-    weak var delegate: SignInDelegate? {
-        didSet {
-            // Start "auto sign in" when the Sign In view has been loaded.
-            guard let credential = UserDefaults.standard.credential else { return }
-            SendBirdCredentialManager.shared.signIn(with: credential)
-        }
-    }
+    weak var delegate: SignInDelegate?
     
     /// Handle URL scheme containg `sendbird://` as a prefix and signs in.
     ///  - Parameters:
