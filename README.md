@@ -82,6 +82,31 @@ $ pod install
 
 #### Carthage
 
+You can also use **Carthage** to integrate the `SendBirdCalls` framework into your Xcode project.
+
+1. Install Carthage into your project by running `brew install carthage` in your project directory or choose any of other installation options.
+2. Create a `Cartfile` in the same directory where your **.xcodeproj** or **.xcworkspace** is.
+3. Add `github “sendbird/sendbird-calls-ios”` and github `“sendbird/sendbird-webrtc-ios”` dependencies to your `Cartfile`.
+4. Run carthage update.
+5. A `Cartfile.resolved` file and a Carthage directory will appear in the same directory where your .xcodeproj or .xcworkspace is.
+6. Drag the built **.framework** binaries from **Carthage/Build/iOS** into your application’s Xcode project.
+7. On your application targets’ **Build Phases** settings tab, click the **+** icon and choose **New Run Script Phase**. Create a Run Script in which you specify your shell (ex: `/bin/sh`), add the following contents to the script area below the shell: `usr/local/bin/carthage copy-frameworks`
+8. Add the paths to the frameworks you want to use under **Input Files**. For example:
+```bash
+$(SRCROOT)/Carthage/Build/iOS/SendBirdCalls.framework
+```
+```bash
+$(SRCROOT)/Carthage/Build/iOS/WebRTC.framework
+```
+9. Add the paths to the copied frameworks to the **Output Files**. For example:
+```bash
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SendBirdCalls.framework
+```
+```bash
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/WebRTC.framework
+```
+10. For more information, refer to the [Carthage’s guide](https://github.com/Carthage/Carthage#quick-start).
+
 
 ## Creating a SendBird application
 
