@@ -10,6 +10,8 @@ AppStore](https://developer.apple.com/app-store/marketing/guidelines/images/badg
 
 Sendbird Calls SDK for iOS is used to initialize, configure, and build voice and video calling functionality into a Sendbird iOS application. In this repository, you will find the steps you need to take before implementing the Calls SDK into a project, and a sample application which contains the framework for implementing voice and video call. 
 
+> Note: You can only integrate one Sendbird application per app for your service regardless of the platforms. All users within your Sendbird application can communicate with each other across all platforms. This means that your iOS, Android, and web client app users can all make and receive calls with one another without any further setup. Note that all data is limited to the scope of a single application, and users in different Sendbird applications can't make and receive calls to each other.
+
 ### More about Sendbird Calls for iOS
 
 Find out more about Sendbird Calls for iOS on [Calls for iOS doc](https://docs.sendbird.com/ios/calls_quick_start). If you need any help in resolving any issues or have questions, visit [our community](https://community.sendbird.com).
@@ -46,12 +48,7 @@ $ brew install git-lfs
 ```
 
 For further details, refer to [https://git-lfs.github.com](https://git-lfs.github.com)
- 
-You can only integrate one Sendbird application per app for your service regardless of the platforms. All users within your Sendbird application can communicate with each other across all platforms. This means that your iOS, Android, and web client app users can all make and receive calls with one another without any further setup. Note that all data is limited to the scope of a single application, and users in different Sendbird applications can't make and receive calls to each other.
- 
-> Important: Make sure to install Git LFS before installing the pod. The size of `WebRTC.framework` in **SendBirdWebRTC** folder must be over 800 MB. If the size of the loaded `SendbirdWebRTC` framework is smaller than 800 MB, check the Git Large File Storage settings and download again. For further details, refer to SDK’s troubleshooting section. 
- 
- 
+   
 #### Step 2. Install SDK via CocoaPods or Carthage
 
 ##### - CocoaPods
@@ -79,6 +76,8 @@ Install the `SendBirdCalls` framework via **CocoaPods**.
 ```bash
 $ pod install
 ```
+
+> Important: Make sure to install Git LFS before installing the pod. The size of `WebRTC.framework` in **SendBirdWebRTC** folder must be over 800 MB. If the size of the loaded `SendbirdWebRTC` framework is smaller than 800 MB, check the Git Large File Storage settings and download again. For further details, refer to SDK’s troubleshooting section. 
 
 ##### - Carthage
 
