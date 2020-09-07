@@ -137,12 +137,12 @@ SendBirdCall.configure("SAMPLE_APP_ID")
  
 ### Install and run the sample app
 
-1. Verify that Xcode is open on your Mac system and the sample application project is open. 
+1. Verify that Xcode is open on your Mac system and the sample app project is open. 
 2. Plug the primary iOS device into the Mac running Xcode
 3. Unlock the iOS device
 4. Run the application by pressing the `▶` **Run** button or typing `⌘+R`
 5. Open the newly installed app on the iOS device
-6. If two iOS devices are available, repeat these steps to install the sample application on each device.
+6. If two iOS devices are available, repeat these steps to install the sample app on each device.
 
 <br />
 
@@ -169,8 +169,8 @@ To handle a native-implementation of receiving incoming calls, implement Apple�
 
 ### How to make a call
 
-1. Log in to the sample application on the primary device with the user ID set as the `caller`.
-2. Log in to the sample application on the secondary device using the ID of the user set as the `callee`. Alternatively, you can also use the Calls widget found on the Calls dashboard to log in as the `callee`.
+1. Log in to the sample app on the primary device with the user ID set as the `caller`.
+2. Log in to the sample app on the secondary device using the ID of the user set as the `callee`. Alternatively, you can also use the Calls widget found on the Calls dashboard to log in as the `callee`.
 3. On the primary device, specify the user ID of the `callee` and initiate a call.
 4. If all steps are followed correctly, an incoming call notification will appear on the device of the `callee`.
 5. Reverse the roles. Initiate a call from the other device.
