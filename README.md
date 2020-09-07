@@ -22,7 +22,7 @@ Find out more about Sendbird Calls for iOS on [Calls for iOS doc](https://docs.s
 
 This section shows you the prerequisites you need for testing Sendbird Calls for iOS sample app.
 
-### Prerequisites
+### Requirements
 
 The minimum requirements for Calls SDK for iOS sample are: 
 
@@ -238,7 +238,7 @@ self.localVideoView?.embed(localSBVideoView)
 // Start rendering local video view
 guard let frontCamera = (call.availableVideoDevice.first { $0.position == .front }) else { return }
 call.selectVideoDevice(frontCamera) { (error) in
-    // handle error
+    // TODO: handle an error
 }
 ```
 
