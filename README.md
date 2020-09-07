@@ -266,4 +266,4 @@ let provider = CXProvider(configuration: configuration)
 
 ## Reference
 
-For further detail on Sendbird Calls for iOS, refer to [Sendbird Calls SDK for iOS Readme](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md).
+For further detail on Sendbird Calls for iOS, refer to [Sendbird Calls SDK for iOS README](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md).
