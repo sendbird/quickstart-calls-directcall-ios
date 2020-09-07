@@ -31,7 +31,7 @@ The minimum requirements for Calls SDK for iOS sample are:
 - At least one physical iOS device running iOS 9.0 and later 
 - Swift 4.0 and later
 
-### Environement Setup
+### Environment setup
 
 Installing the Calls SDK is simple if you’re familiar with using external libraries or SDK’s in your projects. After creating your Sendbird application from your dashboard, install **Git Large File Storage (LFS)**, then you can choose to install the Calls SDK using either **CocoaPods** or **Carthage**.
 
