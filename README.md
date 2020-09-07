@@ -8,7 +8,7 @@ AppStore](https://developer.apple.com/app-store/marketing/guidelines/images/badg
 
 ## Introduction
 
-Sendbird Calls SDK for iOS is used to initialize, configure, and build voice and video calling functionality into your iOS client app. In this repository, you will find the steps you need to take before implementing the Calls SDK into a project, and a sample application which contains the framework for implementing voice and video call. 
+Sendbird Calls SDK for iOS is used to initialize, configure, and build voice and video calling functionality into your iOS client app. In this repository, you will find the steps you need to take before implementing the Calls SDK into a project, and a sample app which contains the code for implementing voice and video call. 
 
 > Note: You can only integrate one Sendbird application per app for your service regardless of the platforms. All users within your Sendbird application can communicate with each other across all platforms. This means that your iOS, Android, and web client app users can all make and receive calls with one another without any further setup. Note that all data is limited to the scope of a single application, and users in different Sendbird applications can't make and receive calls to each other.
 
