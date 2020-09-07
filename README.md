@@ -128,7 +128,7 @@ If you would like to try the sample app specifically fit to your usage, you can 
 
 ### Specify the Application ID
 
-As shown below, the `SendBirdCall` instance must be initiated when a sample client app is launched. TTo initialize the sample with your Sendbird application, go to the Sendbird dashboard, create a Sendbird application, and then specify the `APP_ID` inside the sample application’s source code. 
+As shown below, the `SendBirdCall` instance must be initiated when a sample client app is launched. To initialize the sample with your Sendbird application, go to the Sendbird dashboard, create a Sendbird application, and then specify the `APP_ID` inside the sample application’s source code. 
 
 In the source code, find the `application(_:didFinishLaunchingWithOptions:)` method from `AppDelegate.swift`. Replace `SAMPLE_APP_ID` with `APP_ID` of your Sendbird application created earlier.
  
