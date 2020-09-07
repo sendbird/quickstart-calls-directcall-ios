@@ -217,7 +217,7 @@ if AVAudioSession.sharedInstance().recordPermission == .granted {
 
 > Note: Destroying existing PKPushRegistry will prevent any future VoIP Push Notifications to be sent to the device. If you want to start receiving VoIP Push Notifications again, you must re-register PKPushRegistry by using `self.voipRegistry?.desiredPushTypes = [.voIP]`.
 
-### Create a Local Video View Before Accepting Incoming Calls  
+### Create a local video view before accepting an incoming call  
 
 You can create a current user's local video view and customize its appearance before accepting an incoming call. Follow the steps below to customize the current user’s local video view:
 
