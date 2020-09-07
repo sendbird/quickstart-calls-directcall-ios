@@ -35,7 +35,7 @@ The minimum requirements for Calls SDK for iOS sample are:
 
 Installing the Calls SDK is simple if you’re familiar with using external libraries or SDK’s in your projects. After creating your Sendbird application from your dashboard, install **Git Large File Storage (LFS)**, then you can choose to install the Calls SDK using either **CocoaPods** or **Carthage**.
 
-### Step 1. Install Git LFS
+#### Step 1. Install Git LFS
  
 To download `SendBirdWebRTC`, Git LFS **MUST** be installed by running the following command
 
@@ -52,9 +52,9 @@ You can only integrate one Sendbird application per app for your service regardl
 > Important: Make sure to install Git LFS before installing the pod. The size of `WebRTC.framework` in **SendBirdWebRTC** folder must be over 800 MB. If the size of the loaded `SendbirdWebRTC` framework is smaller than 800 MB, check the Git Large File Storage settings and download again. For further details, refer to SDK’s troubleshooting section. 
  
  
-### Step 2. Install SDK via CocoaPods or Carthage
+#### Step 2. Install SDK via CocoaPods or Carthage
 
-#### CocoaPods
+##### CocoaPods
 
 Open a terminal window. Navigate to the project directory, and then open the `Podfile` by running the following command:
 
@@ -80,7 +80,7 @@ Install the `SendBirdCalls` framework via **CocoaPods**.
 $ pod install
 ```
 
-#### Carthage
+##### Carthage
 
 You can also use **Carthage** to integrate the `SendBirdCalls` framework into your Xcode project.
 
