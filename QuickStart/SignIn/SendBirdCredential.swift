@@ -70,6 +70,7 @@ class SendBirdCredentialManager {
     static let shared = SendBirdCredentialManager()
     private static let urlScheme = "sendbird://"
     
+    var pendingCredential: SendBirdCredential?
     weak var delegate: SignInDelegate?
     
     /// Handle URL scheme containg `sendbird://` as a prefix and signs in.
@@ -82,7 +83,8 @@ class SendBirdCredentialManager {
         
         do {
             let credential = try self.decode(url: url)
-            self.signIn(with: credential)
+            self.pendingCredential = credential
+            self.signIn()
         } catch {
             UIApplication.shared.showError(with: error.localizedDescription)
         }
@@ -98,7 +100,8 @@ class SendBirdCredentialManager {
         // Decoding
         do {
             let credential = try self.decode(base64EncodedData: qrData)
-            self.signIn(with: credential)
+            self.pendingCredential = credential
+            self.signIn()
             onSucceed()
         } catch {
             onFailed(error)
@@ -116,12 +119,15 @@ class SendBirdCredentialManager {
         return try self.decode(base64EncodedData: data)
     }
     
-    private func signIn(with credential: SendBirdCredential) {
+    func signIn() {
         // Refer to `SignInWithQRViewController.didSignIn`
-        guard let delegate = self.delegate else {
-            UserDefaults.standard.credential = credential
-            return
-        }
-        delegate.processSignIn(credential: credential)
+        guard let credential = self.pendingCredential else { return }
+        delegate?.processSignIn(credential: credential)
+    }
+    
+    func storeCredential(nickname: String?, profileURL: String?) {
+        let updatedCredential = self.pendingCredential?.details(nickname: nickname, profileURL: profileURL)
+        UserDefaults.standard.credential = updatedCredential
+        self.pendingCredential = nil
     }
 }

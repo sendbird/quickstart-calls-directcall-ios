@@ -40,7 +40,6 @@ class SignInWithQRViewController: UIViewController {
             if #available(iOS 13.0, *) { qrCodeVC.isModalInPresentation = true }
         case "manual":
             guard let signInVC = segue.destination.children.first as? SignInManuallyViewController else { return }
-            signInVC.delegate = self
             if #available(iOS 13.0, *) { signInVC.isModalInPresentation = true }
         default: return
         }
@@ -70,10 +69,10 @@ class SignInWithQRViewController: UIViewController {
     }
     
     func configureCredentialDelegate() {
-        SendBirdCredentialManager.shared.delegate = self
+        let credentialManager = SendBirdCredentialManager.shared
+        credentialManager.delegate = self
         
-        guard let credential = UserDefaults.standard.credential else { return }
-        SendBirdCredentialManager.shared.signIn(with: credential)
+        credentialManager.signIn()
     }
 }
 
@@ -90,7 +89,6 @@ extension SignInWithQRViewController: SignInDelegate {
     // Delegate method
     func processSignIn(credential: SendBirdCredentialManager.SendBirdCredential) {
         // Store credential
-        UserDefaults.standard.credential = credential
         self.updateButtonUI()
         self.signIn(with: credential)
     }
@@ -110,6 +108,7 @@ extension SignInWithQRViewController {
         SendBirdCall.configure(appId: credential.appID)
 
         SendBirdCall.authenticate(with: authParams) { user, error in
+            let credentialManager = SendBirdCredentialManager.shared
             guard let user = user, error == nil else {
                 // Handling error
                 DispatchQueue.main.async { [weak self] in
@@ -120,14 +119,13 @@ extension SignInWithQRViewController {
                     self.presentErrorAlert(message: "\(errorDescription)")
                 }
                 // If there is something wrong, clear all stored information except for voip push token.
+                credentialManager.pendingCredential = nil
                 UserDefaults.standard.clear()
                 return
             }
             
             // Store the details for the user for its ID as a key.
-            let credential = UserDefaults.standard.credential
-            let updated = credential?.details(nickname: user.nickname, profileURL: user.profileURL)
-            UserDefaults.standard.credential = updated
+            credentialManager.storeCredential(nickname: user.nickname, profileURL: user.profileURL)
             
             // register push token
             SendBirdCall.registerVoIPPush(token: voipPushToken, unique: false) { error in

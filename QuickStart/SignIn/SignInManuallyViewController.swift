@@ -21,8 +21,6 @@ class SignInManuallyViewController: UIViewController {
         }
     }
     
-    weak var delegate: SignInDelegate?
-    
     @IBAction func didTapCancel() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -43,8 +41,11 @@ class SignInManuallyViewController: UIViewController {
                                                                       userID: userId,
                                                                       accessToken: accessToken)
         
-        // Refer to `SignInWithQRViewController.didSignIn`
-        self.delegate?.processSignIn(credential: credential)
+        // Start to sign in
+        let credentialManager = SendBirdCredentialManager.shared
+        credentialManager.pendingCredential = credential
+        credentialManager.signIn()
+        
         self.dismiss(animated: true, completion: nil)
     }
 }
