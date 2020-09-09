@@ -76,14 +76,13 @@ class SettingsTableViewController: UITableViewController {
 // MARK: - SendBirdCall Interaction
 extension SettingsTableViewController {
     func signOut() {
+        UserDefaults.standard.clear()
         guard let token = UserDefaults.standard.voipPushToken else { return }
         
         // MARK: SendBirdCall Deauthenticate
         SendBirdCall.unregisterVoIPPush(token: token) { error in
             // Handle error
             if let error = error { print("[QuickStart]" + error.localizedDescription) }
-            
-            UserDefaults.standard.clear()
             
             SendBirdCall.deauthenticate { _ in }
         }
