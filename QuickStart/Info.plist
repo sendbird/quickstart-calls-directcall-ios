@@ -25,7 +25,7 @@
 			<string>com.sendbird.calls.quickstart</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QuickStart</string>
+				<string>sendbird</string>
 			</array>
 		</dict>
 	</array>
