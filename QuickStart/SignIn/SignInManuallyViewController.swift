@@ -21,8 +21,6 @@ class SignInManuallyViewController: UIViewController {
         }
     }
     
-    weak var delegate: SignInDelegate?
-    
     @IBAction func didTapCancel() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -39,7 +37,15 @@ class SignInManuallyViewController: UIViewController {
         }
         let accessToken = self.accessTokenTextField.text
         
-        self.delegate?.didSignIn(appId: appId, userId: userId, accessToken: accessToken)
+        let credential = SendBirdCredentialManager.SendBirdCredential(appID: appId,
+                                                                      userID: userId,
+                                                                      accessToken: accessToken)
+        
+        // Start to sign in
+        let credentialManager = SendBirdCredentialManager.shared
+        credentialManager.pendingCredential = credential
+        credentialManager.signIn()
+        
         self.dismiss(animated: true, completion: nil)
     }
 }

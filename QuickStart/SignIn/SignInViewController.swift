@@ -41,14 +41,17 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                                            hideAction: #selector(keyboardWillHide(_:)),
                                            target: self)
         
-        if UserDefaults.standard.autoLogin == true {
-            self.updateButtonUI()
-            self.signIn(userId: UserDefaults.standard.user.userId)
-        }
+        self.updateUIWithCredential()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    func updateUIWithCredential() {
+        guard let credential = UserDefaults.standard.credential else { return }
+        self.updateButtonUI()
+        self.signIn(userId: credential.userID)
     }
 }
 
@@ -79,12 +82,15 @@ extension SignInViewController {
                     let errorDescription = String(error?.localizedDescription ?? "")
                     self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
                 }
+                // If there is something wrong, clear all stored information except for voip push token.
+                UserDefaults.standard.clear()
                 return
             }
             
             // Save data
-            UserDefaults.standard.autoLogin = true
-            UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
+            let credential = UserDefaults.standard.credential
+            let updated = credential?.details(nickname: user.nickname, profileURL: user.profileURL)
+            UserDefaults.standard.credential = updated
             
             // register push token
             SendBirdCall.registerVoIPPush(token: UserDefaults.standard.voipPushToken, unique: false) { error in
