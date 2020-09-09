@@ -55,6 +55,8 @@
 		A9B75653243DBA77001E764B /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B75652243DBA77001E764B /* IntentHandler.swift */; };
 		A9B75657243DBA77001E764B /* QuickStartIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A9B75650243DBA77001E764B /* QuickStartIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A9B7565E243DE933001E764B /* AppDelegate+Intent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */; };
+		A9C05DBC24F4D7C60071D56B /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9C05DBB24F4D7C60071D56B /* Settings.storyboard */; };
+		A9C05DBE24F4D8F50071D56B /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9C05DBD24F4D8F50071D56B /* SignIn.storyboard */; };
 		A9DDC43A245FDE3100F042E7 /* QuickStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */; };
 		A9E1B3A72464038A00EB3F18 /* UITabBarController+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E1B3A62464038A00EB3F18 /* UITabBarController+QuickStart.swift */; };
 		A9E574E424DD1ECA002098E7 /* SendBirdCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E574E324DD1ECA002098E7 /* SendBirdCredential.swift */; };
@@ -148,6 +150,8 @@
 		A9B75652243DBA77001E764B /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		A9B75654243DBA77001E764B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Intent.swift"; sourceTree = "<group>"; };
+		A9C05DBB24F4D7C60071D56B /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		A9C05DBD24F4D8F50071D56B /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		A9DDC437245FDE3100F042E7 /* QuickStartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickStartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartTests.swift; sourceTree = "<group>"; };
 		A9DDC43B245FDE3100F042E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -324,8 +328,10 @@
 			isa = PBXGroup;
 			children = (
 				A9A72CAA2387B449007C0878 /* Main.storyboard */,
+				A9C05DBB24F4D7C60071D56B /* Settings.storyboard */,
 				A9A72CAF2387B44C007C0878 /* LaunchScreen.storyboard */,
 				A96823A7246278AE001C6F77 /* CallHistory.storyboard */,
+				A9C05DBD24F4D8F50071D56B /* SignIn.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -501,7 +507,9 @@
 				A9A72CB12387B44C007C0878 /* LaunchScreen.storyboard in Resources */,
 				A9A72CAE2387B44C007C0878 /* Assets.xcassets in Resources */,
 				A9A72CAC2387B449007C0878 /* Main.storyboard in Resources */,
+				A9C05DBC24F4D7C60071D56B /* Settings.storyboard in Resources */,
 				A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */,
+				A9C05DBE24F4D8F50071D56B /* SignIn.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

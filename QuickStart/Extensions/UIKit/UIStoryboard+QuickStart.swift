@@ -11,13 +11,23 @@ import UIKit
 extension UIStoryboard {
     private static var main: UIStoryboard { UIStoryboard.init(name: "Main", bundle: nil) }
     
+    private static var signIn: UIStoryboard { UIStoryboard.init(name: "SignIn", bundle: nil) }
+    
     fileprivate enum QuickStart: String {
         case signIn = "SignInViewController"
         case videoCall = "VideoCallViewController"
         case voiceCall = "VoiceCallViewController"
         
+        private var storyboard: UIStoryboard {
+            switch self {
+                case .signIn: return .signIn
+                case .videoCall: return .main
+                case .voiceCall: return .main
+            }
+        }
+        
         var controller: UIViewController {
-            UIStoryboard.main.instantiateViewController(withIdentifier: self.rawValue)
+            self.storyboard.instantiateViewController(withIdentifier: self.rawValue)
         }
     }
 }
