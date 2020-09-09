@@ -11,18 +11,18 @@ import SendBirdCalls
 class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var userProfileImageView: UIImageView! {
         didSet {
-            let profileURL = UserDefaults.standard.credential?.profileURL
+            let profileURL = UserDefaults.standard.user.profileURL
             self.userProfileImageView.updateImage(urlString: profileURL)
         }
     }
     @IBOutlet weak var usernameLabel: UILabel! {
         didSet {
-            self.usernameLabel.text = UserDefaults.standard.credential?.nickname.unwrap(with: "-")
+            self.usernameLabel.text = UserDefaults.standard.user.nickname.unwrap(with: "-")
         }
     }
     @IBOutlet weak var userIdLabel: UILabel! {
         didSet {
-            self.userIdLabel.text = "User ID: " + (UserDefaults.standard.credential?.userID ?? "-")
+            self.userIdLabel.text = "User ID: " + UserDefaults.standard.user.userId
         }
     }
     
@@ -76,13 +76,14 @@ class SettingsTableViewController: UITableViewController {
 // MARK: - SendBirdCall Interaction
 extension SettingsTableViewController {
     func signOut() {
-        UserDefaults.standard.clear()
         guard let token = UserDefaults.standard.voipPushToken else { return }
         
         // MARK: SendBirdCall Deauthenticate
         SendBirdCall.unregisterVoIPPush(token: token) { error in
             // Handle error
             if let error = error { print("[QuickStart]" + error.localizedDescription) }
+            
+            UserDefaults.standard.clear()
             
             SendBirdCall.deauthenticate { _ in }
         }

@@ -25,6 +25,7 @@ extension String {
     }
 }
 
+
 extension Optional where Wrapped == String {
     /// Unwraps optional value with replacement.
     ///

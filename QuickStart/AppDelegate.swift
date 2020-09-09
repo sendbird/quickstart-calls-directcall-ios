@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let window = self.window else { return false }
             window.rootViewController = UIStoryboard.signController()
             window.makeKeyAndVisible()
-        } else if let appId = UserDefaults.standard.credential?.appID {
+        } else if let appId = UserDefaults.standard.appId {
             // QR Code Mode
             SendBirdCall.configure(appId: appId)
         }
@@ -38,14 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SendBirdCall.addDelegate(self, identifier: "com.sendbird.calls.quickstart.delegate")
         
         self.voipRegistration()
-        self.fetchCredential()
         
         return true
-    }
-    
-    func fetchCredential() {
-        let credentialManager = SendBirdCredentialManager.shared
-        credentialManager.pendingCredential = UserDefaults.standard.credential
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

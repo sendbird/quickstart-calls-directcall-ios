@@ -21,9 +21,7 @@ extension SendBirdCall {
             return
         }
         
-        guard let credential = UserDefaults.standard.credential else { return }
-        
-        let params = AuthenticateParams(userId: credential.userID, accessToken: credential.accessToken)
+        let params = AuthenticateParams(userId: UserDefaults.standard.user.userId, accessToken: UserDefaults.standard.accessToken)
         SendBirdCall.authenticate(with: params) { (_, error) in
             completionHandler(error)
         }

@@ -29,17 +29,21 @@ class SignInWithQRViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // After setting a delegate, delegate.processSignIn will be called.
-        self.configureCredentialDelegate()
+        if UserDefaults.standard.autoLogin == true {
+            self.updateButtonUI()
+            self.signIn()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "scanQR":
             guard let qrCodeVC = segue.destination.children.first as? QRCodeViewController else { return }
+            qrCodeVC.delegate = self
             if #available(iOS 13.0, *) { qrCodeVC.isModalInPresentation = true }
         case "manual":
             guard let signInVC = segue.destination.children.first as? SignInManuallyViewController else { return }
+            signInVC.delegate = self
             if #available(iOS 13.0, *) { signInVC.isModalInPresentation = true }
         default: return
         }
@@ -67,13 +71,6 @@ class SignInWithQRViewController: UIViewController {
         self.scanButton.setTitle("Signing In...", for: .normal)
         self.scanButton.isEnabled = false
     }
-    
-    func configureCredentialDelegate() {
-        let credentialManager = SendBirdCredentialManager.shared
-        credentialManager.delegate = self
-        
-        credentialManager.signIn()
-    }
 }
 
 // MARK: - QR Code
@@ -87,28 +84,28 @@ extension SignInWithQRViewController: SignInDelegate {
     }
     
     // Delegate method
-    func processSignIn(credential: SendBirdCredentialManager.SendBirdCredential) {
-        // Store credential
+    func didSignIn(appId: String, userId: String, accessToken: String?) {
+        SendBirdCall.configure(appId: appId)
+
+        UserDefaults.standard.appId = appId
+        UserDefaults.standard.user.userId = userId
+        UserDefaults.standard.accessToken = accessToken
         self.updateButtonUI()
-        self.signIn(with: credential)
+        self.signIn()
     }
 }
 
 // MARK: SendBirdCalls
 extension SignInWithQRViewController {
-    func signIn(with credential: SendBirdCredentialManager.SendBirdCredential) {
-        // Execute only when the app ID is valid.
+    func signIn() {
+        let userId = UserDefaults.standard.user.userId
+        let accessToken = UserDefaults.standard.accessToken
         let voipPushToken = UserDefaults.standard.voipPushToken
-        let authParams = AuthenticateParams(userId: credential.userID,
-                                            accessToken: credential.accessToken)
+        let authParams = AuthenticateParams(userId: userId, accessToken: accessToken)
         
         self.indicator.startLoading(on: self.view)
         
-        // Update app ID
-        SendBirdCall.configure(appId: credential.appID)
-
         SendBirdCall.authenticate(with: authParams) { user, error in
-            let credentialManager = SendBirdCredentialManager.shared
             guard let user = user, error == nil else {
                 // Handling error
                 DispatchQueue.main.async { [weak self] in
@@ -118,14 +115,13 @@ extension SignInWithQRViewController {
                     let errorDescription = String(error?.localizedDescription ?? "")
                     self.presentErrorAlert(message: "\(errorDescription)")
                 }
-                // If there is something wrong, clear all stored information except for voip push token.
-                credentialManager.pendingCredential = nil
                 UserDefaults.standard.clear()
                 return
             }
             
-            // Store the details for the user for its ID as a key.
-            credentialManager.storeCredential(nickname: user.nickname, profileURL: user.profileURL)
+            // Save data
+            UserDefaults.standard.autoLogin = true
+            UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
             // register push token
             SendBirdCall.registerVoIPPush(token: voipPushToken, unique: false) { error in
