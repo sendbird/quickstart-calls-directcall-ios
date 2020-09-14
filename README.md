@@ -180,6 +180,12 @@ To handle a native-implementation of receiving incoming calls, implement Appleâ€
 
 ## Advanced
 
+### Using Remote Push Notifications
+
+Instead of using PushKit and CallKit, you can also choose to use Remote Push Notifications to receive incoming call notifications.
+
+For a quickstart sample guide using Remote Push Notifications, please refer to [feature/remote-push-notifications branch](https://github.com/sendbird/quickstart-calls-ios/tree/feature/remote-push-notifications).
+
 ### Handle an incoming call without media permission
 
 When using CallKit to process your call, there may be times where a user makes a call without allowing media permission for audio and/or video access. Without such permission, the call will proceed without audio and/or video, which may not deliver the intended user experience. On the other hand, some other calling apps implement different user flow and require a media permission before starting a call. 
