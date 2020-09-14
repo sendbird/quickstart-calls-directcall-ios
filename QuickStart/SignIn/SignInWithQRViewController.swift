@@ -125,7 +125,8 @@ extension SignInWithQRViewController {
             }
             
             // Store the details for the user for its ID as a key.
-            credentialManager.storeCredential(nickname: user.nickname, profileURL: user.profileURL)
+            credentialManager.storeCredential(nickname: user.nickname,
+                                              profileURL: user.profileURL)
             
             // register push token
             SendBirdCall.registerVoIPPush(token: voipPushToken, unique: false) { error in
