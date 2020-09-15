@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BZJ-Np-HIS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BZJ-Np-HIS">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +23,7 @@
                                     <constraint firstAttribute="height" constant="48" id="nLD-dv-o2L"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBird Calls" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAa-3S-PvZ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sendbird Calls" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAa-3S-PvZ">
                                 <rect key="frame" x="16" y="212" width="382" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="cAI-Ny-Wbc"/>
@@ -429,7 +429,7 @@
                                     <constraint firstAttribute="height" constant="60" id="xGB-IE-fnO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <state key="normal" title="Sign In">
+                                <state key="normal" title="Sign in">
                                     <color key="titleColor" red="0.96470588239999999" green="0.97254901959999995" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -448,7 +448,7 @@
                                     <constraint firstAttribute="height" constant="48" id="6hB-54-hGb"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBird Calls" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="rDL-k3-6Sr">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sendbird Calls" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="rDL-k3-6Sr">
                                 <rect key="frame" x="40" y="212" width="334" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="cQz-Ie-Wqe"/>
@@ -491,11 +491,11 @@
             <point key="canvasLocation" x="-1307" y="1264"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="O6G-bh-jE0"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="icLogoSymbol" width="48" height="48"/>
         <image name="imgGuideQrcode" width="240" height="240"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="qiL-sl-72P"/>
-    </inferredMetricsTieBreakers>
 </document>

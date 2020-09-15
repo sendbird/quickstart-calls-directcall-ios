@@ -136,7 +136,7 @@
 		A99CC95523BA151000F9116A /* Data+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC95723BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+QuickStart.swift"; sourceTree = "<group>"; };
 		A9A53CDF245FF94900E8E654 /* INStartCallIntent+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "INStartCallIntent+QuickStart.swift"; sourceTree = "<group>"; };
-		A9A72CA12387B448007C0878 /* SendBird Calls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SendBird Calls.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9A72CA12387B448007C0878 /* Sendbird Calls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sendbird Calls.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A72CA42387B448007C0878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A9A72CAB2387B449007C0878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A9A72CAD2387B44C007C0878 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -296,7 +296,7 @@
 		A9A72CA22387B448007C0878 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A9A72CA12387B448007C0878 /* SendBird Calls.app */,
+				A9A72CA12387B448007C0878 /* Sendbird Calls.app */,
 				A9B75650243DBA77001E764B /* QuickStartIntent.appex */,
 				A9DDC437245FDE3100F042E7 /* QuickStartTests.xctest */,
 			);
@@ -417,7 +417,7 @@
 			);
 			name = QuickStart;
 			productName = "SendBirdCall Tester";
-			productReference = A9A72CA12387B448007C0878 /* SendBird Calls.app */;
+			productReference = A9A72CA12387B448007C0878 /* Sendbird Calls.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A9B7564F243DBA77001E764B /* QuickStartIntent */ = {
@@ -832,7 +832,7 @@
 				);
 				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart;
-				PRODUCT_NAME = "SendBird Calls";
+				PRODUCT_NAME = "Sendbird Calls";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -861,7 +861,7 @@
 				);
 				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart;
-				PRODUCT_NAME = "SendBird Calls";
+				PRODUCT_NAME = "Sendbird Calls";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
