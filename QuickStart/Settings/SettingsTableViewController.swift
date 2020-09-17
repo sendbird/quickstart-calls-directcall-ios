@@ -9,22 +9,9 @@ import UIKit
 import SendBirdCalls
 
 class SettingsTableViewController: UITableViewController {
-    @IBOutlet weak var userProfileImageView: UIImageView! {
-        didSet {
-            let profileURL = UserDefaults.standard.credential?.profileURL
-            self.userProfileImageView.updateImage(urlString: profileURL)
-        }
-    }
-    @IBOutlet weak var usernameLabel: UILabel! {
-        didSet {
-            self.usernameLabel.text = UserDefaults.standard.credential?.nickname.unwrap(with: "-")
-        }
-    }
-    @IBOutlet weak var userIdLabel: UILabel! {
-        didSet {
-            self.userIdLabel.text = "User ID: " + (UserDefaults.standard.credential?.userID ?? "-")
-        }
-    }
+    @IBOutlet weak var userProfileImageView: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var userIdLabel: UILabel!
     
     @IBOutlet weak var versionLabel: UILabel! {
         didSet {
@@ -36,6 +23,16 @@ class SettingsTableViewController: UITableViewController {
     enum CellRow: Int {
         case applnfo = 1
         case signOut = 2
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // To receive event when the credential has been updated
+        CredentialManager.shared.addDelegate(self, forKey: "Settings")
+        
+        // Set up UI with current credential
+        self.updateUI(with: UserDefaults.standard.credential)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -65,7 +62,7 @@ class SettingsTableViewController: UITableViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        self.dismiss(animated: true, completion: nil)
+                        self.present(UIStoryboard.signController(), animated: true, completion: nil)
                     }
                 }
             }
@@ -76,6 +73,19 @@ class SettingsTableViewController: UITableViewController {
             self.present(alert, animated: true, completion: nil)
         default: return
         }
+    }
+}
+
+extension SettingsTableViewController: CredentialDelegate {
+    func didUpdateCredential(_ credential: Credential?) {
+        self.updateUI(with: credential)
+    }
+    
+    func updateUI(with credential: Credential?) {
+        let profileURL = credential?.profileURL
+        self.userProfileImageView.updateImage(urlString: profileURL)
+        self.usernameLabel.text = credential?.nickname.unwrap(with: "-")
+        self.userIdLabel.text = "User ID: " + (credential?.userID ?? "-")
     }
 }
 

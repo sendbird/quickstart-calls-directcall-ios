@@ -49,6 +49,9 @@
 		A9A72CAE2387B44C007C0878 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9A72CAD2387B44C007C0878 /* Assets.xcassets */; };
 		A9A72CB12387B44C007C0878 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9A72CAF2387B44C007C0878 /* LaunchScreen.storyboard */; };
 		A9A72CB92387BAE6007C0878 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A72CB82387BAE6007C0878 /* SignInViewController.swift */; };
+		A9ABF214251343C4004977F3 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF213251343C4004977F3 /* Credential.swift */; };
+		A9ABF216251343DF004977F3 /* CredentialErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF215251343DF004977F3 /* CredentialErrors.swift */; };
+		A9ABF2182513445D004977F3 /* CredentialDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF2172513445D004977F3 /* CredentialDelegate.swift */; };
 		A9AC8755241A202C004AB93B /* AppInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AC8754241A202C004AB93B /* AppInfoTableViewController.swift */; };
 		A9B7562D243DA92F001E764B /* NSUserActivity+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */; };
 		A9B7562F243DA949001E764B /* StartCallConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7562E243DA949001E764B /* StartCallConvertible.swift */; };
@@ -59,7 +62,7 @@
 		A9C05DBE24F4D8F50071D56B /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9C05DBD24F4D8F50071D56B /* SignIn.storyboard */; };
 		A9DDC43A245FDE3100F042E7 /* QuickStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */; };
 		A9E1B3A72464038A00EB3F18 /* UITabBarController+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E1B3A62464038A00EB3F18 /* UITabBarController+QuickStart.swift */; };
-		A9E574E424DD1ECA002098E7 /* SendBirdCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E574E324DD1ECA002098E7 /* SendBirdCredential.swift */; };
+		A9E574E424DD1ECA002098E7 /* CredentialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E574E324DD1ECA002098E7 /* CredentialManager.swift */; };
 		C1DD1FF923AFB59900140657 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF823A0B2DE00842136 /* CallKit.framework */; };
 		C1DD1FFB23AFB59A00140657 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF623A0B2DA00842136 /* PushKit.framework */; };
 		C1F69B0F23C5A4E300C66F00 /* CXProvider+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */; };
@@ -143,6 +146,9 @@
 		A9A72CB02387B44C007C0878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A9A72CB22387B44C007C0878 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9A72CB82387BAE6007C0878 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		A9ABF213251343C4004977F3 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
+		A9ABF215251343DF004977F3 /* CredentialErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialErrors.swift; sourceTree = "<group>"; };
+		A9ABF2172513445D004977F3 /* CredentialDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialDelegate.swift; sourceTree = "<group>"; };
 		A9AC8754241A202C004AB93B /* AppInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoTableViewController.swift; sourceTree = "<group>"; };
 		A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserActivity+QuickStart.swift"; sourceTree = "<group>"; };
 		A9B7562E243DA949001E764B /* StartCallConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCallConvertible.swift; sourceTree = "<group>"; };
@@ -156,7 +162,7 @@
 		A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartTests.swift; sourceTree = "<group>"; };
 		A9DDC43B245FDE3100F042E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9E1B3A62464038A00EB3F18 /* UITabBarController+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+QuickStart.swift"; sourceTree = "<group>"; };
-		A9E574E324DD1ECA002098E7 /* SendBirdCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendBirdCredential.swift; sourceTree = "<group>"; };
+		A9E574E324DD1ECA002098E7 /* CredentialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialManager.swift; sourceTree = "<group>"; };
 		A9E98EF623A0B2DA00842136 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		A9E98EF823A0B2DE00842136 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		C1E1B36823AD3D9D00275F8B /* SendBirdCalls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SendBirdCalls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -339,7 +345,7 @@
 		A9A72CBB2387BCE2007C0878 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				A9E574E324DD1ECA002098E7 /* SendBirdCredential.swift */,
+				A9ABF21925134BB6004977F3 /* Credentials */,
 				A9A72CB82387BAE6007C0878 /* SignInViewController.swift */,
 				A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */,
 				A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */,
@@ -347,6 +353,17 @@
 				A95E91C6242887730035274E /* SignInDelegate.swift */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		A9ABF21925134BB6004977F3 /* Credentials */ = {
+			isa = PBXGroup;
+			children = (
+				A9E574E324DD1ECA002098E7 /* CredentialManager.swift */,
+				A9ABF215251343DF004977F3 /* CredentialErrors.swift */,
+				A9ABF213251343C4004977F3 /* Credential.swift */,
+				A9ABF2172513445D004977F3 /* CredentialDelegate.swift */,
+			);
+			path = Credentials;
 			sourceTree = "<group>";
 		};
 		A9B75651243DBA77001E764B /* QuickStartIntent */ = {
@@ -595,6 +612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9E1B3A72464038A00EB3F18 /* UITabBarController+QuickStart.swift in Sources */,
+				A9ABF216251343DF004977F3 /* CredentialErrors.swift in Sources */,
 				49B07ACA242D8B1F00EFF73A /* Int64+QuickStart.swift in Sources */,
 				A968F6A42415CFF800E6EFD5 /* UIView+Extension.swift in Sources */,
 				A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */,
@@ -602,6 +620,7 @@
 				A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */,
 				A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */,
 				A95A7CA0242063C700EB0D56 /* QRCodeViewController.swift in Sources */,
+				A9ABF2182513445D004977F3 /* CredentialDelegate.swift in Sources */,
 				A9A72CB92387BAE6007C0878 /* SignInViewController.swift in Sources */,
 				A9409C462390FA8100410458 /* UserDefaults+QuickStart.swift in Sources */,
 				A951A7AF238D154700410E40 /* VoiceCallViewController.swift in Sources */,
@@ -619,7 +638,7 @@
 				A973C0AD249A107100514CD3 /* UIActivityIndicatorView+QuickStart.swift in Sources */,
 				A99CC95023BA14A100F9116A /* UIColor+QuickStart.swift in Sources */,
 				A95A7C9E2420614A00EB0D56 /* SignInWithQRViewController.swift in Sources */,
-				A9E574E424DD1ECA002098E7 /* SendBirdCredential.swift in Sources */,
+				A9E574E424DD1ECA002098E7 /* CredentialManager.swift in Sources */,
 				A97EDF2B246D1EEC0072DF3D /* CallHistory.swift in Sources */,
 				A951A7A7238CC4DF00410E40 /* DialViewController.swift in Sources */,
 				A9B7562F243DA949001E764B /* StartCallConvertible.swift in Sources */,
@@ -632,6 +651,7 @@
 				A99CC95823BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift in Sources */,
 				A943CAF523C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift in Sources */,
 				A994495D2387F22F00A4FFBB /* UIViewController+QuickStart.swift in Sources */,
+				A9ABF214251343C4004977F3 /* Credential.swift in Sources */,
 				A91AAA6024447112003894AD /* SendBirdCall+QuickStart.swift in Sources */,
 				A99CC95423BA14CA00F9116A /* UITextView+QuickStart.swift in Sources */,
 				A9B7562D243DA92F001E764B /* NSUserActivity+QuickStart.swift in Sources */,

@@ -28,9 +28,6 @@ class SignInWithQRViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // After setting a delegate, delegate.processSignIn will be called.
-        self.configureCredentialDelegate()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,17 +64,10 @@ class SignInWithQRViewController: UIViewController {
         self.scanButton.setTitle("Signing In...", for: .normal)
         self.scanButton.isEnabled = false
     }
-    
-    func configureCredentialDelegate() {
-        let credentialManager = SendBirdCredentialManager.shared
-        credentialManager.delegate = self
-        
-        credentialManager.signIn()
-    }
 }
 
-// MARK: - QR Code
-extension SignInWithQRViewController: SignInDelegate {
+// MARK: - Sign in options: QR code / ID
+extension SignInWithQRViewController {
     @IBAction func didTapScanQRCode() {
         performSegue(withIdentifier: "scanQR", sender: nil)
     }
@@ -85,48 +75,41 @@ extension SignInWithQRViewController: SignInDelegate {
     @IBAction func didTapSignInManually() {
         performSegue(withIdentifier: "manual", sender: nil)
     }
-    
-    // Delegate method
-    func processSignIn(credential: SendBirdCredentialManager.SendBirdCredential) {
-        // Store credential
-        self.updateButtonUI()
-        self.signIn(with: credential)
-    }
 }
 
 // MARK: SendBirdCalls
 extension SignInWithQRViewController {
-    func signIn(with credential: SendBirdCredentialManager.SendBirdCredential) {
+    func signIn(with credential: Credential) {
+        // Loading UI
+        self.updateButtonUI()
+        self.indicator.startLoading(on: self.view)
+        
         // Execute only when the app ID is valid.
         let voipPushToken = UserDefaults.standard.voipPushToken
-        let authParams = AuthenticateParams(userId: credential.userID,
-                                            accessToken: credential.accessToken)
-        
-        self.indicator.startLoading(on: self.view)
         
         // Update app ID
         SendBirdCall.configure(appId: credential.appID)
-
-        SendBirdCall.authenticate(with: authParams) { user, error in
-            let credentialManager = SendBirdCredentialManager.shared
-            guard let user = user, error == nil else {
-                // Handling error
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
+        
+        let authParams = AuthenticateParams(userId: credential.userID, accessToken: credential.accessToken)
+        SendBirdCall.authenticate(with: authParams) { (user, error) in
+            guard user != nil else {
+                DispatchQueue.main.async { [self] in
+                    // Failed
                     self.indicator.stopLoading()
                     self.resetButtonUI()
-                    let errorDescription = String(error?.localizedDescription ?? "")
-                    self.presentErrorAlert(message: "\(errorDescription)")
+                    let error: Error = error ?? CredentialErrors.unknown
+                    self.presentErrorAlert(message: error.localizedDescription)
                 }
-                // If there is something wrong, clear all stored information except for voip push token.
-                credentialManager.pendingCredential = nil
+                
+                // (Optional) If there is something wrong, clear all stored information except for voip push token.
                 UserDefaults.standard.clear()
                 return
             }
             
-            // Store the details for the user for its ID as a key.
-            credentialManager.storeCredential(nickname: user.nickname,
-                                              profileURL: user.profileURL)
+            // create credential object with updated information
+            let credential = Credential(accessToken: credential.accessToken)
+            let credentialManager = CredentialManager.shared
+            credentialManager.updateCredential(credential)
             
             // register push token
             SendBirdCall.registerVoIPPush(token: voipPushToken, unique: false) { error in
@@ -136,10 +119,9 @@ extension SignInWithQRViewController {
                     guard let self = self else { return }
                     self.indicator.stopLoading()
                     self.resetButtonUI()
-                    self.performSegue(withIdentifier: "signInWithQRCode", sender: nil)
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
-            
         }
     }
 }

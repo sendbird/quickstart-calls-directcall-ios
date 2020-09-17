@@ -43,11 +43,27 @@ extension AppDelegate {
     // For more information about Custom URL Scheme for your app, see [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app)
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         
-        guard SendBirdCall.currentUser == nil else {
-            UIApplication.shared.showError(with: "Please log out current account")
+        guard UserDefaults.standard.credential == nil else {
+            UIApplication.shared.showError(with: CredentialErrors.alreadyAuthenticated.localizedDescription)
             return false
         }
         
-        return SendBirdCredentialManager.shared.handle(url: url)
+        do {
+            let pendingCredential = try CredentialManager.shared.handle(url: url)
+            self.authenticate(with: pendingCredential) { error in
+                if let error = error {
+                    UIApplication.shared.showError(with: error.localizedDescription)
+                    return
+                }
+                
+                guard let signInVC = self.window?.rootViewController?.presentedViewController as? SignInWithQRViewController else { return }
+                signInVC.dismiss(animated: true, completion: nil)
+            }
+        } catch {
+            UIApplication.shared.showError(with: error.localizedDescription)
+            return false
+        }
+        
+        return true
     }
 }

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol SignInDelegate: class {
-    func processSignIn(credential: SendBirdCredentialManager.SendBirdCredential)
+    func processSignIn(credential: Credential)
 }

@@ -28,21 +28,15 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // To receive event when the credential has been updated
+        CredentialManager.shared.addDelegate(self, forKey: "Recents")
+        
         self.navigationItem.title = "Call History"
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
         
         // query
-        let params = DirectCallLogListQuery.Params()
-        params.limit = 100
-        self.query = SendBirdCall.createDirectCallLogListQuery(with: params)
-        
-        guard self.callHistories.isEmpty else { return }
-        
-        self.tableView?.isHidden = true
-    
-        self.indicator.startLoading(on: self.view)
-        self.fetchCallLogsFromServer()
+        self.resetQuery()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,6 +121,25 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         guard !self.callHistories.isEmpty else { return }
         self.tableView?.isHidden = false
         self.tableView?.reloadData()
+    }
+}
+
+extension CallHistoryViewController: CredentialDelegate {
+    func didUpdateCredential(_ credential: Credential?) {
+        self.resetQuery()
+    }
+    
+    func resetQuery() {
+        let params = DirectCallLogListQuery.Params()
+        params.limit = 100
+        self.query = SendBirdCall.createDirectCallLogListQuery(with: params)
+        
+        guard self.callHistories.isEmpty else { return }
+        
+        self.tableView?.isHidden = true
+        
+        self.indicator.startLoading(on: self.view)
+        self.fetchCallLogsFromServer()
     }
 }
 

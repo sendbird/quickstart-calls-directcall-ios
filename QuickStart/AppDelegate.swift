@@ -23,29 +23,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
         // SendBirdCall.configure(appId: YOUR_APP_ID)
 
-        if SendBirdCall.appId != nil {
-            // User ID Mode
-            self.window = UIWindow(frame: UIScreen.main.bounds)
-            guard let window = self.window else { return false }
-            window.rootViewController = UIStoryboard.signController()
-            window.makeKeyAndVisible()
-        } else if let appId = UserDefaults.standard.credential?.appID {
-            // QR Code Mode
-            SendBirdCall.configure(appId: appId)
+        self.autoSignIn { error in
+            guard let error = error else { return }
+            print(error.localizedDescription)
+            self.window?.rootViewController?.present(UIStoryboard.signController(), animated: true, completion: nil)
         }
         
         // To process incoming call, you need to add `SendBirdCallDelegate` and implement its protocol methods.
         SendBirdCall.addDelegate(self, identifier: "com.sendbird.calls.quickstart.delegate")
         
         self.voipRegistration()
-        self.fetchCredential()
         
         return true
     }
     
-    func fetchCredential() {
-        let credentialManager = SendBirdCredentialManager.shared
-        credentialManager.pendingCredential = UserDefaults.standard.credential
+    func autoSignIn(completionHandler: @escaping (Error?) -> Void) {
+        // fetch credential
+        guard let pendingCredential = UserDefaults.standard.credential else {
+            DispatchQueue.main.async {
+                completionHandler(CredentialErrors.empty)
+            }
+            return
+        }
+        // authenticate
+        self.authenticate(with: pendingCredential, completionHandler: completionHandler)
+    }
+    
+    func authenticate(with credential: Credential, completionHandler: @escaping (Error?) -> Void) {
+        SendBirdCall.configure(appId: credential.appID)
+        let authParams = AuthenticateParams(userId: credential.userID, accessToken: credential.accessToken)
+        SendBirdCall.authenticate(with: authParams) { (user, error) in
+            guard user != nil else {
+                DispatchQueue.main.async {
+                    completionHandler(error ?? CredentialErrors.unknown)
+                }
+                return
+            }
+            let credential = Credential(accessToken: credential.accessToken)
+            let credentialManager = CredentialManager.shared
+            credentialManager.updateCredential(credential)
+            
+            DispatchQueue.main.async {
+                completionHandler(nil)
+            }
+        }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
