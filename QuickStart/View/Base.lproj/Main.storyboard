@@ -16,7 +16,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="78p-hm-3VY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1963" y="1863"/>
+            <point key="canvasLocation" x="1638" y="766"/>
         </scene>
         <!--Voice Call View Controller-->
         <scene sceneID="xQ3-Jv-7ju">
@@ -140,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bjF-WA-1Q9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2581" y="781"/>
+            <point key="canvasLocation" x="-532" y="1087"/>
         </scene>
         <!--Dial-->
         <scene sceneID="eda-BC-zTo">
@@ -313,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3Z-6X-Og9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="408"/>
+            <point key="canvasLocation" x="-155" y="360"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="7VQ-Kb-uEx">
@@ -334,7 +334,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s6W-w9-znW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201" y="1134"/>
+            <point key="canvasLocation" x="738" y="-368"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m5a-WD-cYh">
@@ -355,7 +355,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ad1-eg-pq5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="1863"/>
+            <point key="canvasLocation" x="1639" y="360"/>
         </scene>
         <!--Video Call View Controller-->
         <scene sceneID="95y-fH-Uoo">
@@ -535,7 +535,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tes-oc-mzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2580" y="82"/>
+            <point key="canvasLocation" x="184" y="1087"/>
         </scene>
         <!--CallHistoryViewController-->
         <scene sceneID="iMd-Un-9BK">
@@ -545,7 +545,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjr-qr-62J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1952" y="1134"/>
+            <point key="canvasLocation" x="738" y="766"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lIC-BO-AcS">
@@ -565,7 +565,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eTr-uZ-eCG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="1134"/>
+            <point key="canvasLocation" x="738" y="360"/>
         </scene>
     </scenes>
     <resources>
