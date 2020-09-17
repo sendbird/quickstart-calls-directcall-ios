@@ -56,7 +56,7 @@ extension AppDelegate {
                     return
                 }
                 
-                guard let signInVC = self.window?.rootViewController?.presentedViewController as? SignInWithQRViewController else { return }
+                guard let signInVC = self.window?.rootViewController?.presentedViewController else { return }
                 signInVC.dismiss(animated: true, completion: nil)
             }
         } catch {
