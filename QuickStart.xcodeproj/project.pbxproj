@@ -28,7 +28,6 @@
 		A95A7C9E2420614A00EB0D56 /* SignInWithQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */; };
 		A95A7CA0242063C700EB0D56 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */; };
 		A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */; };
-		A95E91C7242887730035274E /* SignInDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95E91C6242887730035274E /* SignInDelegate.swift */; };
 		A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A96823A7246278AE001C6F77 /* CallHistory.storyboard */; };
 		A96839F02418ED0100317004 /* VideoCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96839EF2418ED0100317004 /* VideoCallViewController.swift */; };
 		A968F6A42415CFF800E6EFD5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A968F6A32415CFF800E6EFD5 /* UIView+Extension.swift */; };
@@ -123,7 +122,6 @@
 		A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithQRViewController.swift; sourceTree = "<group>"; };
 		A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInManuallyViewController.swift; sourceTree = "<group>"; };
-		A95E91C6242887730035274E /* SignInDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDelegate.swift; sourceTree = "<group>"; };
 		A96823A7246278AE001C6F77 /* CallHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CallHistory.storyboard; sourceTree = "<group>"; };
 		A96839EF2418ED0100317004 /* VideoCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallViewController.swift; sourceTree = "<group>"; };
 		A968F6A32415CFF800E6EFD5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -350,7 +348,6 @@
 				A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */,
 				A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */,
 				A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */,
-				A95E91C6242887730035274E /* SignInDelegate.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -645,7 +642,6 @@
 				A96839F02418ED0100317004 /* VideoCallViewController.swift in Sources */,
 				A9AC8755241A202C004AB93B /* AppInfoTableViewController.swift in Sources */,
 				49B07AB2242CBA8100EFF73A /* UIStoryboard+QuickStart.swift in Sources */,
-				A95E91C7242887730035274E /* SignInDelegate.swift in Sources */,
 				A91199BC2421257300208E21 /* DirectCallDataSource.swift in Sources */,
 				A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */,
 				A99CC95823BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift in Sources */,
