@@ -81,6 +81,21 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     // MARK: - Update Call Histories
+    func resetQuery() {
+        let params = DirectCallLogListQuery.Params()
+        params.limit = 100
+        self.query = SendBirdCall.createDirectCallLogListQuery(with: params)
+        
+        guard self.callHistories.isEmpty else { return }
+        
+        self.tableView?.isHidden = true
+        
+        self.indicator.startLoading(on: self.view)
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.fetchCallLogsFromServer()
+        }
+    }
+    
     func fetchCallLogsFromServer() {
         // Get next call logs with query
         self.query?.next { callLogs, _ in
@@ -124,22 +139,10 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
     }
 }
 
+// MARK: - Credential Delegate
 extension CallHistoryViewController: CredentialDelegate {
     func didUpdateCredential(_ credential: Credential?) {
         self.resetQuery()
-    }
-    
-    func resetQuery() {
-        let params = DirectCallLogListQuery.Params()
-        params.limit = 100
-        self.query = SendBirdCall.createDirectCallLogListQuery(with: params)
-        
-        guard self.callHistories.isEmpty else { return }
-        
-        self.tableView?.isHidden = true
-        
-        self.indicator.startLoading(on: self.view)
-        self.fetchCallLogsFromServer()
     }
 }
 

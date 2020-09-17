@@ -9,18 +9,21 @@
 import Foundation
 import UIKit
 
-
 class CredentialManager {
     // Singleton
     static let shared = CredentialManager()
+    
+    // URL scheme prefix
     private static let urlScheme = "sendbird://"
     
+    // To publish event when the credential has been updated.
     private var delegates: NSMapTable<NSString, AnyObject>    // weak map
     
     init() {
         self.delegates = NSMapTable(keyOptions: .strongMemory, valueOptions: .weakMemory)
     }
     
+    /// Adds class as `CredentialDelegate` to receive credential event.
     func addDelegate(_ delegate: CredentialDelegate, forKey key: String) {
         self.delegates.setObject(delegate, forKey: key as NSString)
     }
@@ -39,7 +42,7 @@ class CredentialManager {
     /// Handle URL scheme containg `sendbird://` as a prefix and signs in.
     ///  - Parameters:
     ///     - url: URL from URL scheme.
-    /// - Returns: The boolean value indicating whether the url is valid or not.
+    /// - Returns: `Credential` object.
     func handle(url: URL) throws -> Credential {
         return try self.decode(url: url)
     }
@@ -47,13 +50,12 @@ class CredentialManager {
     /// Handle data from QR code and signs in.
     /// - Parameters:
     ///     - qrData: The data from QR code.
-    ///     - completion: The completion handler that allows you to handle the result.
+    /// - Returns: `Credential` object.
     func handle(qrData: Data) throws -> Credential {
         // Decoding
         return try self.decode(base64EncodedData: qrData)
     }
     
-    /// Take `Data` object and reture result
     private func decode(base64EncodedData data: Data) throws -> Credential {
         return try JSONDecoder().decode(Credential.self, from: data)
     }

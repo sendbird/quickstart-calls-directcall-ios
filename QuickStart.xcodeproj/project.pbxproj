@@ -51,6 +51,8 @@
 		A9ABF214251343C4004977F3 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF213251343C4004977F3 /* Credential.swift */; };
 		A9ABF216251343DF004977F3 /* CredentialErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF215251343DF004977F3 /* CredentialErrors.swift */; };
 		A9ABF2182513445D004977F3 /* CredentialDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF2172513445D004977F3 /* CredentialDelegate.swift */; };
+		A9ABF21B2513CCDA004977F3 /* AppDelegate+VoIPPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF21A2513CCDA004977F3 /* AppDelegate+VoIPPush.swift */; };
+		A9ABF21D2513CF12004977F3 /* AppDelegate+URLScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF21C2513CF12004977F3 /* AppDelegate+URLScheme.swift */; };
 		A9AC8755241A202C004AB93B /* AppInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AC8754241A202C004AB93B /* AppInfoTableViewController.swift */; };
 		A9B7562D243DA92F001E764B /* NSUserActivity+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */; };
 		A9B7562F243DA949001E764B /* StartCallConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7562E243DA949001E764B /* StartCallConvertible.swift */; };
@@ -147,6 +149,8 @@
 		A9ABF213251343C4004977F3 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
 		A9ABF215251343DF004977F3 /* CredentialErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialErrors.swift; sourceTree = "<group>"; };
 		A9ABF2172513445D004977F3 /* CredentialDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialDelegate.swift; sourceTree = "<group>"; };
+		A9ABF21A2513CCDA004977F3 /* AppDelegate+VoIPPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+VoIPPush.swift"; sourceTree = "<group>"; };
+		A9ABF21C2513CF12004977F3 /* AppDelegate+URLScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+URLScheme.swift"; sourceTree = "<group>"; };
 		A9AC8754241A202C004AB93B /* AppInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoTableViewController.swift; sourceTree = "<group>"; };
 		A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserActivity+QuickStart.swift"; sourceTree = "<group>"; };
 		A9B7562E243DA949001E764B /* StartCallConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCallConvertible.swift; sourceTree = "<group>"; };
@@ -313,7 +317,9 @@
 				A9A72CB22387B44C007C0878 /* Info.plist */,
 				A951A7B7238D23C000410E40 /* QuickStart.entitlements */,
 				A9A72CA42387B448007C0878 /* AppDelegate.swift */,
+				A9ABF21A2513CCDA004977F3 /* AppDelegate+VoIPPush.swift */,
 				A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */,
+				A9ABF21C2513CF12004977F3 /* AppDelegate+URLScheme.swift */,
 				A943CAF423C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift */,
 				A91AAA6124447117003894AD /* SendBirdCallsExtenions */,
 				A96823A92462805B001C6F77 /* CallHistory */,
@@ -622,12 +628,14 @@
 				A9409C462390FA8100410458 /* UserDefaults+QuickStart.swift in Sources */,
 				A951A7AF238D154700410E40 /* VoiceCallViewController.swift in Sources */,
 				A91AAA5E244470BF003894AD /* UIApplication+QuickStart.swift in Sources */,
+				A9ABF21D2513CF12004977F3 /* AppDelegate+URLScheme.swift in Sources */,
 				A9B7565E243DE933001E764B /* AppDelegate+Intent.swift in Sources */,
 				A93E1E0A246D559D00CD9690 /* CallHistoryViewController.swift in Sources */,
 				A99CC95223BA14BC00F9116A /* UITextField+QuickStart.swift in Sources */,
 				A99449592387E92400A4FFBB /* SettingsTableViewController.swift in Sources */,
 				49D80157242C6C55003CFFBA /* String+QuickStart.swift in Sources */,
 				A9409C482390FA8E00410458 /* NotificationCenter+QuickStart.swift in Sources */,
+				A9ABF21B2513CCDA004977F3 /* AppDelegate+VoIPPush.swift in Sources */,
 				5281EB6E23A8602300EDA984 /* CXCallManager.swift in Sources */,
 				A93E1E0B246D559D00CD9690 /* CallHistoryTableViewCell.swift in Sources */,
 				A9A72CA52387B448007C0878 /* AppDelegate.swift in Sources */,

@@ -7,5 +7,8 @@
 //
 
 protocol CredentialDelegate: class {
+    /// Called when a current credential was updated.
+    /// - Parameters:
+    ///     - credential: An updated `Credential` object. It's optional type.
     func didUpdateCredential(_ credential: Credential?)
 }

@@ -35,10 +35,6 @@ class SettingsTableViewController: UITableViewController {
         self.updateUI(with: UserDefaults.standard.credential)
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
@@ -57,7 +53,9 @@ class SettingsTableViewController: UITableViewController {
                 // MARK: Sign Out
                 self.signOut { error in
                     if let error = error {
-                        self.presentErrorAlert(message: "[QuickStart]" + error.localizedDescription)
+                        DispatchQueue.main.async {
+                            self.presentErrorAlert(message: error.localizedDescription)
+                        }
                         return
                     }
                     
@@ -76,19 +74,6 @@ class SettingsTableViewController: UITableViewController {
     }
 }
 
-extension SettingsTableViewController: CredentialDelegate {
-    func didUpdateCredential(_ credential: Credential?) {
-        self.updateUI(with: credential)
-    }
-    
-    func updateUI(with credential: Credential?) {
-        let profileURL = credential?.profileURL
-        self.userProfileImageView.updateImage(urlString: profileURL)
-        self.usernameLabel.text = credential?.nickname.unwrap(with: "-")
-        self.userIdLabel.text = "User ID: " + (credential?.userID ?? "-")
-    }
-}
-
 // MARK: - SendBirdCall Interaction
 extension SettingsTableViewController {
     func signOut(_ completionHandler: @escaping ((_ error: Error?) -> Void)) {
@@ -96,6 +81,7 @@ extension SettingsTableViewController {
             // MARK: SendBirdCall Deauthenticate
             SendBirdCall.deauthenticate { error in
                 if error == nil { UserDefaults.standard.clear() }
+                CredentialManager.shared.updateCredential(UserDefaults.standard.credential)
                 completionHandler(error)
             }
         }
@@ -109,5 +95,19 @@ extension SettingsTableViewController {
         } else {
             logOut()
         }
+    }
+}
+
+// MARK: - Credential Delegate
+extension SettingsTableViewController: CredentialDelegate {
+    func didUpdateCredential(_ credential: Credential?) {
+        self.updateUI(with: credential)
+    }
+    
+    func updateUI(with credential: Credential?) {
+        let profileURL = credential?.profileURL
+        self.userProfileImageView.updateImage(urlString: profileURL)
+        self.usernameLabel.text = credential?.nickname.unwrap(with: "-")
+        self.userIdLabel.text = "User ID: " + (credential?.userID ?? "-")
     }
 }

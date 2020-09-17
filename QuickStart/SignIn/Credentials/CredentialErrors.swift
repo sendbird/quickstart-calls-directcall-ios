@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The errors that can be occurred while trying to authenticate
 enum CredentialErrors: String, Error {
     case empty = "There is no stored credential"
     case noUserID = "Please enter your ID and your name"

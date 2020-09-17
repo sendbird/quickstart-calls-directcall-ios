@@ -50,19 +50,6 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension DialViewController: CredentialDelegate {
-    func didUpdateCredential(_ credential: Credential?) {
-        self.updateUI(with: credential)
-    }
-    
-    func updateUI(with credential: Credential?) {
-        let profileURL = credential?.profileURL
-        self.profileImageView.updateImage(urlString: profileURL)
-        self.nicknameLabel.text = credential?.nickname ?? "-"
-        self.userIDLabel.text = "User ID: " + (credential?.userID ?? "-")
-    }
-}
-
 // MARK: - User Interaction with SendBirdCall
 extension DialViewController {
     @IBAction func didTapVoiceCall() {
@@ -136,8 +123,22 @@ extension DialViewController {
     }
 }
 
+// MARK: - Credential Delegate
+extension DialViewController: CredentialDelegate {
+    func didUpdateCredential(_ credential: Credential?) {
+        self.updateUI(with: credential)
+    }
+}
+
 // MARK: - Setting Up UI
 extension DialViewController {
+    func updateUI(with credential: Credential?) {
+        let profileURL = credential?.profileURL
+        self.profileImageView.updateImage(urlString: profileURL)
+        self.nicknameLabel.text = credential?.nickname.unwrap(with: "-")
+        self.userIDLabel.text = "User ID: " + (credential?.userID ?? "-")
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
     }

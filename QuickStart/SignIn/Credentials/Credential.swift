@@ -9,6 +9,7 @@
 import Foundation
 import SendBirdCalls
 
+/// A Structure containing app ID, access token and user information.
 struct Credential: Codable {
     let appID: String
     let userID: String
@@ -24,6 +25,7 @@ struct Credential: Codable {
         case profileURL = "profile_url"
     }
     
+    /// Initializes `Credential` object with access token. The app ID and user informations are fetched from `SendBirdCall`.
     init(accessToken: String?) {
         self.init(appID: SendBirdCall.appId ?? "",
                   userID: SendBirdCall.currentUser?.userId ?? "",
@@ -32,6 +34,7 @@ struct Credential: Codable {
                   profileURL: SendBirdCall.currentUser?.profileURL)
     }
     
+    /// Initializes `Credential` object.
     init(appID: String, userID: String, accessToken: String?, nickname: String? = nil, profileURL: String? = nil) {
         self.appID = appID
         self.userID = userID
