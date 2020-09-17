@@ -90,7 +90,6 @@ extension AppDelegate: PKPushRegistryDelegate {
         
         SendBirdCall.registerVoIPPush(token: pushCredentials.token, unique: true) { error in
             guard error == nil else { return }
-            // Even if an error occurs, SendBirdCalls will save the pushToken value and reinvoke this method internally while authenticating.
         }
     }
     
