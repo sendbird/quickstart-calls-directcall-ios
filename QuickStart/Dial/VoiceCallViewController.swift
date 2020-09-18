@@ -57,6 +57,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
         if #available(iOS 13.0, *) {
             self.isModalInPresentation = true
         }
+
         self.call.delegate = self
         
         self.setupAudioOutputButton()

@@ -41,10 +41,16 @@ extension UIStoryboard {
         if #available(iOS 13.0, *) {
             controller.isModalInPresentation = true
         }
+        controller.modalPresentationStyle = .fullScreen
         return controller
     }
     
     static func callController(_ isVideoCall: Bool) -> UIViewController {
-        (isVideoCall ? QuickStart.videoCall : QuickStart.voiceCall).controller
+        let controller = (isVideoCall ? QuickStart.videoCall : QuickStart.voiceCall).controller
+        if #available(iOS 13.0, *) {
+            controller.isModalInPresentation = true
+        }
+        controller.modalPresentationStyle = .fullScreen
+        return controller
     }
 }
