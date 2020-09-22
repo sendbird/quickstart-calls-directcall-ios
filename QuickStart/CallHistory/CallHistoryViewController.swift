@@ -31,7 +31,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         // To receive event when the credential has been updated
         CredentialManager.shared.addDelegate(self, forKey: "Recents")
         
-        self.navigationItem.title = "History"
+        self.navigationItem.title = "Recents"
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
         

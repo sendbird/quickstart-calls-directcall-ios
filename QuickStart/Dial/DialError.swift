@@ -10,8 +10,8 @@ import Foundation
 
 enum DialErrors: String, Error {
     case emptyUserID = "User ID is required."
-    case voiceCallFailed = "Couldn't make call"
-    case videoCallFailed = "Couldn't make video call"
+    case voiceCallFailed = "Couldn't make call."
+    case videoCallFailed = "Couldn't make video call."
     case unknown = "Something went wrong. Try again."
-    case getLogFailed = "Couldn't retrieve recent call."
+    case getLogFailed = "Couldn't retrieve a recent call."
 }

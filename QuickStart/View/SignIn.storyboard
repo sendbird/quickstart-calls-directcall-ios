@@ -82,7 +82,7 @@
                                     <constraint firstAttribute="height" constant="60" id="MQg-fN-Haz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <state key="normal" title="Sign in manually">
+                                <state key="normal" title="Sign in with ID">
                                     <color key="titleColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -137,7 +137,7 @@
             </objects>
             <point key="canvasLocation" x="-1307" y="427"/>
         </scene>
-        <!--Sign in manually-->
+        <!--Sign in-->
         <scene sceneID="9oz-YF-J1b">
             <objects>
                 <viewController id="B87-Ut-5af" customClass="SignInManuallyViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
@@ -145,7 +145,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="App ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xpw-2V-aIa">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Application ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xpw-2V-aIa">
                                 <rect key="frame" x="24" y="80" width="366" height="56"/>
                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -187,7 +187,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isPaddingEnabled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User access token (Optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EP7-dx-uYB">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Access token (optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EP7-dx-uYB">
                                 <rect key="frame" x="24" y="224" width="366" height="56"/>
                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -254,7 +254,7 @@
                             <constraint firstItem="OQo-v1-lyG" firstAttribute="leading" secondItem="5J7-b4-Hvt" secondAttribute="leading" constant="24" id="yMH-J9-NxM"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Sign in manually" id="tbS-dd-ik8">
+                    <navigationItem key="navigationItem" title="Sign in" id="tbS-dd-ik8">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="jUW-3O-umc">
                             <color key="tintColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
@@ -273,7 +273,7 @@
             </objects>
             <point key="canvasLocation" x="200" y="-289"/>
         </scene>
-        <!--Scan QR Code-->
+        <!--Scan QR code-->
         <scene sceneID="LcB-v9-odw">
             <objects>
                 <viewController id="MfD-TP-FOK" customClass="QRCodeViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
@@ -295,8 +295,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ct-Os-zC2">
                                 <rect key="frame" x="0.0" y="754" width="414" height="88"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in by scanning a QR code found in the Calls Studio of the SendBird Dashboard" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="WWt-b7-Gdu">
-                                        <rect key="frame" x="24" y="24" width="366" height="40"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan QR code from Calls studio on Sendbird dashboard." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="WWt-b7-Gdu">
+                                        <rect key="frame" x="24" y="24" width="366" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -307,7 +307,6 @@
                                     <constraint firstAttribute="height" constant="88" id="6zd-vG-wsz"/>
                                     <constraint firstItem="WWt-b7-Gdu" firstAttribute="top" secondItem="7Ct-Os-zC2" secondAttribute="top" constant="24" id="EUE-W3-EsW"/>
                                     <constraint firstItem="WWt-b7-Gdu" firstAttribute="leading" secondItem="7Ct-Os-zC2" secondAttribute="leading" constant="24" id="Qxl-qe-hsL"/>
-                                    <constraint firstAttribute="bottom" secondItem="WWt-b7-Gdu" secondAttribute="bottom" constant="24" id="i2o-O3-Wu8"/>
                                     <constraint firstAttribute="trailing" secondItem="WWt-b7-Gdu" secondAttribute="trailing" constant="24" id="kE5-gL-a19"/>
                                 </constraints>
                             </view>
@@ -325,7 +324,7 @@
                             <constraint firstAttribute="bottom" secondItem="7Ct-Os-zC2" secondAttribute="bottom" id="pbn-hi-0vE"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Scan QR Code" id="0dt-ov-0q3">
+                    <navigationItem key="navigationItem" title="Scan QR code" id="0dt-ov-0q3">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="vku-kA-ILz">
                             <color key="tintColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
