@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A9A72CA02387B448007C0878"
-               BuildableName = "SendBird Calls.app"
+               BuildableName = "Sendbird Calls.app"
                BlueprintName = "QuickStart"
                ReferencedContainer = "container:QuickStart.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A9A72CA02387B448007C0878"
-            BuildableName = "SendBird Calls.app"
+            BuildableName = "Sendbird Calls.app"
             BlueprintName = "QuickStart"
             ReferencedContainer = "container:QuickStart.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A9A72CA02387B448007C0878"
-            BuildableName = "SendBird Calls.app"
+            BuildableName = "Sendbird Calls.app"
             BlueprintName = "QuickStart"
             ReferencedContainer = "container:QuickStart.xcodeproj">
          </BuildableReference>

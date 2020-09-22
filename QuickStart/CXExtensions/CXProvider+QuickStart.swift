@@ -11,8 +11,8 @@ import UIKit
 extension CXProviderConfiguration {
     // The app's provider configuration, representing its CallKit capabilities
     static var `default`: CXProviderConfiguration {
-        let providerConfiguration = CXProviderConfiguration(localizedName: "SendBird Calls")
-        if let image = UIImage(named: "icCallkitSb") {
+        let providerConfiguration = CXProviderConfiguration(localizedName: "Sendbird Calls")
+        if let image = UIImage(named: "icLogoSymbolInverse") {
             providerConfiguration.iconTemplateImageData = image.pngData()
         }
         // Even if `.supportsVideo` has `false` value, SendBirdCalls supports video call.

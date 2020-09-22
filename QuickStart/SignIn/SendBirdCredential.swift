@@ -32,6 +32,8 @@ class SendBirdCredentialManager {
             case appID = "app_id"
             case userID = "user_id"
             case accessToken = "access_token"
+            case nickname = "nickname"
+            case profileURL = "profile_url"
         }
         
         init(from decoder: Decoder) throws {
@@ -41,8 +43,8 @@ class SendBirdCredentialManager {
             self.userID = try container.decode(String.self, forKey: .userID)
             self.accessToken = try? container.decode(String.self, forKey: .accessToken)
             
-            self.nickname = nil
-            self.profileURL = nil
+            self.nickname = try? container.decode(String.self, forKey: .nickname)
+            self.profileURL = try? container.decode(String.self, forKey: .profileURL)
         }
         
         init(appID: String, userID: String, accessToken: String?, nickname: String? = nil, profileURL: String? = nil) {
@@ -59,10 +61,16 @@ class SendBirdCredentialManager {
             try container.encode(appID, forKey: .appID)
             try container.encode(userID, forKey: .userID)
             try? container.encode(accessToken, forKey: .accessToken)
+            try? container.encode(nickname, forKey: .nickname)
+            try? container.encode(profileURL, forKey: .profileURL)
         }
         
         func details(nickname: String? = nil, profileURL: String? = nil) -> SendBirdCredential {
-            let credential = SendBirdCredential(appID: self.appID, userID: self.userID, accessToken: self.accessToken, nickname: nickname, profileURL: profileURL)
+            let credential = SendBirdCredential(appID: self.appID,
+                                                userID: self.userID,
+                                                accessToken: self.accessToken,
+                                                nickname: nickname,
+                                                profileURL: profileURL)
             return credential
         }
     }

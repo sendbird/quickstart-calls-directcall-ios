@@ -1,18 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "icCallkitSb.png",
+      "scale" : "1x",
       "idiom" : "universal",
-      "scale" : "1x"
+      "filename" : "icLogoSymbolInverse.png"
     },
     {
-      "filename" : "icCallkitSb@2x.png",
+      "filename" : "icLogoSymbolInverse@2x.png",
       "scale" : "2x",
       "idiom" : "universal"
     },
     {
       "scale" : "3x",
-      "filename" : "icCallkitSb@3x.png",
+      "filename" : "icLogoSymbolInverse@3x.png",
       "idiom" : "universal"
     }
   ],
