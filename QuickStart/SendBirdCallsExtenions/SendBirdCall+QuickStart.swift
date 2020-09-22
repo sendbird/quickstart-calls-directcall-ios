@@ -32,7 +32,7 @@ extension SendBirdCall {
     static func dial(with dialParams: DialParams) {
         SendBirdCall.dial(with: dialParams) { call, error in
             guard let call = call, error == nil else {
-                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                UIApplication.shared.showError(with: error?.localizedDescription ?? "Something went wrong. Please retry.")
                 return
             }
             UIApplication.shared.showCallController(with: call)

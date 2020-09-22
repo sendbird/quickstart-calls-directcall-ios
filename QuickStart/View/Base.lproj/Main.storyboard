@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vv4-4l-vzD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vv4-4l-vzD">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -215,25 +215,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make a call" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QG9-oG-JhN">
-                                <rect key="frame" x="24" y="251" width="366" height="29"/>
+                                <rect key="frame" x="24" y="315" width="366" height="29"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="LnJ-3y-Xyu">
-                                <rect key="frame" x="24" y="296" width="366" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Med-Vq-M0B"/>
-                                </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Enter the user ID of the user you wish to call, then press one of the video or voice call buttons">
-                                        <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" metaFont="label" size="14"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="truncatingTail" baseWritingDirection="natural" lineSpacing="4" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eg3-1U-GuL">
@@ -272,7 +256,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cFJ-HJ-03Y" firstAttribute="leading" secondItem="twf-Fk-qMH" secondAttribute="trailing" constant="32" id="98T-PP-pnp"/>
-                            <constraint firstItem="LnJ-3y-Xyu" firstAttribute="top" secondItem="QG9-oG-JhN" secondAttribute="bottom" constant="16" id="Acm-Ip-emb"/>
                             <constraint firstItem="eTD-yy-lbQ" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="AeA-nb-Rsg"/>
                             <constraint firstItem="cFJ-HJ-03Y" firstAttribute="top" secondItem="eTD-yy-lbQ" secondAttribute="bottom" constant="40" id="CJI-V6-9Fl"/>
                             <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="ZIt-Bt-jdD" secondAttribute="trailing" constant="24" id="EFt-f2-8y1"/>
@@ -283,14 +266,12 @@
                             <constraint firstItem="eTD-yy-lbQ" firstAttribute="centerY" secondItem="Jpp-zS-JFC" secondAttribute="centerY" id="RCq-La-3hp"/>
                             <constraint firstItem="q8c-GM-NKq" firstAttribute="leading" secondItem="Ue9-qz-Py8" secondAttribute="trailing" constant="8" id="RVU-5Z-RjP"/>
                             <constraint firstItem="ZIt-Bt-jdD" firstAttribute="leading" secondItem="Ue9-qz-Py8" secondAttribute="trailing" constant="8" id="Twc-8X-p4Z"/>
+                            <constraint firstItem="eTD-yy-lbQ" firstAttribute="top" secondItem="QG9-oG-JhN" secondAttribute="bottom" constant="32" id="XAM-AI-EfD"/>
                             <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="Eg3-1U-GuL" secondAttribute="trailing" id="Zjy-ZQ-pCQ"/>
                             <constraint firstItem="QG9-oG-JhN" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="csT-SZ-fsd"/>
                             <constraint firstItem="Ue9-qz-Py8" firstAttribute="top" secondItem="Jpp-zS-JFC" secondAttribute="top" constant="5" id="knw-Sr-crq"/>
-                            <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="LnJ-3y-Xyu" secondAttribute="trailing" constant="24" id="mff-Li-ncj"/>
                             <constraint firstItem="twf-Fk-qMH" firstAttribute="centerX" secondItem="Jpp-zS-JFC" secondAttribute="centerX" constant="-48" id="neL-hJ-mc7"/>
-                            <constraint firstItem="eTD-yy-lbQ" firstAttribute="top" secondItem="LnJ-3y-Xyu" secondAttribute="bottom" constant="40" id="ogM-jc-gFz"/>
                             <constraint firstItem="Eg3-1U-GuL" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" id="pnN-IQ-nRx"/>
-                            <constraint firstItem="LnJ-3y-Xyu" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="rG4-8e-wfv"/>
                             <constraint firstItem="Ue9-qz-Py8" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="tLo-ms-kSH"/>
                             <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="q8c-GM-NKq" secondAttribute="trailing" constant="24" id="xWW-6f-lf8"/>
                             <constraint firstItem="Eg3-1U-GuL" firstAttribute="top" secondItem="Ue9-qz-Py8" secondAttribute="bottom" constant="7" id="y8E-b7-rof"/>

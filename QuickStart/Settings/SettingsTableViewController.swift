@@ -16,7 +16,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var versionLabel: UILabel! {
         didSet {
             let sampleVersion = Bundle.main.version
-            self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
+            self.versionLabel.text = "QuickStart \(sampleVersion)   SDK \(SendBirdCall.sdkVersion)"
         }
     }
     

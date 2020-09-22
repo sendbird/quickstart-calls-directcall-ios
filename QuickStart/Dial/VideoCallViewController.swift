@@ -23,7 +23,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
         didSet {
             guard let remoteUser = self.call.remoteUser else { return }
             let name = remoteUser.nickname?.isEmptyOrWhitespace == true ? remoteUser.userId : remoteUser.nickname!
-            self.mutedStateLabel.text = "\(name) is on mute"
+            self.mutedStateLabel.text = CallStatus.muted(name).message
         }
     }
     @IBOutlet weak var remoteNicknameLabel: UILabel! {
@@ -114,7 +114,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     // MARK: - Basic UI
     func setupEndedCallUI() {
         // Tell user that the call has been ended.
-        self.callStatusLabel.text = "Call Ended"
+        self.callStatusLabel.text = CallStatus.ended.message
         self.topSpaceRemoteNickname.constant = 244
         self.callStatusLabel.isHidden = false
         self.remoteNicknameLabel.isHidden = false
@@ -313,7 +313,7 @@ extension VideoCallViewController: DirectCallDelegate {
     // MARK: Optional Methods
     func didEstablish(_ call: DirectCall) {
         self.resizeLocalVideoView()
-        self.callStatusLabel.text = "Connecting..."
+        self.callStatusLabel.text = CallStatus.connecting.message
     }
     
     func didRemoteAudioSettingsChange(_ call: DirectCall) {
