@@ -12,7 +12,7 @@ import Foundation
 enum CredentialErrors: String, Error {
     case empty = "There is no stored credential."
     case noUserID = "Please enter your ID and your name."
-    case unknown = "Unknown error."
+    case unknown = "Something went wrong. Try again."
     case alreadyAuthenticated = "Couldn’t sign you in. If you’re already using the app, sign out first."
     case invalidURL = "Invalid URL."
     
