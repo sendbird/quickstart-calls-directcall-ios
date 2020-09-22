@@ -114,7 +114,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     // MARK: - Basic UI
     func setupEndedCallUI() {
         // Tell user that the call has been ended.
-        self.callStatusLabel.text = CallStatus.ended.message
+        self.callStatusLabel.text = CallStatus.ended(call.endResult.rawValue).message
         self.topSpaceRemoteNickname.constant = 244
         self.callStatusLabel.isHidden = false
         self.remoteNicknameLabel.isHidden = false

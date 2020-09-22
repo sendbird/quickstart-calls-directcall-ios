@@ -9,13 +9,13 @@
 enum CallStatus {
     case connecting
     case muted(String)
-    case ended
+    case ended(String)
     
     var message: String {
         switch self {
             case .connecting: return "call connecting..."
             case .muted(let user): return "\(user) is muted"
-            case .ended: return "call ended"
+            case .ended(let result): return result.replacingOccurrences(of: "_", with: " ")
         }
     }
 }

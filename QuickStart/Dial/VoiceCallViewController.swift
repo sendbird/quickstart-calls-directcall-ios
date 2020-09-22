@@ -95,7 +95,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     func setupEndedCallUI() {
         self.callTimer?.invalidate()    // Main thread
         self.callTimer = nil
-        self.callTimerLabel.text = CallStatus.ended.message
+        self.callTimerLabel.text = CallStatus.ended(call.endResult.rawValue).message
         
         self.endButton.isHidden = true
         self.speakerButton.isHidden = true
