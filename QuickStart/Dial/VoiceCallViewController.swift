@@ -160,7 +160,7 @@ extension VoiceCallViewController {
             guard let self = self else { return }
 
             // update UI
-            self.callTimerLabel.text = self.call.duration.currentTimerText()
+            self.callTimerLabel.text = self.call.duration.durationText()
 
             // Timer Invalidate
             if self.call.endedAt != 0, timer.isValid {
