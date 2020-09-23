@@ -19,7 +19,7 @@ extension AppDelegate {
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         guard let dialParams = userActivity.dialParams else {
-            UIApplication.shared.showError(with: DialErrors.getLogFailed.rawValue)
+            UIApplication.shared.showError(with: DialErrors.getLogFailed.localizedDescription)
 
             return false
         }

@@ -8,10 +8,20 @@
 
 import Foundation
 
-enum DialErrors: String, Error {
-    case emptyUserID = "User ID is required."
-    case voiceCallFailed = "Couldn't make call."
-    case videoCallFailed = "Couldn't make video call."
-    case unknown = "Something went wrong. Try again."
-    case getLogFailed = "Couldn't retrieve a recent call."
+enum DialErrors: Error {
+    case emptyUserID
+    case voiceCallFailed(error: Error?)
+    case videoCallFailed(error: Error?)
+    case unknown
+    case getLogFailed
+    
+    var localizedDescription: String {
+        switch self {
+            case .emptyUserID: return "User ID is required."
+            case .voiceCallFailed(let error): return "Couldn't make call.\n\(error?.localizedDescription ?? "")"
+            case .videoCallFailed(let error): return "Couldn't make video call.\n\(error?.localizedDescription ?? "")"
+            case .unknown: return "Something went wrong. Try again."
+            case .getLogFailed: return "Couldn't retrieve a recent call."
+        }
+    }
 }
