@@ -10,6 +10,7 @@ import SendBirdCalls
 
 // MARK: DirectCall sound effects
 // If you use CallKit framework, you have to set ringing sound by using `CXProviderConfiguration.ringtoneSound`. See `CXProvider+QuickStart.swift` file.
+// If you use CallKit framework, you must implement `CXProviderDelegate.provider(_:didActivate:)` and `CXProviderDelegate.provider(_:didDeactivate:)`
 extension AppDelegate {
     func addDirectCallSounds() {
         // SendBirdCall.setDirectCallSound("Ringing.mp3", forKey: .ringing)
