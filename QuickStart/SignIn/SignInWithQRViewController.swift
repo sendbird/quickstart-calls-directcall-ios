@@ -88,9 +88,9 @@ extension SignInWithQRViewController {
         let voipPushToken = UserDefaults.standard.voipPushToken
         
         // Update app ID
-        SendBirdCall.configure(appId: credential.appID)
+        SendBirdCall.configure(appId: credential.appId)
         
-        let authParams = AuthenticateParams(userId: credential.userID, accessToken: credential.accessToken)
+        let authParams = AuthenticateParams(userId: credential.userId, accessToken: credential.accessToken)
         SendBirdCall.authenticate(with: authParams) { (user, error) in
             guard user != nil else {
                 DispatchQueue.main.async { [self] in

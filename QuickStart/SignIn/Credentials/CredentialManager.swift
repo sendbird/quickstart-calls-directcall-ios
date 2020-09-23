@@ -57,7 +57,9 @@ class CredentialManager {
     }
     
     private func decode(base64EncodedData data: Data) throws -> Credential {
-        return try JSONDecoder().decode(Credential.self, from: data)
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return try decoder.decode(Credential.self, from: data)
     }
     
     private func decode(url: URL) throws -> Credential {

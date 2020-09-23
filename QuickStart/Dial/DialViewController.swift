@@ -136,7 +136,7 @@ extension DialViewController {
         let profileURL = credential?.profileURL
         self.profileImageView.updateImage(urlString: profileURL)
         self.nicknameLabel.text = credential?.nickname.unwrap(with: "-")
-        self.userIDLabel.text = "User ID: " + (credential?.userID ?? "-")
+        self.userIDLabel.text = "User ID: " + (credential?.userId ?? "-")
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

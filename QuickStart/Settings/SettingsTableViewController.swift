@@ -108,6 +108,6 @@ extension SettingsTableViewController: CredentialDelegate {
         let profileURL = credential?.profileURL
         self.userProfileImageView.updateImage(urlString: profileURL)
         self.usernameLabel.text = credential?.nickname.unwrap(with: "-")
-        self.userIdLabel.text = "User ID: " + (credential?.userID ?? "-")
+        self.userIdLabel.text = "User ID: " + (credential?.userId ?? "-")
     }
 }

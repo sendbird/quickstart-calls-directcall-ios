@@ -75,10 +75,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func authenticate(with credential: Credential, completionHandler: @escaping (Error?) -> Void) {
         // Configure app ID before authenticate
-        SendBirdCall.configure(appId: credential.appID)
+        SendBirdCall.configure(appId: credential.appId)
         
         // Authenticate
-        let authParams = AuthenticateParams(userId: credential.userID, accessToken: credential.accessToken)
+        let authParams = AuthenticateParams(userId: credential.userId, accessToken: credential.accessToken)
         SendBirdCall.authenticate(with: authParams) { (user, error) in
             guard user != nil else {
                 // Failed
