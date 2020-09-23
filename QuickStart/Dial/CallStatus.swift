@@ -8,8 +8,8 @@
 
 enum CallStatus {
     case connecting
-    case muted(String)
-    case ended(String)
+    case muted(user: String)
+    case ended(result: String)
     
     var message: String {
         switch self {
