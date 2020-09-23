@@ -18,10 +18,7 @@ class SignInWithQRViewController: UIViewController {
     
     // Footnote
     @IBOutlet weak var versionLabel: UILabel! {
-        didSet {
-            let sampleVersion = Bundle.main.version
-            self.versionLabel.text = "QuickStart \(sampleVersion)   SDK \(SendBirdCall.sdkVersion)"
-        }
+        didSet { self.versionLabel.text = versionInfo }
     }
     
     let indicator = UIActivityIndicatorView()
