@@ -172,7 +172,7 @@ extension CallHistoryViewController {
                 self.view.isUserInteractionEnabled = true
     
                 guard let call = call, error == nil else {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? DialErrors.unknown.rawValue)
+                    UIApplication.shared.showError(with: error?.localizedDescription)
                     return
                 }
                 UIApplication.shared.showCallController(with: call)
@@ -197,7 +197,7 @@ extension CallHistoryViewController {
                 self.indicator.stopLoading()
                 
                 guard let call = call, error == nil else {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? DialErrors.unknown.rawValue)
+                    UIApplication.shared.showError(with: error?.localizedDescription)
                     return
                 }
                 
@@ -224,7 +224,7 @@ extension CallHistoryViewController {
                 self.indicator.stopLoading()
                 
                 guard let call = call, error == nil else {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? DialErrors.unknown.rawValue)
+                    UIApplication.shared.showError(with: error?.localizedDescription)
                     return
                 }
                 UIApplication.shared.showCallController(with: call)
