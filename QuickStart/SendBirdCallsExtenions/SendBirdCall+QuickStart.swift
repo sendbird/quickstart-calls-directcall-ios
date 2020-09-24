@@ -21,7 +21,9 @@ extension SendBirdCall {
             return
         }
         
-        let params = AuthenticateParams(userId: UserDefaults.standard.user.userId, accessToken: UserDefaults.standard.accessToken)
+        guard let credential = UserDefaults.standard.credential else { return }
+        
+        let params = AuthenticateParams(userId: credential.userId, accessToken: credential.accessToken)
         SendBirdCall.authenticate(with: params) { (_, error) in
             completionHandler(error)
         }
@@ -30,7 +32,7 @@ extension SendBirdCall {
     static func dial(with dialParams: DialParams) {
         SendBirdCall.dial(with: dialParams) { call, error in
             guard let call = call, error == nil else {
-                UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                UIApplication.shared.showError(with: error?.localizedDescription)
                 return
             }
             UIApplication.shared.showCallController(with: call)

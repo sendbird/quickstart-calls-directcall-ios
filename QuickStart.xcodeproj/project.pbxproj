@@ -28,12 +28,12 @@
 		A95A7C9E2420614A00EB0D56 /* SignInWithQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */; };
 		A95A7CA0242063C700EB0D56 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */; };
 		A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */; };
-		A95E91C7242887730035274E /* SignInDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95E91C6242887730035274E /* SignInDelegate.swift */; };
 		A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A96823A7246278AE001C6F77 /* CallHistory.storyboard */; };
 		A96839F02418ED0100317004 /* VideoCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96839EF2418ED0100317004 /* VideoCallViewController.swift */; };
 		A968F6A42415CFF800E6EFD5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A968F6A32415CFF800E6EFD5 /* UIView+Extension.swift */; };
 		A973C0AD249A107100514CD3 /* UIActivityIndicatorView+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973C0AC249A107100514CD3 /* UIActivityIndicatorView+QuickStart.swift */; };
 		A97EDF2B246D1EEC0072DF3D /* CallHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97EDF2A246D1EEC0072DF3D /* CallHistory.swift */; };
+		A98DFA5524D2D8B900B28C3C /* AppDelegate+SoundEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98DFA5424D2D8B900B28C3C /* AppDelegate+SoundEffects.swift */; };
 		A99449592387E92400A4FFBB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99449582387E92400A4FFBB /* SettingsTableViewController.swift */; };
 		A994495D2387F22F00A4FFBB /* UIViewController+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A994495C2387F22F00A4FFBB /* UIViewController+QuickStart.swift */; };
 		A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99CC94923BA142F00F9116A /* UIImageView+QuickStart.swift */; };
@@ -49,14 +49,28 @@
 		A9A72CAE2387B44C007C0878 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9A72CAD2387B44C007C0878 /* Assets.xcassets */; };
 		A9A72CB12387B44C007C0878 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9A72CAF2387B44C007C0878 /* LaunchScreen.storyboard */; };
 		A9A72CB92387BAE6007C0878 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A72CB82387BAE6007C0878 /* SignInViewController.swift */; };
+		A9ABF214251343C4004977F3 /* Credential.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF213251343C4004977F3 /* Credential.swift */; };
+		A9ABF216251343DF004977F3 /* CredentialErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF215251343DF004977F3 /* CredentialErrors.swift */; };
+		A9ABF2182513445D004977F3 /* CredentialDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF2172513445D004977F3 /* CredentialDelegate.swift */; };
+		A9ABF21B2513CCDA004977F3 /* AppDelegate+VoIPPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF21A2513CCDA004977F3 /* AppDelegate+VoIPPush.swift */; };
+		A9ABF21D2513CF12004977F3 /* AppDelegate+URLScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9ABF21C2513CF12004977F3 /* AppDelegate+URLScheme.swift */; };
 		A9AC8755241A202C004AB93B /* AppInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9AC8754241A202C004AB93B /* AppInfoTableViewController.swift */; };
 		A9B7562D243DA92F001E764B /* NSUserActivity+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */; };
 		A9B7562F243DA949001E764B /* StartCallConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7562E243DA949001E764B /* StartCallConvertible.swift */; };
 		A9B75653243DBA77001E764B /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B75652243DBA77001E764B /* IntentHandler.swift */; };
 		A9B75657243DBA77001E764B /* QuickStartIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A9B75650243DBA77001E764B /* QuickStartIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A9B7565E243DE933001E764B /* AppDelegate+Intent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */; };
+		A9C05DBC24F4D7C60071D56B /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9C05DBB24F4D7C60071D56B /* Settings.storyboard */; };
+		A9C05DBE24F4D8F50071D56B /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9C05DBD24F4D8F50071D56B /* SignIn.storyboard */; };
+		A9CDBA5024C93B7C005BF36B /* ConnectionRestored.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9CDBA4C24C93B7B005BF36B /* ConnectionRestored.mp3 */; };
+		A9CDBA5124C93B7C005BF36B /* Ringing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9CDBA4D24C93B7B005BF36B /* Ringing.mp3 */; };
+		A9CDBA5224C93B7C005BF36B /* ConnectionLost.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9CDBA4E24C93B7B005BF36B /* ConnectionLost.mp3 */; };
+		A9CDBA5324C93B7C005BF36B /* Dialing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A9CDBA4F24C93B7B005BF36B /* Dialing.mp3 */; };
 		A9DDC43A245FDE3100F042E7 /* QuickStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */; };
 		A9E1B3A72464038A00EB3F18 /* UITabBarController+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E1B3A62464038A00EB3F18 /* UITabBarController+QuickStart.swift */; };
+		A9E574E424DD1ECA002098E7 /* CredentialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E574E324DD1ECA002098E7 /* CredentialManager.swift */; };
+		A9F4346825197EE200422E6A /* DialError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F4346725197EE200422E6A /* DialError.swift */; };
+		A9F434802519962900422E6A /* CallStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F4347F2519962900422E6A /* CallStatus.swift */; };
 		C1DD1FF923AFB59900140657 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF823A0B2DE00842136 /* CallKit.framework */; };
 		C1DD1FFB23AFB59A00140657 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF623A0B2DA00842136 /* PushKit.framework */; };
 		C1F69B0F23C5A4E300C66F00 /* CXProvider+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */; };
@@ -117,12 +131,12 @@
 		A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithQRViewController.swift; sourceTree = "<group>"; };
 		A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInManuallyViewController.swift; sourceTree = "<group>"; };
-		A95E91C6242887730035274E /* SignInDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDelegate.swift; sourceTree = "<group>"; };
 		A96823A7246278AE001C6F77 /* CallHistory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CallHistory.storyboard; sourceTree = "<group>"; };
 		A96839EF2418ED0100317004 /* VideoCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallViewController.swift; sourceTree = "<group>"; };
 		A968F6A32415CFF800E6EFD5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		A973C0AC249A107100514CD3 /* UIActivityIndicatorView+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+QuickStart.swift"; sourceTree = "<group>"; };
 		A97EDF2A246D1EEC0072DF3D /* CallHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallHistory.swift; sourceTree = "<group>"; };
+		A98DFA5424D2D8B900B28C3C /* AppDelegate+SoundEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+SoundEffects.swift"; sourceTree = "<group>"; };
 		A99449582387E92400A4FFBB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		A994495C2387F22F00A4FFBB /* UIViewController+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC94923BA142F00F9116A /* UIImageView+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+QuickStart.swift"; sourceTree = "<group>"; };
@@ -133,13 +147,18 @@
 		A99CC95523BA151000F9116A /* Data+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+QuickStart.swift"; sourceTree = "<group>"; };
 		A99CC95723BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+QuickStart.swift"; sourceTree = "<group>"; };
 		A9A53CDF245FF94900E8E654 /* INStartCallIntent+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "INStartCallIntent+QuickStart.swift"; sourceTree = "<group>"; };
-		A9A72CA12387B448007C0878 /* SendBird Calls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SendBird Calls.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9A72CA12387B448007C0878 /* Sendbird Calls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sendbird Calls.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9A72CA42387B448007C0878 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A9A72CAB2387B449007C0878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A9A72CAD2387B44C007C0878 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9A72CB02387B44C007C0878 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A9A72CB22387B44C007C0878 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9A72CB82387BAE6007C0878 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		A9ABF213251343C4004977F3 /* Credential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credential.swift; sourceTree = "<group>"; };
+		A9ABF215251343DF004977F3 /* CredentialErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialErrors.swift; sourceTree = "<group>"; };
+		A9ABF2172513445D004977F3 /* CredentialDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialDelegate.swift; sourceTree = "<group>"; };
+		A9ABF21A2513CCDA004977F3 /* AppDelegate+VoIPPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+VoIPPush.swift"; sourceTree = "<group>"; };
+		A9ABF21C2513CF12004977F3 /* AppDelegate+URLScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+URLScheme.swift"; sourceTree = "<group>"; };
 		A9AC8754241A202C004AB93B /* AppInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoTableViewController.swift; sourceTree = "<group>"; };
 		A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserActivity+QuickStart.swift"; sourceTree = "<group>"; };
 		A9B7562E243DA949001E764B /* StartCallConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCallConvertible.swift; sourceTree = "<group>"; };
@@ -147,12 +166,21 @@
 		A9B75652243DBA77001E764B /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		A9B75654243DBA77001E764B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Intent.swift"; sourceTree = "<group>"; };
+		A9C05DBB24F4D7C60071D56B /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		A9C05DBD24F4D8F50071D56B /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
+		A9CDBA4C24C93B7B005BF36B /* ConnectionRestored.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ConnectionRestored.mp3; sourceTree = "<group>"; };
+		A9CDBA4D24C93B7B005BF36B /* Ringing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ringing.mp3; sourceTree = "<group>"; };
+		A9CDBA4E24C93B7B005BF36B /* ConnectionLost.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ConnectionLost.mp3; sourceTree = "<group>"; };
+		A9CDBA4F24C93B7B005BF36B /* Dialing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Dialing.mp3; sourceTree = "<group>"; };
 		A9DDC437245FDE3100F042E7 /* QuickStartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickStartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartTests.swift; sourceTree = "<group>"; };
 		A9DDC43B245FDE3100F042E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9E1B3A62464038A00EB3F18 /* UITabBarController+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+QuickStart.swift"; sourceTree = "<group>"; };
+		A9E574E324DD1ECA002098E7 /* CredentialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialManager.swift; sourceTree = "<group>"; };
 		A9E98EF623A0B2DA00842136 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		A9E98EF823A0B2DE00842136 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
+		A9F4346725197EE200422E6A /* DialError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialError.swift; sourceTree = "<group>"; };
+		A9F4347F2519962900422E6A /* CallStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallStatus.swift; sourceTree = "<group>"; };
 		C1E1B36823AD3D9D00275F8B /* SendBirdCalls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SendBirdCalls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E1B36D23AD3E5400275F8B /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
 		C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CXProvider+QuickStart.swift"; sourceTree = "<group>"; };
@@ -195,6 +223,8 @@
 				A951A7AE238D154700410E40 /* VoiceCallViewController.swift */,
 				A96839EF2418ED0100317004 /* VideoCallViewController.swift */,
 				A91199BB2421257300208E21 /* DirectCallDataSource.swift */,
+				A9F4346725197EE200422E6A /* DialError.swift */,
+				A9F4347F2519962900422E6A /* CallStatus.swift */,
 			);
 			path = Dial;
 			sourceTree = "<group>";
@@ -290,7 +320,7 @@
 		A9A72CA22387B448007C0878 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A9A72CA12387B448007C0878 /* SendBird Calls.app */,
+				A9A72CA12387B448007C0878 /* Sendbird Calls.app */,
 				A9B75650243DBA77001E764B /* QuickStartIntent.appex */,
 				A9DDC437245FDE3100F042E7 /* QuickStartTests.xctest */,
 			);
@@ -303,8 +333,12 @@
 				A9A72CB22387B44C007C0878 /* Info.plist */,
 				A951A7B7238D23C000410E40 /* QuickStart.entitlements */,
 				A9A72CA42387B448007C0878 /* AppDelegate.swift */,
+				A9ABF21A2513CCDA004977F3 /* AppDelegate+VoIPPush.swift */,
+				A98DFA5424D2D8B900B28C3C /* AppDelegate+SoundEffects.swift */,
 				A9B7565D243DE933001E764B /* AppDelegate+Intent.swift */,
+				A9ABF21C2513CF12004977F3 /* AppDelegate+URLScheme.swift */,
 				A943CAF423C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift */,
+				A9CDBA5424C93B85005BF36B /* Sounds */,
 				A91AAA6124447117003894AD /* SendBirdCallsExtenions */,
 				A96823A92462805B001C6F77 /* CallHistory */,
 				A9A72CAD2387B44C007C0878 /* Assets.xcassets */,
@@ -322,8 +356,10 @@
 			isa = PBXGroup;
 			children = (
 				A9A72CAA2387B449007C0878 /* Main.storyboard */,
+				A9C05DBB24F4D7C60071D56B /* Settings.storyboard */,
 				A9A72CAF2387B44C007C0878 /* LaunchScreen.storyboard */,
 				A96823A7246278AE001C6F77 /* CallHistory.storyboard */,
+				A9C05DBD24F4D8F50071D56B /* SignIn.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -331,13 +367,24 @@
 		A9A72CBB2387BCE2007C0878 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
+				A9ABF21925134BB6004977F3 /* Credentials */,
 				A9A72CB82387BAE6007C0878 /* SignInViewController.swift */,
 				A95A7C9F242063C700EB0D56 /* QRCodeViewController.swift */,
 				A95A7C9D2420614A00EB0D56 /* SignInWithQRViewController.swift */,
 				A95E91C4242870AF0035274E /* SignInManuallyViewController.swift */,
-				A95E91C6242887730035274E /* SignInDelegate.swift */,
 			);
 			path = SignIn;
+			sourceTree = "<group>";
+		};
+		A9ABF21925134BB6004977F3 /* Credentials */ = {
+			isa = PBXGroup;
+			children = (
+				A9E574E324DD1ECA002098E7 /* CredentialManager.swift */,
+				A9ABF215251343DF004977F3 /* CredentialErrors.swift */,
+				A9ABF213251343C4004977F3 /* Credential.swift */,
+				A9ABF2172513445D004977F3 /* CredentialDelegate.swift */,
+			);
+			path = Credentials;
 			sourceTree = "<group>";
 		};
 		A9B75651243DBA77001E764B /* QuickStartIntent */ = {
@@ -357,6 +404,17 @@
 				A9B7562C243DA92F001E764B /* NSUserActivity+QuickStart.swift */,
 			);
 			path = Intent;
+			sourceTree = "<group>";
+		};
+		A9CDBA5424C93B85005BF36B /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				A9CDBA4E24C93B7B005BF36B /* ConnectionLost.mp3 */,
+				A9CDBA4C24C93B7B005BF36B /* ConnectionRestored.mp3 */,
+				A9CDBA4F24C93B7B005BF36B /* Dialing.mp3 */,
+				A9CDBA4D24C93B7B005BF36B /* Ringing.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		A9DDC438245FDE3100F042E7 /* QuickStartTests */ = {
@@ -408,7 +466,7 @@
 			);
 			name = QuickStart;
 			productName = "SendBirdCall Tester";
-			productReference = A9A72CA12387B448007C0878 /* SendBird Calls.app */;
+			productReference = A9A72CA12387B448007C0878 /* Sendbird Calls.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A9B7564F243DBA77001E764B /* QuickStartIntent */ = {
@@ -495,10 +553,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9CDBA5224C93B7C005BF36B /* ConnectionLost.mp3 in Resources */,
+				A9CDBA5324C93B7C005BF36B /* Dialing.mp3 in Resources */,
 				A9A72CB12387B44C007C0878 /* LaunchScreen.storyboard in Resources */,
 				A9A72CAE2387B44C007C0878 /* Assets.xcassets in Resources */,
 				A9A72CAC2387B449007C0878 /* Main.storyboard in Resources */,
+				A9C05DBC24F4D7C60071D56B /* Settings.storyboard in Resources */,
 				A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */,
+				A9C05DBE24F4D8F50071D56B /* SignIn.storyboard in Resources */,
+				A9CDBA5024C93B7C005BF36B /* ConnectionRestored.mp3 in Resources */,
+				A96823A8246278AE001C6F77 /* CallHistory.storyboard in Resources */,
+				A9CDBA5124C93B7C005BF36B /* Ringing.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,23 +649,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9E1B3A72464038A00EB3F18 /* UITabBarController+QuickStart.swift in Sources */,
+				A9ABF216251343DF004977F3 /* CredentialErrors.swift in Sources */,
 				49B07ACA242D8B1F00EFF73A /* Int64+QuickStart.swift in Sources */,
 				A968F6A42415CFF800E6EFD5 /* UIView+Extension.swift in Sources */,
 				A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */,
+				A9F434802519962900422E6A /* CallStatus.swift in Sources */,
 				49D8015B242C8D68003CFFBA /* UIImage+QuickStart.swift in Sources */,
 				A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */,
 				A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */,
 				A95A7CA0242063C700EB0D56 /* QRCodeViewController.swift in Sources */,
+				A9ABF2182513445D004977F3 /* CredentialDelegate.swift in Sources */,
 				A9A72CB92387BAE6007C0878 /* SignInViewController.swift in Sources */,
 				A9409C462390FA8100410458 /* UserDefaults+QuickStart.swift in Sources */,
 				A951A7AF238D154700410E40 /* VoiceCallViewController.swift in Sources */,
 				A91AAA5E244470BF003894AD /* UIApplication+QuickStart.swift in Sources */,
+				A9ABF21D2513CF12004977F3 /* AppDelegate+URLScheme.swift in Sources */,
 				A9B7565E243DE933001E764B /* AppDelegate+Intent.swift in Sources */,
 				A93E1E0A246D559D00CD9690 /* CallHistoryViewController.swift in Sources */,
 				A99CC95223BA14BC00F9116A /* UITextField+QuickStart.swift in Sources */,
 				A99449592387E92400A4FFBB /* SettingsTableViewController.swift in Sources */,
 				49D80157242C6C55003CFFBA /* String+QuickStart.swift in Sources */,
 				A9409C482390FA8E00410458 /* NotificationCenter+QuickStart.swift in Sources */,
+				A9ABF21B2513CCDA004977F3 /* AppDelegate+VoIPPush.swift in Sources */,
 				5281EB6E23A8602300EDA984 /* CXCallManager.swift in Sources */,
 				A93E1E0B246D559D00CD9690 /* CallHistoryTableViewCell.swift in Sources */,
 				A9A72CA52387B448007C0878 /* AppDelegate.swift in Sources */,
@@ -608,18 +678,21 @@
 				A973C0AD249A107100514CD3 /* UIActivityIndicatorView+QuickStart.swift in Sources */,
 				A99CC95023BA14A100F9116A /* UIColor+QuickStart.swift in Sources */,
 				A95A7C9E2420614A00EB0D56 /* SignInWithQRViewController.swift in Sources */,
+				A9E574E424DD1ECA002098E7 /* CredentialManager.swift in Sources */,
+				A9F4346825197EE200422E6A /* DialError.swift in Sources */,
 				A97EDF2B246D1EEC0072DF3D /* CallHistory.swift in Sources */,
 				A951A7A7238CC4DF00410E40 /* DialViewController.swift in Sources */,
+				A98DFA5524D2D8B900B28C3C /* AppDelegate+SoundEffects.swift in Sources */,
 				A9B7562F243DA949001E764B /* StartCallConvertible.swift in Sources */,
 				A96839F02418ED0100317004 /* VideoCallViewController.swift in Sources */,
 				A9AC8755241A202C004AB93B /* AppInfoTableViewController.swift in Sources */,
 				49B07AB2242CBA8100EFF73A /* UIStoryboard+QuickStart.swift in Sources */,
-				A95E91C7242887730035274E /* SignInDelegate.swift in Sources */,
 				A91199BC2421257300208E21 /* DirectCallDataSource.swift in Sources */,
 				A943CAF323C5AAB8009F6E49 /* Bundle+QuickStart.swift in Sources */,
 				A99CC95823BA152D00F9116A /* NSLayoutConstraint+QuickStart.swift in Sources */,
 				A943CAF523C5ACD4009F6E49 /* AppDelegate+SendBirdCallsDelegates.swift in Sources */,
 				A994495D2387F22F00A4FFBB /* UIViewController+QuickStart.swift in Sources */,
+				A9ABF214251343C4004977F3 /* Credential.swift in Sources */,
 				A91AAA6024447112003894AD /* SendBirdCall+QuickStart.swift in Sources */,
 				A99CC95423BA14CA00F9116A /* UITextView+QuickStart.swift in Sources */,
 				A9B7562D243DA92F001E764B /* NSUserActivity+QuickStart.swift in Sources */,
@@ -808,6 +881,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -818,9 +892,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart;
-				PRODUCT_NAME = "SendBird Calls";
+				PRODUCT_NAME = "Sendbird Calls";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -837,6 +911,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -847,9 +922,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart;
-				PRODUCT_NAME = "SendBird Calls";
+				PRODUCT_NAME = "Sendbird Calls";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -860,7 +935,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
 				INFOPLIST_FILE = QuickStartIntent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -869,7 +944,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart.QuickStartIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -883,7 +958,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
 				INFOPLIST_FILE = QuickStartIntent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -892,7 +967,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart.QuickStartIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

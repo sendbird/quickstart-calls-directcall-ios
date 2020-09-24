@@ -9,28 +9,12 @@ import UIKit
 import SendBirdCalls
 
 class SettingsTableViewController: UITableViewController {
-    @IBOutlet weak var userProfileImageView: UIImageView! {
-        didSet {
-            let profileURL = UserDefaults.standard.user.profileURL
-            self.userProfileImageView.updateImage(urlString: profileURL)
-        }
-    }
-    @IBOutlet weak var usernameLabel: UILabel! {
-        didSet {
-            self.usernameLabel.text = UserDefaults.standard.user.nickname.unwrap(with: "-")
-        }
-    }
-    @IBOutlet weak var userIdLabel: UILabel! {
-        didSet {
-            self.userIdLabel.text = "User ID: " + UserDefaults.standard.user.userId
-        }
-    }
+    @IBOutlet weak var userProfileImageView: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var userIdLabel: UILabel!
     
     @IBOutlet weak var versionLabel: UILabel! {
-        didSet {
-            let sampleVersion = Bundle.main.version
-            self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
-        }
+        didSet { self.versionLabel.text = versionInfo }
     }
     
     enum CellRow: Int {
@@ -38,8 +22,14 @@ class SettingsTableViewController: UITableViewController {
         case signOut = 2
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // To receive event when the credential has been updated
+        CredentialManager.shared.addDelegate(self, forKey: "Settings")
+        
+        // Set up UI with current credential
+        self.updateUI(with: UserDefaults.standard.credential)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,9 +48,17 @@ class SettingsTableViewController: UITableViewController {
             
             let actionSignOut = UIAlertAction(title: "Sign Out", style: .default) { _ in
                 // MARK: Sign Out
-                self.signOut()
-                DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
+                self.signOut { error in
+                    if let error = error {
+                        DispatchQueue.main.async {
+                            self.presentErrorAlert(message: error.localizedDescription)
+                        }
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.present(UIStoryboard.signController(), animated: true, completion: nil)
+                    }
                 }
             }
             let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
@@ -75,17 +73,38 @@ class SettingsTableViewController: UITableViewController {
 
 // MARK: - SendBirdCall Interaction
 extension SettingsTableViewController {
-    func signOut() {
-        guard let token = UserDefaults.standard.voipPushToken else { return }
-        
-        // MARK: SendBirdCall Deauthenticate
-        SendBirdCall.unregisterVoIPPush(token: token) { error in
-            // Handle error
-            if let error = error { print("[QuickStart]" + error.localizedDescription) }
-            
-            UserDefaults.standard.clear()
-            
-            SendBirdCall.deauthenticate { _ in }
+    func signOut(_ completionHandler: @escaping ((_ error: Error?) -> Void)) {
+        let logOut: (() -> Void) = {
+            // MARK: SendBirdCall Deauthenticate
+            SendBirdCall.deauthenticate { error in
+                if error == nil { UserDefaults.standard.clear() }
+                CredentialManager.shared.updateCredential(UserDefaults.standard.credential)
+                completionHandler(error)
+            }
         }
+        
+        if let token = UserDefaults.standard.voipPushToken {
+            SendBirdCall.unregisterVoIPPush(token: token) { error in
+                // Handle error
+                print("[QuickStart] Unregister VoIP Push Token with error: \(String(describing: error?.localizedDescription))")
+                logOut()
+            }
+        } else {
+            logOut()
+        }
+    }
+}
+
+// MARK: - Credential Delegate
+extension SettingsTableViewController: CredentialDelegate {
+    func didUpdateCredential(_ credential: Credential?) {
+        self.updateUI(with: credential)
+    }
+    
+    func updateUI(with credential: Credential?) {
+        let profileURL = credential?.profileURL
+        self.userProfileImageView.updateImage(urlString: profileURL)
+        self.usernameLabel.text = credential?.nickname.unwrap(with: "-")
+        self.userIdLabel.text = "User ID: " + (credential?.userId ?? "-")
     }
 }

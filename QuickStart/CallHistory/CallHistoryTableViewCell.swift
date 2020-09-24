@@ -41,7 +41,7 @@ class CallHistoryTableViewCell: UITableViewCell {
         self.remoteUserIDLabel.text = "User ID: " + self.callHistory.remoteUserID
         
         self.startedAtLabel.text = self.callHistory.startedAt
-        self.endResultLabel.text = self.callHistory.endResult + " · " + self.callHistory.duration
+        self.endResultLabel.text = [self.callHistory.endResult, self.callHistory.duration].joined(separator: " ")
     }
     
     @IBAction func didTapVoiceCall() {

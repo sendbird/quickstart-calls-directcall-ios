@@ -11,8 +11,8 @@ import UIKit
 extension CXProviderConfiguration {
     // The app's provider configuration, representing its CallKit capabilities
     static var `default`: CXProviderConfiguration {
-        let providerConfiguration = CXProviderConfiguration(localizedName: "SendBird Calls")
-        if let image = UIImage(named: "icCallkitSb") {
+        let providerConfiguration = CXProviderConfiguration(localizedName: "Sendbird Calls")
+        if let image = UIImage(named: "icLogoSymbolInverse") {
             providerConfiguration.iconTemplateImageData = image.pngData()
         }
         // Even if `.supportsVideo` has `false` value, SendBirdCalls supports video call.
@@ -21,6 +21,10 @@ extension CXProviderConfiguration {
         providerConfiguration.supportsVideo = true
         providerConfiguration.maximumCallsPerCallGroup = 1
         providerConfiguration.supportedHandleTypes = [.generic]
+        
+        // Set up ringing sound
+        // If you want to set up other sounds such as dialing, reconnecting and reconnected, see `AppDelegate+SoundEffects.swift` file.
+         providerConfiguration.ringtoneSound = "Ringing.mp3"
         
         return providerConfiguration
     }

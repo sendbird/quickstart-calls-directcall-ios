@@ -15,13 +15,8 @@ class SignInManuallyViewController: UIViewController {
     @IBOutlet weak var accessTokenTextField: UITextField!
     
     @IBOutlet weak var versionLabel: UILabel! {
-        didSet {
-            let sampleVersion = Bundle.main.version
-            self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
-        }
+        didSet { self.versionLabel.text = versionInfo }
     }
-    
-    weak var delegate: SignInDelegate?
     
     @IBAction func didTapCancel() {
         self.dismiss(animated: true, completion: nil)
@@ -39,7 +34,14 @@ class SignInManuallyViewController: UIViewController {
         }
         let accessToken = self.accessTokenTextField.text
         
-        self.delegate?.didSignIn(appId: appId, userId: userId, accessToken: accessToken)
+        let pendingCredential = Credential(appID: appId,
+                                    userID: userId,
+                                    accessToken: accessToken)
+        
+        // Start to sign in
+        let signInVC = self.presentingViewController as? SignInWithQRViewController
+        signInVC?.signIn(with: pendingCredential)
+        
         self.dismiss(animated: true, completion: nil)
     }
 }

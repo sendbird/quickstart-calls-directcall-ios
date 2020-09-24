@@ -32,8 +32,6 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
     }
     
-    weak var delegate: SignInDelegate?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -120,28 +118,16 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        self.decodeBase64EncodedQRCode(data)
-    }
-    
-    // MARK: Decode QR Code
-    private func decodeBase64EncodedQRCode(_ code: Data) {
+        
         do {
-            let decodedDict = try JSONDecoder().decode(SendBirdQRInfo.self, from: code)
-            self.dispatchQRInfo(decodedDict)
+            let pendingCredential = try CredentialManager.shared.handle(qrData: data)
+            let signInVC = self.presentingViewController as? SignInWithQRViewController
+            signInVC?.signIn(with: pendingCredential)
             self.dismiss(animated: true, completion: nil)
         } catch {
-            self.presentErrorAlert(message: error.localizedDescription) { _ in
+            self.presentErrorAlert(message: error.localizedDescription) { _ in // Failed
                 self.captureSession?.startRunning()
             }
-            print(error.localizedDescription)
         }
-    }
-    
-    // MARK: QRCodeScanDelegate
-    private func dispatchQRInfo(_ qrInfo: SendBirdQRInfo) {
-        guard let appId = qrInfo["app_id"] as? String else { return }
-        guard let userId = qrInfo["user_id"] as? String else { return }
-        let accessToken = qrInfo["access_token"] as? String
-        self.delegate?.didSignIn(appId: appId, userId: userId, accessToken: accessToken)
     }
 }

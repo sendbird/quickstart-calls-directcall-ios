@@ -11,22 +11,9 @@ import SendBirdCalls
 
 class DialViewController: UIViewController, UITextFieldDelegate {
     // Profile
-    @IBOutlet weak var profileImageView: UIImageView! {
-        didSet {
-            let profileURL = UserDefaults.standard.user.profileURL
-            self.profileImageView.updateImage(urlString: profileURL)
-        }
-    }
-    @IBOutlet weak var nicknameLabel: UILabel! {
-        didSet {
-            self.nicknameLabel.text = UserDefaults.standard.user.nickname.unwrap(with: "-")
-        }
-    }
-    @IBOutlet weak var userIDLabel: UILabel! {
-        didSet {
-            self.userIDLabel.text = "User ID: " + UserDefaults.standard.user.userId
-        }
-    }
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var nicknameLabel: UILabel!
+    @IBOutlet weak var userIDLabel: UILabel!
     
     // Call
     @IBOutlet weak var calleeIdTextField: UITextField!
@@ -38,6 +25,12 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     // MARK: Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // To receive event when the credential has been updated
+        CredentialManager.shared.addDelegate(self, forKey: "Dial")
+        
+        // Set up UI with current credential
+        self.updateUI(with: UserDefaults.standard.credential)
         
         self.calleeIdTextField.delegate = self
         NotificationCenter.observeKeyboard(showAction: #selector(keyboardWillShow(_:)),
@@ -61,7 +54,7 @@ class DialViewController: UIViewController, UITextFieldDelegate {
 extension DialViewController {
     @IBAction func didTapVoiceCall() {
         guard let calleeId = calleeIdTextField.text?.collapsed else {
-            self.presentErrorAlert(message: "Enter a valid user ID")
+            self.presentErrorAlert(message: DialErrors.emptyUserID.localizedDescription)
             return
         }
         self.voiceCallButton.isEnabled = false
@@ -81,8 +74,7 @@ extension DialViewController {
             guard error == nil, let call = call else {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    let errorDescription = String(error?.localizedDescription ?? "")
-                    self.presentErrorAlert(message: "Failed to call\n\(errorDescription)")
+                    self.presentErrorAlert(message: DialErrors.voiceCallFailed(error: error).localizedDescription)
                 }
                 return
             }
@@ -96,7 +88,7 @@ extension DialViewController {
     
     @IBAction func didTapVideoCall() {
         guard let calleeId = calleeIdTextField.text?.collapsed else {
-            self.presentErrorAlert(message: "Please enter user ID")
+            self.presentErrorAlert(message: DialErrors.emptyUserID.localizedDescription)
             return
         }
         self.videoCallButton.isEnabled = false
@@ -116,8 +108,7 @@ extension DialViewController {
             guard error == nil, let call = call else {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    let errorDescription = String(error?.localizedDescription ?? "")
-                    self.presentErrorAlert(message: "Failed to make video call\n\(errorDescription)")
+                    self.presentErrorAlert(message: DialErrors.videoCallFailed(error: error).localizedDescription)
                 }
                 return
             }
@@ -130,8 +121,22 @@ extension DialViewController {
     }
 }
 
+// MARK: - Credential Delegate
+extension DialViewController: CredentialDelegate {
+    func didUpdateCredential(_ credential: Credential?) {
+        self.updateUI(with: credential)
+    }
+}
+
 // MARK: - Setting Up UI
 extension DialViewController {
+    func updateUI(with credential: Credential?) {
+        let profileURL = credential?.profileURL
+        self.profileImageView.updateImage(urlString: profileURL)
+        self.nicknameLabel.text = credential?.nickname.unwrap(with: "-")
+        self.userIDLabel.text = "User ID: " + (credential?.userId ?? "-")
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
