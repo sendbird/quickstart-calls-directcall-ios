@@ -22,6 +22,10 @@ extension CXProviderConfiguration {
         providerConfiguration.maximumCallsPerCallGroup = 1
         providerConfiguration.supportedHandleTypes = [.generic]
         
+        // Set up ringing sound
+        // If you want to set up other sounds such as dialing, reconnecting and reconnected, see `AppDelegate+SoundEffects.swift` file.
+         providerConfiguration.ringtoneSound = "Ringing.mp3"
+        
         return providerConfiguration
     }
 }

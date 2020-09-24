@@ -99,9 +99,6 @@ extension CXCallManager: CXProviderDelegate {
             return
         }
         
-        let session = AVAudioSession.sharedInstance()
-        try? session.setCategory(.playAndRecord, mode: (call.isVideoCall ? .videoChat : .voiceChat))
-        
         if call.myRole == .caller {
             provider.reportOutgoingCall(with: call.callUUID!, startedConnectingAt: Date(timeIntervalSince1970: Double(call.startedAt)/1000))
         }
@@ -166,10 +163,12 @@ extension CXCallManager: CXProviderDelegate {
     
     func provider(_ provider: CXProvider, timedOutPerforming action: CXAction) { }
     
+    // In order to properly manage the usage of AVAudioSession within CallKit, please implement this function as shown below.
     func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession) {
         SendBirdCall.audioSessionDidActivate(audioSession)
     }
     
+    // In order to properly manage the usage of AVAudioSession within CallKit, please implement this function as shown below.
     func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
         SendBirdCall.audioSessionDidDeactivate(audioSession)
     }
