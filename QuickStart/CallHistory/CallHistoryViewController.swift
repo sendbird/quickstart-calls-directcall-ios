@@ -31,7 +31,7 @@ class CallHistoryViewController: UIViewController, UITableViewDataSource, UITabl
         // To receive event when the credential has been updated
         CredentialManager.shared.addDelegate(self, forKey: "Recents")
         
-        self.navigationItem.title = "Call History"
+        self.navigationItem.title = "Recents"
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
         
@@ -172,7 +172,7 @@ extension CallHistoryViewController {
                 self.view.isUserInteractionEnabled = true
     
                 guard let call = call, error == nil else {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                    UIApplication.shared.showError(with: error?.localizedDescription)
                     return
                 }
                 UIApplication.shared.showCallController(with: call)
@@ -197,7 +197,7 @@ extension CallHistoryViewController {
                 self.indicator.stopLoading()
                 
                 guard let call = call, error == nil else {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                    UIApplication.shared.showError(with: error?.localizedDescription)
                     return
                 }
                 
@@ -224,7 +224,7 @@ extension CallHistoryViewController {
                 self.indicator.stopLoading()
                 
                 guard let call = call, error == nil else {
-                    UIApplication.shared.showError(with: error?.localizedDescription ?? "Failed to call with unknown error")
+                    UIApplication.shared.showError(with: error?.localizedDescription)
                     return
                 }
                 UIApplication.shared.showCallController(with: call)

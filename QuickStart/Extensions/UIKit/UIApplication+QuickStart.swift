@@ -31,7 +31,9 @@ extension UIApplication {
         }
     }
     
-    func showError(with message: String) {
+    func showError(with errorDescription: String?) {
+        let message = errorDescription ?? "Something went wrong. Please retry."
+        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             if let topViewController = UIViewController.topViewController {

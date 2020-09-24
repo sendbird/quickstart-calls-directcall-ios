@@ -69,6 +69,8 @@
 		A9DDC43A245FDE3100F042E7 /* QuickStartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DDC439245FDE3100F042E7 /* QuickStartTests.swift */; };
 		A9E1B3A72464038A00EB3F18 /* UITabBarController+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E1B3A62464038A00EB3F18 /* UITabBarController+QuickStart.swift */; };
 		A9E574E424DD1ECA002098E7 /* CredentialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E574E324DD1ECA002098E7 /* CredentialManager.swift */; };
+		A9F4346825197EE200422E6A /* DialError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F4346725197EE200422E6A /* DialError.swift */; };
+		A9F434802519962900422E6A /* CallStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F4347F2519962900422E6A /* CallStatus.swift */; };
 		C1DD1FF923AFB59900140657 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF823A0B2DE00842136 /* CallKit.framework */; };
 		C1DD1FFB23AFB59A00140657 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9E98EF623A0B2DA00842136 /* PushKit.framework */; };
 		C1F69B0F23C5A4E300C66F00 /* CXProvider+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */; };
@@ -177,6 +179,8 @@
 		A9E574E324DD1ECA002098E7 /* CredentialManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialManager.swift; sourceTree = "<group>"; };
 		A9E98EF623A0B2DA00842136 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		A9E98EF823A0B2DE00842136 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
+		A9F4346725197EE200422E6A /* DialError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialError.swift; sourceTree = "<group>"; };
+		A9F4347F2519962900422E6A /* CallStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallStatus.swift; sourceTree = "<group>"; };
 		C1E1B36823AD3D9D00275F8B /* SendBirdCalls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SendBirdCalls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E1B36D23AD3E5400275F8B /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
 		C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CXProvider+QuickStart.swift"; sourceTree = "<group>"; };
@@ -219,6 +223,8 @@
 				A951A7AE238D154700410E40 /* VoiceCallViewController.swift */,
 				A96839EF2418ED0100317004 /* VideoCallViewController.swift */,
 				A91199BB2421257300208E21 /* DirectCallDataSource.swift */,
+				A9F4346725197EE200422E6A /* DialError.swift */,
+				A9F4347F2519962900422E6A /* CallStatus.swift */,
 			);
 			path = Dial;
 			sourceTree = "<group>";
@@ -647,6 +653,7 @@
 				49B07ACA242D8B1F00EFF73A /* Int64+QuickStart.swift in Sources */,
 				A968F6A42415CFF800E6EFD5 /* UIView+Extension.swift in Sources */,
 				A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */,
+				A9F434802519962900422E6A /* CallStatus.swift in Sources */,
 				49D8015B242C8D68003CFFBA /* UIImage+QuickStart.swift in Sources */,
 				A99CC94A23BA142F00F9116A /* UIImageView+QuickStart.swift in Sources */,
 				A95E91C5242870AF0035274E /* SignInManuallyViewController.swift in Sources */,
@@ -672,6 +679,7 @@
 				A99CC95023BA14A100F9116A /* UIColor+QuickStart.swift in Sources */,
 				A95A7C9E2420614A00EB0D56 /* SignInWithQRViewController.swift in Sources */,
 				A9E574E424DD1ECA002098E7 /* CredentialManager.swift in Sources */,
+				A9F4346825197EE200422E6A /* DialError.swift in Sources */,
 				A97EDF2B246D1EEC0072DF3D /* CallHistory.swift in Sources */,
 				A951A7A7238CC4DF00410E40 /* DialViewController.swift in Sources */,
 				A98DFA5524D2D8B900B28C3C /* AppDelegate+SoundEffects.swift in Sources */,
@@ -873,6 +881,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
+				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -902,6 +911,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
+				EXCLUDED_ARCHS = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

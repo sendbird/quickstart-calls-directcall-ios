@@ -10,6 +10,11 @@ import CallKit
 import PushKit
 import SendBirdCalls
 
+var versionInfo: String {
+    let sampleVersion = Bundle.main.version
+    return "QuickStart \(sampleVersion)   SDK \(SendBirdCall.sdkVersion)"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?

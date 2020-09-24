@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BZJ-Np-HIS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BZJ-Np-HIS">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -32,7 +33,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0034509803919999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAS-ip-OmI">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAS-ip-OmI">
                                 <rect key="frame" x="24" y="281" width="366" height="60"/>
                                 <color key="backgroundColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -51,7 +52,7 @@
                                     <action selector="didTapScanQRCode" destination="BZJ-Np-HIS" eventType="touchUpInside" id="rQF-2t-rG7"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBirdCall iOS ver0.0.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIX-vb-l1a">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quickstart 1.0.0   SDK 1.0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lIX-vb-l1a">
                                 <rect key="frame" x="40" y="830" width="334" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
@@ -74,14 +75,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyz-gG-08a">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gyz-gG-08a">
                                 <rect key="frame" x="24" y="401" width="366" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="MQg-fN-Haz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <state key="normal" title="Sign in manually">
+                                <state key="normal" title="Sign in with ID">
                                     <color key="titleColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -100,7 +101,8 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="NRa-iv-hsw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="LAS-ip-OmI" firstAttribute="top" secondItem="RAa-3S-PvZ" secondAttribute="bottom" constant="40" id="8nr-Y9-3io"/>
                             <constraint firstItem="s8m-Nf-uSb" firstAttribute="top" secondItem="LAS-ip-OmI" secondAttribute="bottom" constant="30" id="98i-k0-0um"/>
@@ -122,7 +124,6 @@
                             <constraint firstItem="7j3-Gq-LSI" firstAttribute="centerY" secondItem="s8m-Nf-uSb" secondAttribute="centerY" id="uM7-C5-Czx"/>
                             <constraint firstItem="NRa-iv-hsw" firstAttribute="bottom" secondItem="lIX-vb-l1a" secondAttribute="bottom" constant="16" id="yYo-0y-vOG"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="NRa-iv-hsw"/>
                     </view>
                     <connections>
                         <outlet property="scanButton" destination="LAS-ip-OmI" id="VIk-sV-0UM"/>
@@ -136,7 +137,7 @@
             </objects>
             <point key="canvasLocation" x="-1307" y="427"/>
         </scene>
-        <!--Sign in manually-->
+        <!--Sign in-->
         <scene sceneID="9oz-YF-J1b">
             <objects>
                 <viewController id="B87-Ut-5af" customClass="SignInManuallyViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
@@ -144,7 +145,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="App ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xpw-2V-aIa">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Application ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xpw-2V-aIa">
                                 <rect key="frame" x="24" y="80" width="366" height="56"/>
                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -186,7 +187,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isPaddingEnabled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User access token (Optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EP7-dx-uYB">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Access token (optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EP7-dx-uYB">
                                 <rect key="frame" x="24" y="224" width="366" height="56"/>
                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -207,14 +208,14 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isPaddingEnabled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPv-8d-g4B">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPv-8d-g4B">
                                 <rect key="frame" x="24" y="312" width="366" height="60"/>
                                 <color key="backgroundColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="duN-ua-jUL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <state key="normal" title="Sign In">
+                                <state key="normal" title="Sign in">
                                     <color key="titleColor" red="0.96470588239999999" green="0.97254901959999995" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -233,7 +234,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="5J7-b4-Hvt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zPv-8d-g4B" firstAttribute="top" secondItem="EP7-dx-uYB" secondAttribute="bottom" constant="32" id="08W-UB-rN6"/>
                             <constraint firstItem="xpw-2V-aIa" firstAttribute="leading" secondItem="5J7-b4-Hvt" secondAttribute="leading" constant="24" id="AJ6-GU-NxY"/>
@@ -251,9 +253,8 @@
                             <constraint firstItem="EP7-dx-uYB" firstAttribute="top" secondItem="U6m-AP-skq" secondAttribute="bottom" constant="16" id="q6B-Ud-xTL"/>
                             <constraint firstItem="OQo-v1-lyG" firstAttribute="leading" secondItem="5J7-b4-Hvt" secondAttribute="leading" constant="24" id="yMH-J9-NxM"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="5J7-b4-Hvt"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Sign in manually" id="tbS-dd-ik8">
+                    <navigationItem key="navigationItem" title="Sign in" id="tbS-dd-ik8">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="jUW-3O-umc">
                             <color key="tintColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
@@ -272,7 +273,7 @@
             </objects>
             <point key="canvasLocation" x="200" y="-289"/>
         </scene>
-        <!--Scan QR Code-->
+        <!--Scan QR code-->
         <scene sceneID="LcB-v9-odw">
             <objects>
                 <viewController id="MfD-TP-FOK" customClass="QRCodeViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
@@ -294,23 +295,23 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Ct-Os-zC2">
                                 <rect key="frame" x="0.0" y="754" width="414" height="88"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in by scanning a QR code found in the Calls Studio of the SendBird Dashboard" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="WWt-b7-Gdu">
-                                        <rect key="frame" x="24" y="24" width="366" height="40"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan QR code from Calls studio on Sendbird dashboard." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="WWt-b7-Gdu">
+                                        <rect key="frame" x="24" y="24" width="366" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="6zd-vG-wsz"/>
                                     <constraint firstItem="WWt-b7-Gdu" firstAttribute="top" secondItem="7Ct-Os-zC2" secondAttribute="top" constant="24" id="EUE-W3-EsW"/>
                                     <constraint firstItem="WWt-b7-Gdu" firstAttribute="leading" secondItem="7Ct-Os-zC2" secondAttribute="leading" constant="24" id="Qxl-qe-hsL"/>
-                                    <constraint firstAttribute="bottom" secondItem="WWt-b7-Gdu" secondAttribute="bottom" constant="24" id="i2o-O3-Wu8"/>
                                     <constraint firstAttribute="trailing" secondItem="WWt-b7-Gdu" secondAttribute="trailing" constant="24" id="kE5-gL-a19"/>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="XDe-bF-TFm"/>
                         <constraints>
                             <constraint firstItem="lb1-H4-mxG" firstAttribute="centerY" secondItem="ejR-VE-fa5" secondAttribute="centerY" id="1Sn-sa-tGy"/>
                             <constraint firstItem="7Ct-Os-zC2" firstAttribute="trailing" secondItem="XDe-bF-TFm" secondAttribute="trailing" id="F5p-0a-Dvx"/>
@@ -322,9 +323,8 @@
                             <constraint firstItem="lb1-H4-mxG" firstAttribute="centerX" secondItem="ejR-VE-fa5" secondAttribute="centerX" id="pCo-vO-oib"/>
                             <constraint firstAttribute="bottom" secondItem="7Ct-Os-zC2" secondAttribute="bottom" id="pbn-hi-0vE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="XDe-bF-TFm"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Scan QR Code" id="0dt-ov-0q3">
+                    <navigationItem key="navigationItem" title="Scan QR code" id="0dt-ov-0q3">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="vku-kA-ILz">
                             <color key="tintColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
@@ -407,13 +407,13 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isPaddingEnabled" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SendBirdCall iOS ver0.0.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wN9-Sb-7kA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quickstart 1.0.0   SDK 1.0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wN9-Sb-7kA">
                                 <rect key="frame" x="40" y="830" width="334" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efq-Zb-YBa">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efq-Zb-YBa">
                                 <rect key="frame" x="24" y="353" width="366" height="60"/>
                                 <color key="backgroundColor" red="0.4823529412" green="0.32549019610000002" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -449,7 +449,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="LFa-jv-GNZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="rDL-k3-6Sr" firstAttribute="leading" secondItem="LFa-jv-GNZ" secondAttribute="leading" constant="40" id="57S-v6-B9N"/>
                             <constraint firstItem="Efq-Zb-YBa" firstAttribute="leading" secondItem="LFa-jv-GNZ" secondAttribute="leading" constant="24" id="6HH-ar-73C"/>
@@ -466,7 +467,6 @@
                             <constraint firstItem="mxR-JI-nlE" firstAttribute="leading" secondItem="LFa-jv-GNZ" secondAttribute="leading" constant="24" id="szq-e4-D13"/>
                             <constraint firstItem="GwZ-Pa-2hA" firstAttribute="centerX" secondItem="LFa-jv-GNZ" secondAttribute="centerX" id="ycO-rN-HXt"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="LFa-jv-GNZ"/>
                     </view>
                     <connections>
                         <outlet property="logoImageView" destination="GwZ-Pa-2hA" id="74S-qF-dmh"/>
@@ -484,5 +484,8 @@
     <resources>
         <image name="icLogoSymbol" width="48" height="48"/>
         <image name="imgGuideQrcode" width="240" height="240"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

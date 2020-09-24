@@ -42,7 +42,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
             guard let remoteUser = self.call.remoteUser else { return }
             let name = remoteUser.nickname?.isEmptyOrWhitespace == true ? remoteUser.userId : remoteUser.nickname!
             
-            self.mutedStateLabel.text = "\(name) is on mute"
+            self.mutedStateLabel.text = CallStatus.muted(user: name).message
         }
     }
     
@@ -95,7 +95,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     func setupEndedCallUI() {
         self.callTimer?.invalidate()    // Main thread
         self.callTimer = nil
-        self.callTimerLabel.text = "Call ended"
+        self.callTimerLabel.text = CallStatus.ended(result: call.endResult.rawValue).message
         
         self.endButton.isHidden = true
         self.speakerButton.isHidden = true
@@ -160,7 +160,7 @@ extension VoiceCallViewController {
             guard let self = self else { return }
 
             // update UI
-            self.callTimerLabel.text = self.call.duration.timerText()
+            self.callTimerLabel.text = self.call.duration.durationText()
 
             // Timer Invalidate
             if self.call.endedAt != 0, timer.isValid {
@@ -205,7 +205,7 @@ extension VoiceCallViewController: DirectCallDelegate {
     
     // MARK: Optional Methods
     func didEstablish(_ call: DirectCall) {
-        self.callTimerLabel.text = "Connecting..."
+        self.callTimerLabel.text = CallStatus.connecting.message
     }
     
     func didRemoteAudioSettingsChange(_ call: DirectCall) {

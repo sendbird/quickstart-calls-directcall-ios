@@ -14,10 +14,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var userIdLabel: UILabel!
     
     @IBOutlet weak var versionLabel: UILabel! {
-        didSet {
-            let sampleVersion = Bundle.main.version
-            self.versionLabel.text = "QuickStart \(sampleVersion)  Calls SDK \(SendBirdCall.sdkVersion)"
-        }
+        didSet { self.versionLabel.text = versionInfo }
     }
     
     enum CellRow: Int {
