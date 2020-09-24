@@ -40,18 +40,10 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.observeKeyboard(showAction: #selector(keyboardWillShow(_:)),
                                            hideAction: #selector(keyboardWillHide(_:)),
                                            target: self)
-        
-        self.updateUIWithCredential()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-    }
-    
-    func updateUIWithCredential() {
-        guard let credential = UserDefaults.standard.credential else { return }
-        self.updateButtonUI()
-        self.signIn(userId: credential.userID)
     }
 }
 
@@ -59,48 +51,46 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
 extension SignInViewController {
     @IBAction func didTapSignIn() {
         guard let userId = self.userIdTextField.text?.collapsed else {
-            self.presentErrorAlert(message: "Please enter your ID and your name")
+            self.presentErrorAlert(message: CredentialErrors.noUserID.localizedDescription)
             return
         }
         self.updateButtonUI()
-        self.signIn(userId: userId)
+        self.indicator.startLoading(on: self.view)
+        self.signIn(with: userId)
     }
     
-    func signIn(userId: String) {
-        // MARK: SendBirdCall.authenticate()
-
-        let authParams = AuthenticateParams(userId: userId, accessToken: nil)
-        self.indicator.startLoading(on: self.view)
+    func signIn(with userID: String) {
+        let authParams = AuthenticateParams(userId: userID, accessToken: nil)
         
-        SendBirdCall.authenticate(with: authParams) { user, error in
-            guard let user = user, error == nil else {
-                // Handling error
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.indicator.stopLoading()
+        SendBirdCall.authenticate(with: authParams) { (user, error) in
+            
+            guard user != nil else {
+                // Failed
+                DispatchQueue.main.async { [self] in
+                    self.indicator.stopAnimating()
                     self.resetButtonUI()
-                    let errorDescription = String(error?.localizedDescription ?? "")
-                    self.presentErrorAlert(message: "Failed to authenticate\n\(errorDescription)")
+                    let error: Error = error ?? CredentialErrors.unknown
+                    self.presentErrorAlert(message: error.localizedDescription)
                 }
-                // If there is something wrong, clear all stored information except for voip push token.
+                
+                // (Optional) If there is something wrong, clear all stored information except for voip push token.
                 UserDefaults.standard.clear()
                 return
             }
             
-            // Save data
-            let credential = UserDefaults.standard.credential
-            let updated = credential?.details(nickname: user.nickname, profileURL: user.profileURL)
-            UserDefaults.standard.credential = updated
+            // create credential object with updated information
+            let credential = Credential(accessToken: nil)
+            let credentialManager = CredentialManager.shared
+            credentialManager.updateCredential(credential)
             
             // register push token
             SendBirdCall.registerVoIPPush(token: UserDefaults.standard.voipPushToken, unique: false) { error in
                 if let error = error { print(error) }
                 
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
+                DispatchQueue.main.async { [self] in
                     self.indicator.stopLoading()
                     self.resetButtonUI()
-                    self.performSegue(withIdentifier: "signIn", sender: nil)
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
         }

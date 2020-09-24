@@ -11,7 +11,7 @@
         <!--Sign In WithQR View Controller-->
         <scene sceneID="ZfL-4c-oYP">
             <objects>
-                <viewController storyboardIdentifier="SignInWithQRViewController" id="BZJ-Np-HIS" customClass="SignInWithQRViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInWithQRViewController" id="BZJ-Np-HIS" customClass="SignInWithQRViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g1m-Ro-eu4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -130,25 +130,16 @@
                         <outlet property="versionLabel" destination="lIX-vb-l1a" id="9QQ-Cu-2E2"/>
                         <segue destination="mNa-yf-4PE" kind="presentation" identifier="scanQR" id="3ay-ug-fA6"/>
                         <segue destination="DH9-P5-0bX" kind="presentation" identifier="manual" id="Z1C-Mi-lXF"/>
-                        <segue destination="UDt-uO-g9C" kind="presentation" identifier="signInWithQRCode" modalPresentationStyle="fullScreen" id="qiL-sl-72P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pC7-NY-7kr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1307" y="427"/>
         </scene>
-        <!--Main-->
-        <scene sceneID="OtT-dP-DXK">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Main" id="UDt-uO-g9C" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="150-bJ-WwF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="193" y="1264"/>
-        </scene>
         <!--Sign in manually-->
         <scene sceneID="9oz-YF-J1b">
             <objects>
-                <viewController id="B87-Ut-5af" customClass="SignInManuallyViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="B87-Ut-5af" customClass="SignInManuallyViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c16-Zo-8xy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -284,7 +275,7 @@
         <!--Scan QR Code-->
         <scene sceneID="LcB-v9-odw">
             <objects>
-                <viewController id="MfD-TP-FOK" customClass="QRCodeViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="MfD-TP-FOK" customClass="QRCodeViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zs3-Kr-FuN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -389,7 +380,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="Tyb-BO-PP7">
             <objects>
-                <viewController storyboardIdentifier="SignInViewController" id="BnX-mw-h7z" customClass="SignInViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInViewController" id="BnX-mw-h7z" customClass="SignInViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pKa-ff-em6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -483,17 +474,13 @@
                         <outlet property="signInButton" destination="Efq-Zb-YBa" id="OJO-1x-tmm"/>
                         <outlet property="userIdTextField" destination="mxR-JI-nlE" id="4vY-88-3K2"/>
                         <outlet property="versionLabel" destination="wN9-Sb-7kA" id="kAk-c7-JWu"/>
-                        <segue destination="UDt-uO-g9C" kind="presentation" identifier="signIn" modalPresentationStyle="fullScreen" id="O6G-bh-jE0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L3q-0J-7ht" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1307" y="1264"/>
+            <point key="canvasLocation" x="-1307" y="-289"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="O6G-bh-jE0"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="icLogoSymbol" width="48" height="48"/>
         <image name="imgGuideQrcode" width="240" height="240"/>

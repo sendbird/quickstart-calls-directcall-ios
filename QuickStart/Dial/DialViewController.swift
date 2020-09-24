@@ -11,22 +11,9 @@ import SendBirdCalls
 
 class DialViewController: UIViewController, UITextFieldDelegate {
     // Profile
-    @IBOutlet weak var profileImageView: UIImageView! {
-        didSet {
-            let profileURL = UserDefaults.standard.credential?.profileURL
-            self.profileImageView.updateImage(urlString: profileURL)
-        }
-    }
-    @IBOutlet weak var nicknameLabel: UILabel! {
-        didSet {
-            self.nicknameLabel.text = UserDefaults.standard.credential?.nickname.unwrap(with: "-")
-        }
-    }
-    @IBOutlet weak var userIDLabel: UILabel! {
-        didSet {
-            self.userIDLabel.text = "User ID: " + (UserDefaults.standard.credential?.userID ?? "-")
-        }
-    }
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var nicknameLabel: UILabel!
+    @IBOutlet weak var userIDLabel: UILabel!
     
     // Call
     @IBOutlet weak var calleeIdTextField: UITextField!
@@ -38,6 +25,12 @@ class DialViewController: UIViewController, UITextFieldDelegate {
     // MARK: Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // To receive event when the credential has been updated
+        CredentialManager.shared.addDelegate(self, forKey: "Dial")
+        
+        // Set up UI with current credential
+        self.updateUI(with: UserDefaults.standard.credential)
         
         self.calleeIdTextField.delegate = self
         NotificationCenter.observeKeyboard(showAction: #selector(keyboardWillShow(_:)),
@@ -130,8 +123,22 @@ extension DialViewController {
     }
 }
 
+// MARK: - Credential Delegate
+extension DialViewController: CredentialDelegate {
+    func didUpdateCredential(_ credential: Credential?) {
+        self.updateUI(with: credential)
+    }
+}
+
 // MARK: - Setting Up UI
 extension DialViewController {
+    func updateUI(with credential: Credential?) {
+        let profileURL = credential?.profileURL
+        self.profileImageView.updateImage(urlString: profileURL)
+        self.nicknameLabel.text = credential?.nickname.unwrap(with: "-")
+        self.userIDLabel.text = "User ID: " + (credential?.userId ?? "-")
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
     }

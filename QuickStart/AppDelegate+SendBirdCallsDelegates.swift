@@ -9,9 +9,10 @@ import UIKit
 import CallKit
 import SendBirdCalls
 
-// MARK: - SendBirdCalls Delegates
+// MARK: - Sendbird Calls Delegates
 extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
     // MARK: SendBirdCallDelegate
+    // Handles incoming call. Please refer to `AppDelegate+VoIP.swift` file
     func didStartRinging(_ call: DirectCall) {
         call.delegate = self // To receive call event through `DirectCallDelegate`
         

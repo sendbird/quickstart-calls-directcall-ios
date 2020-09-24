@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vv4-4l-vzD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vv4-4l-vzD">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,12 +17,12 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="78p-hm-3VY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1963" y="1863"/>
+            <point key="canvasLocation" x="1638" y="766"/>
         </scene>
         <!--Voice Call View Controller-->
         <scene sceneID="xQ3-Jv-7ju">
             <objects>
-                <viewController storyboardIdentifier="VoiceCallViewController" id="7ra-kc-2Kq" customClass="VoiceCallViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VoiceCallViewController" id="7ra-kc-2Kq" customClass="VoiceCallViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eVj-7G-Q5q">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -103,6 +104,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="8JT-d3-eu4"/>
                         <color key="backgroundColor" red="0.17254901960784313" green="0.17254901960784313" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Ak6-yR-2fK" firstAttribute="centerX" secondItem="8JT-d3-eu4" secondAttribute="centerX" id="1kG-R4-eS6"/>
@@ -125,7 +127,6 @@
                             <constraint firstItem="8JT-d3-eu4" firstAttribute="trailing" secondItem="vo0-dF-Ojm" secondAttribute="trailing" constant="24" id="y5x-f4-TWQ"/>
                             <constraint firstItem="k1b-0Y-eRW" firstAttribute="leading" secondItem="KBm-GP-Ubc" secondAttribute="trailing" constant="-12" id="yXL-gb-FLx"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="8JT-d3-eu4"/>
                     </view>
                     <connections>
                         <outlet property="callTimerLabel" destination="7CM-Ub-aCb" id="WIe-t9-QVr"/>
@@ -140,12 +141,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bjF-WA-1Q9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2581" y="781"/>
+            <point key="canvasLocation" x="-532" y="1087"/>
         </scene>
         <!--Dial-->
         <scene sceneID="eda-BC-zTo">
             <objects>
-                <viewController storyboardIdentifier="DialViewController" id="QH3-LJ-tLk" customClass="DialViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DialViewController" id="QH3-LJ-tLk" customClass="DialViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rcF-ir-O6k">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,7 +268,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Jpp-zS-JFC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cFJ-HJ-03Y" firstAttribute="leading" secondItem="twf-Fk-qMH" secondAttribute="trailing" constant="32" id="98T-PP-pnp"/>
                             <constraint firstItem="LnJ-3y-Xyu" firstAttribute="top" secondItem="QG9-oG-JhN" secondAttribute="bottom" constant="16" id="Acm-Ip-emb"/>
@@ -283,7 +285,6 @@
                             <constraint firstItem="ZIt-Bt-jdD" firstAttribute="leading" secondItem="Ue9-qz-Py8" secondAttribute="trailing" constant="8" id="Twc-8X-p4Z"/>
                             <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="Eg3-1U-GuL" secondAttribute="trailing" id="Zjy-ZQ-pCQ"/>
                             <constraint firstItem="QG9-oG-JhN" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="csT-SZ-fsd"/>
-                            <constraint firstItem="Eg3-1U-GuL" firstAttribute="top" secondItem="q8c-GM-NKq" secondAttribute="bottom" constant="4.5" id="hc5-SM-HYU"/>
                             <constraint firstItem="Ue9-qz-Py8" firstAttribute="top" secondItem="Jpp-zS-JFC" secondAttribute="top" constant="5" id="knw-Sr-crq"/>
                             <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="LnJ-3y-Xyu" secondAttribute="trailing" constant="24" id="mff-Li-ncj"/>
                             <constraint firstItem="twf-Fk-qMH" firstAttribute="centerX" secondItem="Jpp-zS-JFC" secondAttribute="centerX" constant="-48" id="neL-hJ-mc7"/>
@@ -292,9 +293,9 @@
                             <constraint firstItem="LnJ-3y-Xyu" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="rG4-8e-wfv"/>
                             <constraint firstItem="Ue9-qz-Py8" firstAttribute="leading" secondItem="Jpp-zS-JFC" secondAttribute="leading" constant="24" id="tLo-ms-kSH"/>
                             <constraint firstItem="Jpp-zS-JFC" firstAttribute="trailing" secondItem="q8c-GM-NKq" secondAttribute="trailing" constant="24" id="xWW-6f-lf8"/>
+                            <constraint firstItem="Eg3-1U-GuL" firstAttribute="top" secondItem="Ue9-qz-Py8" secondAttribute="bottom" constant="7" id="y8E-b7-rof"/>
                             <constraint firstItem="ZIt-Bt-jdD" firstAttribute="top" secondItem="Ue9-qz-Py8" secondAttribute="top" id="zRt-54-zs7"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Jpp-zS-JFC"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="icCall" selectedImage="icCallFilled" id="3ad-QM-X1l"/>
                     <toolbarItems/>
@@ -313,7 +314,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j3Z-6X-Og9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="408"/>
+            <point key="canvasLocation" x="-155" y="360"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="7VQ-Kb-uEx">
@@ -334,7 +335,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s6W-w9-znW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201" y="1134"/>
+            <point key="canvasLocation" x="738" y="-368"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m5a-WD-cYh">
@@ -355,12 +356,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ad1-eg-pq5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="1863"/>
+            <point key="canvasLocation" x="1639" y="360"/>
         </scene>
         <!--Video Call View Controller-->
         <scene sceneID="95y-fH-Uoo">
             <objects>
-                <viewController storyboardIdentifier="VideoCallViewController" id="Suw-Gg-jyg" customClass="VideoCallViewController" customModule="SendBird_Calls" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoCallViewController" id="Suw-Gg-jyg" customClass="VideoCallViewController" customModule="Sendbird_Calls" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wEz-Ud-OC4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -483,6 +484,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="qwO-0a-u35"/>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="HSX-7e-fOy" firstAttribute="top" secondItem="FCX-ZN-pc3" secondAttribute="bottom" constant="8" id="0F7-YD-jmp"/>
@@ -513,7 +515,6 @@
                             <constraint firstItem="qwO-0a-u35" firstAttribute="trailing" secondItem="HSX-7e-fOy" secondAttribute="trailing" constant="24" id="x27-7D-rsm"/>
                             <constraint firstItem="vgx-ao-2Sm" firstAttribute="leading" secondItem="qwO-0a-u35" secondAttribute="leading" constant="24" id="yji-HZ-0xy"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="qwO-0a-u35"/>
                     </view>
                     <connections>
                         <outlet property="audioOffButton" destination="1Zs-yD-GbR" id="KqV-IK-ZGD"/>
@@ -535,7 +536,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tes-oc-mzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2580" y="82"/>
+            <point key="canvasLocation" x="184" y="1087"/>
         </scene>
         <!--CallHistoryViewController-->
         <scene sceneID="iMd-Un-9BK">
@@ -545,7 +546,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjr-qr-62J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1952" y="1134"/>
+            <point key="canvasLocation" x="738" y="766"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lIC-BO-AcS">
@@ -565,7 +566,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eTr-uZ-eCG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="1134"/>
+            <point key="canvasLocation" x="738" y="360"/>
         </scene>
     </scenes>
     <resources>
@@ -588,5 +589,8 @@
         <image name="iconAudioOff" width="32" height="32"/>
         <image name="iconAvatar" width="64" height="64"/>
         <image name="iconSettingsFilled" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

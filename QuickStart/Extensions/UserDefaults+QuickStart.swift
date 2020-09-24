@@ -19,8 +19,8 @@ extension UserDefaults {
 }
 
 extension UserDefaults {
-    var credential: SendBirdCredentialManager.SendBirdCredential? {
-        get { UserDefaults.standard.get(objectType: SendBirdCredentialManager.SendBirdCredential.self,
+    var credential: Credential? {
+        get { UserDefaults.standard.get(objectType: Credential.self,
                                         forKey: Key.credential.value) }
         set { UserDefaults.standard.set(object: newValue,
                                         forKey: Key.credential.value) }
@@ -46,7 +46,10 @@ extension UserDefaults {
 
 extension UserDefaults {
     func set<T: Codable>(object: T, forKey: String) {
-        guard let jsonData = try? JSONEncoder().encode(object) else { return }
+        guard let jsonData = try? JSONEncoder().encode(object) else {
+            self.removeObject(forKey: forKey)
+            return
+        }
         set(jsonData, forKey: forKey)
     }
 

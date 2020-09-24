@@ -37,14 +37,13 @@ class SignInManuallyViewController: UIViewController {
         }
         let accessToken = self.accessTokenTextField.text
         
-        let credential = SendBirdCredentialManager.SendBirdCredential(appID: appId,
-                                                                      userID: userId,
-                                                                      accessToken: accessToken)
+        let pendingCredential = Credential(appID: appId,
+                                    userID: userId,
+                                    accessToken: accessToken)
         
         // Start to sign in
-        let credentialManager = SendBirdCredentialManager.shared
-        credentialManager.pendingCredential = credential
-        credentialManager.signIn()
+        let signInVC = self.presentingViewController as? SignInWithQRViewController
+        signInVC?.signIn(with: pendingCredential)
         
         self.dismiss(animated: true, completion: nil)
     }
