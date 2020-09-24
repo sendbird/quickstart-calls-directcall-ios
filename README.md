@@ -262,6 +262,36 @@ configuration.maximumCallGroups = 1
 let provider = CXProvider(configuration: configuration)
 ```
 
+### Sound Effects
+You can use different sound effects to enhance the user experience for events that take place while using Sendbird Calls. 
+
+To add sound effects, use the `SendBirdCall.addDirectCallSound(_:forType:)` method for the following events: dialing, ringing, reconnecting, and reconnected. Remember to set sound effects before the mentioned events occur. To remove sound effects, use the `SendBirdCall.removeDirectCallSound(_:forType:)` method.
+
+```swift
+// Play on a caller’s side when making a call.
+SendBirdCall.addDirectCallSound("dialing.mp3", forType: .dialing)
+
+// Play on a callee’s side when receiving a call.
+SendBirdCall.addDirectCallSound("ringing.mp3", forType: .ringing)
+
+// Play when a connection is lost, but the SDK immediately attempts to reconnect.
+SendBirdCall.addDirectCallSound("reconnecting.mp3", forType: .reconnecting)
+
+// Play when the connection is re-established.
+SendBirdCall.addDirectCallSound("reconnected.mp3", forType: .reconnected)
+```
+
+If you’re using Apple’s CallKit framework, you should use `CXProviderConfiguration.ringtoneSound` instead to add sound effects as ringtones like the following:
+
+```swift
+let configuration = CXProviderConfiguration()
+...
+configuration.ringtoneSound = "ringing.mp3"
+```
+
+For more information about sound effects, see the <link>SDK for iOS README for Sound effects.</link>
+
+
 <br />
 
 ## Reference
