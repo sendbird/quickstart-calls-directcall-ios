@@ -38,7 +38,7 @@ extension AppDelegate: PKPushRegistryDelegate {
     // Please refer to `AppDelegate+SendBirdCallsDelegates.swift` file.
     func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
         SendBirdCall.pushRegistry(registry, didReceiveIncomingPushWith: payload, for: type) { uuid in
-            guard let uuid = uuid, let call = SendBirdCall.getCall(forUUID: uuid) else {
+            guard uuid != nil else {
                 let update = CXCallUpdate()
                 update.remoteHandle = CXHandle(type: .generic, value: "invalid")
                 let randomUUID = UUID()
@@ -47,19 +47,6 @@ extension AppDelegate: PKPushRegistryDelegate {
                     CXCallManager.shared.endCall(for: randomUUID, endedAt: Date(), reason: .acceptFailed)
                 }
                 completion()
-                return
-            }
-            
-            if SendBirdCall.getOngoingCallCount() > 1 {
-                let update = CXCallUpdate()
-                update.remoteHandle = CXHandle(type: .generic, value: call.remoteUser?.userId ?? "invalid")
-                update.hasVideo = call.isVideoCall
-
-                CXCallManager.shared.reportIncomingCall(with: uuid, update: update) { _ in
-                    CXCallManager.shared.endCall(for: uuid, endedAt: Date(), reason: .declined)
-                }
-                
-                call.end()
                 return
             }
             
