@@ -13,7 +13,6 @@ extension UserDefaults {
         case user
         case accessToken
         case autoLogin
-        case voipPushToken
         case remotePushToken
         case callHistories
         
@@ -43,11 +42,6 @@ extension UserDefaults {
         set { UserDefaults.standard.set(object: newValue, forKey: Key.accessToken.value) }
     }
     
-    var voipPushToken: Data? {
-        get { UserDefaults.standard.value(forKey: Key.voipPushToken.value) as? Data }
-        set { UserDefaults.standard.set(newValue, forKey: Key.voipPushToken.value) }
-    }
-    
     var remotePushToken: Data? {
         get { UserDefaults.standard.value(forKey: Key.remotePushToken.value) as? Data }
         set { UserDefaults.standard.set(newValue, forKey: Key.remotePushToken.value) }
@@ -61,7 +55,7 @@ extension UserDefaults {
 
 extension UserDefaults {
     func clear() {
-        let keys = Key.allCases.filter { $0 != .voipPushToken }
+        let keys = Key.allCases.filter { $0 != .remotePushToken }
         keys.map{$0.value}.forEach(UserDefaults.standard.removeObject)
     }
 }

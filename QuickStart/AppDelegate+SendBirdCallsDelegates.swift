@@ -30,8 +30,15 @@ extension AppDelegate: SendBirdCallDelegate, DirectCallDelegate {
         update.hasVideo = call.isVideoCall
         update.localizedCallerName = call.caller?.userId ?? "Unknown"
         
-        // Report the incoming call to the system
-        CXCallManager.shared.reportIncomingCall(with: uuid, update: update)
+        
+        if SendBirdCall.getOngoingCallCount() > 1 {
+            CXCallManager.shared.reportIncomingCall(with: uuid, update: update) { (error) in
+                CXCallManager.shared.endCall(for: uuid, endedAt: Date(), reason: .declined)
+            }
+        } else {
+            // Report the incoming call to the system
+            CXCallManager.shared.reportIncomingCall(with: uuid, update: update)
+        }
     }
     
     // MARK: DirectCallDelegate

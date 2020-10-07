@@ -89,7 +89,7 @@ extension SignInViewController {
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
             // register push token
-            SendBirdCall.registerVoIPPush(token: UserDefaults.standard.voipPushToken, unique: false) { error in
+            SendBirdCall.registerRemotePush(token: UserDefaults.standard.remotePushToken, unique: false) { error in
                 if let error = error { print(error) }
                 
                 DispatchQueue.main.async { [weak self] in

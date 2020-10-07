@@ -100,7 +100,7 @@ extension SignInWithQRViewController {
     func signIn() {
         let userId = UserDefaults.standard.user.id
         let accessToken = UserDefaults.standard.accessToken
-        let voipPushToken = UserDefaults.standard.voipPushToken
+        let remotePushToken = UserDefaults.standard.remotePushToken
         let authParams = AuthenticateParams(userId: userId, accessToken: accessToken)
         
         self.indicator.startLoading(on: self.view)
@@ -124,7 +124,7 @@ extension SignInWithQRViewController {
             UserDefaults.standard.user = (user.userId, user.nickname, user.profileURL)
             
             // register push token
-            SendBirdCall.registerVoIPPush(token: voipPushToken, unique: false) { error in
+            SendBirdCall.registerRemotePush(token: remotePushToken, unique: false) { error in
                 if let error = error { print(error) }
                 
                 DispatchQueue.main.async { [weak self] in
