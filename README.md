@@ -154,9 +154,9 @@ VoIP Push Notification enables receiving calls even when the app is in the backg
  
 To make and receive calls, authenticate the user with Sendbird server with the `SendBirdCall.authenticate(with:)` method and register a VoIP push token to Sendbird server. 
  
-You can register a VoIP push token (specific, the current user’ ) by passing it as an argument to a parameter either in the `authenticate()` method during authentication, or in the `SendBirdCall.registerVoIPPush(token:)` method after completing the authentication. 
+You can register a VoIP push token (specific, the current user’s) by passing it as an argument to a parameter either in the `authenticate()` method during authentication, or in the `SendBirdCall.registerVoIPPush(token:)` method after completing the authentication. 
  
-Furthermore, a valid VoIP Services certificate or Apple Push Notification Service certificate also needs to be registered on [SendBird Dashboard](https://dashboard.sendbird.com) which you can do so on **Add certificate** under **Application** > **Settings** > **Notifications**.
+Furthermore, a valid VoIP Services certificate or Apple Push Notification Service certificate also needs to be registered on the [Sendbird Dashboard](https://dashboard.sendbird.com) which you can do so on **Add certificate** under **Application** > **Settings** > **Notifications**.
 
 #### More about certificates
 
@@ -179,6 +179,12 @@ To handle a native-implementation of receiving incoming calls, implement Apple�
 <br />
 
 ## Advanced
+
+### Remote push notifications
+
+Instead of PushKit and CallKit, you can also choose to receive remote push notifications for incoming calls.
+
+For a sample app with remote push notifications, refer to the [feature/remote-push-notifications](https://github.com/sendbird/quickstart-calls-ios/tree/feature/remote-push-notifications) branch.
 
 ### Handle an incoming call without media permission
 
