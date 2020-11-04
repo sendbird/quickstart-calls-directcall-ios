@@ -161,9 +161,6 @@ extension CXCallManager: CXProviderDelegate {
             } else {
                 action.fulfill()
             }
-            
-            
-            
         }
     }
     
