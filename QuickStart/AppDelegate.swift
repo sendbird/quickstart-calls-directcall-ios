@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // MARK: SendBirdCall.configure(appId:)
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
+        // If you want to sign in with QR code, don't configure your app ID in code.
         // SendBirdCall.configure(appId: YOUR_APP_ID)
 
         self.autoSignIn { error in
@@ -80,8 +81,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func authenticate(with credential: Credential, completionHandler: @escaping (Error?) -> Void) {
-        // Configure app ID before authenticate
-        SendBirdCall.configure(appId: credential.appId)
+        // Configure app ID before authenticate when there is no configured app ID
+        if SendBirdCall.appId == nil { SendBirdCall.configure(appId: credential.appId) }
         
         // Authenticate
         let authParams = AuthenticateParams(userId: credential.userId, accessToken: credential.accessToken)
