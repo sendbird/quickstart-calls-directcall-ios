@@ -134,18 +134,36 @@ extension CXCallManager: CXProviderDelegate {
             return
         }
         
-        // For decline
-        if call.endResult == DirectCallEndResult.none || call.endResult == .unknown {
-            SendBirdCall.authenticateIfNeed { [weak call] (error) in
-                guard let call = call, error == nil else {
-                    action.fail()
-                    return
-                }
-           
-                call.end { action.fulfill() }
+        var backgroundTaskID: UIBackgroundTaskIdentifier = .invalid
+        
+        // For decline in background
+        DispatchQueue.global().async {
+            backgroundTaskID = UIApplication.shared.beginBackgroundTask {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                backgroundTaskID = .invalid
             }
-        } else {
-            action.fulfill()
+            
+            if call.endResult == DirectCallEndResult.none || call.endResult == .unknown {
+                SendBirdCall.authenticateIfNeed { [weak call] (error) in
+                    guard let call = call, error == nil else {
+                        action.fail()
+                        return
+                    }
+                    
+                    call.end {
+                        action.fulfill()
+                        
+                        // End background task
+                        UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                        backgroundTaskID = .invalid
+                    }
+                }
+            } else {
+                action.fulfill()
+            }
+            
+            
+            
         }
     }
     
