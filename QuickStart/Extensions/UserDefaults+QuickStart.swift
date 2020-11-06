@@ -39,8 +39,10 @@ extension UserDefaults {
 
 extension UserDefaults {
     func clear() {
-        let keys = Key.allCases.filter { $0 != .voipPushToken }
-        keys.map { $0.value }.forEach(UserDefaults.standard.removeObject)
+        Key.allCases
+            .filter { $0 != .voipPushToken }
+            .map { $0.value }
+            .forEach(UserDefaults.standard.removeObject)
     }
 }
 
