@@ -13,9 +13,14 @@ enum CallStatus {
     
     var message: String {
         switch self {
-            case .connecting: return "call connecting..."
-            case .muted(let user): return "\(user) is muted"
-            case .ended(let result): return result.replacingOccurrences(of: "_", with: " ")
+            case .connecting:
+                return "call connecting..."
+            case .muted(let user):
+                return "\(user) is muted"
+            case .ended(let result):
+                return result
+                    .replacingOccurrences(of: "_", with: " ")
+                    .capitalizingFirstLetter()
         }
     }
 }

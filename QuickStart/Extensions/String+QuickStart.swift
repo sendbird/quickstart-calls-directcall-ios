@@ -23,6 +23,10 @@ extension String {
             return self.trimmed
         }
     }
+    
+    public func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
 }
 
 extension Optional where Wrapped == String {
