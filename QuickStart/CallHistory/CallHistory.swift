@@ -39,7 +39,7 @@ struct CallHistory: Codable {
         
         self.startedAt = CallHistory.dateFormatter.string(from: Date(timeIntervalSince1970: Double(callLog.startedAt) / 1000))
         self.duration = callLog.duration.durationText()
-        self.endResult = callLog.endResult.rawValue
+        self.endResult = CallStatus.ended(result: callLog.endResult.rawValue).message
     }
 }
 

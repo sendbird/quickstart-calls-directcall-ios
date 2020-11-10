@@ -20,6 +20,7 @@ extension CXProviderConfiguration {
         // and update correct type of call log in Recents
         providerConfiguration.supportsVideo = true
         providerConfiguration.maximumCallsPerCallGroup = 1
+        providerConfiguration.maximumCallGroups = 1
         providerConfiguration.supportedHandleTypes = [.generic]
         
         // Set up ringing sound
