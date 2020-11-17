@@ -14,7 +14,7 @@ Sendbird Calls SDK for iOS is used to initialize, configure, and build voice and
 
 ### More about Sendbird Calls for iOS
 
-Find out more about Sendbird Calls for iOS on [Calls for iOS doc](https://docs.sendbird.com/ios/calls_quick_start). If you need any help in resolving any issues or have questions, visit [our community](https://community.sendbird.com).
+Find out more about Sendbird Calls for iOS on [Calls for iOS doc](https://sendbird.com/docs/calls/v1/ios/getting-started/about-calls-sdk). If you need any help in resolving any issues or have questions, visit [our community](https://community.sendbird.com).
 
 <br />
 
