@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func authenticate(with credential: Credential, completionHandler: @escaping (Error?) -> Void) {
         // Configure app ID before authenticate when there is no configured app ID
-        if SendBirdCall.appId == nil { SendBirdCall.configure(appId: credential.appId) }
+        if SendBirdCall.appId != credential.appId { SendBirdCall.configure(appId: credential.appId) }
         
         // Authenticate
         let authParams = AuthenticateParams(userId: credential.userId, accessToken: credential.accessToken)
