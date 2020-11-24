@@ -26,7 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MARK: SendBirdCall.configure(appId:)
         // See [here](https://github.com/sendbird/quickstart-calls-ios#creating-a-sendbird-application) for the application ID.
         // If you want to sign in with QR code, don't configure your app ID in code.
-        // SendBirdCall.configure(appId: YOUR_APP_ID)
+        
+        // Configure your app id here to designate a specific app id for the application. 
+        // let appId = YOUR_APP_ID
+        // SendBirdCall.configure(appId: appId)
+        // UserDefaults.standard.designatedAppId = appId
 
         self.autoSignIn { error in
             if error == nil { return }
@@ -81,8 +85,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func authenticate(with credential: Credential, completionHandler: @escaping (Error?) -> Void) {
-        // Configure app ID before authenticate when there is no configured app ID
-        if SendBirdCall.appId != credential.appId { SendBirdCall.configure(appId: credential.appId) }
+        // Configure app ID before authenticate when the configured app ID is different.
+        if SendBirdCall.appId != credential.appId, UserDefaults.standard.designatedAppId == nil {
+            SendBirdCall.configure(appId: credential.appId)
+        }
         
         // Authenticate
         let authParams = AuthenticateParams(userId: credential.userId, accessToken: credential.accessToken)

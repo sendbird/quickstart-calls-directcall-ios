@@ -37,7 +37,8 @@ extension UIStoryboard {
 
 extension UIStoryboard {
     static func signController() -> UIViewController {
-        let controller = (UserDefaults.standard.credential?.appId != nil ? QuickStart.simpleSignIn : QuickStart.signIn).controller
+        let hasConfiguredAppId = (UserDefaults.standard.credential?.appId != nil || UserDefaults.standard.designatedAppId != nil)
+        let controller = (hasConfiguredAppId ? QuickStart.simpleSignIn : QuickStart.signIn).controller
         if #available(iOS 13.0, *) {
             controller.isModalInPresentation = true
         }

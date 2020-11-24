@@ -12,6 +12,7 @@ extension UserDefaults {
         case credential
         case voipPushToken
         case callHistories
+        case designatedAppId
         
         var value: String { "com.sendbird.calls.quickstart.\(self.rawValue.lowercased())" }
     }
@@ -35,12 +36,17 @@ extension UserDefaults {
         get { UserDefaults.standard.get(objectType: [CallHistory].self, forKey: Key.callHistories.value) ?? [] }
         set { UserDefaults.standard.set(object: newValue, forKey: Key.callHistories.value) }
     }
+    
+    var designatedAppId: String? {
+        get { UserDefaults.standard.value(forKey: Key.designatedAppId.value) as? String }
+        set { UserDefaults.standard.setValue(newValue, forKey: Key.designatedAppId.value) }
+    }
 }
 
 extension UserDefaults {
     func clear() {
         Key.allCases
-            .filter { $0 != .voipPushToken }
+            .filter { $0 != .voipPushToken && $0 != .designatedAppId }
             .map { $0.value }
             .forEach(UserDefaults.standard.removeObject)
     }
