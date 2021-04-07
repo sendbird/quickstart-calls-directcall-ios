@@ -3,7 +3,7 @@
 //  QuickStartIntent
 //
 //  Created by Jaesung Lee on 2020/05/04.
-//  Copyright © 2020 SendBird Inc. All rights reserved.
+//  Copyright © 2020 Sendbird Inc. All rights reserved.
 //
 
 import Intents

@@ -3,7 +3,7 @@
 //  QuickStart
 //
 //  Created by Jaesung Lee on 2020/03/23.
-//  Copyright © 2020 SendBird Inc. All rights reserved.
+//  Copyright © 2020 Sendbird Inc. All rights reserved.
 //
 
 import UIKit
