@@ -115,8 +115,8 @@ If you would like to try the sample app specifically fit to your usage, you can 
 ### Create a Sendbird application
 
  1. Login or Sign-up for an account on [Sendbird Dashboard](https://dashboard.sendbird.com).
- 2. Create or select a calls-enabled application on the dashboard.
- 3. Note your Sendbird application ID for future reference. 
+ 2. Create or select a call-activated application on the dashboard.
+ 3. Keep your Sendbird application ID in a safe place for future reference. 
 
 ### Create test users
 
