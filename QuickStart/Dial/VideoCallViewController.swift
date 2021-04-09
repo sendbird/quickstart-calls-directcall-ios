@@ -3,7 +3,7 @@
 //  QuickStart
 //
 //  Created by Jaesung Lee on 2020/03/11.
-//  Copyright © 2020 SendBird Inc. All rights reserved.
+//  Copyright © 2020 Sendbird Inc. All rights reserved.
 //
 
 import UIKit
@@ -183,7 +183,7 @@ class VideoCallViewController: UIViewController, DirectCallDataSource {
     }
 }
 
-// MARK: - SendBirdCalls: Video Features
+// MARK: - SendBirdCall: Video Features
 extension VideoCallViewController {
     func setupVideoView() {
         let localSBVideoView = SendBirdVideoView(frame: localVideoView?.frame ?? CGRect.zero)
@@ -224,7 +224,7 @@ extension VideoCallViewController {
         }
     }
     
-    // SendBirdCalls: Start / Stop Video
+    // MARK: SendBirdCall: Start / Stop Video
     func updateLocalVideo(isEnabled: Bool) {
         self.videoOffButton.setBackgroundImage(.video(isOn: isEnabled),
                                                for: .normal)
@@ -238,7 +238,7 @@ extension VideoCallViewController {
     }
 }
 
-// MARK: - SendBirdCalls: Audio Features
+// MARK: - SendBirdCall: Audio Features
 extension VideoCallViewController {
     func updateLocalAudio(isEnabled: Bool) {
         self.audioOffButton.setBackgroundImage(.audio(isOn: isEnabled), for: .normal)
@@ -255,7 +255,7 @@ extension VideoCallViewController {
     }
 }
 
-// MARK: - SendBirdCalls: Audio Output
+// MARK: - SendBirdCall: Audio Output
 extension VideoCallViewController {
     func setupAudioOutputButton() {
         let width = self.audioRouteButton.frame.width

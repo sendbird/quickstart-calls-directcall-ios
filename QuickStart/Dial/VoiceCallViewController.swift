@@ -2,7 +2,7 @@
 //  VoiceCallViewController.swift
 //  QuickStart
 //
-//  Copyright © 2020 SendBird, Inc. All rights reserved.
+//  Copyright © 2020 Sendbird, Inc. All rights reserved.
 //
 
 import UIKit
@@ -106,7 +106,7 @@ class VoiceCallViewController: UIViewController, DirectCallDataSource {
     }
 }
 
-// MARK: - SendBirdCalls: Audio Features
+// MARK: - SendBirdCall: Audio Features
 extension VoiceCallViewController {
     func updateLocalAudio(isEnabled: Bool) {
         self.muteAudioButton.setBackgroundImage(.audio(isOn: isEnabled), for: .normal)
@@ -123,7 +123,7 @@ extension VoiceCallViewController {
     }
 }
 
-// MARK: - SendBirdCalls: Audio Output
+// MARK: - SendBirdCall: Audio Output
 extension VoiceCallViewController {
     func setupAudioOutputButton() {
         let width = self.speakerButton.frame.width
@@ -150,7 +150,7 @@ extension VoiceCallViewController {
     }
 }
 
-// MARK: - SendBirdCalls: DirectCall duration
+// MARK: - SendBirdCall: DirectCall duration
 extension VoiceCallViewController {
     func activeTimer() {
         self.callTimerLabel.text = "00:00"
@@ -171,7 +171,7 @@ extension VoiceCallViewController {
     }
 }
 
-// MARK: - SendBirdCalls: DirectCallDelegate
+// MARK: - SendBirdCall: DirectCallDelegate
 // Delegate methods are executed on Main thread
 
 extension VoiceCallViewController: DirectCallDelegate {
