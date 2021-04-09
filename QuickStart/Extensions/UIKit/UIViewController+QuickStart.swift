@@ -2,7 +2,7 @@
 //  UIViewController+QuickStart.swift
 //  SendBirdCall Tester
 //
-//  Copyright © 2020 SendBird, Inc. All rights reserved.
+//  Copyright © 2020 Sendbird, Inc. All rights reserved.
 //
 
 import UIKit
