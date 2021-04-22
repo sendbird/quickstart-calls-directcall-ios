@@ -1,4 +1,4 @@
-# Sendbird Calls for iOS Quickstart
+# iOS Quickstart for Direct Call of Sendbird Calls
 ![Platform](https://img.shields.io/badge/platform-iOS-orange.svg)
 ![Languages](https://img.shields.io/badge/language-Swift-orange.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/sendbird/quickstart-calls-ios/blob/develop/LICENSE.md)
