@@ -226,7 +226,7 @@ You can create a current user's local video view and customize its appearance be
 
 1. Add a `UIView` to your storyboard.
 2. Create a view with the frame you want by using the `SendBirdVideoView` object.
-3. To add a subview, [embed](https://github.com/sendbird/quickstart-calls-ios/blob/develop/QuickStart/Extensions/UIKit/UIView%2BExtension.swift) the `SendBirdVideoView` to the `UIView` from **Step 1**.
+3. To add a subview, embed the `SendBirdVideoView` to the `UIView` from **Step 1**.
 4. Find an appropriate camera device by accessing the `availableVideoDevice` property of `DirectCall`.
 5. Start capturing video contents from the camera by calling the `DirectCall.selectVideoDevice(_:completionHandler:)` method.
 
@@ -237,7 +237,7 @@ You can create a current user's local video view and customize its appearance be
 let localSBVideoView = SendBirdVideoView(frame: self.localVideoView?.frame ?? CGRect.zero)
 
 // Embed the SendBirdVideoView to UIView
-self.localVideoView?.embed(localSBVideoView)
+localSBVideoView.embed(in: self.localVideoView!)
 
 // Start rendering local video view
 guard let frontCamera = (call.availableVideoDevice.first { $0.position == .front }) else { return }
