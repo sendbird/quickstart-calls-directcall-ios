@@ -45,6 +45,7 @@ To use Sendbird Calls, you should first add our custom-built `SendBirdWebRTC` to
 
 ```bash
 $ brew install git-lfs
+$ git lfs install
 ```
 
 For further details, refer to [https://git-lfs.github.com](https://git-lfs.github.com)
