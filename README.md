@@ -34,14 +34,14 @@ The minimum requirements for Calls SDK for iOS sample are:
 
 ### Environment setup
 
-Installing the Calls SDK is simple if you’re familiar with using external libraries or SDK’s in your projects. After creating your Sendbird application from your dashboard, you can choose to install the Calls SDK using **Swift Package Manager**, **CocoaPods** or **Carthage**.
+Installing the Calls SDK is simple if you’re familiar with using external libraries or SDKs in your projects. After creating your Sendbird application from your dashboard, you can choose to install the Calls SDK using **Swift Package Manager**, **CocoaPods** or **Carthage**.
 
 ##### - Swift Package Manager
 Go to your Swift Package Manager's `File` tab and select `Swift Packages`. Then choose `Add package dependency`.
 
-Add the SendBirdCalls framework into your Package Repository with the following URL: https://github.com/sendbird/sendbird-calls-ios.
+Add the `SendBirdCalls` framework into your Package Repository with the following URL: https://github.com/sendbird/sendbird-calls-ios.
 
-To add the package, select appropriate dependency rule and click `Add Package`.
+To add the package, select an appropriate dependency rule and click `Add Package`.
 
 ##### - CocoaPods
 
