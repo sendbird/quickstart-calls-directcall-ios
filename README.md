@@ -28,29 +28,20 @@ The minimum requirements for Calls SDK for iOS sample are:
 
 - Mac OS with developer mode enabled
 - Xcode
-- [Git Large File Storage](https://git-lfs.github.com/)
 - Homebrew
 - At least one physical iOS device running iOS 9.0 and later 
 - Swift 4.0 and later
 
 ### Environment setup
 
-Installing the Calls SDK is simple if you’re familiar with using external libraries or SDK’s in your projects. After creating your Sendbird application from your dashboard, install **Git Large File Storage (LFS)**, then you can choose to install the Calls SDK using either **CocoaPods** or **Carthage**.
+Installing the Calls SDK is simple if you’re familiar with using external libraries or SDKs in your projects. After creating your Sendbird application from your dashboard, you can choose to install the Calls SDK using **Swift Package Manager**, **CocoaPods** or **Carthage**.
 
-#### Step 1. Install Git LFS
- 
-To download `SendBirdWebRTC`, Git LFS **MUST** be installed by running the following command
+##### - Swift Package Manager
+Go to your Swift Package Manager's `File` tab and select `Swift Packages`. Then choose `Add package dependency`.
 
-To use Sendbird Calls, you should first add our custom-built `SendBirdWebRTC` to your project. **Git LFS** must be installed to use the `WebRTC`. To download **Git LFS**, run the following command on your terminal window.
+Add the `SendBirdCalls` framework into your Package Repository with the following URL: https://github.com/sendbird/sendbird-calls-ios.
 
-```bash
-$ brew install git-lfs
-$ git lfs install
-```
-
-For further details, refer to [https://git-lfs.github.com](https://git-lfs.github.com)
-   
-#### Step 2. Install SDK via CocoaPods or Carthage
+To add the package, select an appropriate dependency rule and click `Add Package`.
 
 ##### - CocoaPods
 
@@ -77,8 +68,6 @@ Install the `SendBirdCalls` framework via **CocoaPods**.
 ```bash
 $ pod install
 ```
-
-> Important: Make sure to install Git LFS before installing the pod. The size of `WebRTC.framework` in **SendBirdWebRTC** folder must be over 800 MB. If the size of the loaded `SendbirdWebRTC` framework is smaller than 800 MB, check the Git Large File Storage settings and download again. For further details, refer to [SDK’s troubleshooting section](https://github.com/sendbird/sendbird-calls-ios/blob/master/README.md#library-not-loaded-webrtcframework). 
 
 ##### - Carthage
 
@@ -184,7 +173,7 @@ To handle a native-implementation of receiving incoming calls, implement Apple�
 
 Instead of PushKit and CallKit, you can also choose to receive remote push notifications for incoming calls.
 
-For a sample app with remote push notifications, refer to the [feature/remote-push-notifications](https://github.com/sendbird/quickstart-calls-ios/tree/feature/remote-push-notifications) branch.
+For a sample app with remote push notifications, refer to the [feature/remote-push-notifications](https://github.com/sendbird/quickstart-calls-directcall-ios/tree/feature/remote-push-notifications) branch.
 
 ### Handle an incoming call without media permission
 
