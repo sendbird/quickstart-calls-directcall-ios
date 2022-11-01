@@ -1,66 +1,66 @@
 {
   "images" : [
     {
-      "filename" : "icon202X.png",
+      "filename" : "SendbirdCalls_AppIcon_20@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "icon203X.png",
+      "filename" : "SendbirdCalls_AppIcon_20@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "icon29.png",
       "idiom" : "iphone",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "icon292X.png",
+      "filename" : "SendbirdCalls_AppIcon_settings_iphone@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "icon293X.png",
+      "filename" : "SendbirdCalls_AppIcon_settings_iphone@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "icon402X.png",
+      "filename" : "SendbirdCalls_AppIcon_spotlight_iphone@2x 1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "icon403X.png",
+      "filename" : "SendbirdCalls_AppIcon_spotlight_iphone@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "icon602X.png",
+      "filename" : "SendbirdCalls_AppIcon_home_iphone@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "icon603X.png",
+      "filename" : "SendbirdCalls_AppIcon_home_iphone@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
     },
     {
+      "filename" : "SendbirdCalls_AppIcon_20.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "icon202X-2.png",
+      "filename" : "SendbirdCalls_AppIcon_20@2x 2.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
@@ -71,41 +71,43 @@
       "size" : "29x29"
     },
     {
-      "filename" : "icon292X-1.png",
+      "filename" : "SendbirdCalls_AppIcon_settings_iphone@2x 1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "icon202X-1.png",
+      "filename" : "SendbirdCalls_AppIcon_20@2x 1.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "icon402X-1.png",
+      "filename" : "SendbirdCalls_AppIcon_spotlight_iphone@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
+      "filename" : "SendbirdCalls_AppIcon_notifications_iphone@2x.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
+      "filename" : "SendbirdCalls_AppIcon_home_ipad.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "icon8352X.png",
+      "filename" : "SendbirdCalls_AppIcon_home_ipadpro.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "icon1024.png",
+      "filename" : "SendbirdCalls_AppIcon_1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
