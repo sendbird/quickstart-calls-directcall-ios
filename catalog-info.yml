@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: quickstart-calls-directcall-ios
+  descritpion: iOS Quickstart Sample for Sendbird Calls Direct Call
+  annotations:
+    github.com/project-slug: sendbird/quickstart-calls-directcall-ios
+spec:
+  type: sample
+  lifecycle: production
+  owner: dep-client-platform
+  system: sendbird-calls
