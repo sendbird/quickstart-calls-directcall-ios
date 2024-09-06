@@ -133,6 +133,10 @@ extension VoiceCallViewController {
         let routePickerView = SendBirdCall.routePickerView(frame: frame)
         self.customize(routePickerView)
         self.speakerButton.addSubview(routePickerView)
+        
+        if let currentOutput = AVAudioSession.sharedInstance().currentRoute.outputs.first {
+            self.speakerButton.setBackgroundImage(.audio(output: currentOutput.portType), for: .normal)
+        }
     }
     
     func customize(_ routePickerView: UIView) {
