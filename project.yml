@@ -1,0 +1,250 @@
+name: QuickStart
+options:
+  bundleIdPrefix: com.sendbird.calls.quickstart
+  deploymentTarget:
+    iOS: "14.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+  
+configs:
+  Debug: debug
+  Release: release
+
+packages:
+  SendBirdCalls:
+    url: https://github.com/sendbird/sendbird-calls-ios
+    majorVersion: 1.11.0
+
+targets:
+  QuickStart:
+    type: application
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: QuickStart
+        excludes:
+          - "*.entitlements"
+    resources:
+      - QuickStart/Assets.xcassets
+      - QuickStart/View/**/*.storyboard
+      - QuickStart/Sounds/*.mp3
+    info:
+      path: QuickStart/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: "$(DEVELOPMENT_LANGUAGE)"
+        CFBundleExecutable: "$(EXECUTABLE_NAME)"
+        CFBundleIdentifier: "$(PRODUCT_BUNDLE_IDENTIFIER)"
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleName: "$(PRODUCT_NAME)"
+        CFBundlePackageType: "$(PRODUCT_BUNDLE_PACKAGE_TYPE)"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundleURLTypes:
+          - CFBundleTypeRole: Editor
+            CFBundleURLName: com.sendbird.calls.quickstart
+            CFBundleURLSchemes: [sendbird]
+        ITSAppUsesNonExemptEncryption: false
+        LSApplicationCategoryType: ""
+        LSRequiresIPhoneOS: true
+        NSCameraUsageDescription: "Enable camera access so that others can see you during video calls."
+        NSMicrophoneUsageDescription: "Enable microphone access so that others can hear you."
+        UIBackgroundModes: [voip]
+        UILaunchStoryboardName: LaunchScreen
+        UIMainStoryboardFile: Main
+        UIRequiredDeviceCapabilities: [armv7]
+        UIStatusBarStyle: UIStatusBarStyleLightContent
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        "UISupportedInterfaceOrientations~ipad":
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UIUserInterfaceStyle: Light
+    entitlements:
+      path: QuickStart/QuickStart.entitlements
+      properties:
+        aps-environment: development
+    dependencies:
+      - package: SendBirdCalls
+    settings:
+      base:
+        ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: true
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_ENTITLEMENTS: QuickStart/QuickStart.entitlements
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: 1
+        DEVELOPMENT_TEAM: RM4A5PXTUX
+        EXCLUDED_ARCHS: "x86_64 i386"
+        FRAMEWORK_SEARCH_PATHS:
+          - "$(inherited)"
+          - "$(PROJECT_DIR)"
+        INFOPLIST_FILE: "$(SRCROOT)/QuickStart/Info.plist"
+        IPHONEOS_DEPLOYMENT_TARGET: "14.0"
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/Frameworks"
+        MARKETING_VERSION: 1.9.6
+        PRODUCT_BUNDLE_IDENTIFIER: com.sendbird.calls.quickstart
+        PRODUCT_NAME: "Sendbird Calls"
+        SWIFT_VERSION: 5.0
+        TARGETED_DEVICE_FAMILY: 1
+      configs:
+        Release:
+          CODE_SIGN_IDENTITY: "Apple Development"
+          PROVISIONING_PROFILE_SPECIFIER: ""
+    postbuildScripts:
+      - name: "Integrate SwiftLint"
+        script: |
+          if which swiftlint >/dev/null; then
+            swiftlint
+          else
+            echo "SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
+
+  QuickStartIntent:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - QuickStartIntent
+    info:
+      path: QuickStartIntent/Info.plist
+    dependencies:
+      - package: SendBirdCalls
+    settings:
+      base:
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: 1
+        DEVELOPMENT_TEAM: RM4A5PXTUX
+        INFOPLIST_FILE: QuickStartIntent/Info.plist
+        IPHONEOS_DEPLOYMENT_TARGET: "14.0"
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/Frameworks"
+          - "@executable_path/../../Frameworks"
+        MARKETING_VERSION: 1.9.6
+        PRODUCT_BUNDLE_IDENTIFIER: com.sendbird.calls.quickstart.intent
+        PRODUCT_NAME: "$(TARGET_NAME)"
+        SKIP_INSTALL: true
+        SWIFT_VERSION: 5.0
+        TARGETED_DEVICE_FAMILY: 1
+      configs:
+        Release:
+          CODE_SIGN_IDENTITY: "Apple Development"
+
+  QuickStartTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "14.0"
+    sources:
+      - QuickStartTests
+    info:
+      path: QuickStartTests/Info.plist
+    dependencies:
+      - target: QuickStart
+      - package: SendBirdCalls
+    settings:
+      base:
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: RM4A5PXTUX
+        INFOPLIST_FILE: QuickStartTests/Info.plist
+        IPHONEOS_DEPLOYMENT_TARGET: "14.0"
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+          - "@executable_path/Frameworks"
+          - "@loader_path/Frameworks"
+        PRODUCT_BUNDLE_IDENTIFIER: com.sendbird.calls.quickstart.QuickStartTests
+        PRODUCT_NAME: "$(TARGET_NAME)"
+        SWIFT_VERSION: 5.0
+        TARGETED_DEVICE_FAMILY: "1,2"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Sendbird Calls.app/Sendbird Calls"
+
+settingGroups:
+  base:
+    ALWAYS_SEARCH_USER_PATHS: false
+    CLANG_ANALYZER_NONNULL: true
+    CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION: YES_AGGRESSIVE
+    CLANG_CXX_LANGUAGE_STANDARD: "gnu++14"
+    CLANG_CXX_LIBRARY: "libc++"
+    CLANG_ENABLE_MODULES: true
+    CLANG_ENABLE_OBJC_ARC: true
+    CLANG_ENABLE_OBJC_WEAK: true
+    CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING: true
+    CLANG_WARN_BOOL_CONVERSION: true
+    CLANG_WARN_COMMA: true
+    CLANG_WARN_CONSTANT_CONVERSION: true
+    CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS: true
+    CLANG_WARN_DIRECT_OBJC_ISA_USAGE: YES_ERROR
+    CLANG_WARN_DOCUMENTATION_COMMENTS: true
+    CLANG_WARN_EMPTY_BODY: true
+    CLANG_WARN_ENUM_CONVERSION: true
+    CLANG_WARN_INFINITE_RECURSION: true
+    CLANG_WARN_INT_CONVERSION: true
+    CLANG_WARN_NON_LITERAL_NULL_CONVERSION: true
+    CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF: true
+    CLANG_WARN_OBJC_LITERAL_CONVERSION: true
+    CLANG_WARN_OBJC_ROOT_CLASS: YES_ERROR
+    CLANG_WARN_RANGE_LOOP_ANALYSIS: true
+    CLANG_WARN_STRICT_PROTOTYPES: true
+    CLANG_WARN_SUSPICIOUS_MOVE: true
+    CLANG_WARN_UNGUARDED_AVAILABILITY: YES_AGGRESSIVE
+    CLANG_WARN_UNREACHABLE_CODE: true
+    CLANG_WARN__DUPLICATE_METHOD_MATCH: true
+    ENABLE_BITCODE: true
+    ENABLE_STRICT_OBJC_MSGSEND: true
+    EXCLUDED_ARCHS: "x86_64 i386"
+    GCC_C_LANGUAGE_STANDARD: gnu11
+    GCC_NO_COMMON_BLOCKS: true
+    GCC_WARN_64_TO_32_BIT_CONVERSION: true
+    GCC_WARN_ABOUT_RETURN_TYPE: YES_ERROR
+    GCC_WARN_UNDECLARED_SELECTOR: true
+    GCC_WARN_UNINITIALIZED_AUTOS: YES_AGGRESSIVE
+    GCC_WARN_UNUSED_FUNCTION: true
+    GCC_WARN_UNUSED_VARIABLE: true
+    IPHONEOS_DEPLOYMENT_TARGET: "10.0"
+    MTL_FAST_MATH: true
+    PRODUCT_BUNDLE_IDENTIFIER: ""
+    SDKROOT: iphoneos
+    SWIFT_VERSION: 5.0
+
+settings:
+  base: base
+  configs:
+    Debug:
+      COPY_PHASE_STRIP: false
+      DEBUG_INFORMATION_FORMAT: dwarf
+      ENABLE_TESTABILITY: true
+      GCC_DYNAMIC_NO_PIC: false
+      GCC_OPTIMIZATION_LEVEL: 0
+      GCC_PREPROCESSOR_DEFINITIONS:
+        - "DEBUG=1"
+        - "$(inherited)"
+      MTL_ENABLE_DEBUG_INFO: INCLUDE_SOURCE
+      ONLY_ACTIVE_ARCH: true
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+      SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+    Release:
+      COPY_PHASE_STRIP: false
+      DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
+      ENABLE_NS_ASSERTIONS: false
+      GCC_OPTIMIZATION_LEVEL: Os
+      MTL_ENABLE_DEBUG_INFO: false
+      SWIFT_COMPILATION_MODE: wholemodule
+      SWIFT_OPTIMIZATION_LEVEL: "-O"
+      VALIDATE_PRODUCT: true
+
+schemes:
+  QuickStart:
+    build:
+      targets:
+        QuickStart: all
+        QuickStartIntent: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - QuickStartTests
+    archive:
+      config: Release
