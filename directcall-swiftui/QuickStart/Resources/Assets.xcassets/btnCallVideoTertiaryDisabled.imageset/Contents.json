@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "filename" : "btnCallVideoTertiaryDisabled.png",
+      "scale" : "1x"
+    },
+    {
+      "scale" : "2x",
+      "filename" : "btnCallVideoTertiaryDisabled@2x.png",
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "btnCallVideoTertiaryDisabled@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
