@@ -129,6 +129,8 @@ final class AuthService {
 
     private func signOutLocally() {
         store.clear()
+        // The call history belongs to the signed-out user.
+        CallHistoryStore.shared.clear()
         currentCredential = nil
     }
 }

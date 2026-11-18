@@ -13,11 +13,9 @@ struct MainTabView: View {
         TabView {
             DialView()
                 .tabItem { Label("Call", image: "icCall") }
-            // TODO(CLNP-9098 Task A5): Replace with `CallHistoryView`.
-            Text("History")
+            CallHistoryView()
                 .tabItem { Label("History", image: "iconCallHistory") }
-            // TODO(CLNP-9098 Task A5): Replace with `SettingsView`.
-            Text("Settings")
+            SettingsView()
                 .tabItem { Label("Settings", image: "icSettings") }
         }
     }

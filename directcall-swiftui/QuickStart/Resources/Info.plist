@@ -41,6 +41,10 @@
 	<string>Enable camera access so that others can see you during video calls.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Enable microphone access so that others can hear you.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>INStartCallIntent</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>voip</string>

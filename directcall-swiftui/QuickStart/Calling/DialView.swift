@@ -5,7 +5,6 @@
 //  Copyright © 2026 Sendbird Inc. All rights reserved.
 //
 
-import SendBirdCalls
 import SwiftUI
 
 /// Makes a voice or video call to the entered user ID.
@@ -80,17 +79,14 @@ struct DialView: View {
     }
 
     private func dial(isVideoCall: Bool) {
-        let callOptions = CallOptions(isAudioEnabled: true, isVideoEnabled: isVideoCall, useFrontCamera: true)
-        let params = DialParams(calleeId: trimmedCalleeId, isVideoCall: isVideoCall, callOptions: callOptions, customItems: [:])
-
         isDialing = true
-        SendBirdCall.dial(with: params) { call, error in
-            isDialing = false
-            guard let call, error == nil else {
-                errorMessage = error?.localizedDescription ?? "Something went wrong. Try again."
-                return
+        Task {
+            defer { isDialing = false }
+            do {
+                try await Dialer.dial(calleeId: trimmedCalleeId, isVideoCall: isVideoCall)
+            } catch {
+                errorMessage = error.localizedDescription
             }
-            CallRouter.shared.present(call, isDialing: true)
         }
     }
 }

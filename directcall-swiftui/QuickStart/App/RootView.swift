@@ -5,6 +5,7 @@
 //  Copyright © 2026 Sendbird Inc. All rights reserved.
 //
 
+import Intents
 import SwiftUI
 
 /// Shows the sign-in screen or the main tabs, depending on whether a user is signed in,
@@ -13,6 +14,7 @@ struct RootView: View {
     private var auth: AuthService { .shared }
     private var router: CallRouter { .shared }
     @State private var errorMessage: String?
+    @State private var callErrorMessage: String?
 
     var body: some View {
         Group {
@@ -26,6 +28,20 @@ struct RootView: View {
         // The call screen still shows because the router, not this view, keeps the active call.
         .fullScreenCover(item: activeCall) { activeCall in
             CallView(activeCall: activeCall)
+        }
+        // The user tapped a call of this app in the Phone app's Recents. See `QuickStartIntent`.
+        // With the SwiftUI app life cycle, the activity arrives here, not in the app delegate.
+        .onContinueUserActivity(String(describing: INStartCallIntent.self)) { userActivity in
+            guard let request = StartCallRequest(userActivity: userActivity) else { return }
+            Task {
+                do {
+                    // The app may have just launched and not be signed in yet.
+                    try await auth.authenticateIfNeeded()
+                    try await Dialer.dial(calleeId: request.calleeId, isVideoCall: request.isVideoCall)
+                } catch {
+                    callErrorMessage = error.localizedDescription
+                }
+            }
         }
         .onOpenURL { url in
             // With the SwiftUI app life cycle, `sendbird://` URLs arrive here, not in the app delegate.
@@ -41,6 +57,12 @@ struct RootView: View {
             Button("OK", role: .cancel) { }
         } message: {
             Text(errorMessage ?? "")
+        }
+        .alert("Couldn’t make a call",
+               isPresented: Binding(get: { callErrorMessage != nil }, set: { if !$0 { callErrorMessage = nil } })) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(callErrorMessage ?? "")
         }
     }
 

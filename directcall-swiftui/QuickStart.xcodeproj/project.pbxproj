@@ -8,9 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		05EF3B883F179441278AD591 /* SendBirdCalls in Frameworks */ = {isa = PBXBuildFile; productRef = 04801C68625EBF2C07D0D6ED /* SendBirdCalls */; };
+		4DD279C6BD6EE67F42EEFDC0 /* QuickStartIntent.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5D1A334C08369BBB7759BAC4 /* QuickStartIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A7CD3D5E7394B708FC117744 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C77FC8229EBD33340EBE183D /* Intents.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		819E5BFB890F964E05E5C11D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F2D84C08194A453C686D4F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52ADDCBF8F9805E17C2212FA;
+			remoteInfo = QuickStartIntent;
+		};
 		BEF610079AA2F6FE405E5B84 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7F2D84C08194A453C686D4F4 /* Project object */;
@@ -20,12 +29,35 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A062465BB337E9CA816DFB89 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4DD279C6BD6EE67F42EEFDC0 /* QuickStartIntent.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		47D94B4A0B6065B7390DCC40 /* QuickStart.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = QuickStart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D1A334C08369BBB7759BAC4 /* QuickStartIntent.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = QuickStartIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E26F910669B604CC05FAF82 /* QuickStartTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = QuickStartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C77FC8229EBD33340EBE183D /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		23FCAD2A5C010633B1D3C50A /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 52ADDCBF8F9805E17C2212FA /* QuickStartIntent */;
+		};
 		B95996B4201438835F77070F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -48,6 +80,18 @@
 			path = QuickStart;
 			sourceTree = "<group>";
 		};
+		A0EFDDB0945B8C0770475BC2 /* QuickStartIntent */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				23FCAD2A5C010633B1D3C50A /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = QuickStartIntent;
+			sourceTree = "<group>";
+		};
 		EA9FA2357974732F57CBDD53 /* QuickStartTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			explicitFileTypes = {
@@ -60,6 +104,14 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4B7AF4790A59EE30C017956A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7CD3D5E7394B708FC117744 /* Intents.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C3FCACD28911CB9FA630BDE1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -75,16 +127,27 @@
 			isa = PBXGroup;
 			children = (
 				47D94B4A0B6065B7390DCC40 /* QuickStart.app */,
+				5D1A334C08369BBB7759BAC4 /* QuickStartIntent.appex */,
 				5E26F910669B604CC05FAF82 /* QuickStartTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		32416E08674EA616F09E9EAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C77FC8229EBD33340EBE183D /* Intents.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		8D9F4DD795C1C923CB15CF48 = {
 			isa = PBXGroup;
 			children = (
 				55E9F6AE80FE10A8294F4849 /* QuickStart */,
+				A0EFDDB0945B8C0770475BC2 /* QuickStartIntent */,
 				EA9FA2357974732F57CBDD53 /* QuickStartTests */,
+				32416E08674EA616F09E9EAC /* Frameworks */,
 				1B0653278AD1D8CFF0B5B8F6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +155,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		52ADDCBF8F9805E17C2212FA /* QuickStartIntent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB43D64CCFBDD9F8D81C80F8 /* Build configuration list for PBXNativeTarget "QuickStartIntent" */;
+			buildPhases = (
+				F84324477A111ED624A05D92 /* Sources */,
+				D97A3300C9B2CD57494D8C09 /* Resources */,
+				4B7AF4790A59EE30C017956A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A0EFDDB0945B8C0770475BC2 /* QuickStartIntent */,
+			);
+			name = QuickStartIntent;
+			packageProductDependencies = (
+			);
+			productName = QuickStartIntent;
+			productReference = 5D1A334C08369BBB7759BAC4 /* QuickStartIntent.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8FC66CB764B9B97C95E00B1F /* QuickStart */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E56547A5474ED0995ADC96A0 /* Build configuration list for PBXNativeTarget "QuickStart" */;
@@ -99,10 +184,12 @@
 				B45BF28486364B0447788092 /* Sources */,
 				92A4DB74BDD0F6F5EA6F5B38 /* Resources */,
 				C3FCACD28911CB9FA630BDE1 /* Frameworks */,
+				A062465BB337E9CA816DFB89 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F2D0E2F8F010B5D96F6F0268 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				55E9F6AE80FE10A8294F4849 /* QuickStart */,
@@ -146,6 +233,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					52ADDCBF8F9805E17C2212FA = {
+						DevelopmentTeam = RM4A5PXTUX;
+						ProvisioningStyle = Automatic;
+					};
 					8FC66CB764B9B97C95E00B1F = {
 						DevelopmentTeam = RM4A5PXTUX;
 						ProvisioningStyle = Automatic;
@@ -174,6 +265,7 @@
 			projectRoot = "";
 			targets = (
 				8FC66CB764B9B97C95E00B1F /* QuickStart */,
+				52ADDCBF8F9805E17C2212FA /* QuickStartIntent */,
 				EC5B53C27CC4125E4EAA1CF1 /* QuickStartTests */,
 			);
 		};
@@ -181,6 +273,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		92A4DB74BDD0F6F5EA6F5B38 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D97A3300C9B2CD57494D8C09 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -211,6 +310,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F84324477A111ED624A05D92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -218,6 +324,11 @@
 			isa = PBXTargetDependency;
 			target = 8FC66CB764B9B97C95E00B1F /* QuickStart */;
 			targetProxy = BEF610079AA2F6FE405E5B84 /* PBXContainerItemProxy */;
+		};
+		F2D0E2F8F010B5D96F6F0268 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52ADDCBF8F9805E17C2212FA /* QuickStartIntent */;
+			targetProxy = 819E5BFB890F964E05E5C11D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -252,6 +363,22 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart;
 				PRODUCT_NAME = QuickStart;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		82571529D8AB9B6CFE1435D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = QuickStartIntent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart.intent;
+				PRODUCT_NAME = QuickStartIntent;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -419,6 +546,22 @@
 			};
 			name = Debug;
 		};
+		F8681C267BFB4B862D7DF6D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = QuickStartIntent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sendbird.calls.quickstart.intent;
+				PRODUCT_NAME = QuickStartIntent;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -436,6 +579,15 @@
 			buildConfigurations = (
 				C907156FBB5694DC82D01DA0 /* Debug */,
 				C4382ED4A04CBB7AFD8077C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BB43D64CCFBDD9F8D81C80F8 /* Build configuration list for PBXNativeTarget "QuickStartIntent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8681C267BFB4B862D7DF6D2 /* Debug */,
+				82571529D8AB9B6CFE1435D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
