@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-/// Shows the sign-in screen or the main tabs, depending on whether a user is signed in.
+/// Shows the sign-in screen or the main tabs, depending on whether a user is signed in,
+/// and shows the call screen over them while a call is active.
 struct RootView: View {
     private var auth: AuthService { .shared }
+    private var router: CallRouter { .shared }
     @State private var errorMessage: String?
 
     var body: some View {
@@ -20,9 +22,11 @@ struct RootView: View {
                 SignInView()
             }
         }
-        .task {
-            // Sign in again with the stored credential. If it fails, the sign-in screen shows.
-            try? await auth.autoSignIn()
+        // A call can become active before this view appears, for example when the user answered on the lock screen.
+        // The call screen still shows because the router, not this view, keeps the active call.
+        .fullScreenCover(item: activeCall) { activeCall in
+            // TODO(CLNP-9098 Task A4): Replace with `CallView`.
+            Text("Call \(activeCall.callId)")
         }
         .onOpenURL { url in
             // With the SwiftUI app life cycle, `sendbird://` URLs arrive here, not in the app delegate.
@@ -39,5 +43,16 @@ struct RootView: View {
         } message: {
             Text(errorMessage ?? "")
         }
+    }
+
+    private var activeCall: Binding<ActiveCall?> {
+        Binding(
+            get: { router.activeCall },
+            set: { newValue in
+                if newValue == nil, let callId = router.activeCall?.callId {
+                    router.dismiss(callId: callId)
+                }
+            }
+        )
     }
 }

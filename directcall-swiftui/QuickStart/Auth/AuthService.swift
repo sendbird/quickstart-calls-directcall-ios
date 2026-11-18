@@ -38,6 +38,14 @@ final class AuthService {
         }
     }
 
+    /// Signs in with the stored credential only when Sendbird Calls has no signed-in user,
+    /// for example when a VoIP push launched the app and the user answers on the CallKit screen.
+    func authenticateIfNeeded() async throws {
+        guard SendBirdCall.currentUser == nil else { return }
+        guard let credential = store.credential else { throw CredentialError.empty }
+        try await authenticate(with: credential)
+    }
+
     func signIn(_ credential: Credential) async throws {
         do {
             try await authenticate(with: credential)
