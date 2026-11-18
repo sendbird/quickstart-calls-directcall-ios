@@ -21,7 +21,7 @@ struct CallHistory: Codable {
     
     static var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY/MM/dd HH:mm"
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
         return dateFormatter
     }
     

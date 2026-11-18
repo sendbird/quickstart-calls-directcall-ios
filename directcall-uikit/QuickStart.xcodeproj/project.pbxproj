@@ -12,7 +12,7 @@
 		49D80157242C6C55003CFFBA /* String+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D80156242C6C55003CFFBA /* String+QuickStart.swift */; };
 		49D8015B242C8D68003CFFBA /* UIImage+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D8015A242C8D68003CFFBA /* UIImage+QuickStart.swift */; };
 		5281EB6E23A8602300EDA984 /* CXCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5281EB6D23A8602300EDA984 /* CXCallManager.swift */; };
-		8A5932EA8E7F784FC9593796 /* Pods_QuickStart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9DDAC64E8A0C1F265438FF3 /* Pods_QuickStart.framework */; };
+		611D999107DA89BD15A05F23 /* SendBirdCalls in Frameworks */ = {isa = PBXBuildFile; productRef = F51C633F3CBB7108575D9D5F /* SendBirdCalls */; };
 		A91199BC2421257300208E21 /* DirectCallDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91199BB2421257300208E21 /* DirectCallDataSource.swift */; };
 		A91AAA5A24444FB0003894AD /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5924444FB0003894AD /* ImageCache.swift */; };
 		A91AAA5E244470BF003894AD /* UIApplication+QuickStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91AAA5D244470BF003894AD /* UIApplication+QuickStart.swift */; };
@@ -112,9 +112,7 @@
 		49B07AC9242D8B1F00EFF73A /* Int64+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int64+QuickStart.swift"; sourceTree = "<group>"; };
 		49D80156242C6C55003CFFBA /* String+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+QuickStart.swift"; sourceTree = "<group>"; };
 		49D8015A242C8D68003CFFBA /* UIImage+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+QuickStart.swift"; sourceTree = "<group>"; };
-		4C5CCED4A278506FC384ADA6 /* Pods-QuickStart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickStart.debug.xcconfig"; path = "Target Support Files/Pods-QuickStart/Pods-QuickStart.debug.xcconfig"; sourceTree = "<group>"; };
 		5281EB6D23A8602300EDA984 /* CXCallManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CXCallManager.swift; sourceTree = "<group>"; };
-		70DECEBFA6F9F41B919BF0A7 /* Pods_QuickStart_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickStart_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A91199BB2421257300208E21 /* DirectCallDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectCallDataSource.swift; sourceTree = "<group>"; };
 		A91AAA5924444FB0003894AD /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		A91AAA5D244470BF003894AD /* UIApplication+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+QuickStart.swift"; sourceTree = "<group>"; };
@@ -184,8 +182,6 @@
 		C1E1B36823AD3D9D00275F8B /* SendBirdCalls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SendBirdCalls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E1B36D23AD3E5400275F8B /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebRTC.framework; sourceTree = "<group>"; };
 		C1F69B0E23C5A4E300C66F00 /* CXProvider+QuickStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CXProvider+QuickStart.swift"; sourceTree = "<group>"; };
-		DACC84BE73CC1420078A49DC /* Pods-QuickStart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickStart.release.xcconfig"; path = "Target Support Files/Pods-QuickStart/Pods-QuickStart.release.xcconfig"; sourceTree = "<group>"; };
-		F9DDAC64E8A0C1F265438FF3 /* Pods_QuickStart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickStart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,7 +191,7 @@
 			files = (
 				C1DD1FF923AFB59900140657 /* CallKit.framework in Frameworks */,
 				C1DD1FFB23AFB59A00140657 /* PushKit.framework in Frameworks */,
-				8A5932EA8E7F784FC9593796 /* Pods_QuickStart.framework in Frameworks */,
+				611D999107DA89BD15A05F23 /* SendBirdCalls in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,8 +265,6 @@
 				C1E1B36823AD3D9D00275F8B /* SendBirdCalls.framework */,
 				A9E98EF823A0B2DE00842136 /* CallKit.framework */,
 				A9E98EF623A0B2DA00842136 /* PushKit.framework */,
-				70DECEBFA6F9F41B919BF0A7 /* Pods_QuickStart_Swift.framework */,
-				F9DDAC64E8A0C1F265438FF3 /* Pods_QuickStart.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -313,7 +307,6 @@
 				A9DDC438245FDE3100F042E7 /* QuickStartTests */,
 				A9A72CA22387B448007C0878 /* Products */,
 				A956476D23964EF20086A33C /* Frameworks */,
-				B826118FFE703E8613633CBA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -426,15 +419,6 @@
 			path = QuickStartTests;
 			sourceTree = "<group>";
 		};
-		B826118FFE703E8613633CBA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4C5CCED4A278506FC384ADA6 /* Pods-QuickStart.debug.xcconfig */,
-				DACC84BE73CC1420078A49DC /* Pods-QuickStart.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		C1F69B0D23C5A4B000C66F00 /* CXExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,11 +435,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A9A72CB52387B44C007C0878 /* Build configuration list for PBXNativeTarget "QuickStart" */;
 			buildPhases = (
-				A95F74AF8742E065005BAB06 /* [CP] Check Pods Manifest.lock */,
 				A9A72C9D2387B448007C0878 /* Sources */,
 				A9A72C9E2387B448007C0878 /* Frameworks */,
 				A9A72C9F2387B448007C0878 /* Resources */,
-				5B70D03451AD607BF849ADCB /* [CP] Embed Pods Frameworks */,
 				A9B75658243DBA77001E764B /* Embed App Extensions */,
 				52C8C6C324A98A5C0057F89D /* Integrate SwftLint */,
 			);
@@ -465,6 +447,9 @@
 				A9B75656243DBA77001E764B /* PBXTargetDependency */,
 			);
 			name = QuickStart;
+			packageProductDependencies = (
+				F51C633F3CBB7108575D9D5F /* SendBirdCalls */,
+			);
 			productName = "SendBirdCall Tester";
 			productReference = A9A72CA12387B448007C0878 /* Sendbird Calls.app */;
 			productType = "com.apple.product-type.application";
@@ -536,6 +521,7 @@
 			);
 			mainGroup = A9A72C982387B448007C0878;
 			packageReferences = (
+				37BFF8858CAFDBE6DC5CEB8A /* XCRemoteSwiftPackageReference "sendbird-calls-ios" */,
 			);
 			productRefGroup = A9A72CA22387B448007C0878 /* Products */;
 			projectDirPath = "";
@@ -601,45 +587,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		5B70D03451AD607BF849ADCB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuickStart/Pods-QuickStart-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-QuickStart/Pods-QuickStart-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuickStart/Pods-QuickStart-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A95F74AF8742E065005BAB06 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-QuickStart-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -804,7 +751,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -860,7 +807,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "";
@@ -873,7 +820,6 @@
 		};
 		A9A72CB62387B44C007C0878 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C5CCED4A278506FC384ADA6 /* Pods-QuickStart.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -887,7 +833,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/QuickStart/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -902,7 +848,6 @@
 		};
 		A9A72CB72387B44C007C0878 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DACC84BE73CC1420078A49DC /* Pods-QuickStart.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -917,7 +862,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/QuickStart/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -938,7 +883,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
 				INFOPLIST_FILE = QuickStartIntent/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -961,7 +906,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
 				INFOPLIST_FILE = QuickStartIntent/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -983,7 +928,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
 				INFOPLIST_FILE = QuickStartTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1004,7 +949,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RM4A5PXTUX;
 				INFOPLIST_FILE = QuickStartTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1058,6 +1003,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		37BFF8858CAFDBE6DC5CEB8A /* XCRemoteSwiftPackageReference "sendbird-calls-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sendbird/sendbird-calls-ios";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.12.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F51C633F3CBB7108575D9D5F /* SendBirdCalls */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37BFF8858CAFDBE6DC5CEB8A /* XCRemoteSwiftPackageReference "sendbird-calls-ios" */;
+			productName = SendBirdCalls;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A9A72C992387B448007C0878 /* Project object */;
 }

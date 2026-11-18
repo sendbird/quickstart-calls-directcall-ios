@@ -15,7 +15,7 @@ var versionInfo: String {
     return "QuickStart \(sampleVersion)   SDK \(SendBirdCall.sdkVersion)"
 }
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
