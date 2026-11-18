@@ -11,8 +11,7 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            // TODO(CLNP-9098 Task A4): Replace with `DialView`.
-            Text("Dial")
+            DialView()
                 .tabItem { Label("Call", image: "icCall") }
             // TODO(CLNP-9098 Task A5): Replace with `CallHistoryView`.
             Text("History")

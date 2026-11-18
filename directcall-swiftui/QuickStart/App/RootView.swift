@@ -25,8 +25,7 @@ struct RootView: View {
         // A call can become active before this view appears, for example when the user answered on the lock screen.
         // The call screen still shows because the router, not this view, keeps the active call.
         .fullScreenCover(item: activeCall) { activeCall in
-            // TODO(CLNP-9098 Task A4): Replace with `CallView`.
-            Text("Call \(activeCall.callId)")
+            CallView(activeCall: activeCall)
         }
         .onOpenURL { url in
             // With the SwiftUI app life cycle, `sendbird://` URLs arrive here, not in the app delegate.
