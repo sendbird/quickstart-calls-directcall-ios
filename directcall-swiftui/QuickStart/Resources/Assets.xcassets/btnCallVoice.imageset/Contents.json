@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "btnCallVoice.png",
+      "scale" : "1x",
+      "idiom" : "universal"
+    },
+    {
+      "scale" : "2x",
+      "idiom" : "universal",
+      "filename" : "btnCallVoice@2x.png"
+    },
+    {
+      "filename" : "btnCallVoice@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
