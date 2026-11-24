@@ -19,7 +19,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         // To use your own application ID in code instead, call `SendBirdCall.configure(appId: "YOUR_APP_ID")` here.
 
         // Receive incoming calls through `didStartRinging(_:)`.
-        SendBirdCall.addDelegate(CallEventHandler.shared, identifier: "com.sendbird.calls.quickstart.delegate")
+        SendBirdCall.addDelegate(CallEventHandler.shared, identifier: CallEventHandler.delegateIdentifier)
         // Register for VoIP pushes to receive incoming calls in the background.
         PushKitHandler.shared.register()
         SoundEffects.register()

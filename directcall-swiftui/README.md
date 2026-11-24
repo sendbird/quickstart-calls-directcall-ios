@@ -79,7 +79,7 @@ To always use your own application ID, call `SendBirdCall.configure(appId:)` in 
 | Set up incoming calls at launch | [`App/AppDelegate.swift`](QuickStart/App/AppDelegate.swift) | `SendBirdCall.addDelegate(_:identifier:)` |
 | Sign in and out | [`Auth/AuthService.swift`](QuickStart/Auth/AuthService.swift) | `SendBirdCall.configure(appId:)`, `authenticate(with:completionHandler:)`, `registerVoIPPush(token:unique:completionHandler:)`, `unregisterVoIPPush(token:completionHandler:)`, `deauthenticate(completionHandler:)` |
 | Receive VoIP pushes | [`Calling/PushKitHandler.swift`](QuickStart/Calling/PushKitHandler.swift) | `SendBirdCall.pushRegistry(_:didReceiveIncomingPushWith:for:completionHandler:)` |
-| Report incoming calls to CallKit | [`Calling/CallEventHandler.swift`](QuickStart/Calling/CallEventHandler.swift) | `SendBirdCallDelegate.didStartRinging(_:)` |
+| Report incoming calls to CallKit | [`Calling/CallEventHandler.swift`](QuickStart/Calling/CallEventHandler.swift) | `SendBirdCallDelegate.didStartRinging(_:)`, `didReceiveVoIPException(_:)` |
 | Answer, end, and mute on the CallKit screen | [`Calling/CallKitManager.swift`](QuickStart/Calling/CallKitManager.swift) | `DirectCall.accept(with:)`, `end()`, `SendBirdCall.audioSessionDidActivate(_:)` |
 | Make a call | [`Calling/Dialer.swift`](QuickStart/Calling/Dialer.swift) | `SendBirdCall.dial(with:completionHandler:)` |
 | Call state and controls | [`Calling/CallSession.swift`](QuickStart/Calling/CallSession.swift) | `DirectCallDelegate`, `muteMicrophone()`, `startVideo()`, `selectVideoDevice(_:completionHandler:)` |

@@ -67,6 +67,19 @@ final class CallKitManager: NSObject, CXProviderDelegate {
         provider.reportCall(with: uuid, endedAt: Date(), reason: reason)
     }
 
+    /// Reports a call that ends right away.
+    ///
+    /// iOS terminates an app that receives a VoIP push without reporting a call to CallKit, and after repeated misses
+    /// stops delivering VoIP pushes to it. Use this for a VoIP push that has no call to show.
+    func reportPlaceholderCall() {
+        let uuid = UUID()
+        let update = CXCallUpdate()
+        update.remoteHandle = CXHandle(type: .generic, value: "invalid")
+        reportIncomingCall(uuid: uuid, update: update) { _ in
+            self.reportEnded(uuid: uuid, reason: .acceptFailed)
+        }
+    }
+
     // MARK: - Requesting CallKit actions
 
     /// Tells CallKit about an outgoing call so that it shows in Recents and keeps running in the background.
