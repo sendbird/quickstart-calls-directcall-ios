@@ -24,6 +24,14 @@ struct Credential: Codable, Equatable {
     }
 }
 
+extension Credential {
+    /// The nickname to show, or `-` when there is none.
+    var displayNickname: String {
+        guard let nickname, !nickname.isEmpty else { return "-" }
+        return nickname
+    }
+}
+
 enum CredentialError: Error, LocalizedError, Equatable {
     case empty
     case invalidURL

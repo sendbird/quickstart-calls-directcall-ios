@@ -14,7 +14,6 @@ struct RootView: View {
     private var auth: AuthService { .shared }
     private var router: CallRouter { .shared }
     @State private var errorMessage: String?
-    @State private var callErrorMessage: String?
 
     var body: some View {
         Group {
@@ -39,7 +38,7 @@ struct RootView: View {
                     try await auth.authenticateIfNeeded()
                     try await Dialer.dial(calleeId: request.calleeId, isVideoCall: request.isVideoCall)
                 } catch {
-                    callErrorMessage = error.localizedDescription
+                    errorMessage = "Couldn't retrieve a recent call.\n\(error.localizedDescription)"
                 }
             }
         }
@@ -53,17 +52,7 @@ struct RootView: View {
                 }
             }
         }
-        .alert("Couldn’t sign in", isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } })) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text(errorMessage ?? "")
-        }
-        .alert("Couldn’t make a call",
-               isPresented: Binding(get: { callErrorMessage != nil }, set: { if !$0 { callErrorMessage = nil } })) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text(callErrorMessage ?? "")
-        }
+        .errorAlert($errorMessage)
     }
 
     private var activeCall: Binding<ActiveCall?> {

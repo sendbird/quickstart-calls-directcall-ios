@@ -10,6 +10,52 @@ import AudioToolbox
 import SwiftUI
 import UIKit
 
+/// The "Scan QR code" screen: the camera with a guide frame, and a short instruction below it.
+struct QRScanView: View {
+    let onScan: (String) -> Void
+
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 0) {
+                ZStack {
+                    Color.black
+                    // The Simulator has no camera, so the area stays black there.
+                    if QRScannerView.isCameraAvailable {
+                        QRScannerView(onScan: onScan)
+                    }
+                    Image("imgGuideQrcode")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 240, height: 240)
+                }
+                Text("Scan QR code from Calls studio on Sendbird dashboard.")
+                    .font(.system(size: 14))
+                    .foregroundStyle(Theme.tertiaryText)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
+                    .padding(.top, 24)
+                    .frame(maxWidth: .infinity, minHeight: 88, alignment: .top)
+                    .background(.white)
+            }
+            // The instruction area is 88 points tall, including the bottom safe area.
+            .ignoresSafeArea(edges: .bottom)
+            .navigationTitle("Scan QR code")
+            .navigationBarTitleDisplayMode(.inline)
+            // The light gray bar of the UIKit sample's scan screen (#F5F6F4).
+            .toolbarBackground(Color(red: 245 / 255, green: 246 / 255, blue: 244 / 255), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                        .tint(Theme.purple)
+                }
+            }
+        }
+    }
+}
+
 /// Scans a QR code with the back camera and returns its string value once.
 struct QRScannerView: UIViewControllerRepresentable {
     let onScan: (String) -> Void

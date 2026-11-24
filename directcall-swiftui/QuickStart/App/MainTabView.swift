@@ -7,16 +7,26 @@
 
 import SwiftUI
 
-/// The main screen after signing in.
+/// The main screen after signing in. The tabs show only icons, and the selected tab shows a filled icon.
 struct MainTabView: View {
+    private enum Tab {
+        case dial, history, settings
+    }
+
+    @State private var selection = Tab.dial
+
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             DialView()
-                .tabItem { Label("Call", image: "icCall") }
+                .tabItem { Image(selection == .dial ? "icCallFilled" : "icCall") }
+                .tag(Tab.dial)
             CallHistoryView()
-                .tabItem { Label("History", image: "iconCallHistory") }
+                .tabItem { Image(selection == .history ? "icLayoutDefaultFilled" : "icLayoutDefault") }
+                .tag(Tab.history)
             SettingsView()
-                .tabItem { Label("Settings", image: "icSettings") }
+                .tabItem { Image(selection == .settings ? "iconSettingsFilled" : "icSettings") }
+                .tag(Tab.settings)
         }
+        .tint(.black)
     }
 }

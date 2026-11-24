@@ -36,6 +36,8 @@ final class CallSession: NSObject {
     private(set) var isRemoteAudioEnabled = true
     private(set) var isRemoteVideoEnabled: Bool
     private(set) var isUsingFrontCamera = true
+    /// `true` while the camera switches. The call screen covers the local video meanwhile. See `switchCamera()`.
+    private(set) var isSwitchingCamera = false
     private(set) var audioOutputImageName: String
     var errorMessage: String?
 
@@ -99,18 +101,29 @@ final class CallSession: NSObject {
     }
 
     func switchCamera() {
+        guard !isSwitchingCamera else { return }
         let currentPosition = call.currentVideoDevice?.position
         guard let device = call.availableVideoDevices.first(where: { $0.position != currentPosition }) else {
             errorMessage = "Failed to switch the camera. Try again."
             return
         }
+        // Cover the local video before switching. See below for why.
+        isSwitchingCamera = true
         call.selectVideoDevice(device) { [weak self] error in
             guard let self else { return }
             if let error {
+                self.isSwitchingCamera = false
                 self.errorMessage = error.localizedDescription
                 return
             }
-            self.isUsingFrontCamera = device.position == .front
+            // Sendbird Calls calls this handler as soon as it asks the new camera to start, before the camera's
+            // first frame arrives. Mirroring now would flip the old camera's last frames for a moment.
+            // So keep the video covered a little longer, then mirror it for the new camera and show it again.
+            Task { @MainActor in
+                try? await Task.sleep(for: .milliseconds(400))
+                self.isUsingFrontCamera = device.position == .front
+                self.isSwitchingCamera = false
+            }
         }
     }
 

@@ -15,38 +15,51 @@ struct ManualSignInView: View {
     @State private var appId = ""
     @State private var userId = ""
     @State private var accessToken = ""
-
-    private var trimmedAppId: String { appId.trimmingCharacters(in: .whitespacesAndNewlines) }
-    private var trimmedUserId: String { userId.trimmingCharacters(in: .whitespacesAndNewlines) }
+    @State private var errorMessage: String?
 
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    TextField("Application ID", text: $appId)
-                    TextField("User ID", text: $userId)
-                    TextField("Access token (optional)", text: $accessToken)
-                } footer: {
-                    Text("Find the application ID on the Sendbird Dashboard.")
-                }
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
+            VStack(spacing: 16) {
+                InputField(placeholder: "Application ID", text: $appId)
+                InputField(placeholder: "User ID", text: $userId)
+                InputField(placeholder: "Access token (optional)", text: $accessToken)
+                Button("Sign in") { submit() }
+                    .buttonStyle(FilledButtonStyle())
+                    .padding(.top, 16)
+                Spacer()
+                Text(AppInfo.versionDescription)
+                    .font(.footnote)
+                    .foregroundStyle(Theme.tertiaryText)
+                    .padding(.bottom, 16)
             }
-            .navigationTitle("Sign in manually")
+            .padding(.horizontal, 24)
+            .padding(.top, 24)
+            .background(.white)
+            .navigationTitle("Sign in")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Sign in") {
-                        let token = accessToken.trimmingCharacters(in: .whitespacesAndNewlines)
-                        onSubmit(Credential(appId: trimmedAppId, userId: trimmedUserId, accessToken: token.isEmpty ? nil : token))
-                        dismiss()
-                    }
-                    .disabled(trimmedAppId.isEmpty || trimmedUserId.isEmpty)
+                        .tint(Theme.purple)
                 }
             }
+            .errorAlert($errorMessage)
         }
+    }
+
+    private func submit() {
+        let appId = appId.trimmingCharacters(in: .whitespacesAndNewlines)
+        let userId = userId.trimmingCharacters(in: .whitespacesAndNewlines)
+        let accessToken = accessToken.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !appId.isEmpty else {
+            errorMessage = "Please enter valid app ID"
+            return
+        }
+        guard !userId.isEmpty else {
+            errorMessage = "Please enter valid user ID"
+            return
+        }
+        onSubmit(Credential(appId: appId, userId: userId, accessToken: accessToken.isEmpty ? nil : accessToken))
+        dismiss()
     }
 }

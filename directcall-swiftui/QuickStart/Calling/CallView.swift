@@ -17,7 +17,7 @@ struct CallView: View {
             CallScreen(call: call, isDialing: activeCall.isDialing)
         } else {
             // The call no longer exists, for example because it ended before this screen appeared.
-            Color.black
+            Theme.callBackground
                 .ignoresSafeArea()
                 .task { CallRouter.shared.dismiss(callId: activeCall.callId) }
         }
@@ -46,34 +46,25 @@ private struct CallScreen: View {
     }
 
     var body: some View {
-        ZStack {
-            Color(white: 0.12)
+        ZStack(alignment: .top) {
+            Theme.callBackground
                 .ignoresSafeArea()
             if isVideoCall {
                 videoLayer
             }
-            VStack(spacing: 16) {
-                if !isVideoCall || !isConnected || isEnded {
-                    header
+            VStack(spacing: 0) {
+                if isVideoCall {
+                    switchCameraButton
                 }
-                if isConnected && !session.isRemoteAudioEnabled {
-                    remoteMutedLabel
-                }
+                header
+                remoteMutedState
                 Spacer()
-                if !isEnded {
-                    controls
-                }
+                controls
             }
-            .padding(.vertical, 32)
-            .foregroundStyle(.white)
+            .padding(.bottom, 64)
         }
         .task { session.start() }
-        .alert("Something went wrong",
-               isPresented: Binding(get: { session.errorMessage != nil }, set: { if !$0 { session.errorMessage = nil } })) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text(session.errorMessage ?? "")
-        }
+        .errorAlert($session.errorMessage)
     }
 
     // MARK: - Video
@@ -93,39 +84,73 @@ private struct CallScreen: View {
                 .scaleEffect(x: session.isUsingFrontCamera ? -1 : 1, y: 1)
                 .frame(width: isLocalPreviewSmall ? 96 : nil, height: isLocalPreviewSmall ? 160 : nil)
                 .frame(maxWidth: isLocalPreviewSmall ? nil : .infinity, maxHeight: isLocalPreviewSmall ? nil : .infinity)
-                .clipShape(RoundedRectangle(cornerRadius: isLocalPreviewSmall ? 12 : 0))
-                .padding(isLocalPreviewSmall ? 16 : 0)
+                // Covers the video while the camera switches. See `CallSession.switchCamera()`.
+                // Only this cover fades. The mirroring above changes at once, while the cover hides it.
+                .overlay {
+                    Theme.localVideoBackground
+                        .opacity(session.isSwitchingCamera ? 1 : 0)
+                        .animation(.easeInOut(duration: 0.15), value: session.isSwitchingCamera)
+                }
+                .background(Theme.localVideoBackground)
+                .clipShape(RoundedRectangle(cornerRadius: isLocalPreviewSmall ? 8 : 0))
+                .padding(.leading, isLocalPreviewSmall ? 16 : 0)
+                .padding(.top, isLocalPreviewSmall ? 16 : 0)
                 .ignoresSafeArea(edges: isLocalPreviewSmall ? [] : .all)
                 .opacity(session.isLocalVideoEnabled && !isEnded ? 1 : 0)
                 .animation(.easeOut(duration: 0.3), value: isLocalPreviewSmall)
         }
     }
 
+    private var switchCameraButton: some View {
+        HStack {
+            Spacer()
+            Button {
+                session.switchCamera()
+            } label: {
+                Image("btnCameraFlipIos")
+                    .resizable()
+                    .frame(width: 48, height: 48)
+            }
+            .disabled(session.isSwitchingCamera)
+        }
+        .padding(.top, 16)
+        .padding(.trailing, 24)
+        .opacity(isEnded ? 0 : 1)
+    }
+
     // MARK: - Header
 
+    /// The other user and the call status. A video call shows them only until the call connects, and after it ends.
     private var header: some View {
-        VStack(spacing: 12) {
-            if !isVideoCall || isEnded {
+        let showsHeader = !isVideoCall || !isConnected
+        let showsProfile = !isVideoCall || isEnded
+        return VStack(spacing: 0) {
+            if showsProfile {
                 ProfileImage(url: session.call.remoteUser?.profileURL)
                     .frame(width: 80, height: 80)
-                    .padding(.top, 48)
+                    .padding(.bottom, 24)
             }
             Text(session.remoteName)
-                .font(.title2.bold())
+                .font(.system(size: 24, weight: .semibold))
+                .foregroundStyle(.white)
             statusText
-                .font(.subheadline)
-                .foregroundStyle(.white.opacity(0.8))
+                .font(.system(size: 17))
+                .foregroundStyle(.white.opacity(0.88))
+                .padding(.top, 8)
         }
+        .multilineTextAlignment(.center)
         .padding(.horizontal, 24)
+        .padding(.top, isVideoCall ? 76 : 140)
+        .opacity(showsHeader ? 1 : 0)
     }
 
     @ViewBuilder
     private var statusText: some View {
         switch session.status {
         case .waiting:
-            Text("Calling...")
+            Text("calling...")
         case .connecting:
-            Text("Connecting...")
+            Text("call connecting...")
         case .connected:
             // Redraws every second to show the call duration.
             TimelineView(.periodic(from: .now, by: 1)) { _ in
@@ -133,54 +158,64 @@ private struct CallScreen: View {
                     .monospacedDigit()
             }
         case .reconnecting:
-            Text("Reconnecting...")
+            Text("reconnecting...")
         case .ended(let result):
             Text(CallText.endResult(result))
         }
     }
 
-    private var remoteMutedLabel: some View {
-        HStack(spacing: 8) {
+    private var remoteMutedState: some View {
+        VStack(spacing: 16) {
             Image("iconAudioOff")
+                .resizable()
+                .frame(width: 40, height: 40)
             Text("\(session.remoteName) is muted")
-                .font(.footnote)
+                .font(.system(size: 17))
+                .foregroundStyle(.white.opacity(0.88))
+                .multilineTextAlignment(.center)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 6)
-        .background(.black.opacity(0.4), in: Capsule())
+        .padding(.horizontal, 24)
+        .padding(.top, 32)
+        .opacity(isConnected && !session.isRemoteAudioEnabled ? 1 : 0)
     }
 
     // MARK: - Controls
 
     private var controls: some View {
-        HStack(spacing: 16) {
-            Image(session.audioOutputImageName)
-                .overlay { AudioRoutePicker() }
-            Button {
-                session.toggleAudio()
-            } label: {
-                Image(session.isLocalAudioEnabled ? "btnAudioOff" : "btnAudioOffSelected")
-            }
-            if isVideoCall {
+        VStack(spacing: 24) {
+            HStack(spacing: isVideoCall ? 24 : 40) {
                 Button {
-                    session.toggleVideo()
+                    session.toggleAudio()
                 } label: {
-                    Image(session.isLocalVideoEnabled ? "btnVideoOff" : "btnVideoOffSelected")
+                    controlImage(session.isLocalAudioEnabled ? "btnAudioOff" : "btnAudioOffSelected")
                 }
-                Button {
-                    session.switchCamera()
-                } label: {
-                    Image("btnCameraFlipIos")
+                if isVideoCall {
+                    Button {
+                        session.toggleVideo()
+                    } label: {
+                        controlImage(session.isLocalVideoEnabled ? "btnVideoOff" : "btnVideoOffSelected")
+                    }
                 }
+                controlImage(session.audioOutputImageName)
+                    .overlay { AudioRoutePicker() }
             }
             Button {
                 isEnding = true
                 session.end()
             } label: {
-                Image("btnCallEnd")
+                controlImage("btnCallEnd")
             }
             .disabled(isEnding)
         }
+        // The controls disappear when the call ends, but keep their space so that nothing else moves.
+        .opacity(isEnded ? 0 : 1)
+        .disabled(isEnded)
+    }
+
+    private func controlImage(_ name: String) -> some View {
+        Image(name)
+            .resizable()
+            .frame(width: 64, height: 64)
     }
 }
 

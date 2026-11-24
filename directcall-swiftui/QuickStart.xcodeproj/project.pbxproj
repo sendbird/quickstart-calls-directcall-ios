@@ -51,14 +51,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		23FCAD2A5C010633B1D3C50A /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		23FCAD2A5C010633B1D3C50A /* Exceptions for "QuickStartIntent" folder in "QuickStartIntent" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 52ADDCBF8F9805E17C2212FA /* QuickStartIntent */;
 		};
-		B95996B4201438835F77070F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		B95996B4201438835F77070F /* Exceptions for "QuickStart" folder in "QuickStart" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
@@ -71,11 +71,7 @@
 		55E9F6AE80FE10A8294F4849 /* QuickStart */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B95996B4201438835F77070F /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
+				B95996B4201438835F77070F /* Exceptions for "QuickStart" folder in "QuickStart" target */,
 			);
 			path = QuickStart;
 			sourceTree = "<group>";
@@ -83,21 +79,13 @@
 		A0EFDDB0945B8C0770475BC2 /* QuickStartIntent */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				23FCAD2A5C010633B1D3C50A /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
+				23FCAD2A5C010633B1D3C50A /* Exceptions for "QuickStartIntent" folder in "QuickStartIntent" target */,
 			);
 			path = QuickStartIntent;
 			sourceTree = "<group>";
 		};
 		EA9FA2357974732F57CBDD53 /* QuickStartTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
 			path = QuickStartTests;
 			sourceTree = "<group>";
 		};

@@ -15,74 +15,61 @@ struct SignInView: View {
     @State private var errorMessage: String?
 
     var body: some View {
-        VStack(spacing: 16) {
-            Spacer()
+        VStack(spacing: 0) {
             Image("icLogoSymbol")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 48, height: 48)
+                .padding(.top, 96)
             Text("Sendbird Calls")
-                .font(.title2.bold())
-            // The guide image is drawn in white, so it sits on a dark background.
-            Image("imgGuideQrcode")
-                .padding(24)
-                .background(.black, in: RoundedRectangle(cornerRadius: 16))
+                .font(.system(size: 24, weight: .semibold))
                 .padding(.top, 24)
-            Text("Scan QR code from Calls studio on Sendbird dashboard.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+
+            Button("Sign in with QR code") { isScanning = true }
+                .buttonStyle(FilledButtonStyle())
+                .padding(.top, 40)
+            divider
+                .padding(.vertical, 20)
+            Button("Sign in with ID") { isEnteringManually = true }
+                .buttonStyle(OutlinedButtonStyle())
+
             Spacer()
-            Button {
-                isScanning = true
-            } label: {
-                Text("Sign in with QR code")
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
-            Button("Sign in manually") {
-                isEnteringManually = true
-            }
             Text(AppInfo.versionDescription)
                 .font(.footnote)
-                .foregroundStyle(.secondary)
-                .padding(.top, 8)
+                .foregroundStyle(Theme.tertiaryText)
+                .padding(.bottom, 16)
         }
-        .padding(24)
+        .padding(.horizontal, 24)
+        .background(.white)
         .disabled(isSigningIn)
         .overlay {
             if isSigningIn { ProgressView() }
         }
-        .fullScreenCover(isPresented: $isScanning) {
-            scanner
+        .sheet(isPresented: $isScanning) {
+            QRScanView { value in
+                isScanning = false
+                signIn { try await AuthService.shared.signIn(qrString: value) }
+            }
         }
         .sheet(isPresented: $isEnteringManually) {
             ManualSignInView { credential in
                 signIn { try await AuthService.shared.signIn(credential) }
             }
         }
-        .alert("Couldn’t sign in", isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } })) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text(errorMessage ?? "")
-        }
+        .errorAlert($errorMessage)
     }
 
-    private var scanner: some View {
-        ZStack(alignment: .topLeading) {
-            if QRScannerView.isCameraAvailable {
-                QRScannerView { value in
-                    isScanning = false
-                    signIn { try await AuthService.shared.signIn(qrString: value) }
-                }
-                .ignoresSafeArea()
-            } else {
-                Text("The camera is not available on this device.")
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(.black)
-            }
-            Button("Cancel") { isScanning = false }
-                .foregroundStyle(.white)
-                .padding()
+    /// A line with "Or" in the middle.
+    private var divider: some View {
+        ZStack {
+            Rectangle()
+                .fill(Theme.divider)
+                .frame(height: 1)
+            Text("Or")
+                .font(.system(size: 17))
+                .foregroundStyle(Theme.tertiaryText)
+                .frame(width: 44)
+                .background(.white)
         }
     }
 

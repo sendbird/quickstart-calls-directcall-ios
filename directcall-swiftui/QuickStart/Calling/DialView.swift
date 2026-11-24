@@ -14,78 +14,79 @@ struct DialView: View {
     @State private var errorMessage: String?
 
     private var credential: Credential? { AuthService.shared.currentCredential }
-    private var trimmedCalleeId: String { calleeId.trimmingCharacters(in: .whitespacesAndNewlines) }
-    private var canDial: Bool { !trimmedCalleeId.isEmpty && !isDialing }
 
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading, spacing: 24) {
-                signedInUser
+        VStack(spacing: 0) {
+            signedInUser
+            Rectangle()
+                .fill(Theme.divider)
+                .frame(height: 1)
 
-                VStack(alignment: .leading, spacing: 12) {
-                    Text("Make a call")
-                        .font(.headline)
-                    TextField("Enter user ID", text: $calleeId)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        .padding(12)
-                        .background(.white, in: RoundedRectangle(cornerRadius: 8))
-                    HStack(spacing: 16) {
-                        Button {
-                            dial(isVideoCall: false)
-                        } label: {
-                            Image(canDial ? "btnCallVoice" : "btnCallVoiceDisabled")
-                        }
-                        Button {
-                            dial(isVideoCall: true)
-                        } label: {
-                            Image(canDial ? "btnCallVideo" : "btnCallVideoDisabled")
-                        }
-                        if isDialing {
-                            ProgressView()
-                        }
+            Spacer()
+            VStack(spacing: 0) {
+                Text("Make a call")
+                    .font(.system(size: 24, weight: .semibold))
+                InputField(placeholder: "Enter user ID", text: $calleeId)
+                    .padding(.top, 32)
+                HStack(spacing: 32) {
+                    Button {
+                        dial(isVideoCall: true)
+                    } label: {
+                        Image("btnCallVideo")
                     }
-                    .disabled(!canDial)
+                    Button {
+                        dial(isVideoCall: false)
+                    } label: {
+                        Image("btnCallVoice")
+                    }
                 }
-                Spacer()
+                .padding(.top, 40)
             }
-            .padding(16)
-            .background(Color(white: 0.94))
-            .navigationTitle("Dial")
-            .alert("Couldn’t make a call",
-                   isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } })) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text(errorMessage ?? "")
-            }
+            .padding(.horizontal, 24)
+            Spacer()
+            Spacer()
+                .frame(height: 52)
         }
+        .background(.white)
+        .disabled(isDialing)
+        .overlay {
+            if isDialing { ProgressView() }
+        }
+        .errorAlert($errorMessage)
     }
 
     private var signedInUser: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             ProfileImage(url: credential?.profileURL)
-                .frame(width: 48, height: 48)
-            VStack(alignment: .leading, spacing: 4) {
-                Text(credential?.nickname?.isEmpty == false ? credential?.nickname ?? "" : "—")
-                    .font(.headline)
-                Text("User ID: \(credential?.userId ?? "")")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                .frame(width: 34, height: 34)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(credential?.displayNickname ?? "-")
+                    .font(.system(size: 16, weight: .bold))
+                Text("User ID: \(credential?.userId ?? "-")")
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.secondaryText)
             }
             Spacer()
         }
-        .padding(12)
-        .background(.white, in: RoundedRectangle(cornerRadius: 12))
+        .padding(.horizontal, 24)
+        .padding(.top, 5)
+        .padding(.bottom, 7)
     }
 
     private func dial(isVideoCall: Bool) {
+        let calleeId = calleeId.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !calleeId.isEmpty else {
+            errorMessage = "User ID is required."
+            return
+        }
         isDialing = true
         Task {
             defer { isDialing = false }
             do {
-                try await Dialer.dial(calleeId: trimmedCalleeId, isVideoCall: isVideoCall)
+                try await Dialer.dial(calleeId: calleeId, isVideoCall: isVideoCall)
             } catch {
-                errorMessage = error.localizedDescription
+                let prefix = isVideoCall ? "Couldn't make video call." : "Couldn't make call."
+                errorMessage = "\(prefix)\n\(error.localizedDescription)"
             }
         }
     }

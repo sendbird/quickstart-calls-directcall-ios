@@ -17,67 +17,91 @@ struct CallHistoryView: View {
         NavigationStack {
             Group {
                 if store.items.isEmpty {
-                    ContentUnavailableView {
-                        Label("No calls yet", image: "iconCallHistory")
-                    } description: {
-                        Text("The list of calls you make will show here. Tap the phone button to start making a call.")
-                    }
+                    emptyState
                 } else {
                     List(store.items) { history in
                         row(history)
+                            .listRowInsets(EdgeInsets())
                     }
                     .listStyle(.plain)
                 }
             }
+            .background(.white)
             .navigationTitle("Recents")
+            .navigationBarTitleDisplayMode(.inline)
             .disabled(isDialing)
-            .task { store.loadFromServerIfEmpty() }
-            .alert("Couldn’t make a call",
-                   isPresented: Binding(get: { errorMessage != nil }, set: { if !$0 { errorMessage = nil } })) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text(errorMessage ?? "")
+            .overlay {
+                if isDialing { ProgressView() }
             }
+            .task { store.loadFromServerIfEmpty() }
+            .errorAlert($errorMessage)
         }
     }
 
+    private var emptyState: some View {
+        VStack(spacing: 28) {
+            Image("iconCallHistory")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 60, height: 60)
+            Text("The list of calls you make will show here.\nTap the phone button to start making a call.")
+                .font(.system(size: 14))
+                .foregroundStyle(Theme.secondaryText)
+                .multilineTextAlignment(.center)
+        }
+        .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
     private func row(_ history: CallHistory) -> some View {
-        HStack(spacing: 12) {
+        HStack(alignment: .center, spacing: 0) {
             Image(history.callTypeImageName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20, height: 20)
             ProfileImage(url: history.remoteProfileURL)
-                .frame(width: 40, height: 40)
+                .frame(width: 56, height: 56)
+                .padding(.leading, 8)
             VStack(alignment: .leading, spacing: 2) {
                 Text(history.remoteNickname)
-                    .font(.headline)
-                    .lineLimit(1)
+                    .font(.system(size: 16, weight: .medium))
+                    .lineLimit(2)
                 Text("User ID: \(history.remoteUserId)")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .font(.system(size: 14))
+                    .foregroundStyle(Theme.secondaryText)
                 Text(history.resultText)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .font(.system(size: 14))
+                    .foregroundStyle(Theme.secondaryText)
             }
-            Spacer()
-            VStack(alignment: .trailing, spacing: 8) {
+            .padding(.leading, 16)
+            Spacer(minLength: 4)
+            VStack(alignment: .trailing, spacing: 10) {
                 Text(history.startedAtText)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                HStack(spacing: 8) {
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.secondaryText)
+                HStack(spacing: 12) {
                     Button {
                         dial(history, isVideoCall: false)
                     } label: {
                         Image("btnCallVoiceTertiary")
+                            .resizable()
+                            .frame(width: 32, height: 32)
                     }
                     Button {
                         dial(history, isVideoCall: true)
                     } label: {
                         Image("btnCallVideoTertiary")
+                            .resizable()
+                            .frame(width: 32, height: 32)
                     }
                 }
                 // Keep the buttons from triggering the row's tap action.
                 .buttonStyle(.borderless)
             }
         }
+        .padding(.leading, 12)
+        .padding(.trailing, 16)
+        .padding(.vertical, 10)
         .contentShape(Rectangle())
         .onTapGesture {
             // Tapping a row calls again with the same type of call.
@@ -94,7 +118,8 @@ struct CallHistoryView: View {
             do {
                 try await Dialer.dial(calleeId: history.remoteUserId, isVideoCall: isVideoCall)
             } catch {
-                errorMessage = error.localizedDescription
+                let prefix = isVideoCall ? "Couldn't make video call." : "Couldn't make call."
+                errorMessage = "\(prefix)\n\(error.localizedDescription)"
             }
         }
     }
