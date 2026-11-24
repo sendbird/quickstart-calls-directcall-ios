@@ -74,10 +74,21 @@ final class CallSession: NSObject {
             didEnd(call)
             return
         }
+        refreshLocalMedia()
         // Report an outgoing call to CallKit so that it keeps running in the background and shows in Recents.
         if isDialing {
             CallKitManager.shared.startCall(call)
         }
+    }
+
+    /// Reads the microphone and camera state from the call again.
+    ///
+    /// `accept(with:)` applies its `CallOptions` asynchronously, and `isLocalAudioEnabled` and `isLocalVideoEnabled`
+    /// stay `false` until then. The callee opens this screen right after accepting, so the values read in `init`
+    /// can be `false` even though the call sends audio and video. Read them again as the call proceeds.
+    private func refreshLocalMedia() {
+        isLocalAudioEnabled = call.isLocalAudioEnabled
+        isLocalVideoEnabled = call.isLocalVideoEnabled
     }
 
     // MARK: - User actions
@@ -140,10 +151,12 @@ final class CallSession: NSObject {
 extension CallSession: @preconcurrency DirectCallDelegate {
     func didEstablish(_ call: DirectCall) {
         status = .connecting
+        refreshLocalMedia()
     }
 
     func didConnect(_ call: DirectCall) {
         status = .connected
+        refreshLocalMedia()
         isRemoteAudioEnabled = call.isRemoteAudioEnabled
         isRemoteVideoEnabled = call.isRemoteVideoEnabled
         CallKitManager.shared.reportConnected(call)
@@ -155,6 +168,7 @@ extension CallSession: @preconcurrency DirectCallDelegate {
 
     func didReconnect(_ call: DirectCall) {
         status = .connected
+        refreshLocalMedia()
     }
 
     func didRemoteAudioSettingsChange(_ call: DirectCall) {
