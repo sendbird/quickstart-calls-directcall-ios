@@ -25,11 +25,13 @@ struct CallView: View {
 }
 
 private struct CallScreen: View {
-    @State private var session: CallSession
-    @State private var isEnding = false
+    // `SwiftUI.State`, not `State`: SendBirdCalls also has types named `State` (`Room.State`, `Participant.State`),
+    // and some Xcode versions, such as Xcode 26, report `State` as ambiguous in files that import both modules.
+    @SwiftUI.State private var session: CallSession
+    @SwiftUI.State private var isEnding = false
 
     init(call: DirectCall, isDialing: Bool) {
-        _session = State(initialValue: CallSession(call: call, isDialing: isDialing))
+        _session = SwiftUI.State(initialValue: CallSession(call: call, isDialing: isDialing))
     }
 
     private var isVideoCall: Bool { session.call.isVideoCall }

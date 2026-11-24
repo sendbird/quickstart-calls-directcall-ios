@@ -98,6 +98,7 @@ To always use your own application ID, call `SendBirdCall.configure(appId:)` in 
 - **Create each `SendBirdVideoView` once.** `VideoView` creates the video view in `makeUIView(context:)` and never in `updateUIView(_:context:)`. To hide a video, change its opacity instead of removing the view.
 - **Receive URLs and user activities in SwiftUI.** With the SwiftUI app life cycle, `sendbird://` URLs and Recents calls arrive at `.onOpenURL` and `.onContinueUserActivity`, not at the app delegate.
 - **Set the call's delegate when the call screen appears.** SwiftUI can create a view's initial state more than once, so `CallSession` sets itself as the `DirectCall` delegate in `start()`.
+- **Write `@SwiftUI.State` in files that also import SendBirdCalls.** SendBirdCalls has types named `State`, such as `Room.State` and `Participant.State`. Some versions of Xcode, such as Xcode 26, report `State` as ambiguous in a file that imports both modules. See `CallView.swift`.
 
 <br />
 
