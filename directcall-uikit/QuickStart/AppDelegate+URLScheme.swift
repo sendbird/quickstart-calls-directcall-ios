@@ -11,10 +11,12 @@ import UIKit
 // MARK: - URL Scheme
 // Used URL scheme: sendbird
 // Following method tries to sign in with account information decoded from passed URL.
+// `SceneDelegate` calls it with the URLs that open the app.
 // For more information about Custom URL Scheme for your app, see [Defining a Custom URL Scheme for Your App](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app)
 
 extension AppDelegate {    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+    @discardableResult
+    func handle(url: URL) -> Bool {
         
         // Authenticate only when there is no signed in account
         guard UserDefaults.standard.credential == nil else {
@@ -32,7 +34,7 @@ extension AppDelegate {
                     return
                 }
                 
-                guard let signInVC = self.window?.rootViewController?.presentedViewController else { return }
+                guard let signInVC = UIApplication.shared.keyWindow?.rootViewController?.presentedViewController else { return }
                 signInVC.dismiss(animated: true, completion: nil)
             }
         } catch {

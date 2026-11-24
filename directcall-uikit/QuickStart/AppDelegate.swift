@@ -17,8 +17,6 @@ var versionInfo: String {
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
-    
     var queue: DispatchQueue = DispatchQueue(label: "com.sendbird.calls.quickstart.appdelegate")
     var voipRegistry: PKPushRegistry?
     
@@ -34,8 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.autoSignIn { error in
             if error == nil { return }
-            // Show SignIn controller when failed to auto sign in
-            self.window?.rootViewController?.present(UIStoryboard.signController(), animated: true, completion: nil)
+            // Show SignIn controller when failed to auto sign in.
+            // The scene's window may not exist yet at launch, so this waits for it. See `SceneDelegate`.
+            UIApplication.shared.showWhenWindowIsReady { window in
+                window.rootViewController?.present(UIStoryboard.signController(), animated: true, completion: nil)
+            }
         }
         
         // To process incoming call, you need to add `SendBirdCallDelegate` and implement its protocol methods.

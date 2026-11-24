@@ -14,7 +14,7 @@ This repository contains iOS sample apps that show how to build 1:1 voice and vi
 
 Each folder is an independent Xcode project. Open the project in the folder you want to try and follow the README in that folder. If you are starting a new app, start with [`directcall-swiftui/`](directcall-swiftui).
 
-Both apps use the same bundle identifier, `com.sendbird.calls.quickstart`, so that they can use the same VoIP push certificate. Install only one of them on a device at a time.
+Both apps use the same bundle identifier, `com.sendbird.calls.quickstart`, so that they can use the same VoIP push certificate. Install only one of them on a device at a time, and delete the installed one before you install the other. If you install the UIKit sample over the SwiftUI sample, iOS keeps the window scene of the SwiftUI sample, and the UIKit sample shows a black screen.
 
 ### More about Sendbird Calls for iOS
 

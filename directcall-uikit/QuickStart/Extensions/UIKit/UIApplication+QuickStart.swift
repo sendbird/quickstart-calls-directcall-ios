@@ -10,6 +10,28 @@ import UIKit
 import SendBirdCalls
 
 extension UIApplication {
+    /// Screens to show when the app's window becomes ready. See `showWhenWindowIsReady(_:)`.
+    private static var pendingScreens: [(UIWindow) -> Void] = []
+
+    /// Shows a screen with the app's window now, or when the app's scene becomes active if there is no window yet.
+    ///
+    /// With the scene life cycle, the app can run without a window, for example when an incoming call launched it
+    /// in the background and the user answered on the lock screen. `SceneDelegate` calls `showPendingScreens()`.
+    func showWhenWindowIsReady(_ show: @escaping (UIWindow) -> Void) {
+        if let window = keyWindow {
+            show(window)
+        } else {
+            Self.pendingScreens.append(show)
+        }
+    }
+
+    func showPendingScreens() {
+        guard let window = keyWindow else { return }
+        let screens = Self.pendingScreens
+        Self.pendingScreens = []
+        screens.forEach { $0(window) }
+    }
+
     func showCallController(with call: DirectCall) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -22,11 +44,15 @@ extension UIApplication {
                 dataSource.isDialing = false
             }
             
-            if let topViewController = UIViewController.topViewController {
-                topViewController.present(viewController, animated: true, completion: nil)
-            } else {
-                self.keyWindow?.rootViewController = viewController
-                self.keyWindow?.makeKeyAndVisible()
+            self.showWhenWindowIsReady { window in
+                // The call may have ended while the app had no window.
+                guard !call.isEnded else { return }
+                if let topViewController = UIViewController.topViewController {
+                    topViewController.present(viewController, animated: true, completion: nil)
+                } else {
+                    window.rootViewController = viewController
+                    window.makeKeyAndVisible()
+                }
             }
         }
     }
@@ -36,11 +62,13 @@ extension UIApplication {
         
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            if let topViewController = UIViewController.topViewController {
-                topViewController.presentErrorAlert(message: message)
-            } else {
-                self.keyWindow?.rootViewController?.presentErrorAlert(message: message)
-                self.keyWindow?.makeKeyAndVisible()
+            self.showWhenWindowIsReady { window in
+                if let topViewController = UIViewController.topViewController {
+                    topViewController.presentErrorAlert(message: message)
+                } else {
+                    window.rootViewController?.presentErrorAlert(message: message)
+                    window.makeKeyAndVisible()
+                }
             }
         }
     }
